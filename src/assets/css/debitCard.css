@@ -1,0 +1,30 @@
+.card{
+  position: absolute;
+  width:60%
+}
+
+.debit-card-back{
+  right: 0
+}
+
+.debit-card-front{
+ top:120px;
+ left:30px;
+}
+
+.title{
+  font-size: 42px;
+  font-weight: 500;
+  line-height: 52px;
+}
+
+.desc{
+  font-size: 26px;
+  font-weight: 300;
+}
+.ant-btn{
+  margin-top: 20px;
+  font-size: 20px;
+  padding: 10px 70px;
+  height: auto;
+}
