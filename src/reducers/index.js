@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 import cart from './cart';
+import locale from './localeReducer';
 
 const rootReducer = combineReducers({
-  cart
+  cart,
+  locale
 })
 
 export default rootReducer;

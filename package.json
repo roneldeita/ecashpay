@@ -1,11 +1,17 @@
 {
-  "name": "ups",
+  "name": "ecashpay",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "animate.css": "^3.6.1",
     "antd": "^3.2.1",
+    "rc-form": "^2.1.7",
     "react": "^16.2.0",
+    "react-animate-on-scroll": "^2.0.0",
     "react-dom": "^16.2.0",
+    "react-intl": "^2.4.0",
+    "react-loader": "^2.4.3",
+    "react-parallax": "^1.6.1",
     "react-particles-js": "^2.1.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",

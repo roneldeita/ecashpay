@@ -8,11 +8,25 @@
   min-height: 1000px;
   color: #ffffff;
 }
-.banner h1{
+.banner h1,
+.banner .anchor-watch{
   color: #ffffff;
 }
-.slogan{
+.anchor-watch:hover .txt{
+  border-bottom: 1px solid #ffffff;
+}
+.banner .anchor-watch .icon{
+  font-size:48px;
+  position:relative;
+  top:8px;
+  padding-right:15px;
+}
+.banner .txt{
+  font-size:26px;
+  font-weight:300;
+}
 
+.slogan{
   font-weight: 500;
   font-size: 46px;
   line-height: 50px;

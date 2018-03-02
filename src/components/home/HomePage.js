@@ -1,7 +1,9 @@
 import React from 'react'
+// import Banner from './presentation/Banner.js'
 import Banner from './presentation/Banner.js'
 import DebitCard from './presentation/DebitCard.js'
 import GlobalTrust from './presentation/GlobalTrust.js'
+import Services from './presentation/Services.js'
 
 class HomePage extends React.Component{
   constructor(props){
@@ -44,15 +46,17 @@ class HomePage extends React.Component{
   render(){
     return(
       <div>
-        <Banner
+        {/*<Banner
           options={this.state.selectOption}
           senderValue={this.state.selectedSenderVal}
           recepientValue={this.state.selectedRecepientVal}
           onChangeRecepient={this.handleRecepientValue}
           onChangeSender={this.handleSenderValue}
-        />
+        />*/}
+        <Banner />
         <DebitCard />
         <GlobalTrust />
+        <Services />
       </div>
     )
   }

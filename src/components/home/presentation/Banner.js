@@ -1,65 +1,91 @@
 import React from 'react'
-import Particles from 'react-particles-js'
-import ReactSelect from 'react-select'
-import '../../../assets/css/banner.css'
-import SelectOption from './SelectOption'
-import SelectValue from './SelectValue'
-import BSPregulated from '../../../assets/images/BSP_Regulated.png'
-import Reviews from '../../../assets/images/Reviews.png'
-import Customers from '../../../assets/images/Customers.png'
-import { Col, Row, Card, Icon } from 'antd'
+import { FormattedMessage } from 'react-intl'
+import { Col, Row, Icon } from 'antd'
+import ScrollAnimation from 'react-animate-on-scroll'
+import BannerImg from '../../../assets/images/Banner.png'
 
+import 'animate.css/animate.css'
+import 'antd/lib/col/style/css'
+import 'antd/lib/row/style/css'
+import 'antd/lib/icon/style/css'
 
-const Banner = ({options, senderValue, onChangeSender, recepientValue, onChangeRecepient}) => {
+const BannerContainer = {
+  color:'#383838',
+  minHeight: '700px'
+}
+const RightCol = {
+  paddingRight:'60px',
+}
+const LeftCol = {
+  paddingLeft:'60px',
+}
+const AntRow = {
+  width:'100%',
+  paddingTop:'100px',
+  paddingBottom:'60px'
+}
+const Slogan = {
+  fontWeight: '600',
+  fontSize: '42px',
+  lineHeight: '48px'
+}
+const Desct = {
+  textAlign: 'justify',
+  fontSize: '22px',
+  fontWeight: '300'
+}
+const AntIcon = {
+  fontSize:'48px',
+  position:'relative',
+  top:'8px',
+  paddingRight:'15px'
+}
+const WatchDesc = {
+  fontSize:'26px',
+  fontWeight:'300'
+}
+
+const BannerImgStyle = {
+  width:'100%'
+}
+
+const Banner = () => {
   return (
-    <div className="banner">
-      <Particles className="particles" />
-      <Row style={{paddingTop:'130px'}} type="flex" justify="center">
-        <Col className="" span={9} style={{paddingRight:'15px'}}>
-            <p className="slogan">Pay and Send money the fastest way with real exchange rate.</p>
-            <p className="description">
+    <div style={BannerContainer}>
+      <Row style={AntRow} type="flex" justify="center">
+        <Col span={9} style={RightCol}>
+            <p style={Slogan}>
+              <FormattedMessage
+                id="banner.slogan"
+                defaultMessage="Pay and Send money the fastest way with real exchange rate."
+              />
+            </p>
+            <p style={Desct}>
               Ecashpay Asia offers a safe and secure way to send payment and remittance anytime and anywhere online.
               Make a payment to any bank account, payment gateway or any person around Asia today. You can count on us
               for the fastest, safest, and easiest way to remit money around Asia.
             </p><br/>
-            <a href="/"><Icon type="play-circle" style={{fontSize:'48px', position:'relative', top:'8px', paddingRight:'15px' }}/> <span style={{fontSize:'26px', fontWeight:300, textDecoration:'underline'}}>Watch how Ecashpay works.</span></a>
+            <a href="/" className="anchor-watch">
+              <Icon style={AntIcon} type="play-circle"/>
+              <span style={WatchDesc}>Watch how Ecashpay works.</span>
+            </a>
         </Col>
-        <Col className="" span={9} style={{paddingLeft:'15px'}}>
-          <Card className="exchange-card">
-            <ReactSelect
-              value={recepientValue}
-              options={options}
-              valueComponent={SelectValue}
-              optionComponent={SelectOption}
-              onChange={onChangeRecepient}
-            />
-            <ReactSelect
-              value={senderValue}
-              options={options}
-              valueComponent={SelectValue}
-              optionComponent={SelectOption}
-              onChange={onChangeSender}
-            />
-          </Card>
+        <Col span={9} style={LeftCol}>
+          <img style={BannerImgStyle} src={BannerImg} alt="24/7"/>
         </Col>
       </Row>
-      <Row style={{paddingTop:'130px'}} type="flex" justify="center">
-        <Col className="" span={7} style={{textAlign:'center'}}>
-          <img className="img img-bsp" src={BSPregulated} alt="BSP Regulated"/>
-          <h1>BSP Regulated</h1>
-          <a className="anchor" href="/">Learn more</a>
-        </Col>
-        <Col className="" span={7} style={{textAlign:'center'}}>
-          <img className="img img-reviews" src={Reviews} alt="BSP Regulated"/>
-          <h1>Thousands Reviews</h1>
-          <a className="anchor" href="/">Learn more</a>
-        </Col>
-        <Col className="" span={7} style={{textAlign:'center'}}>
-          <img className="img img-customers" src={Customers} alt="BSP Regulated"/>
-          <h1>Over 300k Customers</h1>
-          <a className="anchor" href="/">Learn more</a>
-        </Col>
+      <Row>
+        <ScrollAnimation animateIn="slideInRight" animateOut="slideOutLeft">
+          <Col span={24} style={{padding:'50px 0px', backgroundColor: '#1DA1F2'}}>
+          </Col>
+        </ScrollAnimation>
       </Row>
+      <style>{`
+        .anchor-watch:hover span{
+          border-bottom: 1px solid #1890ff;
+        }
+      `}
+      </style>
     </div>
   )
 }
