@@ -4,21 +4,21 @@ import { Link } from 'react-router-dom'
 import { Affix, Menu, Row, Col, Icon } from 'antd'
 import EpayLogo from '../../assets/images/Ecashpay_Logo_Orig.png'
 
-import 'antd/lib/affix/style/css'
-import 'antd/lib/menu/style/css'
-import 'antd/lib/row/style/css'
-import 'antd/lib/col/style/css'
-import 'antd/lib/icon/style/css'
+// import 'antd/lib/affix/style/css'
+// import 'antd/lib/menu/style/css'
+// import 'antd/lib/row/style/css'
+// import 'antd/lib/col/style/css'
+// import 'antd/lib/icon/style/css'
 
 const SubMenu = Menu.SubMenu;
 
 const NavContainer = {
   backgroundColor: '#ffffff',
-  padding: '18px 0 13px 0',
+  marginBottom: '25px',
   borderBottom: '2px solid #999999'
 }
 const Logo = {
-  margin: '5px 0px',
+  marginTop: '22px',
   width: '180px'
 }
 
@@ -28,31 +28,52 @@ const AntMenu = {
   borderBottom: '0px',
 }
 
-const TopNavigation = ({locale, onChangeLocale}) => {
+const Caret = {
+  fontSize: '11px'
+}
+
+const isLoggedIn = (loggedIn) => {
+  return loggedIn ? 'none' : 'block'
+}
+
+const TopNavigation = ({locale, onChangeLocale, loggedIn}) => {
+  //console.log(loggedIn)
   return(
     <Affix style={{width:'100%'}}>
       <div style={NavContainer}>
         <Row className="" type="flex" justify="center">
-          <Col className="" sm={9} md={7}>
+          <Col sm={9} md={7}>
             <Link to="/"><img src={EpayLogo} alt="logo" style={Logo} /></Link>
           </Col>
-          <Col className="" sm={9} md={11}>
+          <Col sm={9} md={11}>
             <Menu mode="horizontal" onSelect={onChangeLocale} style={AntMenu}>
-              <SubMenu title={<span>{locale} <Icon type="down"/></span>}>
-                <Menu.Item key="EN">English</Menu.Item>
-                <Menu.Item key="CN">中文</Menu.Item>
-                <Menu.Item key="ES">Español</Menu.Item>
-                <Menu.Item key="MY">Malay</Menu.Item>
-                <Menu.Item key="RU">русский</Menu.Item>
+              <SubMenu title={<span>{locale.toUpperCase()} <Icon type="down" style={Caret}/></span>}>
+                <Menu.Item key="en">English</Menu.Item>
+                <Menu.Item key="zh">中文</Menu.Item>
+                <Menu.Item key="es">Español</Menu.Item>
+                <Menu.Item key="my">Malay</Menu.Item>
+                <Menu.Item key="ru">русский</Menu.Item>
               </SubMenu>
-              <Menu.Item key="app">Ecashpay Card</Menu.Item>
-              <Menu.Item key="hepl">Help</Menu.Item>
-              <Menu.Item key="login"><Link to="/login">Login</Link></Menu.Item>
-              <Menu.Item key="signup"><Link to="/register">Sign up</Link></Menu.Item>
+              <Menu.Item key="app" style={{display:isLoggedIn(loggedIn)}}>Ecashpay Card</Menu.Item>
+              <Menu.Item key="hepl" style={{display:isLoggedIn(loggedIn)}}>Help</Menu.Item>
+              <Menu.Item key="login" style={{display:isLoggedIn(loggedIn)}}><Link to="/login">Login</Link></Menu.Item>
+              <Menu.Item key="signup" style={{display:isLoggedIn(loggedIn)}}><Link to="/register">Sign up</Link></Menu.Item>
+              <Menu.Item key="bell" style={{display:isLoggedIn(!loggedIn)}}><Icon type="bell" style={{margin:'0 auto'}}/></Menu.Item>
+              <Menu.Item key="user" style={{display:isLoggedIn(!loggedIn)}}><Icon type="user" style={{margin:'0 auto'}}/></Menu.Item>
+              <Menu.Item key="logout" style={{display:isLoggedIn(!loggedIn)}}>Logout</Menu.Item>
             </Menu>
           </Col>
         </Row>
       </div>
+      <style jsx="true" global="true">{`
+        .ant-menu-submenu-title{
+          padding: 0px
+        }
+        .ant-menu-horizontal > .ant-menu-item, .ant-menu-horizontal > .ant-menu-submenu {
+          padding: 17px 15px;
+        }
+      `}
+      </style>
     </Affix>
   )
 }

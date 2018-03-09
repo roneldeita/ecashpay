@@ -3,16 +3,16 @@ import {Card, Row, Col, Form, Input, Button } from 'antd'
 import RightSection from './RightSection'
 import * as css from '../../../assets/styles/VerificationForm'
 
-import 'antd/lib/card/style/css'
-import 'antd/lib/col/style/css'
-import 'antd/lib/row/style/css'
-import 'antd/lib/form/style/css'
-import 'antd/lib/input/style/css'
-import 'antd/lib/button/style/css'
+// import 'antd/lib/card/style/css'
+// import 'antd/lib/col/style/css'
+// import 'antd/lib/row/style/css'
+// import 'antd/lib/form/style/css'
+// import 'antd/lib/input/style/css'
+// import 'antd/lib/button/style/css'
 
 const FormItem = Form.Item;
 
-const VerificationForm = ({form, buttonState, onSubmit, onClickLoginButton}) => {
+const VerificationForm = ({email, form, buttonState, onSubmit, onResend, onClickSubmitButton}) => {
   const { getFieldDecorator, getFieldError } = form;
   const CodeError =  getFieldError('Code');
   return (
@@ -22,7 +22,7 @@ const VerificationForm = ({form, buttonState, onSubmit, onClickLoginButton}) => 
           <Row>
             <Col className="" style={css.FormColumn} span={13}>
               <p style={css.Greet}>Email Verification</p>
-              <p style={css.Small}>A verification code has been emailed to <b>ortigas.ronel@gmail.com</b>, Please input verification code to verify.</p>
+              <p style={css.Small}>A verification code has been emailed to <b>{email}</b>, Please input verification code to verify.</p>
               <br/><br/>
               <Form onSubmit={onSubmit}>
                 <FormItem
@@ -39,9 +39,10 @@ const VerificationForm = ({form, buttonState, onSubmit, onClickLoginButton}) => 
                   )}
                 </FormItem>
                 <FormItem>
-                  <Button type="primary" htmlType="submit" loading={buttonState} onClick={onClickLoginButton}>{buttonState ? 'Verifying..' : 'Submit'}</Button>
+                  <Button type="primary" htmlType="submit" loading={buttonState} onClick={onClickSubmitButton}>{buttonState ? 'Verifying..' : 'Submit'}</Button>
                 </FormItem>
               </Form>
+              <p>Haven{`'`}t received a verification? <a onClick={onResend}>Resend</a></p>
             </Col>
             <Col style={css.Column} span={11}>
               <RightSection />

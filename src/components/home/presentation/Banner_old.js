@@ -9,11 +9,11 @@ import Reviews from '../../../assets/images/Reviews.png'
 import Customers from '../../../assets/images/Customers.png'
 import { Col, Row, Card, Icon } from 'antd'
 
-import '../../../assets/css/banner_old.css'
-import 'antd/lib/col/style/css'
-import 'antd/lib/row/style/css'
-import 'antd/lib/card/style/css'
-import 'antd/lib/icon/style/css'
+// import '../../../assets/css/banner_old.css'
+// import 'antd/lib/col/style/css'
+// import 'antd/lib/row/style/css'
+// import 'antd/lib/card/style/css'
+// import 'antd/lib/icon/style/css'
 
 
 const Banner = ({options, senderValue, onChangeSender, recepientValue, onChangeRecepient}) => {

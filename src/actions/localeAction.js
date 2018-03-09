@@ -11,8 +11,8 @@ export function changeLocaleSuccess(locale){
 export function loadLocale(){
   const locale = localStorage.getItem("locale");
   if(!locale){
-    localStorage.setItem("locale", "EN")
-    return loadLocaleSuccess("EN")
+    localStorage.setItem("locale", "en")
+    return loadLocaleSuccess("en")
   }
   return loadLocaleSuccess(locale)
 }

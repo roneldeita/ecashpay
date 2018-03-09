@@ -9,9 +9,9 @@ import Reviews from '../../../assets/images/Reviews.png'
 import Customers from '../../../assets/images/Customers.png'
 
 import 'animate.css/animate.css'
-import 'antd/lib/col/style/css'
-import 'antd/lib/row/style/css'
-import 'antd/lib/button/style/css'
+// import 'antd/lib/col/style/css'
+// import 'antd/lib/row/style/css'
+// import 'antd/lib/button/style/css'
 
 const Container = {
   paddingTop:'200px',

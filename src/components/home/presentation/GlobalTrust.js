@@ -2,8 +2,8 @@ import React from 'react'
 import { Col, Row } from 'antd'
 import World from '../../../assets/images/World.png'
 
-import 'antd/lib/col/style/css'
-import 'antd/lib/row/style/css'
+// import 'antd/lib/col/style/css'
+// import 'antd/lib/row/style/css'
 
 const Container = {
   paddingTop:'120px',

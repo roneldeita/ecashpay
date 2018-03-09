@@ -9,9 +9,9 @@ import BPI from '../../../assets/images/BPI.png'
 import UCPB from '../../../assets/images/UCPB.png'
 import BDO from '../../../assets/images/BDO.png'
 
-import 'antd/lib/col/style/css'
-import 'antd/lib/row/style/css'
-import 'antd/lib/button/style/css'
+// import 'antd/lib/col/style/css'
+// import 'antd/lib/row/style/css'
+// import 'antd/lib/button/style/css'
 
 const Container = {
   paddingTop:'120px',

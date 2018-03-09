@@ -3,9 +3,9 @@ import { Row, Col, Icon } from 'antd'
 import Android from '../../assets/images/Black_And.png'
 import Apple from '../../assets/images/Black_Apple.png'
 
-import 'antd/lib/row/style/css'
-import 'antd/lib/col/style/css'
-import 'antd/lib/icon/style/css'
+// import 'antd/lib/row/style/css'
+// import 'antd/lib/col/style/css'
+// import 'antd/lib/icon/style/css'
 
 const BottomRow = {
   paddingTop: '120px',

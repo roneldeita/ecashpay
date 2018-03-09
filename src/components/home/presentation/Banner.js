@@ -5,9 +5,9 @@ import ScrollAnimation from 'react-animate-on-scroll'
 import BannerImg from '../../../assets/images/Banner.png'
 
 import 'animate.css/animate.css'
-import 'antd/lib/col/style/css'
-import 'antd/lib/row/style/css'
-import 'antd/lib/icon/style/css'
+// import 'antd/lib/col/style/css'
+// import 'antd/lib/row/style/css'
+// import 'antd/lib/icon/style/css'
 
 const BannerContainer = {
   color:'#383838',
@@ -61,9 +61,10 @@ const Banner = () => {
               />
             </p>
             <p style={Desct}>
-              Ecashpay Asia offers a safe and secure way to send payment and remittance anytime and anywhere online.
-              Make a payment to any bank account, payment gateway or any person around Asia today. You can count on us
-              for the fastest, safest, and easiest way to remit money around Asia.
+              <FormattedMessage
+                id="banner.desc"
+                defaultMessage="Ecashpay Asia offers a safe and secure way to send payment and remittance anytime and anywhere online. Make a payment to any bank account, payment gateway or any person around Asia today. You can count on us for the fastest, safest, and easiest way to remit money around Asia."
+              />
             </p><br/>
             <a href="/" className="anchor-watch">
               <Icon style={AntIcon} type="play-circle"/>
