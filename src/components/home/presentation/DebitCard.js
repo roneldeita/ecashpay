@@ -34,12 +34,16 @@ const DebitCardBack = {
   position: 'absolute',
   width:'60%',
   right: 0,
+  transform: 'translatey(0px)',
+	animation: 'float 6s ease-in-out infinite'
 }
 const DebitCardFront = {
   position: 'absolute',
   width:'60%',
   top:'150px',
-  left:'30px'
+  left:'30px',
+  transform: 'translatey(0px)',
+	animation: 'float-inverse 6s ease-in-out infinite'
 }
 const AntButton = {
   fontSize: '26px',
@@ -114,6 +118,31 @@ const DebitCard = () => {
             <a style={Anchor} href="/">Learn more</a>
           </Col>
         </Row>
+        <style jsx="true">{`
+          @keyframes float-inverse {
+          	0% {
+          		transform: translatex(0px);
+          	}
+          	50% {
+          		transform: translatex(30px);
+          	}
+          	100% {
+          		transform: translatex(0px);
+          	}
+          }
+          @keyframes float {
+          	0% {
+          		transform: translatex(0px);
+          	}
+          	50% {
+          		transform: translatex(-30px);
+          	}
+          	100% {
+          		transform: translatex(0px);
+          	}
+          }
+        `}
+        </style>
       </div>
     /*</Parallax>}*/
   )

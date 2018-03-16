@@ -8,17 +8,17 @@ import './index.css'
 
 import { loadLocale } from './actions/localeAction';
 import { checkAuth } from './actions/authAction';
-// import { loadProfile } from './actions/profileAction';
+import { loadProfile } from './actions/profileAction';
 
 const StoreInstance = Store()
 
 StoreInstance.dispatch(loadLocale())
 StoreInstance.dispatch(checkAuth())
 //load profile
-// const Token = StoreInstance.getState().auth.token
-// if(Token !== undefined){
-//   StoreInstance.dispatch(loadProfile(Token))
-// }
+const Token = StoreInstance.getState().auth.token
+if(Token !== undefined){
+  StoreInstance.dispatch(loadProfile(Token))
+}
 
 //console.log(typeof StoreInstance.getState().locale.toLowerCase())
 

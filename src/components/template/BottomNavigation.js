@@ -8,6 +8,7 @@ import Apple from '../../assets/images/Black_Apple.png'
 // import 'antd/lib/icon/style/css'
 
 const BottomRow = {
+  marginTop:'50px',
   paddingTop: '120px',
   paddingBottom: '120px',
   textAlign: 'center',
@@ -45,7 +46,7 @@ const BottomNavigation = () => {
       <div>
         <Row style={BottomRow}>
           <Col span={24}>
-            <p style={Title}>Get Ecashpay Aisa App Now</p>
+            <p style={Title}>Get Ecashpay Asia App Now</p>
             <p style={Desc}>Track your money on the go, or make new ones in a couple of taps</p>
             <div style={DLContainer}>
               <img src={Android} alt="Google play" style={Download}/>

@@ -1,15 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {Row, Col, Spin, Icon} from 'antd'
+import FontAwesome from 'react-fontawesome'
 import SendMoney from '../../../../assets/images/Send_Money.png'
-import BuyLoad from '../../../../assets/images/Buy_Load.png'
+import BuyLoad from '../../../../assets/images/Buy_Load_1.png'
 import PayBills from '../../../../assets/images/Pay_Bills.png'
 import BookTravel from '../../../../assets/images/Travel.png'
 
 const Container = {
+  minHeight: '115px',
   borderBottom: '1px solid #dddddd'
 }
-
 const Spinner = {
   position:'absolute',
   height:'100%',
@@ -20,54 +21,111 @@ const Spinner = {
   maxHeight: '100%',
   zIndex:1
 }
-const TabContainer = {
-  float:'right'
-}
-const TabChild = {
-  width: '100px',
-  textAlign: 'center',
-  display:'inline-block',
-  margin: '0px 25px',
-}
 const TabImg = {
-  height: '70px',
+  maxHeight: '70px',
   marginBottom: '5px'
 }
+const UserIconContainer = {
+  display:'inline-block'
+}
+const UserIcon = {
+  fontSize:'75px',
+  marginRight: '15px',
+  color:'#1dA1f2'
+}
+const UserName = {
+  display:'inline',
+  fontSize:'30px',
+  verticalAlign:'top'
+}
+const EcashStatusDesc = {
+  display:'inline',
+  fontSize:'16px',
+  verticalAlign:'top',
+  letterSpacing: '-1px'
+}
 class Menu extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      loader:true
+    }
+  }
+  componentDidMount(){
+    setTimeout(()=>{
+      this.setState({loader:false})
+    }, 500)
+  }
   render(){
     return(
-      <div style={Container}>
-        <Spin spinning={this.props.loader} style={Spinner} indicator={<Icon type="loading"/>}>
+      <Spin spinning={this.state.loader} style={Spinner} indicator={<Icon type="loading"/>}>
+        <div style={Container}>
           <Row style={{clear:'both'}}>
             <Col className="" span={12}>
-            </Col>
-            <Col className="" span={12}>
-              <div style={TabContainer} className="tab-container">
-                <div style={TabChild}><Link to="" ><img src={SendMoney} alt="send money" style={TabImg}/><p>Send Money</p></Link></div>
-                <div style={TabChild}><Link to="" ><img src={BuyLoad} alt="buy money" style={TabImg}/><p>Buy Load</p></Link></div>
-                <div style={TabChild}><Link to="" ><img src={PayBills} alt="pay bills" style={TabImg}/><p>Pay Bills</p></Link></div>
-                <div style={TabChild}><Link to="" ><img src={BookTravel} alt="book travel" style={TabImg}/><p>Book Travel</p></Link></div>
+              <div className="">
+                <div className="" style={UserIconContainer}>
+                  <FontAwesome name="user-circle" style={UserIcon} />
+                </div>
+                <div className="" style={{display:'inline-block'}}>
+                  <p className="" style={UserName}>{this.props.profile.firstName} <span style={{color:'#999999'}}>{this.props.profile.lastName}</span></p><br/>
+                  <p className="" style={EcashStatusDesc}>Seems like you don{`'`}t have an Ecashpay Card yet. <a href="/">Apply Now!</a></p>
+                </div>
               </div>
             </Col>
+            <Col className="" span={12}>
+              <Row type="flex" justify="end" className="tab-container">
+                <Col className="" span={5}>
+                  <Link to="/client/addfunds" >
+                    <img src={SendMoney} alt="send money" style={TabImg}/>
+                    <p>Send Money</p>
+                  </Link>
+                </Col>
+                <Col className="" span={5}>
+                  <Link to="" >
+                    <img src={BuyLoad} alt="buy money" style={TabImg}/>
+                    <p>Buy Load</p>
+                  </Link>
+                </Col>
+                <Col className="" span={5}>
+                  <Link to="" >
+                    <img src={PayBills} alt="pay bills" style={TabImg}/>
+                    <p>Pay Bills</p>
+                  </Link>
+                </Col>
+                <Col className="" span={5}>
+                  <Link to="" >
+                    <img src={BookTravel} alt="book travel" style={TabImg}/>
+                    <p>Book Travel</p>
+                  </Link>
+                </Col>
+              </Row>
+            </Col>
           </Row>
-        </Spin>
-        <style jsx="true">{`
-          .tab-container a{
-            color: rgba(0, 0, 0, 0.65) !important;
-            font-weight: 500
-          }
-          .tab-container p{
-            font-size: 14px
-          }
-          .anticon-spin{
-            height: 100%;
-            transform: translate(50%, 40%);
-          }
-        `}
-        </style>
-      </div>
+          <style jsx="true">{`
+              @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+              .tab-container{
+                text-align:center
+              }
+              .tab-container a{
+                color: rgba(0, 0, 0, 0.65) !important;
+                font-weight: 500;
+              }
+              .tab-container p{
+                font-size: 14px;
+              }
+              .anticon-spin{
+                height: 100%;
+                transform: translate(50%, 40%);
+              }
+            `}
+          </style>
+        </div>
+      </Spin>
     )
   }
 }
+// const Menu = ({loader, profile}) => {
+//
+// }
 
 export default Menu

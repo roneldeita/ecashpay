@@ -12,6 +12,7 @@ import NotFound from './components/notFound'
 import Redirecting from './components/redirect'
 
 import ClientDashboard from './components/client/dashboard/ClientDashboard'
+import AddFunds from './components/client/addfunds/AddFunds'
 
 import Cart from './components/cart'
 
@@ -32,6 +33,7 @@ const Routes = ({ store }) => (
           <Route path="/verify" render={ () => ( isLoggedIn(store) ? (<VerificationPage/>) : (<Redirect to="/redirecting"/>) )} />
           <Route path="/profile" render={ () => ( isLoggedIn(store) ? (<ProfilePage/>) : (<Redirect to="/redirecting"/>) )} />
           <Route path="/client/dashboard" render={ ()=> isLoggedIn(store) ? (<ClientDashboard/>) : (<Redirect to="/redirecting"/>)} />
+          <Route path="/client/addfunds" render={ ()=> isLoggedIn(store) ? (<AddFunds/>) : (<Redirect to="/redirecting"/>)} />
           <Route path="/cart" component={Cart} />
           <Route path="/redirecting" component={Redirecting} />
           <Route path="*" component={NotFound} />

@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { Affix, Menu, Row, Col, Icon } from 'antd'
+import { Affix, Menu, Row, Col, Icon, Popover } from 'antd'
 import EpayLogo from '../../assets/images/Ecashpay_Logo_Orig.png'
 
 // import 'antd/lib/affix/style/css'
@@ -14,7 +14,7 @@ const SubMenu = Menu.SubMenu;
 
 const NavContainer = {
   backgroundColor: '#ffffff',
-  marginBottom: '25px',
+  marginBottom: '30px',
   borderBottom: '2px solid #999999'
 }
 const Logo = {
@@ -35,6 +35,18 @@ const Caret = {
 const isLoggedIn = (loggedIn) => {
   return loggedIn ? 'none' : 'block'
 }
+const NotifTitle = (
+  <div style={{minWidth:'250px'}}>
+    <span style={{display:'block', fontSize:'16px', float:'left', fontWeight:400}}>Notifications</span>
+    <Link to="/notifications" style={{display:'block', fontSize:'10px', lineHeight:'26px' , float:'right'}}>Open All</Link>
+  </div>
+)
+const NotifContent = (
+  <div>
+    <p>Content</p>
+    <p>Content</p>
+  </div>
+);
 
 const TopNavigation = ({locale, onChangeLocale, loggedIn}) => {
   //console.log(loggedIn)
@@ -58,8 +70,10 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn}) => {
               <Menu.Item key="hepl" style={{display:isLoggedIn(loggedIn)}}>Help</Menu.Item>
               <Menu.Item key="login" style={{display:isLoggedIn(loggedIn)}}><Link to="/login">Login</Link></Menu.Item>
               <Menu.Item key="signup" style={{display:isLoggedIn(loggedIn)}}><Link to="/register">Sign up</Link></Menu.Item>
-              <Menu.Item key="bell" style={{display:isLoggedIn(!loggedIn)}}><Icon type="bell" style={{margin:'0 auto'}}/></Menu.Item>
-              <Menu.Item key="user" style={{display:isLoggedIn(!loggedIn)}}><Icon type="user" style={{margin:'0 auto'}}/></Menu.Item>
+              <Menu.Item key="bell" style={{display:isLoggedIn(!loggedIn)}}>
+                <Popover placement="bottom" title={NotifTitle} content={NotifContent} trigger="hover"><div><Icon type="bell" style={{margin:'0 auto'}}/></div></Popover>
+              </Menu.Item>
+              <Menu.Item key="user" style={{display:isLoggedIn(!loggedIn)}}><Icon type="user"/></Menu.Item>
               <Menu.Item key="logout" style={{display:isLoggedIn(!loggedIn)}}>Logout</Menu.Item>
             </Menu>
           </Col>

@@ -5,9 +5,6 @@ import ScrollAnimation from 'react-animate-on-scroll'
 import BannerImg from '../../../assets/images/Banner.png'
 
 import 'animate.css/animate.css'
-// import 'antd/lib/col/style/css'
-// import 'antd/lib/row/style/css'
-// import 'antd/lib/icon/style/css'
 
 const BannerContainer = {
   color:'#383838',
@@ -21,8 +18,8 @@ const LeftCol = {
 }
 const AntRow = {
   width:'100%',
-  paddingTop:'100px',
-  paddingBottom:'60px'
+  paddingTop:'50px',
+  paddingBottom:'100px'
 }
 const Slogan = {
   fontWeight: '600',
@@ -72,16 +69,16 @@ const Banner = () => {
             </a>
         </Col>
         <Col span={9} style={LeftCol}>
-          <img style={BannerImgStyle} src={BannerImg} alt="24/7"/>
+          <ScrollAnimation animateIn="bounceIn" animateOut="bounceOut">
+            <img style={BannerImgStyle} src={BannerImg} alt="24/7"/>
+          </ScrollAnimation>
         </Col>
       </Row>
       <Row>
-        <ScrollAnimation animateIn="slideInRight" animateOut="slideOutLeft">
-          <Col span={24} style={{padding:'50px 0px', backgroundColor: '#1DA1F2'}}>
-          </Col>
-        </ScrollAnimation>
+        <Col span={24} style={{padding:'50px 0px', backgroundColor: '#1DA1F2'}}>
+        </Col>
       </Row>
-      <style>{`
+      <style jsx="true">{`
         .anchor-watch:hover span{
           border-bottom: 1px solid #1890ff;
         }

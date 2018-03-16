@@ -104,7 +104,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                       {getFieldDecorator('First Name', {
                         rules: [
                           { required: true },
-                          { pattern: /^[a-zA-Z]+$/, message: 'First Name should only contain letters' }
+                          { pattern: /^[a-zA-Z\s-'ñÑ_]+$/, message: 'First Name should only contain letters' }
                         ],
                       })(
                         <Input placeholder="First Name" prefix={<Icon type="user" style={css.PrefixIcon} /> }/>
@@ -119,7 +119,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                       {getFieldDecorator('Last Name', {
                         rules: [
                           { required: true },
-                          { pattern: /^[a-zA-Z]+$/, message: 'Last Name should only contain letters' }
+                          { pattern: /^[a-zA-Z\s-'ñÑ_]+$/, message: 'Last Name should only contain letters' }
                         ],
                       })(
                         <Input placeholder="Last Name" prefix={<Icon type="user" style={css.PrefixIcon} /> }/>

@@ -1,14 +1,16 @@
 import React from 'react';
+//redux
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as authActions from '../../actions/authAction'
-import RegisterForm from './presentation/RegisterForm'
+//lodash
 import { camelCase } from 'lodash'
-import { createForm } from 'rc-form'
-import axios from 'axios'
-
-import { Modal } from 'antd'
-import 'antd/lib/modal/style/css'
+//services
+import { Register } from '../../services/auth'
+//component
+import RegisterForm from './presentation/RegisterForm'
+//ant design
+import { Form, Modal } from 'antd'
 
 class RegisterPage extends React.Component {
   constructor(props){
@@ -47,16 +49,15 @@ class RegisterPage extends React.Component {
         Object.entries(values).forEach(([index,value])=>{
           Data[camelCase(index)]=value
         })
-        //console.log(Data)
-        axios.post(process.env.REACT_APP_API + '/register', Data)
-        .then(res => {
+        Register(Data)
+        .then( res => {
           this.props.authActions.saveAuth(res.data)
           window.location.href = '/verify'
         })
-        .catch(error => {
+        .catch( err => {
           Modal.error({
-            title: 'Login Error',
-            content: error.response.data.message,
+            title: 'Registration Error',
+            content: err.response.data.message,
           });
           setTimeout(() => {
             this.setState({buttonState:false})
@@ -74,7 +75,6 @@ class RegisterPage extends React.Component {
     window.scrollTo(0, 0)
   }
   render() {
-    console.log(this.props)
     return (
       <div className="font">
         <RegisterForm
@@ -97,4 +97,4 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-export default createForm()(connect(null, mapDispatchToProps)(RegisterPage))
+export default Form.create()(connect(null, mapDispatchToProps)(RegisterPage))

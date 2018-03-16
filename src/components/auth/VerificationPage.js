@@ -1,13 +1,15 @@
 import React from 'react';
+//redux
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as authActions from '../../actions/authAction'
 import * as profileActions from '../../actions/profileAction'
-import axios from 'axios'
+//components
 import VerificationForm from './presentation/VerificationForm'
-import { createForm } from 'rc-form';
-
-import { Modal } from 'antd'
+//services
+import { VerifyEmail, VerificationResend } from '../../services/auth'
+//ant design
+import { Modal, Form } from 'antd'
 
 class VerificationPage extends React.Component {
   constructor(props){
@@ -25,9 +27,11 @@ class VerificationPage extends React.Component {
   handleSubmit(event){
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        axios.post(process.env.REACT_APP_API + '/verification', {code: values.Code}, { headers:{token:this.props.auth.token}})
+        VerifyEmail({code:values.Code}, this.props.auth.token)
         .then(res => {
           this.props.authActions.saveAuth(res.data)
+          sessionStorage.removeItem('profile');
+          this.props.profileAction.loadProfile(res.data.token)
           window.location.href = '/profile'
         })
         .catch(error => {
@@ -48,7 +52,7 @@ class VerificationPage extends React.Component {
     event.preventDefault()
   }
   handleResend(event){
-    axios.post(process.env.REACT_APP_API + '/verification/resend', null, { headers:{token:this.props.auth.token}})
+    VerificationResend(null, this.props.auth.token)
     .then(res => {
       Modal.success({
         title: 'Resend Verification Success',
@@ -62,12 +66,6 @@ class VerificationPage extends React.Component {
       })
     })
     event.preventDefault()
-  }
-  componentWillMount(){
-    axios.get(process.env.REACT_APP_API + '/profile', {headers: {token:this.props.auth.token}})
-    .then(res => {
-      this.props.profileAction.loadProfile(res.data)
-    })
   }
   render() {
     return (
@@ -98,4 +96,4 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-export default createForm()(connect(mapStateToProps, mapDispatchToProps)(VerificationPage))
+export default Form.create()(connect(mapStateToProps, mapDispatchToProps)(VerificationPage))

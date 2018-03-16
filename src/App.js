@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-// import Loader from 'react-loader'
-//routes
+//react-router
 import { withRouter } from 'react-router-dom'
 //locale
 import { IntlProvider, addLocaleData } from 'react-intl';
@@ -32,6 +31,11 @@ import 'antd/lib/radio/style/css'
 import 'antd/lib/affix/style/css'
 import 'antd/lib/menu/style/css'
 import 'antd/lib/modal/style/css'
+import 'antd/lib/divider/style/css'
+import 'antd/lib/progress/style/css'
+import 'antd/lib/modal/style/css'
+import 'antd/lib/popover/style/css'
+import 'antd/lib/tabs/style/css'
 import 'antd/lib/divider/style/css'
 //lodash
 import { isEqual } from 'lodash'
@@ -104,6 +108,10 @@ class App extends Component {
         case 1:
           window.location.href = '/profile'
           break;
+        case 2:
+          //this.props.history.push('/client/dashboard')
+           //window.location.href = '/client/dashboard'
+          break;
         default:
           window.location.href = '/login'
       }
@@ -111,14 +119,8 @@ class App extends Component {
   }
   handleLogOut(){
     this.props.authActions.saveAuth({})
+    sessionStorage.removeItem('profile')
   }
-  // componentDidMount(){
-  //   if(this.props){
-  //     setTimeout( () =>{
-  //       this.setState({loaded:true})
-  //     }, 1000)
-  //   }
-  // }
   componentWillReceiveProps(nextProps){
     this.isLoggedIn()
   }
@@ -126,26 +128,24 @@ class App extends Component {
     return !isEqual(prevProps, this.props);
   }
   render() {
-    //console.log(this.props.children)
+    console.log(this.props)
     return (
       <IntlProvider locale={this.props.locale} messages={this.translateContent(this.props.locale)}>
         <div className="App">
-          {/*<Loader loaded={this.state.loaded} color="#cccccc">*/}
-            <div style={{display:this.hideTopNavigation()}}>
-              <TopNavigation
-              loggedIn={this.props.loggedIn}
-              locale={this.props.locale}
-              onChangeLocale={this.handleChangeLocale}
-              />
-            </div>
-            <div style={{minHeight:'30vh'}}>{ this.props.children }</div>
-            <div style={{display:this.hideTopNavigation()}}>
-              <BottomNavigation/>
-            </div>
-            <BackTop>
-              <Icon type="up-square-o" style={{fontSize:'42px'}}/>
-            </BackTop>
-          {/*</Loader>*/}
+          <div style={{display:this.hideTopNavigation()}}>
+            <TopNavigation
+            loggedIn={this.props.loggedIn}
+            locale={this.props.locale}
+            onChangeLocale={this.handleChangeLocale}
+            />
+          </div>
+          <div style={{minHeight:'30vh'}}>{ this.props.children }</div>
+          <div style={{display:this.hideTopNavigation()}}>
+            <BottomNavigation/>
+          </div>
+          <BackTop>
+            <Icon type="up-square-o" style={{fontSize:'42px'}}/>
+          </BackTop>
         </div>
       </IntlProvider>
     )

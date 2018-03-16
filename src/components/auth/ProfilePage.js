@@ -1,13 +1,18 @@
 import React from 'react'
-import axios from 'axios'
+//redux
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as authActions from '../../actions/authAction'
-import { camelCase } from 'lodash'
-import ProfileForm from './presentation/ProfileForm'
 import * as profileActions from '../../actions/profileAction'
+//lodash
+import { camelCase } from 'lodash'
+//ant design
 import { Form } from 'antd'
-// import { createForm } from 'rc-form'
+//services
+import { CompleteProfile } from '../../services/auth'
+import { AllCountries } from '../../services/restcountries'
+//child component
+import ProfileForm from './presentation/ProfileForm'
 
 class ProfilePage extends React.Component{
   constructor(props){
@@ -45,10 +50,12 @@ class ProfilePage extends React.Component{
           }
           Data[camelCase(index)]=value
         })
-        console.log(Data)
-        axios.post(process.env.REACT_APP_API + '/profile', Data, {headers:{token:this.props.auth.token}})
+        CompleteProfile(Data, this.props.auth.token)
         .then(res => {
-          console.log(res)
+          this.props.authActions.saveAuth(res.data)
+          sessionStorage.removeItem('profile');
+          this.props.profileAction.loadProfile(res.data.token)
+          window.location.href = '/client/dashboard'
         })
         .catch(err => {
           console.log(err)
@@ -66,7 +73,7 @@ class ProfilePage extends React.Component{
     event.preventDefault()
   }
   componentDidMount(){
-    axios.get(process.env.REACT_APP_COUNTRIES)
+    AllCountries()
     .then(res => {
       const Countries = []
       Object.entries(res.data).forEach(([index,value])=>{
@@ -78,14 +85,7 @@ class ProfilePage extends React.Component{
       console.log(error)
     })
   }
-  componentWillMount(){
-    axios.get(process.env.REACT_APP_API + '/profile', {headers: {token:this.props.auth.token}})
-    .then(res => {
-      this.props.profileAction.loadProfile(res.data)
-    })
-  }
   render(){
-    console.log(this.props)
     return(
       <div>
         <ProfileForm

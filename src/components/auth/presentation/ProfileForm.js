@@ -80,7 +80,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     initialValue: firstName,
                     rules: [
                       { required: true },
-                      { pattern: /^[a-zA-Z]+$/, message: 'First Name should only contain letters' }
+                      { pattern: /^[a-zA-Z\s-'ñÑ_]+$/, message: 'First Name should only contain letters' }
                     ],
                   })(
                     <Input size="large"/>
@@ -96,7 +96,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     initialValue: lastName,
                     rules: [
                       { required: true },
-                      { pattern: /^[a-zA-Z]+$/, message: 'Last Name should only contain letters' }
+                      { pattern: /^[a-zA-Z\s-'ñÑ_]+$/, message: 'Last Name should only contain letters' }
                     ],
                   })(
                     <Input size="large"/>
@@ -112,7 +112,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                       { required: true }
                     ],
                   })(
-                    <DatePicker size="large" placeholder="DD-MM-YY" format="DD-MM-YY" style={{width:'100%'}} />
+                    <DatePicker size="large" placeholder="YYYY-DD-MM" format="YYYY-DD-MM" style={{width:'100%'}} />
                   )}
                 </FormItem>
                 <label>Phone Number</label>
