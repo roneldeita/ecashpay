@@ -75,25 +75,25 @@ class Menu extends React.Component{
             <Col className="" span={12}>
               <Row type="flex" justify="end" className="tab-container">
                 <Col className="" span={5}>
-                  <Link to="/client/addfunds" >
+                  <Link to="/client/sendmoney" >
                     <img src={SendMoney} alt="send money" style={TabImg}/>
                     <p>Send Money</p>
                   </Link>
                 </Col>
                 <Col className="" span={5}>
-                  <Link to="" >
+                  <Link to="/client/buyload" >
                     <img src={BuyLoad} alt="buy money" style={TabImg}/>
                     <p>Buy Load</p>
                   </Link>
                 </Col>
                 <Col className="" span={5}>
-                  <Link to="" >
+                  <Link to="/client/paybills" >
                     <img src={PayBills} alt="pay bills" style={TabImg}/>
                     <p>Pay Bills</p>
                   </Link>
                 </Col>
                 <Col className="" span={5}>
-                  <Link to="" >
+                  <Link to="/client/booktravel" >
                     <img src={BookTravel} alt="book travel" style={TabImg}/>
                     <p>Book Travel</p>
                   </Link>

@@ -1,10 +1,16 @@
 import React from 'react'
 
-class Redirect extends React.Component {
+class RedirectPage extends React.Component {
+  componentWillMount(){
+    if((this.props.location.state !== undefined) && this.props.location.state.loggedIn){
+      return this.props.history.push('/client/dashboard')
+    }
+  }
   componentDidMount() {
     window.scrollTo(0, 0)
   }
   render(){
+    console.log(this.props)
     return (
       <div style={{margin:'250px 0px',textAlign:'center'}}>
         <p style={{fontSize:'40px'}}>Redirecting...</p>
@@ -14,4 +20,4 @@ class Redirect extends React.Component {
   }
 }
 
-export default Redirect
+export default RedirectPage

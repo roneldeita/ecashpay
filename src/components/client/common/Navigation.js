@@ -1,43 +1,74 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {Icon, Divider} from 'antd'
+import {Row, Col, Icon} from 'antd'
 
 const Container = {
   textAlign:'center',
-  minHeight:'100px'
+  backgroundColor:'#ffffff',
+  marginTop:'-30px'
 }
-const Tab ={
-  display:'inline-block'
+const Tab = {
+  display:'inline-block',
+  margin:'20px 0px',
+  color:'rgb(85, 95, 97)'
+}
+const TabIcon = {
+  fontSize:'40px',
+  fontWeight:200,
+}
+const TabName = {
+  fontSize:'18px',
+  fontWeight:300,
+  marginBottom:'0px'
 }
 
 class Navigation extends React.Component{
   render(){
+    //console.log(this.props)
     return(
-      <div className="border" style={Container}>
-        <Link to="/client/dashboard" style={Tab}>
-          <Icon type="wallet"/>
-          <p>Dashboard</p>
-        </Link>
-        <Divider type="vertical"/>
-        <Link to="/client/addfunds" style={Tab}>
-          <Icon type="plus-circle-o"/>
-          <p>Add Funds</p>
-        </Link>
-        <Divider type="vertical"/>
-        <Link to="/client/sendmoney" style={Tab}>
-          <Icon type="rocket"/>
-          <p>Send Money</p>
-        </Link>
-        <Divider type="vertical"/>
-        <Link to="/client/buyload" style={Tab}>
-          <Icon type="mobile"/>
-          <p>Buy Load</p>
-        </Link>
-        <Divider type="vertical"/>
-        <Link to="/client/buyload" style={Tab}>
-          <Icon type="mobile"/>
-          <p>Pay Bills</p>
-        </Link>
+      <div className="" style={Container}>
+        <Row type="flex" justify="center">
+          <Col className="" xs={24} sm={24} md={24} lg={18} xl={12}>
+            <Row>
+              <Col className="" span={4}>
+                <Link to="/client/dashboard" style={Tab}>
+                  <Icon type="dashboard" style={TabIcon}/>
+                  <p style={TabName}>Dashboard</p>
+                </Link>
+              </Col>
+              <Col className="" span={4}>
+                <Link to="/client/addfunds" style={Tab}>
+                  <Icon type="wallet" style={TabIcon}/>
+                  <p style={TabName}>Add Funds</p>
+                </Link>
+              </Col>
+              <Col className="" span={4}>
+                <Link to="/client/sendmoney" style={Tab}>
+                  <Icon type="rocket" style={TabIcon}/>
+                  <p style={TabName}>Send Money</p>
+                </Link>
+              </Col>
+              <Col className="" span={4}>
+                <Link to="/client/buyload" style={Tab}>
+                  <Icon type="tablet" style={TabIcon}/>
+                  <p style={TabName}>Buy Load</p>
+                </Link>
+              </Col>
+              <Col className="" span={4}>
+                <Link to="/client/buyload" style={Tab}>
+                  <Icon type="credit-card" style={TabIcon}/>
+                  <p style={TabName}>Pay Bills</p>
+                </Link>
+              </Col>
+              <Col className="" span={4}>
+                <Link to="/client/buyload" style={Tab}>
+                  <Icon type="shop" style={TabIcon}/>
+                  <p style={TabName}>Shop</p>
+                </Link>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
       </div>
     )
   }

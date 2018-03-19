@@ -1,16 +1,16 @@
 import React from 'react'
 import Navigation from '../common/Navigation'
 
-class AddFunds extends React.Component{
+class SendMoney extends React.Component{
   render(){
     console.log(this.props)
     return(
       <div>
         <Navigation/>
-        Add Funds
+        Send Money
       </div>
     )
   }
 }
 
-export default AddFunds
+export default SendMoney

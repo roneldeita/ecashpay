@@ -38,7 +38,7 @@ const isLoggedIn = (loggedIn) => {
 const NotifTitle = (
   <div style={{minWidth:'250px'}}>
     <span style={{display:'block', fontSize:'16px', float:'left', fontWeight:400}}>Notifications</span>
-    <Link to="/notifications" style={{display:'block', fontSize:'10px', lineHeight:'26px' , float:'right'}}>Open All</Link>
+    <Link to="/notifications" style={{display:'block', fontSize:'11px', lineHeight:'26px' , float:'right'}}>Open All</Link>
   </div>
 )
 const NotifContent = (
@@ -49,13 +49,12 @@ const NotifContent = (
 );
 
 const TopNavigation = ({locale, onChangeLocale, loggedIn}) => {
-  //console.log(loggedIn)
   return(
     <Affix style={{width:'100%'}}>
       <div style={NavContainer}>
         <Row className="" type="flex" justify="center">
           <Col sm={9} md={7}>
-            <Link to="/"><img src={EpayLogo} alt="logo" style={Logo} /></Link>
+            <Link to={loggedIn ? '/client/dashboard' : '/'}><img src={EpayLogo} alt="logo" style={Logo} /></Link>
           </Col>
           <Col sm={9} md={11}>
             <Menu mode="horizontal" onSelect={onChangeLocale} style={AntMenu}>
@@ -71,7 +70,7 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn}) => {
               <Menu.Item key="login" style={{display:isLoggedIn(loggedIn)}}><Link to="/login">Login</Link></Menu.Item>
               <Menu.Item key="signup" style={{display:isLoggedIn(loggedIn)}}><Link to="/register">Sign up</Link></Menu.Item>
               <Menu.Item key="bell" style={{display:isLoggedIn(!loggedIn)}}>
-                <Popover placement="bottom" title={NotifTitle} content={NotifContent} trigger="hover"><div><Icon type="bell" style={{margin:'0 auto'}}/></div></Popover>
+                <Popover placement="bottom" title={NotifTitle} content={NotifContent} trigger="click"><div><Icon type="bell" style={{margin:'0 auto'}}/></div></Popover>
               </Menu.Item>
               <Menu.Item key="user" style={{display:isLoggedIn(!loggedIn)}}><Icon type="user"/></Menu.Item>
               <Menu.Item key="logout" style={{display:isLoggedIn(!loggedIn)}}>Logout</Menu.Item>

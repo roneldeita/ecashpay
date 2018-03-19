@@ -1,4 +1,10 @@
 import React, { Component } from 'react'
+//redux
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as localeActions from './actions/localeAction'
+import * as authActions from './actions/authAction'
+//proptypes
 import PropTypes from 'prop-types'
 //react-router
 import { withRouter } from 'react-router-dom'
@@ -8,11 +14,6 @@ import zh from 'react-intl/locale-data/zh';
 import es from 'react-intl/locale-data/es';
 import ru from 'react-intl/locale-data/ru';
 import my from 'react-intl/locale-data/my';
-//redux
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as localeActions from './actions/localeAction'
-import * as authActions from './actions/authAction'
 
 //antd & global css
 import {BackTop, Icon} from 'antd'
@@ -49,8 +50,8 @@ addLocaleData(ru);
 addLocaleData(my);
 
 class App extends Component {
-  constructor(props, context){
-    super(props, context)
+  constructor(props){
+    super(props)
     this.state = {
       loader: false
     }
@@ -119,16 +120,17 @@ class App extends Component {
   }
   handleLogOut(){
     this.props.authActions.saveAuth({})
+    window.location.href = '/login'
     sessionStorage.removeItem('profile')
   }
   componentWillReceiveProps(nextProps){
     this.isLoggedIn()
   }
-  shouldComponentUpdate(prevProps){
-    return !isEqual(prevProps, this.props);
-  }
+  // shouldComponentUpdate(prevProps){
+  //   return !isEqual(prevProps, this.props);
+  // }
   render() {
-    console.log(this.props)
+    //console.log(this.props)
     return (
       <IntlProvider locale={this.props.locale} messages={this.translateContent(this.props.locale)}>
         <div className="App">
@@ -141,7 +143,7 @@ class App extends Component {
           </div>
           <div style={{minHeight:'30vh'}}>{ this.props.children }</div>
           <div style={{display:this.hideTopNavigation()}}>
-            <BottomNavigation/>
+            {this.props.loggedIn ? '': <BottomNavigation/>}
           </div>
           <BackTop>
             <Icon type="up-square-o" style={{fontSize:'42px'}}/>
@@ -164,7 +166,7 @@ function mapDispatchToProps(dispatch){
   }
 }
 App.propTypes = {
-  children: PropTypes.any.isRequired,
+  children: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
   auth: PropTypes.object.isRequired,
   localeActions: PropTypes.objectOf(PropTypes.func).isRequired

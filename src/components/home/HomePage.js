@@ -47,16 +47,9 @@ class HomePage extends React.Component{
     window.scrollTo(0, 0)
   }
   render(){
-    // console.log(this.props)
+    //console.log(this.props)
     return(
       <div>
-        {/*<Banner
-          options={this.state.selectOption}
-          senderValue={this.state.selectedSenderVal}
-          recepientValue={this.state.selectedRecepientVal}
-          onChangeRecepient={this.handleRecepientValue}
-          onChangeSender={this.handleSenderValue}
-        />*/}
         <Banner />
         <DebitCard />
         <GlobalTrust />
