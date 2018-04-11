@@ -16,7 +16,7 @@ import ru from 'react-intl/locale-data/ru';
 import my from 'react-intl/locale-data/my';
 
 //antd & global css
-import {BackTop, Icon} from 'antd'
+import {Layout, BackTop, Icon} from 'antd'
 import './App.css'
 import 'antd/lib/row/style/css'
 import 'antd/lib/col/style/css'
@@ -38,11 +38,37 @@ import 'antd/lib/modal/style/css'
 import 'antd/lib/popover/style/css'
 import 'antd/lib/tabs/style/css'
 import 'antd/lib/divider/style/css'
+import 'antd/lib/steps/style/css'
+import 'antd/lib/layout/style/css'
+import 'antd/lib/dropdown/style/css'
+import 'antd/lib/breadcrumb/style/css'
+import 'antd/lib/table/style/css'
+import 'antd/lib/alert/style/css'
+import 'antd/lib/tag/style/css'
+import 'antd/lib/switch/style/css'
+//animate-on-scroll
+import "animate.css/animate.min.css";
 //lodash
-import { isEqual } from 'lodash'
+//import { isEqual } from 'lodash'
 //components
 import TopNavigation from './components/template/TopNavigation'
 import BottomNavigation from './components/template/BottomNavigation'
+import AdminSideNavigation from './components/template/AdminSideNavigation'
+import AdminTopNavigation from './components/template/AdminTopNavigation'
+//images
+import EpayLogo from './assets/images/Ecashpay_Logo_White.png'
+import EpayLogoMini from './assets/images/Ecashpay_Logo_White_Mini.png'
+//styles
+const LogoContainer = {
+  margin:'20px 10px 20px 10px',
+  textAlign:'center'
+}
+const Logo = {
+  width:'150px'
+}
+const LogoMini = {
+  width:'25px'
+}
 
 addLocaleData(zh);
 addLocaleData(es);
@@ -53,11 +79,17 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      loader: false
+      collapsed: false,
     }
     this.handleChangeLocale = this.handleChangeLocale.bind(this)
     this.translateContent = this.translateContent.bind(this)
     this.handleLogOut = this.handleLogOut.bind(this)
+  }
+  toggleCollapse = () => {
+    this.setState({collapsed:!this.state.collapsed})
+  }
+  onCollapse = (collapsed) => {
+    this.setState({ collapsed });
   }
   translateContent(lang){
     let message = {}
@@ -93,11 +125,18 @@ class App extends Component {
     }
   }
   hideTopNavigation(){
-    const paths = ['/login', '/register', '/verify', '/redirecting']
+    const paths = ['/login', '/register', '/verify', '/redirecting', '/admin', '/admin/transactions']
     if(paths.includes(this.props.location.pathname)){
       return 'none'
     }
     return 'block'
+  }
+  showAdminNavigation(){
+    const paths = ['/admin', '/admin/transactions']
+    if(paths.includes(this.props.location.pathname)){
+      return 'block'
+    }
+    return 'none'
   }
   isLoggedIn(){
     const Status = this.props.auth.status
@@ -119,9 +158,9 @@ class App extends Component {
     }
   }
   handleLogOut(){
-    this.props.authActions.saveAuth({})
-    window.location.href = '/login'
+    localStorage.removeItem('auth')
     sessionStorage.removeItem('profile')
+    window.location.href = '/login'
   }
   componentWillReceiveProps(nextProps){
     this.isLoggedIn()
@@ -134,20 +173,50 @@ class App extends Component {
     return (
       <IntlProvider locale={this.props.locale} messages={this.translateContent(this.props.locale)}>
         <div className="App">
-          <div style={{display:this.hideTopNavigation()}}>
-            <TopNavigation
-            loggedIn={this.props.loggedIn}
-            locale={this.props.locale}
-            onChangeLocale={this.handleChangeLocale}
-            />
-          </div>
-          <div style={{minHeight:'30vh'}}>{ this.props.children }</div>
-          <div style={{display:this.hideTopNavigation()}}>
-            {this.props.loggedIn ? '': <BottomNavigation/>}
-          </div>
+          <Layout>
+            <Layout.Header style={{display:this.hideTopNavigation()}}>
+              <TopNavigation
+              loggedIn={this.props.loggedIn}
+              locale={this.props.locale}
+              onChangeLocale={this.handleChangeLocale}
+              />
+            </Layout.Header>
+            <Layout>
+              <Layout.Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} style={{display:this.showAdminNavigation()}}>
+                <div style={LogoContainer}>
+                  <img src={this.state.collapsed ? EpayLogoMini : EpayLogo  } alt="logo" style={this.state.collapsed ? LogoMini : Logo}/>
+                </div>
+                <AdminSideNavigation location={this.props.location} />
+              </Layout.Sider>
+              <Layout>
+                <Layout.Header style={{display:this.showAdminNavigation(), maxHeight:'auto', lineHeight:'40px'}}>
+                  <AdminTopNavigation collapsed={this.state.collapsed} toggle={this.toggleCollapse} />
+                </Layout.Header>
+                <Layout.Content style={{minHeight:'30vh'}}>{ this.props.children }</Layout.Content>
+              </Layout>
+            </Layout>
+            <Layout.Footer style={{display:this.hideTopNavigation()}}>
+              {this.props.loggedIn ? '': <BottomNavigation/>}
+            </Layout.Footer>
+          </Layout>
           <BackTop>
             <Icon type="up-square-o" style={{fontSize:'42px'}}/>
           </BackTop>
+          <style jsx="true">{`
+            .ant-layout-header{
+              padding:0px;
+              height:auto;
+              max-height:85px;
+              background-color: transparent
+            }
+            .ant-layout-content{
+              min-height:100vh !important
+            }
+            .ant-layout-footer{
+              padding:0px;
+            }
+            `}
+          </style>
         </div>
       </IntlProvider>
     )

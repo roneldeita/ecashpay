@@ -8,7 +8,7 @@ import BSPregulated from '../../../assets/images/BSP_Regulated.png'
 import Reviews from '../../../assets/images/Reviews.png'
 import Customers from '../../../assets/images/Customers.png'
 
-import 'animate.css/animate.css'
+// import 'animate.css/animate.css'
 // import 'antd/lib/col/style/css'
 // import 'antd/lib/row/style/css'
 // import 'antd/lib/button/style/css'
@@ -124,7 +124,7 @@ const DebitCard = () => {
           		transform: translatex(0px);
           	}
           	50% {
-          		transform: translatex(30px);
+          		transform: translatex(10px);
           	}
           	100% {
           		transform: translatex(0px);
@@ -135,7 +135,7 @@ const DebitCard = () => {
           		transform: translatex(0px);
           	}
           	50% {
-          		transform: translatex(-30px);
+          		transform: translatex(-10px);
           	}
           	100% {
           		transform: translatex(0px);

@@ -6,7 +6,7 @@ import * as authActions from '../../actions/authAction'
 //lodash
 import { camelCase } from 'lodash'
 //services
-import { Register } from '../../services/auth'
+import { Auth } from '../../services/api'
 //component
 import RegisterForm from './presentation/RegisterForm'
 //ant design
@@ -49,7 +49,7 @@ class RegisterPage extends React.Component {
         Object.entries(values).forEach(([index,value])=>{
           Data[camelCase(index)]=value
         })
-        Register(Data)
+        Auth(Data).register()
         .then( res => {
           this.props.authActions.saveAuth(res.data)
           window.location.href = '/verify'
@@ -86,7 +86,7 @@ class RegisterPage extends React.Component {
           onSubmit={this.handleSubmit}
         />
       </div>
-    );
+    )
   }
 }
 

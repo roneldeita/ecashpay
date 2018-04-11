@@ -1,14 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { Affix, Menu, Row, Col, Icon, Popover } from 'antd'
+import { Affix, Menu, Row, Col, Icon, Popover, List } from 'antd'
 import EpayLogo from '../../assets/images/Ecashpay_Logo_Orig.png'
-
-// import 'antd/lib/affix/style/css'
-// import 'antd/lib/menu/style/css'
-// import 'antd/lib/row/style/css'
-// import 'antd/lib/col/style/css'
-// import 'antd/lib/icon/style/css'
 
 const SubMenu = Menu.SubMenu;
 
@@ -27,14 +21,22 @@ const AntMenu = {
   fontSize: '18px',
   borderBottom: '0px',
 }
-
 const Caret = {
   fontSize: '11px'
 }
-
+const NotifContainer = {
+  padding: '10px 0px'
+}
+const NotifContainerItem = {
+  padding:'8px 15px',
+  fontSize: '13px'
+}
 const isLoggedIn = (loggedIn) => {
   return loggedIn ? 'none' : 'block'
 }
+const profileTitle = (
+  <div style={{minWidth:'150px', fontWeight:400}}>Ronel A. Deita</div>
+)
 const NotifTitle = (
   <div style={{minWidth:'250px'}}>
     <span style={{display:'block', fontSize:'16px', float:'left', fontWeight:400}}>Notifications</span>
@@ -42,11 +44,25 @@ const NotifTitle = (
   </div>
 )
 const NotifContent = (
-  <div>
-    <p>Content</p>
-    <p>Content</p>
-  </div>
-);
+  <List style={NotifContainer}>
+    <List.Item>
+      <div style={NotifContainerItem}>Notif1</div>
+    </List.Item>
+    <List.Item>
+      <div style={NotifContainerItem}>Notif1</div>
+    </List.Item>
+    <List.Item>
+      <div style={NotifContainerItem}>Notif1</div>
+    </List.Item>
+  </List>
+)
+const profileContent = (
+  <List style={NotifContainer}>
+    <List.Item>
+      <div style={NotifContainerItem}>Profile</div>
+    </List.Item>
+  </List>
+)
 
 const TopNavigation = ({locale, onChangeLocale, loggedIn}) => {
   return(
@@ -72,18 +88,30 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn}) => {
               <Menu.Item key="bell" style={{display:isLoggedIn(!loggedIn)}}>
                 <Popover placement="bottom" title={NotifTitle} content={NotifContent} trigger="click"><div><Icon type="bell" style={{margin:'0 auto'}}/></div></Popover>
               </Menu.Item>
-              <Menu.Item key="user" style={{display:isLoggedIn(!loggedIn)}}><Icon type="user"/></Menu.Item>
+              <Menu.Item key="user" style={{display:isLoggedIn(!loggedIn)}}>
+                <Popover placement="bottom" title={profileTitle} content={profileContent} trigger="click"><div><Icon type="user" style={{margin:'0 auto'}}/></div></Popover>
+              </Menu.Item>
               <Menu.Item key="logout" style={{display:isLoggedIn(!loggedIn)}}>Logout</Menu.Item>
             </Menu>
           </Col>
         </Row>
       </div>
       <style jsx="true" global="true">{`
+        .ant-popover-arrow,
+        .ant-popover-title{
+          background-color:#f7f7f7
+        }
+        .ant-popover-inner-content{
+          background-color:#f7f7f7
+        }
         .ant-menu-submenu-title{
           padding: 0px
         }
+        .ant-popover-inner-content{
+          padding:0px
+        }
         .ant-menu-horizontal > .ant-menu-item, .ant-menu-horizontal > .ant-menu-submenu {
-          padding: 17px 15px;
+          padding: 18px 15px;
         }
       `}
       </style>

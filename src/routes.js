@@ -14,6 +14,10 @@ import Redirecting from './components/redirect'
 import ClientDashboard from './components/client/dashboard/ClientDashboard'
 import AddFunds from './components/client/addfunds/AddFunds'
 import SendMoney from './components/client/sendmoney/SendMoney'
+import ManageCurrencies from './components/client/currencies/ManageCurrencies'
+
+import AdminDashboard from './components/admin/dashboard/AdminDashboard'
+import AdminTransactions from './components/admin/transactions/AdminTransactions'
 
 import Cart from './components/cart'
 
@@ -28,14 +32,17 @@ const Routes = ({ store }) => (
     <Router>
       <App loggedIn={isLoggedIn(store)}>
         <Switch>
-          <Route path="/" exact render={ props => ( !isLoggedIn(store) ? <HomePage/> : <Redirect to="/redirecting"/> )}/>
+          <Route path="/" exact render={ props => ( !isLoggedIn(store) ? <HomePage/> : <Redirect to={{ pathname: '/redirecting', state:{loggedIn:isLoggedIn(store)} }} /> )}/>
           <Route path="/login" render={ () => ( !isLoggedIn(store) ? <LoginPage/> : <Redirect to="/redirecting"/> )}/>
           <Route path="/register" render={ () => ( !isLoggedIn(store) ? <RegisterPage/> : <Redirect to="/redirecting"/> )} />
-          <Route path="/verify" render={ () => ( isLoggedIn(store) ? <VerificationPage/> : <Redirect to="/redirecting"/> )} />
-          <Route path="/profile" render={ () => ( isLoggedIn(store) ? <ProfilePage/> : <Redirect to="/redirecting"/> )} />
+          <Route path="/verify" render={ (props) => ( isLoggedIn(store) ? <VerificationPage/> : <Redirect to={{ pathname: '/redirecting', state:{loggedIn:isLoggedIn(store)} }} /> )} />
+          <Route path="/profile" render={ (props) => ( isLoggedIn(store) ? <ProfilePage {...props}/> : <Redirect to="/redirecting"/> )} />
           <Route path="/client/dashboard" render={ ()=> ( isLoggedIn(store) ? <ClientDashboard/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/addfunds" render={ props => ( isLoggedIn(store) ? <AddFunds {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/sendmoney" render={ props => ( isLoggedIn(store) ? <SendMoney {...props}/> : <Redirect to="/redirecting"/>)} />
+          <Route path="/client/manage/currencies" render={ props => ( isLoggedIn(store) ? <ManageCurrencies {...props}/> : <Redirect to="/redirecting"/>)} />
+          <Route path="/admin" exact component={AdminDashboard}/>
+          <Route path="/admin/transactions" component={AdminTransactions}/>
           <Route path="/cart" component={Cart} />
           <Route path="/redirecting" component={Redirecting} />
           <Route path="*" component={NotFound} />

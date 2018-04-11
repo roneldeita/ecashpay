@@ -50,10 +50,10 @@ class HomePage extends React.Component{
     //console.log(this.props)
     return(
       <div>
-        <Banner />
-        <DebitCard />
-        <GlobalTrust />
-        <Services />
+        <Banner/>
+        <DebitCard/>
+        <GlobalTrust/>
+        <Services/>
       </div>
     )
   }

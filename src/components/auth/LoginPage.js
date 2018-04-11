@@ -6,7 +6,7 @@ import * as authActions from '../../actions/authAction'
 //components
 import LoginForm from './presentation/LoginForm'
 //services
-import { Login } from '../../services/auth'
+import { Auth } from '../../services/api'
 //ant design
 import { Form, Modal } from 'antd'
 
@@ -25,7 +25,7 @@ class LoginPage extends React.Component {
   handleSubmit(event){
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        Login({email: values.Email, password: values.Password})
+        Auth({email: values.Email, password: values.Password}).login()
         .then( res =>{
           this.props.authActions.saveAuth(res.data)
           switch(res.data.status){
@@ -64,7 +64,6 @@ class LoginPage extends React.Component {
     window.scrollTo(0, 0)
   }
   render() {
-    //console.log(this.props)
     return (
       <div>
         <LoginForm

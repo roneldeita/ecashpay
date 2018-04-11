@@ -5,6 +5,12 @@ import VerifyID from '../../../../assets/images/Verify_ID.png'
 import BillsStatement from '../../../../assets/images/Bills_Statement.png'
 import LinkEcashCard from '../../../../assets/images/Link_EcashCard.png'
 
+const CardStyle = {
+  minHeight:'360px',
+  margin: '0px',
+  padding: '0px',
+  cursor:'auto'
+}
 const RowStyle ={
   textAlign:'center'
 }
@@ -29,51 +35,36 @@ const Desc = {
   fontSize: '12px',
   lineHeight: '13px'
 }
-class Requirements extends React.Component{
-  constructor(props){
-    super(props)
-    this.state = {
-      loader:true,
-      progressStart:0,
-      progress:20
-    }
-  }
-  componentDidMount(){
-    setTimeout(() => {
-      this.setState({loader:false})
-      this.setState({progressStart:this.state.progress})
-    }, 1500)
-  }
-  render(){
-    return(
-      <Card hoverable loading={this.state.loader} style={{minHeight:'360px'}}>
-        <p style={Title}>Get started with Eacashpay</p>
-        <Row type="flex" justify="space-between" style={RowStyle}>
-          <Col className="" span={4}>
-            <img src={VerifyPhoneNumber} style={Img} alt="verify phone number" />
-            <p style={RequirementTitle}>Verify Phone Number</p>
-            <p style={Desc}>This allows us to contact you and send important updates.</p>
-          </Col>
-          <Col className="" span={4}>
-            <img src={VerifyID} style={Img} alt="submit ID"/>
-            <p style={RequirementTitle}>Submit Valid ID{`'`}s</p>
-            <p style={Desc}>Secure your account more by uploading your valid ID.</p>
-          </Col>
-          <Col className="" span={4}>
-            <img src={BillsStatement} style={Img} alt="add billing statement"/>
-            <p style={RequirementTitle}>Add Funds</p>
-            <p style={Desc}>Send and receive money straight to your account.</p>
-          </Col>
-          <Col className="" span={4}>
-            <img src={LinkEcashCard} style={Img} alt="link Ecashpay card"/>
-            <p style={RequirementTitle}>Link Ecash Card</p>
-            <p style={Desc}>Cash in instantly at any partnered outlets.</p>
-          </Col>
-        </Row>
-        <Progress percent={this.state.progressStart} status="active" style={ProgressStyle} />
-      </Card>
-    )
-  }
+
+const Requirements = ({ready, progress}) => {
+  return(
+    <Card hoverable loading={ready} style={CardStyle}>
+      <p style={Title}>Get started with Eacashpay</p>
+      <Row type="flex" justify="space-between" style={RowStyle}>
+        <Col className="" span={4}>
+          <img src={VerifyPhoneNumber} style={Img} alt="verify phone number" />
+          <p style={RequirementTitle}>Verify Phone Number</p>
+          <p style={Desc}>This allows us to contact you and send important updates.</p>
+        </Col>
+        <Col className="" span={4}>
+          <img src={VerifyID} style={Img} alt="submit ID"/>
+          <p style={RequirementTitle}>Submit Valid ID{`'`}s</p>
+          <p style={Desc}>Secure your account more by uploading your valid ID.</p>
+        </Col>
+        <Col className="" span={4}>
+          <img src={BillsStatement} style={Img} alt="add billing statement"/>
+          <p style={RequirementTitle}>Add Funds</p>
+          <p style={Desc}>Send and receive money straight to your account.</p>
+        </Col>
+        <Col className="" span={4}>
+          <img src={LinkEcashCard} style={Img} alt="link Ecashpay card"/>
+          <p style={RequirementTitle}>Link Ecash Card</p>
+          <p style={Desc}>Cash in instantly at any partnered outlets.</p>
+        </Col>
+      </Row>
+      <Progress percent={progress} status="active" style={ProgressStyle} />
+    </Card>
+  )
 }
 
 export default Requirements

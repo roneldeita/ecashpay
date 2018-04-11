@@ -7,7 +7,7 @@ import * as profileActions from '../../actions/profileAction'
 //components
 import VerificationForm from './presentation/VerificationForm'
 //services
-import { VerifyEmail, VerificationResend } from '../../services/auth'
+import { Auth } from '../../services/api'
 //ant design
 import { Modal, Form } from 'antd'
 
@@ -27,7 +27,7 @@ class VerificationPage extends React.Component {
   handleSubmit(event){
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        VerifyEmail({code:values.Code}, this.props.auth.token)
+        Auth({code:values.Code}, {token:this.props.auth.token}).verifyEmail()
         .then(res => {
           this.props.authActions.saveAuth(res.data)
           sessionStorage.removeItem('profile');
@@ -52,7 +52,7 @@ class VerificationPage extends React.Component {
     event.preventDefault()
   }
   handleResend(event){
-    VerificationResend(null, this.props.auth.token)
+    Auth(null, {token: this.props.auth.token}).verificationResend()
     .then(res => {
       Modal.success({
         title: 'Resend Verification Success',

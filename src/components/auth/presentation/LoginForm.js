@@ -15,12 +15,12 @@ import * as css from '../../../assets/styles/LoginForm'
 const FormItem = Form.Item;
 
 const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton}) => {
-  const { getFieldDecorator, isFieldTouched, getFieldError } = form;
-  const EmailError =  getFieldError('Email');
-  const PasswordError =  getFieldError('Password');
+  const { getFieldDecorator, isFieldTouched, getFieldError } = form
+  const EmailError =  getFieldError('Email')
+  const PasswordError =  getFieldError('Password')
   return (
     <Row type="flex" justify="center" style={css.Container}>
-      <Col span={13}>
+      <Col md={22} lg={22} xl={18} xxl={13}>
         <Card hoverable style={css.CardStyle}>
           <Row>
             <Col className="" style={css.FormColumn} span={13}>

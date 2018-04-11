@@ -3,10 +3,10 @@ import Navigation from '../common/Navigation'
 
 class SendMoney extends React.Component{
   render(){
-    console.log(this.props)
+    //console.log(this.props)
     return(
       <div>
-        <Navigation/>
+        <Navigation location={this.props.location}/>
         Send Money
       </div>
     )

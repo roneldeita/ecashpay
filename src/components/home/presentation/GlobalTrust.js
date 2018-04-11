@@ -10,7 +10,6 @@ const Container = {
   paddingBottom: '120px',
   color:'#383838',
   textAlign:'center',
-  backgroundColor:'#ddfaff'
 }
 
 const Title = {

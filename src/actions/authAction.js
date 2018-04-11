@@ -1,4 +1,5 @@
 import * as types from './actionTypes'
+import { isEmpty } from 'lodash'
 
 export function saveAuthSuccess(auth){
   return {type: types.SAVE_AUTH_SUCCESS, auth}
@@ -9,16 +10,16 @@ export function checkAuthSuccess(auth){
 }
 
 export function saveAuth(auth){
+  console.log(auth)
   localStorage.setItem("auth", JSON.stringify(auth))
+  //Call AuthVerify using token
   return saveAuthSuccess({token:auth.token, status: auth.status})
 }
 
 export function checkAuth(){
-  const GetAuth = localStorage.getItem("auth")
-  const ParseAuth = GetAuth ? JSON.parse(GetAuth) : ''
-
-  if(!ParseAuth){
+  const GetAuth = JSON.parse(localStorage.getItem("auth"))
+  if(isEmpty(GetAuth)){
     return checkAuthSuccess({})
   }
-  return checkAuthSuccess({token:ParseAuth.token, status: Number(ParseAuth.status)})
+  return checkAuthSuccess({token:GetAuth.token, status: Number(GetAuth.status)})
 }

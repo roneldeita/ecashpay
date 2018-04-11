@@ -9,8 +9,7 @@ import { camelCase } from 'lodash'
 //ant design
 import { Form } from 'antd'
 //services
-import { CompleteProfile } from '../../services/auth'
-import { AllCountries } from '../../services/restcountries'
+import { Auth, Country } from '../../services/api'
 //child component
 import ProfileForm from './presentation/ProfileForm'
 
@@ -50,9 +49,13 @@ class ProfilePage extends React.Component{
           }
           Data[camelCase(index)]=value
         })
-        CompleteProfile(Data, this.props.auth.token)
-        .then(res => {
-          this.props.authActions.saveAuth(res.data)
+        Auth(Data, {token:this.props.auth.token}).completeProfile()
+        .then( res => {
+          const Auth = localStorage.getItem("auth")
+          const parsedAuth = JSON.parse(Auth)
+          parsedAuth.status = 2;
+          //console.log(res)
+          this.props.authActions.saveAuth(parsedAuth)
           sessionStorage.removeItem('profile');
           this.props.profileAction.loadProfile(res.data.token)
           window.location.href = '/client/dashboard'
@@ -73,7 +76,7 @@ class ProfilePage extends React.Component{
     event.preventDefault()
   }
   componentDidMount(){
-    AllCountries()
+    Country().All()
     .then(res => {
       const Countries = []
       Object.entries(res.data).forEach(([index,value])=>{

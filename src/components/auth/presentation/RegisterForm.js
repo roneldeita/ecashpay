@@ -26,7 +26,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
   const AccTypeError =  getFieldError('Account Type');
   return (
     <Row type="flex" justify="center" style={css.Container}>
-      <Col span={13}>
+      <Col md={22} lg={22} xl={18} xxl={13}>
         <Card hoverable style={css.CardStyle}>
           <Row>
             <Col className="" style={css.FormColumn} span={13}>

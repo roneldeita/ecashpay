@@ -5,11 +5,18 @@ import {Row, Col, Icon} from 'antd'
 const Container = {
   textAlign:'center',
   backgroundColor:'#ffffff',
-  marginTop:'-30px'
+}
+const ActiveTab = {
+  display:'inline-block',
+  width: '100%',
+  padding:'20px 0px',
+  color:'rgb(29, 161, 242)',
+  borderBottom: '2px solid rgb(29, 161, 242)'
 }
 const Tab = {
   display:'inline-block',
-  margin:'20px 0px',
+  width: '100%',
+  padding:'20px 0px',
   color:'rgb(85, 95, 97)'
 }
 const TabIcon = {
@@ -24,7 +31,7 @@ const TabName = {
 
 class Navigation extends React.Component{
   render(){
-    //console.log(this.props)
+    const Path = this.props.location.pathname
     return(
       <div className="" style={Container}>
         <Row type="flex" justify="center">
@@ -32,18 +39,18 @@ class Navigation extends React.Component{
             <Row>
               <Col className="" span={4}>
                 <Link to="/client/dashboard" style={Tab}>
-                  <Icon type="dashboard" style={TabIcon}/>
+                  <Icon type="arrow-left" style={TabIcon}/>
                   <p style={TabName}>Dashboard</p>
                 </Link>
               </Col>
               <Col className="" span={4}>
-                <Link to="/client/addfunds" style={Tab}>
+                <Link className="" to="/client/addfunds" style={ (Path === '/client/addfunds' ? ActiveTab : Tab) }>
                   <Icon type="wallet" style={TabIcon}/>
                   <p style={TabName}>Add Funds</p>
                 </Link>
               </Col>
               <Col className="" span={4}>
-                <Link to="/client/sendmoney" style={Tab}>
+                <Link to="/client/sendmoney" style={ (Path === '/client/sendmoney' ? ActiveTab : Tab) }>
                   <Icon type="rocket" style={TabIcon}/>
                   <p style={TabName}>Send Money</p>
                 </Link>

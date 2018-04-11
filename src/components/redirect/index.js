@@ -12,7 +12,7 @@ class RedirectPage extends React.Component {
   render(){
     console.log(this.props)
     return (
-      <div style={{margin:'250px 0px',textAlign:'center'}}>
+      <div style={{margin:'250px 0px', textAlign:'center'}}>
         <p style={{fontSize:'40px'}}>Redirecting...</p>
         <p style={{fontSize:'16px',marginTop:'-50px'}}>Please click <a href="/">here</a> if you are not redirected within a few seconds</p>
       </div>
