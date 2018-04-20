@@ -50,9 +50,10 @@ const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton}) => {
                       { min:6 }
                     ],
                   })(
-                    <Input placeholder="Password" type="password" size="large" prefix={<Icon type="lock" style={css.PrefixIcon} /> }/>
+                    <Input placeholder="Password" type="password" prefix={<Icon type="lock" style={css.PrefixIcon} /> }/>
                   )}
                 </FormItem>
+                <div style={{textAlign:'right'}}><Link to="/password/request">Forgot password?</Link></div>
                 <FormItem>
                   <Button type="primary" htmlType="submit" loading={buttonState} onClick={onClickLoginButton}>{buttonState ? 'logging in..' : 'Login'}</Button>
                 </FormItem>
@@ -70,15 +71,15 @@ const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton}) => {
           height: auto;
           width: 100%;
           font-size: 18px;
-          padding-top: 8px;
-          padding-bottom: 8px;
+          padding-top: 6px;
+          padding-bottom: 6px;
           margin-top:10px
         }
         .ant-input{
           height: auto;
           font-size:16px;
-          padding-top:10px;
-          padding-bottom:10px;
+          padding-top:8px;
+          padding-bottom:8px;
         }
         .ant-input-affix-wrapper .ant-input:not(:first-child){
           padding-left:45px

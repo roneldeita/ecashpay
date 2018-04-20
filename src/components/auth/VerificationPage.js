@@ -27,11 +27,10 @@ class VerificationPage extends React.Component {
   handleSubmit(event){
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        Auth({code:values.Code}, {token:this.props.auth.token}).verifyEmail()
+        Auth({code:values.Code}, {'x-access-token':this.props.auth.token}).verifyEmail()
         .then(res => {
-          this.props.authActions.saveAuth(res.data)
           sessionStorage.removeItem('profile');
-          this.props.profileAction.loadProfile(res.data.token)
+          this.props.profileAction.loadProfile(this.props.auth.token)
           window.location.href = '/profile'
         })
         .catch(error => {
@@ -52,7 +51,7 @@ class VerificationPage extends React.Component {
     event.preventDefault()
   }
   handleResend(event){
-    Auth(null, {token: this.props.auth.token}).verificationResend()
+    Auth(null, {'x-access-token': this.props.auth.token}).verificationResend()
     .then(res => {
       Modal.success({
         title: 'Resend Verification Success',
@@ -74,7 +73,7 @@ class VerificationPage extends React.Component {
           email={this.props.profile.email}
           form={this.props.form}
           buttonState={this.state.buttonState}
-          onClickSubmitButton ={this.onClickSubmitButton}
+          onClickSubmitButton={this.onClickSubmitButton}
           onSubmit={this.handleSubmit}
           onResend={this.handleResend}
         />

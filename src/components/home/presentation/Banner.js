@@ -56,26 +56,26 @@ const CurveStyle = {
 }
 const ScreenStyle = {
   position: 'absolute',
-  transform:'translate(35%, 60%)',
+  transform:'translate(35%, 40%)',
   width:'60%',
   animation: 'float-screen 4s ease-in-out infinite',
 }
 const CardReaderStyle = {
   position: 'absolute',
-  transform:'translate(195%, 35%)',
+  transform:'translate(195%, 5%)',
   width:'15%',
   animation: 'float-card-reader 4s ease-in-out infinite',
 }
 const CardStyle = {
   position: 'absolute',
-  transform:'translate(255%, 185%)',
+  transform:'translate(255%, 130%)',
   width:'25%',
   animation: 'float-card 4s ease-in-out infinite',
 }
 
 const DollarStyle = {
   position: 'absolute',
-  transform:'translate(490%, 140%)',
+  transform:'translate(490%, 70%)',
   width:'10%',
   animation: 'dollar-sign 4s ease-in-out infinite',
 }
@@ -103,7 +103,7 @@ const Banner = () => {
             </a>
         </Col>
         <Col span={9} style={LeftCol} className="">
-            <div className="" style={{height:'100%', overflow:'hidden'}}>
+            <div className="" style={{height:'100%'}}>
               <ScrollAnimation animateIn='fadeIn' initiallyVisible={false} animateOnce={true}>
                 <img style={BlueMapStyle} src={BlueMap} alt="Blue Map"/>
               </ScrollAnimation>
@@ -125,56 +125,56 @@ const Banner = () => {
             </div>
         </Col>
       </Row>
-      <Row>
+      {/*<Row>
         <Col span={24} style={{padding:'50px 0px', backgroundColor: '#1DA1F2'}}>
         </Col>
-      </Row>
+      </Row>*/}
       <style jsx="true">{`
         .anchor-watch:hover span{
           border-bottom: 1px solid #1890ff;
         }
         @keyframes float-card-reader {
           0% {
-            transform: translate(195%, 35%)
+            transform: translate(195%, 5%)
           }
           30% {
-            transform: translate(200%, 35%)
+            transform: translate(205%, 5%)
           }
           100% {
-            transform: translate(195%, 35%)
+            transform: translate(195%, 5%)
           }
         }
         @keyframes float-card {
           0% {
-            transform: translate(255%, 185%)
+            transform: translate(255%, 130%)
           }
           70% {
-            transform: translate(250%, 185%)
+            transform: translate(250%, 130%)
           }
           100% {
-            transform: translate(255%, 185%)
+            transform: translate(255%, 130%)
           }
         }
         @keyframes dollar-sign {
           0% {
-            transform: translate(490%, 140%)
+            transform: translate(490%, 70%)
           }
           50% {
-            transform: translate(490%, 160%)
+            transform: translate(490%, 90%)
           }
           100% {
-            transform: translate(490%, 140%)
+            transform: translate(490%, 70%)
           }
         }
         @keyframes float-screen {
           0% {
-            transform: translate(35%, 60%)
+            transform: translate(35%, 40%)
           }
           65% {
-            transform: translate(35%, 56%)
+            transform: translate(35%, 36%)
           }
           100% {
-            transform: translate(35%, 60%)
+            transform: translate(35%, 40%)
           }
         }
       `}

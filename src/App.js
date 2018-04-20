@@ -49,7 +49,7 @@ import 'antd/lib/switch/style/css'
 //animate-on-scroll
 import "animate.css/animate.min.css";
 //lodash
-//import { isEqual } from 'lodash'
+//import { isEmpty } from 'lodash'
 //components
 import TopNavigation from './components/template/TopNavigation'
 import BottomNavigation from './components/template/BottomNavigation'
@@ -58,6 +58,8 @@ import AdminTopNavigation from './components/template/AdminTopNavigation'
 //images
 import EpayLogo from './assets/images/Ecashpay_Logo_White.png'
 import EpayLogoMini from './assets/images/Ecashpay_Logo_White_Mini.png'
+//api services
+//import { Auth } from './services/api'
 //styles
 const LogoContainer = {
   margin:'20px 10px 20px 10px',
@@ -125,7 +127,7 @@ class App extends Component {
     }
   }
   hideTopNavigation(){
-    const paths = ['/login', '/register', '/verify', '/redirecting', '/admin', '/admin/transactions']
+    const paths = ['/login', '/register', '/verify', '/redirecting', '/admin', '/admin/transactions', '/password/request', '/password/reset']
     if(paths.includes(this.props.location.pathname)){
       return 'none'
     }
@@ -138,38 +140,12 @@ class App extends Component {
     }
     return 'none'
   }
-  isLoggedIn(){
-    const Status = this.props.auth.status
-    if(this.props.loggedIn){
-      switch(Status){
-        case 0:
-          window.location.href = '/verify'
-          break;
-        case 1:
-          window.location.href = '/profile'
-          break;
-        case 2:
-          //this.props.history.push('/client/dashboard')
-           //window.location.href = '/client/dashboard'
-          break;
-        default:
-          window.location.href = '/login'
-      }
-    }
-  }
   handleLogOut(){
     localStorage.removeItem('auth')
     sessionStorage.removeItem('profile')
     window.location.href = '/login'
   }
-  componentWillReceiveProps(nextProps){
-    this.isLoggedIn()
-  }
-  // shouldComponentUpdate(prevProps){
-  //   return !isEqual(prevProps, this.props);
-  // }
   render() {
-    //console.log(this.props)
     return (
       <IntlProvider locale={this.props.locale} messages={this.translateContent(this.props.locale)}>
         <div className="App">
@@ -234,10 +210,12 @@ function mapDispatchToProps(dispatch){
     authActions: bindActionCreators(authActions, dispatch)
   }
 }
+
 App.propTypes = {
   children: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
   auth: PropTypes.object.isRequired,
   localeActions: PropTypes.objectOf(PropTypes.func).isRequired
 }
+
 export default  withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

@@ -13,8 +13,8 @@ import * as css from '../../../assets/styles/VerificationForm'
 const FormItem = Form.Item;
 
 const VerificationForm = ({email, form, buttonState, onSubmit, onResend, onClickSubmitButton}) => {
-  const { getFieldDecorator, getFieldError } = form;
-  const CodeError =  getFieldError('Code');
+  const { getFieldDecorator, getFieldError } = form
+  const CodeError =  getFieldError('Code')
   return (
     <Row type="flex" justify="center" style={css.Container}>
       <Col md={22} lg={22} xl={18} xxl={13}>
@@ -42,7 +42,7 @@ const VerificationForm = ({email, form, buttonState, onSubmit, onResend, onClick
                   <Button type="primary" htmlType="submit" loading={buttonState} onClick={onClickSubmitButton}>{buttonState ? 'Verifying..' : 'Submit'}</Button>
                 </FormItem>
               </Form>
-              <p>Haven{`'`}t received a verification? <a onClick={onResend}>Resend</a></p>
+              <p>Haven't received a verification? <a onClick={onResend}>Resend</a></p>
             </Col>
             <Col style={css.Column} span={11}>
               <RightSection />
@@ -55,8 +55,8 @@ const VerificationForm = ({email, form, buttonState, onSubmit, onResend, onClick
           height: auto;
           width: 100%;
           font-size: 18px;
-          padding-top: 8px;
-          padding-bottom: 8px;
+          padding-top: 6px;
+          padding-bottom: 6px;
           margin-top:10px
         }
         .ant-input{

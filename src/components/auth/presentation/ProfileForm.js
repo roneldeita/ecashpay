@@ -2,16 +2,6 @@ import React from 'react'
 // import moment from 'moment';
 import {Row, Col, Card, Icon, Button, Form, Input, DatePicker, Select} from 'antd'
 
-// import 'antd/lib/row/style/css'
-// import 'antd/lib/col/style/css'
-// import 'antd/lib/card/style/css'
-// import 'antd/lib/icon/style/css'
-// import 'antd/lib/form/style/css'
-// import 'antd/lib/input/style/css'
-// import 'antd/lib/date-picker/style/css'
-// import 'antd/lib/select/style/css'
-// import 'antd/lib/button/style/css'
-
 const FormItem = Form.Item;
 
 const AntContainer = {
@@ -31,11 +21,15 @@ const Title = {
   fontWeight: 500
 }
 const AntForm = {
-  margin:'60px 0px'
+  margin:'100px 0px'
 }
 const Flag = {
   width:'20px',
   marginTop: '-3px'
+}
+const Label = {
+  labelCol: { span:6 },
+  wrapperCol: { span:18 }
 }
 
 const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonState, onClickCompleteButton}) => {
@@ -61,17 +55,18 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
   );
   return(
     <Row type="flex" justify="center" style={AntContainer}>
-      <Col span={11}>
+      <Col sm={24} md={11}>
         <Card hoverable>
           <div style={Head}>
             <Icon type="user" style={UseIcon} className="user"/>
             <p style={Title}>Complete your personal profile</p>
           </div>
           <Row type="flex" justify="center">
-            <Col sm={24} md={16}>
+            <Col span={20}>
               <Form onSubmit={onSubmit} style={AntForm}>
-                <label>First Name</label>
                 <FormItem
+                  label="First Name"
+                  {...Label}
                   className="name"
                   hasFeedback={isFieldTouched('First Name')}
                   validateStatus={FirstNameError ? 'error' : 'success'}
@@ -86,8 +81,9 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     <Input size="large"/>
                   )}
                 </FormItem>
-                <label>Last Name</label>
                 <FormItem
+                  label="Last Name"
+                  {...Label}
                   className="name"
                   hasFeedback={isFieldTouched('Last Name')}
                   validateStatus={LastNameError ? 'error' : 'success'}
@@ -102,8 +98,9 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     <Input size="large"/>
                   )}
                 </FormItem>
-                <label>Birthdate</label>
                 <FormItem
+                  label="Birthdate"
+                  {...Label}
                   hasFeedback={isFieldTouched('Birth Date')}
                   validateStatus={BirthDateError ? 'error' : 'success'}
                   help={BirthDateError || ''}>
@@ -115,22 +112,26 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     <DatePicker size="large" placeholder="YYYY-DD-MM" format="YYYY-DD-MM" style={{width:'100%'}} />
                   )}
                 </FormItem>
-                <label>Phone Number</label>
                 <FormItem
+                  label="Phone Number"
+                  {...Label}
                   hasFeedback={isFieldTouched('Phone Number')}
                   validateStatus={PhoneNumberError ? 'error' : 'success'}
                   help={PhoneNumberError || ''}>
                   {getFieldDecorator('Phone Number', {
                     rules: [
                       { required: true },
+                      { max: 10 },
+                      { min: 10 },
                       { pattern: /^[0-9]+$/, message: 'Phone Number should only contain numbers' }
                     ],
                   })(
                     <Input addonBefore={prefixSelector} size="large" />
                   )}
                 </FormItem>
-                <label>Address line 1</label>
                 <FormItem
+                  label="Address line 1"
+                  {...Label}
                   hasFeedback={isFieldTouched('Address line 1')}
                   validateStatus={Address1Error ? 'error' : 'success'}
                   help={Address1Error || ''}>
@@ -142,8 +143,9 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     <Input size="large"/>
                   )}
                 </FormItem>
-                <label>Address line 2 (Optional)</label>
                 <FormItem
+                  label="Address line 2"
+                  {...Label}
                   hasFeedback={isFieldTouched('Address line 2')}
                   validateStatus={Address2Error ? 'error' : 'success'}
                   help={Address2Error || ''}>
@@ -153,8 +155,9 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     <Input size="large"/>
                   )}
                 </FormItem>
-                <label>City / Municipality</label>
                 <FormItem
+                  label="City / Municipality"
+                  {...Label}
                   hasFeedback={isFieldTouched('City / Municipality')}
                   validateStatus={CityMunicipalityError ? 'error' : 'success'}
                   help={CityMunicipalityError || ''}>
@@ -166,8 +169,9 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     <Input size="large"/>
                   )}
                 </FormItem>
-                <label>Region / State / Province</label>
                 <FormItem
+                  label="Region / State / Province"
+                  {...Label}
                   hasFeedback={isFieldTouched('Region / State / Province')}
                   validateStatus={RegionStateProvinceError ? 'error' : 'success'}
                   help={RegionStateProvinceError || ''}>
@@ -179,8 +183,9 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     <Input size="large"/>
                   )}
                 </FormItem>
-                <label>Country</label>
                 <FormItem
+                  label="Country"
+                  {...Label}
                   hasFeedback={isFieldTouched('Country')}
                   validateStatus={CountryError ? 'error' : 'success'}
                   help={CountryError || ''}>
@@ -199,8 +204,9 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     </Select>
                   )}
                 </FormItem>
-                <label>What will be your primary currency?</label>
                 <FormItem
+                  label="Currency"
+                  {...Label}
                   hasFeedback={isFieldTouched('Currency')}
                   validateStatus={CurrencyError ? 'error' : 'success'}
                   help={CurrencyError || ''}>
@@ -219,7 +225,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   )}
                 </FormItem>
                 <br/>
-                <FormItem>
+                <FormItem wrapperCol={{ span: 18, offset: 6 }}>
                   <Button type="primary" htmlType="submit" size="large" style={{width:'100%'}} loading={buttonState} onClick={onClickCompleteButton}>{buttonState ? 'Completing...' : 'Complete Profile'}</Button>
                 </FormItem>
               </Form>

@@ -1,14 +1,14 @@
 import { combineReducers } from 'redux'
-import cart from './cart'
 import locale from './localeReducer'
 import auth from './authReducer'
 import profile from './profileReducer'
+// import cart from './cart'
 
 const rootReducer = combineReducers({
-  cart,
   locale,
   auth,
-  profile
+  profile,
+  // cart,
 })
 
 export default rootReducer;

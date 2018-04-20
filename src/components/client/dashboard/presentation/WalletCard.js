@@ -1,18 +1,18 @@
 import React from 'react'
 import { isEmpty } from 'lodash'
 import { Link } from 'react-router-dom'
-import {Card, Divider, Button, Icon} from 'antd'
+import {Card} from 'antd'
 
 const CardStyle = {
   margin: '0px',
   padding: '0px',
   cursor:'auto'
 }
-const Title = {
-  fontSize:'20px',
-  fontWeight:600,
-  marginBottom:'20px'
-}
+// const Title = {
+//   fontSize:'20px',
+//   fontWeight:600,
+//   marginBottom:'20px'
+// }
 const Balance = {
   fontSize:'30px',
   color: 'rgb(29, 161, 242)',
@@ -29,10 +29,6 @@ const CurrencyBal = {
   fontSize: '16px',
   float:'right'
 }
-const AddFundButton = {
-  paddingRight:'35px',
-  paddingLeft:'35px'
-}
 const renderCurrencies = (currencies) => {
   return currencies.map((currency, index) =>{
     return (
@@ -43,25 +39,38 @@ const renderCurrencies = (currencies) => {
     )
   })
 }
+const renderPrimaryCurrency = (currencies) => {
+  return currencies.map((currency, index) => {
+    return currency.primary ? (
+      <p key={index} style={Balance}>
+        <span style={{fontWeight:400}}>{currency.symbol}</span>
+        <span style={{fontWeight:500}}> {currency.balance}</span>
+        <span style={{fontWeight:400}}> {currency.code}*</span>
+      </p> ) : ''
+  })
+}
 
-const WalletCard = ({ready, currencies}) => {
+export default ({ready, currencies}) => {
+  //console.log(currencies)
   return(
-    <Card hoverable loading={ready} style={CardStyle}>
-      <Link style={{float: 'right'}} to='/client/manage/currencies'><span>Manage Currencies <Icon type="caret-right" style={{fontSize:'11px'}}/></span></Link>
-      <p style={Title}>Ecash</p>
+    <Card hoverable
+      className="wallet-card"
+      title="Ecash"
+      loading={ready}
+      style={CardStyle}
+      actions={[
+        <Link to="/client/addfunds">Add Funds</Link>,
+        <Link to="/client/manage/currencies">Manage Currencies</Link>]}>
+      {/*<Link style={{float: 'right'}} to='/client/manage/currencies'><span>Manage Currencies <Icon type="caret-right" style={{fontSize:'11px'}}/></span></Link>*/}
+      {/*<p style={Title}>Ecash</p>*/}
       <p style={{marginBottom:'0px'}}>Available</p>
-      <p style={Balance}>
-        <span style={{fontWeight:600}}>&#8369;</span>
-        <span style={{fontWeight:700}}> 00.00 </span>
-        <span style={{fontWeight:600}}>PHP*</span>
-      </p>
+      <div>
+        {!isEmpty(currencies) ?  renderPrimaryCurrency(currencies) : '<p>Error Fetching Your Wallet</p>'}
+      </div>
       <div style={CurrencyContainer}>
         {!isEmpty(currencies) ?  renderCurrencies(currencies) : '<p>Error Fetching Your Wallet</p>'}
       </div>
-      <Divider/>
-      <Button type="primary" size="large" style={AddFundButton}><Link to="/client/addfunds"><Icon type="wallet"/> Add Funds</Link></Button>
+      {/*<Button type="primary" size="large" style={AddFundButton}><Link to="/client/addfunds"><Icon type="wallet"/> Add Funds</Link></Button>*/}
     </Card>
   )
 }
-
-export default WalletCard

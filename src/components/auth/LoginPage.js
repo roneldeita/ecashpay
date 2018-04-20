@@ -46,7 +46,6 @@ class LoginPage extends React.Component {
           setTimeout(() => {
             this.setState({buttonState:false})
           }, 800)
-          console.log(err)
           Modal.error({
             title: 'Login Error',
             content: err.response.data.message,

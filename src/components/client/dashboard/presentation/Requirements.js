@@ -1,5 +1,7 @@
 import React from 'react'
-import {Card, Row, Col, Progress} from 'antd'
+import {Link} from 'react-router-dom'
+import {Card, Row, Col, Progress, Button, Icon} from 'antd'
+import {includes} from 'lodash'
 import VerifyPhoneNumber from '../../../../assets/images/Verify_Number.png'
 import VerifyID from '../../../../assets/images/Verify_ID.png'
 import BillsStatement from '../../../../assets/images/Bills_Statement.png'
@@ -14,14 +16,21 @@ const CardStyle = {
 const RowStyle ={
   textAlign:'center'
 }
-const Title = {
-  fontSize:'18px',
-  fontWeight:600,
-  marginBottom:'30px'
-}
+// const Title = {
+//   fontSize:'18px',
+//   fontWeight:600,
+//   marginBottom:'30px'
+// }
 const Img = {
   width:'80%',
   marginBottom:'8px'
+}
+const Btn = {
+  height:'100%',
+  width:'80%',
+  padding:'5px',
+  marginBottom:'8px',
+  backgroundColor:'#f0f5ff'
 }
 const ProgressStyle = {
   marginTop: '30px'
@@ -36,15 +45,32 @@ const Desc = {
   lineHeight: '13px'
 }
 
-const Requirements = ({ready, progress}) => {
+export default ({ready, progress, levels}) => {
   return(
-    <Card hoverable loading={ready} style={CardStyle}>
-      <p style={Title}>Get started with Eacashpay</p>
+    <Card
+      hoverable
+      title="Get started with Eacashpay"
+      loading={ready}
+      style={CardStyle}>
+      {/*<p style={Title}>Get started with Eacashpay</p>*/}
       <Row type="flex" justify="space-between" style={RowStyle}>
         <Col className="" span={4}>
-          <img src={VerifyPhoneNumber} style={Img} alt="verify phone number" />
-          <p style={RequirementTitle}>Verify Phone Number</p>
-          <p style={Desc}>This allows us to contact you and send important updates.</p>
+          { includes(levels,1)
+            ?
+            <div>
+              <Button type="dashed" shape="circle" style={Btn}>
+                <Icon type="check" style={{fontSize:'100px', padding:'2px', color:'#91d5ff'}}/>
+              </Button>
+              <p style={RequirementTitle}>Verify Phone Number</p>
+              <p style={Desc}>This allows us to contact you and send important updates.</p>
+            </div>
+            :
+            <Link to="/client/verify/phone">
+              <img src={VerifyPhoneNumber} style={Img} alt="verify phone number" />
+              <p style={RequirementTitle}>Verify Phone Number</p>
+              <p style={Desc}>This allows us to contact you and send important updates.</p>
+            </Link>
+          }
         </Col>
         <Col className="" span={4}>
           <img src={VerifyID} style={Img} alt="submit ID"/>
@@ -66,5 +92,3 @@ const Requirements = ({ready, progress}) => {
     </Card>
   )
 }
-
-export default Requirements

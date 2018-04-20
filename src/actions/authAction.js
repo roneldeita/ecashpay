@@ -10,16 +10,16 @@ export function checkAuthSuccess(auth){
 }
 
 export function saveAuth(auth){
-  console.log(auth)
   localStorage.setItem("auth", JSON.stringify(auth))
   //Call AuthVerify using token
-  return saveAuthSuccess({token:auth.token, status: auth.status})
+  //return saveAuthSuccess({token:auth.token, status: auth.status})
+  return saveAuthSuccess({token:auth.token})
 }
 
 export function checkAuth(){
-  const GetAuth = JSON.parse(localStorage.getItem("auth"))
+  const GetAuth = localStorage.getItem("auth") ? JSON.parse(localStorage.getItem("auth")) : {}
   if(isEmpty(GetAuth)){
     return checkAuthSuccess({})
   }
-  return checkAuthSuccess({token:GetAuth.token, status: Number(GetAuth.status)})
+  return checkAuthSuccess({token:GetAuth.token})
 }

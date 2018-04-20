@@ -4,15 +4,6 @@ import {Card, Row, Col, Form, Input, Radio, Button, Icon } from 'antd'
 import RightSection from './RightSection'
 import * as css from '../../../assets/styles/RegisterForm'
 
-// import 'antd/lib/card/style/css'
-// import 'antd/lib/col/style/css'
-// import 'antd/lib/row/style/css'
-// import 'antd/lib/form/style/css'
-// import 'antd/lib/input/style/css'
-// import 'antd/lib/radio/style/css'
-// import 'antd/lib/button/style/css'
-// import 'antd/lib/icon/style/css'
-
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 
@@ -74,7 +65,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                           { validator: checkPassword }
                         ],
                       })(
-                        <Input placeholder="Password" type="password" size="large" prefix={<Icon type="lock" style={css.PrefixIcon} /> }/>
+                        <Input placeholder="Password" type="password" size="large" prefix={<Icon type="key" style={css.PrefixIcon} /> }/>
                       )}
                     </FormItem>
                   </Col>
@@ -90,7 +81,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                           { validator: checkConfirm }
                         ],
                       })(
-                        <Input placeholder="Confirm Password" type="password" size="large" prefix={<Icon type="lock" style={css.PrefixIcon} /> }/>
+                        <Input placeholder="Confirm Password" type="password" size="large" prefix={<Icon type="key" style={css.PrefixIcon} /> }/>
                       )}
                     </FormItem>
                   </Col>
@@ -144,15 +135,15 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
           height: auto;
           width: 100%;
           font-size: 18px;
-          padding-top: 8px;
-          padding-bottom: 8px;
+          padding-top: 6px;
+          padding-bottom: 6px;
           margin-top:10px
         }
         .ant-input{
           height: auto;
           font-size:16px;
-          padding-top:10px;
-          padding-bottom:10px;
+          padding-top:8px;
+          padding-bottom:8px;
         }
         .ant-input-affix-wrapper .ant-input:not(:first-child){
           padding-left:45px

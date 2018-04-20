@@ -49,15 +49,15 @@ class ProfilePage extends React.Component{
           }
           Data[camelCase(index)]=value
         })
-        Auth(Data, {token:this.props.auth.token}).completeProfile()
+        Auth(Data, {'x-access-token':this.props.auth.token}).completeProfile()
         .then( res => {
-          const Auth = localStorage.getItem("auth")
-          const parsedAuth = JSON.parse(Auth)
-          parsedAuth.status = 2;
+          // const Auth = localStorage.getItem("auth")
+          // const parsedAuth = JSON.parse(Auth)
+          // parsedAuth.status = 2;
           //console.log(res)
-          this.props.authActions.saveAuth(parsedAuth)
+          //this.props.authActions.saveAuth(parsedAuth)
           sessionStorage.removeItem('profile');
-          this.props.profileAction.loadProfile(res.data.token)
+          this.props.profileAction.loadProfile(this.props.auth.token)
           window.location.href = '/client/dashboard'
         })
         .catch(err => {

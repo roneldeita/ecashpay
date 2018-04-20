@@ -6,21 +6,21 @@ import Routes from './routes'
 
 import './index.css'
 
-import { loadLocale } from './actions/localeAction';
-import { checkAuth } from './actions/authAction';
-import { loadProfile } from './actions/profileAction';
+import { loadLocale } from './actions/localeAction'
+import { checkAuth } from './actions/authAction'
+import { loadProfile } from './actions/profileAction'
 
 const StoreInstance = Store()
 
 StoreInstance.dispatch(loadLocale())
 StoreInstance.dispatch(checkAuth())
+//StoreInstance.dispatch(loadProfile())
+
 //load profile
 const Token = StoreInstance.getState().auth.token
 if(Token !== undefined){
-  StoreInstance.dispatch(loadProfile(Token))
+  StoreInstance.dispatch(loadProfile())
 }
-
-//console.log(typeof StoreInstance.getState().locale.toLowerCase())
 
 ReactDOM.render(
   <Routes store={StoreInstance} />,
@@ -28,8 +28,7 @@ ReactDOM.render(
 )
 
 // subscribe to store
-//console.log(StoreInstance.getState())
-
+// console.log(StoreInstance.getState())
 
 // dispatch sample to store
 // StoreInstance.dispatch({type:'ADD_TO_CART', item:'testing'})
