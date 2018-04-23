@@ -1,0 +1,75 @@
+{
+  "_from": "react-s3",
+  "_id": "react-s3@1.2.4",
+  "_inBundle": false,
+  "_integrity": "sha512-aA16O3qB8cxvYclwfcwyMVhp9InBcn0We+qpIwxmo/XcqjXIi4KqgSc2oFV0FWQzqNLgqRdPz1hpj91q8aC+SQ==",
+  "_location": "/react-s3",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "react-s3",
+    "name": "react-s3",
+    "escapedName": "react-s3",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/react-s3/-/react-s3-1.2.4.tgz",
+  "_shasum": "2fe5ef25872d90ea2f1dfad68ab073c63af0d3ea",
+  "_spec": "react-s3",
+  "_where": "C:\\Users\\ui\\Desktop\\ecashpay",
+  "author": {
+    "name": "Faustino Kialungila"
+  },
+  "bugs": {
+    "url": "https://github.com/Fausto95/react-s3/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "crypto-js": "^3.1.9-1"
+  },
+  "deprecated": false,
+  "description": "A React library for AWS S3 image upload",
+  "devDependencies": {
+    "babel-cli": "^6.24.0",
+    "babel-jest": "^19.0.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-preset-stage-3": "^6.22.0",
+    "json-loader": "^0.5.7",
+    "webpack": "^3.8.1"
+  },
+  "files": [
+    "lib",
+    "src",
+    "index.js"
+  ],
+  "homepage": "https://github.com/Fausto95/react-s3#readme",
+  "keywords": [
+    "react",
+    "react-aws3",
+    "react-component",
+    "aws",
+    "s3",
+    "image",
+    "upload"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "react-s3",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fausto95/react-s3.git"
+  },
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "clean": "rm -rf lib",
+    "prepublish": "npm run clean && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.2.4"
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Select, Input, Button } from 'antd'
+import { Form, Select, Input, Button, Modal } from 'antd'
 import { Country, Phone } from '../../../../services/api'
 
 class StepOne extends React.Component{
@@ -26,7 +26,10 @@ class StepOne extends React.Component{
           this.props.changeStep({step:1, phone:values['Phone Number'], code: CallingCode[1]})
           this.setState({buttonState:false})
         }).catch(err => {
-          console.log(err)
+          Modal.error({
+            title: 'Phone verification error',
+            content: err.response.data.message,
+          })
           setTimeout(()=>{
             this.setState({buttonState:false})
           }, 800)

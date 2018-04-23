@@ -8,11 +8,6 @@ const CardStyle = {
   padding: '0px',
   cursor:'auto'
 }
-// const Title = {
-//   fontSize:'20px',
-//   fontWeight:600,
-//   marginBottom:'20px'
-// }
 const Balance = {
   fontSize:'30px',
   color: 'rgb(29, 161, 242)',

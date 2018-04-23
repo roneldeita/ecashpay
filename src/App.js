@@ -46,6 +46,8 @@ import 'antd/lib/table/style/css'
 import 'antd/lib/alert/style/css'
 import 'antd/lib/tag/style/css'
 import 'antd/lib/switch/style/css'
+import 'antd/lib/upload/style/css'
+import 'antd/lib/avatar/style/css'
 //animate-on-scroll
 import "animate.css/animate.min.css";
 //lodash

@@ -1,11 +1,12 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {Card, Row, Col, Progress, Button, Icon} from 'antd'
+import {Card, Row, Col, Progress} from 'antd'
 import {includes} from 'lodash'
 import VerifyPhoneNumber from '../../../../assets/images/Verify_Number.png'
 import VerifyID from '../../../../assets/images/Verify_ID.png'
 import BillsStatement from '../../../../assets/images/Bills_Statement.png'
 import LinkEcashCard from '../../../../assets/images/Link_EcashCard.png'
+import Check from '../../../../assets/images/check.png'
 
 const CardStyle = {
   minHeight:'360px',
@@ -24,13 +25,6 @@ const RowStyle ={
 const Img = {
   width:'80%',
   marginBottom:'8px'
-}
-const Btn = {
-  height:'100%',
-  width:'80%',
-  padding:'5px',
-  marginBottom:'8px',
-  backgroundColor:'#f0f5ff'
 }
 const ProgressStyle = {
   marginTop: '30px'
@@ -58,9 +52,7 @@ export default ({ready, progress, levels}) => {
           { includes(levels,1)
             ?
             <div>
-              <Button type="dashed" shape="circle" style={Btn}>
-                <Icon type="check" style={{fontSize:'100px', padding:'2px', color:'#91d5ff'}}/>
-              </Button>
+              <img src={Check} style={Img} alt="check" />
               <p style={RequirementTitle}>Verify Phone Number</p>
               <p style={Desc}>This allows us to contact you and send important updates.</p>
             </div>
@@ -73,9 +65,20 @@ export default ({ready, progress, levels}) => {
           }
         </Col>
         <Col className="" span={4}>
-          <img src={VerifyID} style={Img} alt="submit ID"/>
-          <p style={RequirementTitle}>Submit Valid ID{`'`}s</p>
-          <p style={Desc}>Secure your account more by uploading your valid ID.</p>
+          { includes(levels, 2)
+            ?
+            <div>
+              <img src={Check} style={Img} alt="check" />
+              <p style={RequirementTitle}>Submit Valid ID</p>
+              <p style={Desc}>Secure your account more by uploading your government-issued ID.</p>
+            </div>
+            :
+            <Link to="/client/upload/id">
+              <img src={VerifyID} style={Img} alt="submit ID"/>
+              <p style={RequirementTitle}>Submit Valid ID</p>
+              <p style={Desc}>Secure your account more by uploading your government-issued ID.</p>
+            </Link>
+          }
         </Col>
         <Col className="" span={4}>
           <img src={BillsStatement} style={Img} alt="add billing statement"/>

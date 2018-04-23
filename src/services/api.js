@@ -21,6 +21,14 @@ export function Phone(data, header){
   }
 }
 
+export function Id(data, header){
+  return {
+    SubmitId: () => axios.post(process.env.REACT_APP_API + '/profiles/kyc/requirements/ids', data, {headers:header}),
+    Check: () => axios.get(process.env.REACT_APP_API + '/profiles/kyc/requirements/ids', {headers:header}),
+    Cancel: () => axios.delete(process.env.REACT_APP_API + '/profiles/kyc/requirements/ids', {headers:header})
+  }
+}
+
 export function Wallet(data, header) {
   return {
     GetAll: () => axios.get(process.env.REACT_APP_API + '/wallets', {headers:header}),
