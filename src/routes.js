@@ -19,6 +19,7 @@ import SendMoney from './components/client/sendmoney/SendMoney'
 import Currencies from './components/client/currencies/CurrenciesPage'
 import VerifyPhone from './components/client/phone/VerifyPhonePage'
 import UploadValidId from './components/client/identification/ValidIdPage'
+import SubmitPob from './components/client/pob/SubmitPobPage'
 
 import AdminDashboard from './components/admin/dashboard/DashboardPage'
 import AdminTransactions from './components/admin/transactions/TransactionPage'
@@ -49,6 +50,7 @@ const Routes = ({ store }) => (
           <Route path="/client/manage/currencies" render={ props => ( isLoggedIn(2) ? <Currencies {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/verify/phone" render={ props => ( isLoggedIn(2) ? <VerifyPhone {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/upload/id" render={ props => ( isLoggedIn(2) ? <UploadValidId {...props}/> : <Redirect to="/redirecting"/>)} />
+          <Route path="/client/upload/pob" render={ props => ( isLoggedIn(2) ? <SubmitPob {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/admin" exact component={AdminDashboard}/>
           <Route path="/admin/transactions" component={AdminTransactions}/>
           <Route path="/cart" component={Cart} />

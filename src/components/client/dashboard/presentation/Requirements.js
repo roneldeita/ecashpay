@@ -49,7 +49,7 @@ export default ({ready, progress, levels}) => {
       {/*<p style={Title}>Get started with Eacashpay</p>*/}
       <Row type="flex" justify="space-between" style={RowStyle}>
         <Col className="" span={4}>
-          { includes(levels,1)
+          { includes(levels, 1)
             ?
             <div>
               <img src={Check} style={Img} alt="check" />
@@ -81,9 +81,11 @@ export default ({ready, progress, levels}) => {
           }
         </Col>
         <Col className="" span={4}>
-          <img src={BillsStatement} style={Img} alt="add billing statement"/>
-          <p style={RequirementTitle}>Add Funds</p>
-          <p style={Desc}>Send and receive money straight to your account.</p>
+          <Link to="/client/upload/pob">
+            <img src={BillsStatement} style={Img} alt="add billing statement"/>
+            <p style={RequirementTitle}>Proof Of Billing</p>
+            <p style={Desc}>Submitting the right documents increases your maximum wallet balance</p>
+          </Link>
         </Col>
         <Col className="" span={4}>
           <img src={LinkEcashCard} style={Img} alt="link Ecashpay card"/>

@@ -127,7 +127,6 @@ export default ({
         <Button
           type="primary"
           htmlType="submit"
-          size="large"
           loading={buttonState}>
           {buttonState ? 'Submitting...' : 'Submit'}
         </Button>
