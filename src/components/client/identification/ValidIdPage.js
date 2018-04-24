@@ -19,6 +19,7 @@ class ValidIdPage extends React.Component{
   constructor(props){
     super(props)
     this.state = {
+      identification:'',
       status:'',
       buttonState:false,
       front:[],
@@ -113,7 +114,7 @@ class ValidIdPage extends React.Component{
   checkStatus(){
     Id(null, {'x-access-token':this.props.auth.token}).Check()
     .then(res=>{
-      this.setState({status:res.data.status})
+      this.setState({identification:res.data})
     })
   }
   componentWillMount(){
@@ -124,7 +125,7 @@ class ValidIdPage extends React.Component{
     return(
       <Row type="flex" justify="center" style={{marginTop:'30px'}}>
         <Col md={12} lg={8}>
-          <div style={{display:this.state.status === 'none' ? 'block' : 'none'}}>
+          <div style={{display:this.state.identification.status === 'none' ? 'block' : 'none'}}>
             <Card
               hoverable
               title={ <span>Submit your government-issued ID</span> }
@@ -146,16 +147,24 @@ class ValidIdPage extends React.Component{
                   />
             </Card>
           </div>
-          <div style={{display:this.state.status === 'pending' ? 'block' : 'none'}}>
+          <div style={{display:this.state.identification.status === 'pending' ? 'block' : 'none'}}>
             <Card
               hoverable
               title={ <span>Submit your government-issued ID</span> }
               style={CardStyle}
               actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
-              <Pending cancel={this.cancelRequest}/>
+              <Pending
+                cancel={this.cancelRequest}
+                front={this.state.identification.frontLocation}
+                back={this.state.identification.backLocation}
+                handlePreview={this.handlePreview}
+                preview={this.state.preview}
+                image={this.state.image}
+                closePreview={this.closePreview}
+                />
             </Card>
           </div>
-          <div style={{display:this.state.status === 'rejected' ? 'block' : 'none'}}>
+          <div style={{display:this.state.identification.status === 'rejected' ? 'block' : 'none'}}>
             <Card
               hoverable
               title={ <span>Submit your government-issued ID</span> }
