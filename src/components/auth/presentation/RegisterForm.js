@@ -20,7 +20,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
       <Col md={22} lg={22} xl={18} xxl={13}>
         <Card hoverable style={css.CardStyle}>
           <Row>
-            <Col className="" style={css.FormColumn} span={13}>
+            <Col className="" style={css.FormColumn} xs={24} md={13}>
               <p style={css.Greet}>Create your Ecashpay accout</p>
               <Form onSubmit={onSubmit}>
                 <FormItem
@@ -124,7 +124,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
               </Form>
               <p>Already have an account?<Link to="/login"> Login now</Link></p>
             </Col>
-            <Col style={css.Column} span={11}>
+            <Col style={css.Column} xs={0} md={11}>
               <RightSection />
             </Col>
           </Row>

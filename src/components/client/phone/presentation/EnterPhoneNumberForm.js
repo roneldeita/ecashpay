@@ -126,6 +126,12 @@ class StepOne extends React.Component{
             {this.state.buttonState ? 'Sending Verification...' : 'Send Verification Code'}
           </Button>
         </Form.Item>
+        <style jsx="true">{`
+          .ant-input-group{
+            display:inline-table !important;
+          }
+        `}
+        </style>
       </Form>
     )
   }

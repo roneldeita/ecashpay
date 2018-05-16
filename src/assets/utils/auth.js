@@ -13,7 +13,7 @@ export function hasToken(){
 
 export function getProfile(){
   const profile = sessionStorage.getItem('profile')
-  if(!profile){
+  if(!profile || profile === undefined){
     return false
   }
   return JSON.parse(profile)

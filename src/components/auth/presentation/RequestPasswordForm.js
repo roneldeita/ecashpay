@@ -12,7 +12,7 @@ const RequestPasswordForm = ({form, buttonState, onSubmit, buttonWasClicked}) =>
       <Col md={22} lg={22} xl={18} xxl={13}>
         <Card hoverable style={css.CardStyle}>
           <Row>
-            <Col className="" style={css.FormColumn} span={13}>
+            <Col className="" style={css.FormColumn} xs={24} md={13}>
               <p style={css.Greet}>Forgot your password?</p>
               <p style={css.Small}>Enter your email and we will send a code to reset your password.</p>
               <br/><br/>
@@ -36,7 +36,7 @@ const RequestPasswordForm = ({form, buttonState, onSubmit, buttonWasClicked}) =>
                   <div style={{textAlign:'center'}}>Don't have a Ecashpay Account? <Link to="/register">Sign Up</Link></div>
                 </Form>
             </Col>
-            <Col style={css.Column} span={11}>
+            <Col style={css.Column} xs={0} md={11}>
               <RightSection />
             </Col>
           </Row>

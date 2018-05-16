@@ -14,9 +14,8 @@ import zh from 'react-intl/locale-data/zh';
 import es from 'react-intl/locale-data/es';
 import ru from 'react-intl/locale-data/ru';
 import my from 'react-intl/locale-data/my';
-
 //antd & global css
-import {Layout, BackTop, Icon} from 'antd'
+import {Layout, BackTop, Icon, message } from 'antd'
 import './App.css'
 import 'antd/lib/row/style/css'
 import 'antd/lib/col/style/css'
@@ -49,6 +48,7 @@ import 'antd/lib/switch/style/css'
 import 'antd/lib/upload/style/css'
 import 'antd/lib/avatar/style/css'
 import 'antd/lib/popconfirm/style/css'
+import 'antd/lib/message/style/css'
 //animate-on-scroll
 import "animate.css/animate.min.css";
 //lodash
@@ -61,8 +61,11 @@ import AdminTopNavigation from './components/template/AdminTopNavigation'
 //images
 import EpayLogo from './assets/images/Ecashpay_Logo_White.png'
 import EpayLogoMini from './assets/images/Ecashpay_Logo_White_Mini.png'
+//Idle
+import Idle from 'react-idle'
 //api services
 //import { Auth } from './services/api'
+import { hasToken } from './assets/utils/auth'
 //styles
 const LogoContainer = {
   margin:'20px 10px 20px 10px',
@@ -84,6 +87,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
+      timeOut: 600000,
       collapsed: false,
     }
     this.handleChangeLocale = this.handleChangeLocale.bind(this)
@@ -94,7 +98,7 @@ class App extends Component {
     this.setState({collapsed:!this.state.collapsed})
   }
   onCollapse = (collapsed) => {
-    this.setState({ collapsed });
+    this.setState({ collapsed })
   }
   translateContent(lang){
     let message = {}
@@ -130,7 +134,10 @@ class App extends Component {
     }
   }
   hideTopNavigation(){
-    const paths = ['/login', '/register', '/verify', '/redirecting', '/admin', '/admin/transactions', '/password/request', '/password/reset']
+    const paths = [
+      '/login', '/register', '/verify', '/redirecting',
+      '/admin', '/admin/login', '/admin/transactions',
+      '/password/request', '/password/reset']
     if(paths.includes(this.props.location.pathname)){
       return 'none'
     }
@@ -148,56 +155,79 @@ class App extends Component {
     sessionStorage.removeItem('profile')
     window.location.href = '/login'
   }
+  handleIdle(idle){
+    if(hasToken() && idle){
+      localStorage.removeItem('auth')
+      sessionStorage.removeItem('profile')
+      message.warn(
+        <span>
+          You are being timed out due to inactivity.
+          <Icon type="close"
+            style={{color:'grey', marginLeft:'10px', marginRight:'-5px'}}
+            onClick={()=>message.destroy()}
+            />
+        </span>
+      , 0);
+      this.props.history.push('/login')
+    }
+  }
   render() {
+    console.log(this.props)
     return (
-      <IntlProvider locale={this.props.locale} messages={this.translateContent(this.props.locale)}>
-        <div className="App">
-          <Layout>
-            <Layout.Header style={{display:this.hideTopNavigation()}}>
-              <TopNavigation
-              loggedIn={this.props.loggedIn}
-              locale={this.props.locale}
-              onChangeLocale={this.handleChangeLocale}
-              />
-            </Layout.Header>
-            <Layout>
-              <Layout.Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} style={{display:this.showAdminNavigation()}}>
-                <div style={LogoContainer}>
-                  <img src={this.state.collapsed ? EpayLogoMini : EpayLogo  } alt="logo" style={this.state.collapsed ? LogoMini : Logo}/>
-                </div>
-                <AdminSideNavigation location={this.props.location} />
-              </Layout.Sider>
+      <Idle
+        timeout={this.state.timeOut}
+        onChange={({ idle }) =>  this.handleIdle(idle)}
+        render={({ idle }) =>
+          <IntlProvider locale={this.props.locale} messages={this.translateContent(this.props.locale)}>
+            <div className="App">
               <Layout>
-                <Layout.Header style={{display:this.showAdminNavigation(), maxHeight:'auto', lineHeight:'40px'}}>
-                  <AdminTopNavigation collapsed={this.state.collapsed} toggle={this.toggleCollapse} />
+                <Layout.Header style={{display:this.hideTopNavigation()}}>
+                  <TopNavigation
+                  loggedIn={hasToken()}
+                  locale={this.props.locale}
+                  onChangeLocale={this.handleChangeLocale}
+                  />
                 </Layout.Header>
-                <Layout.Content style={{minHeight:'30vh'}}>{ this.props.children }</Layout.Content>
+                <Layout>
+                  <Layout.Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} style={{display:this.showAdminNavigation()}}>
+                    <div style={LogoContainer}>
+                      <img src={this.state.collapsed ? EpayLogoMini : EpayLogo  } alt="logo" style={this.state.collapsed ? LogoMini : Logo}/>
+                    </div>
+                    <AdminSideNavigation location={this.props.location} />
+                  </Layout.Sider>
+                  <Layout>
+                    <Layout.Header style={{display:this.showAdminNavigation(), maxHeight:'auto', lineHeight:'40px'}}>
+                      <AdminTopNavigation collapsed={this.state.collapsed} toggle={this.toggleCollapse} />
+                    </Layout.Header>
+                    <Layout.Content style={{minHeight:'30vh'}}>{ this.props.children }</Layout.Content>
+                  </Layout>
+                </Layout>
+                <Layout.Footer style={{display:this.hideTopNavigation()}}>
+                  {hasToken() ? '': <BottomNavigation/>}
+                </Layout.Footer>
               </Layout>
-            </Layout>
-            <Layout.Footer style={{display:this.hideTopNavigation()}}>
-              {this.props.loggedIn ? '': <BottomNavigation/>}
-            </Layout.Footer>
-          </Layout>
-          <BackTop>
-            <Icon type="up-square-o" style={{fontSize:'42px'}}/>
-          </BackTop>
-          <style jsx="true">{`
-            .ant-layout-header{
-              padding:0px;
-              height:auto;
-              max-height:85px;
-              background-color: transparent
-            }
-            .ant-layout-content{
-              min-height:100vh !important
-            }
-            .ant-layout-footer{
-              padding:0px;
-            }
-            `}
-          </style>
-        </div>
-      </IntlProvider>
+              <BackTop>
+                <Icon type="up-square-o" style={{fontSize:'42px'}}/>
+              </BackTop>
+              <style jsx="true">{`
+                .ant-layout-header{
+                  padding:0px;
+                  height:auto;
+                  max-height:85px;
+                  background-color: transparent
+                }
+                .ant-layout-content{
+                  min-height:100vh !important
+                }
+                .ant-layout-footer{
+                  padding:0px;
+                }
+                `}
+              </style>
+            </div>
+          </IntlProvider>
+        }
+      />
     )
   }
 }

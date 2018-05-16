@@ -1,7 +1,7 @@
 import React from 'react'
 import { isEmpty } from 'lodash'
 import { Link } from 'react-router-dom'
-import {Card} from 'antd'
+import {Card, Button, Icon} from 'antd'
 
 const CardStyle = {
   margin: '0px',
@@ -26,19 +26,19 @@ const CurrencyBal = {
 }
 const renderCurrencies = (currencies) => {
   return currencies.map((currency, index) =>{
-    return (
+    return currency.status ? (
       <div key={index} className="">
         <span className="" style={CurrencyCode}>{currency.code}</span>
         <span className="" style={CurrencyBal}>{currency.balance}</span>
       </div>
-    )
+    ): ''
   })
 }
 const renderPrimaryCurrency = (currencies) => {
   return currencies.map((currency, index) => {
     return currency.primary ? (
       <p key={index} style={Balance}>
-        <span style={{fontWeight:400}}>{currency.symbol}</span>
+        <span style={{fontWeight:400}}> {currency.symbol}</span>
         <span style={{fontWeight:500}}> {currency.balance}</span>
         <span style={{fontWeight:400}}> {currency.code}*</span>
       </p> ) : ''
@@ -48,13 +48,14 @@ const renderPrimaryCurrency = (currencies) => {
 export default ({ready, currencies}) => {
   //console.log(currencies)
   return(
-    <Card hoverable
+    <Card
+      hoverable
       className="wallet-card"
       title="Ecash"
       loading={ready}
       style={CardStyle}
       actions={[
-        <Link to="/client/addfunds">Add Funds</Link>,
+        <Link to="/client/convert">Convert</Link>,
         <Link to="/client/manage/currencies">Manage Currencies</Link>]}>
       {/*<Link style={{float: 'right'}} to='/client/manage/currencies'><span>Manage Currencies <Icon type="caret-right" style={{fontSize:'11px'}}/></span></Link>*/}
       {/*<p style={Title}>Ecash</p>*/}
@@ -65,7 +66,7 @@ export default ({ready, currencies}) => {
       <div style={CurrencyContainer}>
         {!isEmpty(currencies) ?  renderCurrencies(currencies) : '<p>Error Fetching Your Wallet</p>'}
       </div>
-      {/*<Button type="primary" size="large" style={AddFundButton}><Link to="/client/addfunds"><Icon type="wallet"/> Add Funds</Link></Button>*/}
+      <Button type="primary" style={{marginTop:'15px'}}><Link to="/client/addfunds"><Icon type="wallet"/> Add Funds</Link></Button>
     </Card>
   )
 }

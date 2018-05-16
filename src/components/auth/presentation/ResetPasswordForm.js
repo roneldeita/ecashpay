@@ -14,9 +14,9 @@ const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSu
       <Col md={22} lg={22} xl={18} xxl={13}>
         <Card hoverable style={css.CardStyle}>
           <Row>
-            <Col className="" style={css.FormColumn} span={13}>
+            <Col className="" style={css.FormColumn} xs={24} md={13}>
               <p style={css.Greet}>Reset your password?</p>
-              <p style={css.Small}>Please enter the 6-digit code you just received and your new password.</p>
+              <p style={css.Small}>Please enter the 4-digit code you just received and your new password.</p>
               <br/><br/>
                 <Form onSubmit={onSubmit}>
                   <Form.Item
@@ -67,7 +67,7 @@ const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSu
                   <div style={{textAlign:'center'}}>Don't have a Ecashpay Account? <Link to="/register">Sign Up</Link></div>
                 </Form>
             </Col>
-            <Col style={css.Column} span={11}>
+            <Col style={css.Column} xs={0} md={11}>
               <RightSection />
             </Col>
           </Row>

@@ -3,15 +3,12 @@ import {Form, Icon, Upload, Button} from 'antd'
 
 const UploadButton = (
   <div>
-    <p className="ant-upload-drag-icon">
-      <Icon type="inbox" />
-    </p>
-    <p className="ant-upload-text">Click or drag file to this area</p>
+    <Icon type="inbox" style={{fontSize:'32px'}}/>
+    <p>Click or drag file to this area</p>
   </div>
 )
-export default ({form, filelist, change, buttonState}) => {
-  const { getFieldDecorator, isFieldTouched, getFieldError } = form
-  const fileError = getFieldError('File')
+export default ({form, filelist, change, validateFile, buttonState, submit}) => {
+  const { getFieldDecorator, getFieldError } = form
   const fileProps = {
     fileList:filelist,
     onChange:change,
@@ -21,23 +18,20 @@ export default ({form, filelist, change, buttonState}) => {
     },
   }
   return(
-    <Form>
+    <Form onSubmit={submit}>
       <Form.Item
         wrapperCol={{span:16, offset:4}}
-        hasFeedback={isFieldTouched('File')}
-        validateStatus={fileError ? 'error' : ''}
-        help={fileError || ''}>
+        validateStatus={getFieldError('File') ? 'error' : ''}
+        help={getFieldError('File') || ''}>
         {getFieldDecorator('File', {
           rules: [
-            { required: true }
+            { required: true },
+            { validator: validateFile }
           ],
         })(
-          <div>
-            <label style={{display:'block'}}>* Proof of billing:</label>
-            <Upload.Dragger {...fileProps}>
-              {filelist.length >= 1 ? null : UploadButton}
-            </Upload.Dragger>
-          </div>
+          <Upload.Dragger {...fileProps} disabled={filelist.length >= 1}>
+            {UploadButton}
+          </Upload.Dragger>
         )}
       </Form.Item>
       <Form.Item wrapperCol={{span: 16, offset: 4}}>
@@ -48,6 +42,25 @@ export default ({form, filelist, change, buttonState}) => {
           {buttonState ? 'Submitting...' : 'Submit'}
         </Button>
       </Form.Item>
+      <style jsx="true">{`
+        .ant-upload-disabled{
+          display:none
+        }
+        .ant-upload-list-picture .ant-upload-list-item,
+        .ant-upload-list-picture-card .ant-upload-list-item{
+          height: 100px
+        }
+        .ant-upload-list-item-info > span{
+          margin-top:20px
+        }
+        .ant-upload-list-picture .ant-upload-list-item-thumbnail{
+          top: 25px !important;
+        }
+        .ant-upload-list-picture .ant-upload-list-item-name{
+          padding-left: 50px
+        }
+      `}
+      </style>
     </Form>
   )
 }

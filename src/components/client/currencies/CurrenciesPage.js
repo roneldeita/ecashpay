@@ -29,7 +29,10 @@ class CurrenciesPage extends React.Component{
         Wallet({code:values.Currency}, {'x-access-token':this.props.auth.token}).Add()
         .then(res => {
           this.clearError()
-          this.fetchCurrencies()//(optimize) just push the state currencies
+          //(optimize) just push the new object to the state currencies
+          let newCurrencies = Object.assign([], this.state.currencies)
+          newCurrencies.push(res.data)
+          this.setState({currencies: newCurrencies})
           this.buttonState()
         })
         .catch(err => {
@@ -47,8 +50,16 @@ class CurrenciesPage extends React.Component{
     let currency = event.target.attributes.currency.value
     Wallet({code:currency}, {'x-access-token':this.props.auth.token}).MakePrimary()
     .then(res => {
-      //this.clearError()
-      this.fetchCurrencies()//(optimize) just apdate the selected currency to primary
+      //(optimize) just apdate the selected currency to primary
+      let newCurrencies = this.state.currencies.map(currency => {
+         if(currency.code === res.data.code){
+           currency.primary = true
+         }else {
+           currency.primary = false
+         }
+         return currency
+      })
+      this.setState({currencies: newCurrencies})
     })
     .catch(err => {
       this.setState({serverErrorMessage:err.response.data.message})
@@ -58,8 +69,14 @@ class CurrenciesPage extends React.Component{
   handleDeleteCurrency(currency, status){
     const Action = !status ? Wallet({code:currency}, {'x-access-token':this.props.auth.token}).Add() : Wallet({code:currency}, {'x-access-token':this.props.auth.token}).CloseCurrency()
     Action.then(res => {
-      //this.clearError()
-      this.fetchCurrencies()//(optimize) just apdate the selected currency to primary
+      //(optimize) just apdate the selected currency status to response status
+      let newCurrencies = this.state.currencies.map(currency => {
+         if(currency.code === res.data.code){
+           currency.status = res.data.status
+         }
+         return currency
+      })
+      this.setState({currencies: newCurrencies})
     })
     .catch(err => {
       this.setState({serverErrorMessage:err.response.data.message})
@@ -71,20 +88,16 @@ class CurrenciesPage extends React.Component{
       this.setState({serverErrorMessage:''})
     }, 500)
   }
-  fetchCurrencies(){
+  componentWillMount(){
     Wallet(null, {'x-access-token':this.props.auth.token}).GetAll()
     .then(res =>{
       this.setState({currencies:res.data.currencies})
     })
   }
-  componentWillMount(){
-    this.fetchCurrencies()
-  }
   render(){
-    //console.log(this.state)
     return (
       <Row type="flex" justify="center" style={{marginTop:'30px'}}>
-        <Col className="" span={10}>
+        <Col className="" xs={22} md={16} lg={10}>
           <Currencies
             form={this.props.form}
             currencies={this.state.currencies}

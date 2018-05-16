@@ -44,7 +44,7 @@ const VerificationForm = ({email, form, buttonState, onSubmit, onResend, onClick
               </Form>
               <p>Haven't received a verification? <a onClick={onResend}>Resend</a></p>
             </Col>
-            <Col style={css.Column} span={11}>
+            <Col style={css.Column} xs={0} md={11}>
               <RightSection />
             </Col>
           </Row>

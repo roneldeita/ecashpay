@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Animate from 'rc-animate'
 import {Row, Col, Spin, Icon} from 'antd'
 // import FontAwesome from 'react-fontawesome'
 // import SendMoney from '../../../../assets/images/Send_Money.png'
@@ -34,9 +35,6 @@ const TabImg = {
   maxHeight: '50px',
   margin: '20px 0px 5px 0px'
 }
-const UserIconContainer = {
-  display:'inline-block'
-}
 const UserIcon = {
   fontSize:'75px',
   marginRight: '15px',
@@ -48,7 +46,6 @@ const UserName = {
   verticalAlign:'top'
 }
 const EcashStatusDesc = {
-  display:'inline',
   fontSize:'16px',
   verticalAlign:'top',
   letterSpacing: '-1px'
@@ -58,25 +55,27 @@ export default ({ready, profile}) => {
     <Spin spinning={ready} style={Spinner} indicator={<Icon type="loading"/>}>
       <div style={Container}>
         <Row style={{clear:'both'}}>
-          <Col className="" span={12}>
-            <div className="">
-              <div className="" style={UserIconContainer}>
-                <span className="la la-user" name="user-circle" style={UserIcon} />
-              </div>
-              <div className="" style={{display:'inline-block'}}>
-                <p className="" style={UserName}>{profile.firstName} <span style={{color:'#999999'}}>{profile.lastName}</span></p><br/>
-                <p className="" style={EcashStatusDesc}>Seems like you don{`'`}t have an Ecashpay Card yet. <a href="/">Apply Now!</a></p>
+          <Col className="" md={24} lg={12}>
+            <div className="user-icon" style={{marginTop:'20px'}}>
+              <div className="">
+                <span className="fa fa-user-circle" name="user-circle" style={UserIcon} />
+                <span className="" style={{display:'inline-block'}}>
+                  <p className="" style={UserName}>{profile.firstName} {profile.lastName}</p><br/>
+                  <p className="" style={EcashStatusDesc}>Seems like you don{`'`}t have an Ecashpay Card yet. <a href="/">Apply Now!</a></p>
+                </span>
               </div>
             </div>
           </Col>
-          <Col className="" span={12}>
+          <Col className="" xs={24} sm={24} lg={24} xl={12}>
             <Row type="flex" justify="end" className="tab-container">
               <Col className="" span={5}>
-                <Link to="/client/sendmoney" >
-                  {/*<span className="la la-money" style={ServicesIcons}></span>*/}
-                  <img src={SendMoney} alt="send money" style={TabImg}/>
-                  <p>Send Money</p>
-                </Link>
+                <Animate transitionAppear transitionName="fade">
+                  <Link to="/client/sendmoney" >
+                    {/*<span className="la la-money" style={ServicesIcons}></span>*/}
+                    <img src={SendMoney} alt="send money" style={TabImg}/>
+                    <p>Send Money</p>
+                  </Link>
+                </Animate>
               </Col>
               <Col className="" span={5}>
                 <Link to="/client/buyload" >
@@ -117,6 +116,19 @@ export default ({ready, profile}) => {
             .anticon-spin{
               height: 100%;
               transform: translate(50%, 0%);
+            }
+            @media (max-width: 1400px){
+              .fa-user-circle{
+                display:none !important
+              }
+            }
+            @media (max-width: 1200px) {
+              .user-icon{
+                display:none !important
+              }
+              .ant-row-flex-end{
+                justify-content:center
+              }
             }
           `}
         </style>

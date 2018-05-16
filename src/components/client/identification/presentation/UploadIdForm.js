@@ -6,9 +6,9 @@ const formItemLayout = {
   wrapperCol: { span: 17},
 }
 const UploadButton = (
-  <div className="upload-btn">
-    <Icon type="plus" />
-    <div className="ant-upload-text">Select File</div>
+  <div>
+    <Icon type="inbox" style={{fontSize:'32px'}}/>
+    <p>Click or drag file to this area</p>
   </div>
 )
 
@@ -35,7 +35,7 @@ export default ({
     fileList:front,
     onChange: handleFrontChange,
     onPreview: handlePreview,
-    listType: "picture-card",
+    listType: "picture",
     beforeUpload: (file) => {
       return false;
     },
@@ -44,7 +44,7 @@ export default ({
     fileList:back,
     onChange: handleBackChange,
     onPreview: handlePreview,
-    listType: "picture-card",
+    listType: "picture",
     beforeUpload: (file) => {
       return false;
     },
@@ -55,7 +55,7 @@ export default ({
         label="ID type"
         {...formItemLayout}
         hasFeedback={isFieldTouched('ID type')}
-        validateStatus={IdTypeError ? 'error' : ''}
+        validateStatus={IdTypeError ? 'error' : 'success'}
         help={IdTypeError || ''}>
         {getFieldDecorator('ID type', {
           rules: [
@@ -83,44 +83,33 @@ export default ({
       <Form.Item
         label="Front Image"
         {...formItemLayout}
-        hasFeedback={isFieldTouched('Front ID')}
         validateStatus={FrontIdError ? 'error' : ''}
         help={FrontIdError || ''}>
         {getFieldDecorator('Front ID', {
           rules: [
-            { required: true }
+            { required: true },
+            { validator: validateFile }
           ],
         })(
-          <div>
-            <Upload {...FrontIdProps}>
-              {front.length >= 1 ? null : UploadButton}
-            </Upload>
-            <Modal visible={preview} footer={null} onCancel={closePreview}>
-              <img alt="example" style={{ width: '100%' }} src={image} />
-            </Modal>
-          </div>
+          <Upload.Dragger {...FrontIdProps} disabled={front.length >= 1}>
+            {UploadButton}
+          </Upload.Dragger>
         )}
       </Form.Item>
       <Form.Item
         label="Back Image"
         {...formItemLayout}
-        hasFeedback={isFieldTouched('Back ID')}
         validateStatus={BackIdError ? 'error' : ''}
         help={BackIdError || ''}>
         {getFieldDecorator('Back ID', {
           rules: [
             { required: true },
-            { validator: validateFile}
+            { validator: validateFile }
           ],
         })(
-          <div>
-            <Upload {...BackIdProps}>
-              {back.length >= 1 ? null : UploadButton}
-            </Upload>
-            <Modal visible={preview} footer={null} onCancel={closePreview}>
-              <img alt="example" style={{ width: '100%' }} src={image} />
-            </Modal>
-          </div>
+          <Upload.Dragger {...BackIdProps} disabled={back.length >= 1}>
+            {UploadButton}
+          </Upload.Dragger>
         )}
       </Form.Item>
       <Form.Item wrapperCol={{span: 18, offset: 6}}>
@@ -131,6 +120,28 @@ export default ({
           {buttonState ? 'Submitting...' : 'Submit'}
         </Button>
       </Form.Item>
+      <Modal visible={preview} footer={null} onCancel={closePreview}>
+        <img alt="example" style={{ width: '100%' }} src={image} />
+      </Modal>
+      <style jsx="true">{`
+          .ant-upload-disabled{
+            display:none
+          }
+          .ant-upload-list-picture .ant-upload-list-item,
+          .ant-upload-list-picture-card .ant-upload-list-item{
+            height: 100px
+          }
+          .ant-upload-list-item-info > span{
+            margin-top:20px
+          }
+          .ant-upload-list-picture .ant-upload-list-item-thumbnail img{
+            width: 80px;
+          }
+          .ant-upload-list-picture .ant-upload-list-item-name{
+            padding-left: 80px
+          }
+        `}
+      </style>
     </Form>
   )
 }

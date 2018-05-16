@@ -31,6 +31,7 @@ class RegisterPage extends React.Component {
     const confirm = form.getFieldValue('Confirm Password')
     if (confirm !== undefined && confirm !== '' && value !== confirm && value.length >= 6) {
       callback('Password does not match the confirm password')
+      form.setFieldsValue({'Confirm Password':''})
     }
     callback();
   }
@@ -38,7 +39,7 @@ class RegisterPage extends React.Component {
     const form = this.props.form
     const password = form.getFieldValue('Password')
     if (value !=='' && value !== password && value.length >= 6) {
-      callback('Password does not match the confirm password');
+      callback('Password does not match the confirm password')
     }
     callback();
   }
@@ -74,7 +75,8 @@ class RegisterPage extends React.Component {
   componentDidMount() {
     window.scrollTo(0, 0)
   }
-  render() {
+  render(){
+    console.log(this.props.form)
     return (
       <div className="font">
         <RegisterForm

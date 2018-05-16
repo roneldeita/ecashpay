@@ -47,7 +47,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
   const prefixSelector = getFieldDecorator('Country Code', {
     initialValue: '63',
   })(
-    <Select style={{ width: 70 }}>
+    <Select style={{ width: 70}}>
       <Select.Option value="63">+63</Select.Option>
       <Select.Option value="86">+86</Select.Option>
       <Select.Option value="87">+87</Select.Option>
@@ -126,7 +126,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                       { pattern: /^[0-9]+$/, message: 'Phone Number should only contain numbers' }
                     ],
                   })(
-                    <Input addonBefore={prefixSelector} size="large" />
+                    <Input addonBefore={prefixSelector} size="large"/>
                   )}
                 </FormItem>
                 <FormItem
@@ -234,11 +234,13 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
         </Card>
       </Col>
       <style jsx="true">{`
+        .ant-input-group{
+          display:inline-table !important;
+        }
         .name .ant-input{
           color: #1890ff !important;
         }
         .anticon-user{
-          display: inline-block;
           border-radius: 100px;
           border: 2px solid #ffffff;
           padding: 0.2em 0.2em;

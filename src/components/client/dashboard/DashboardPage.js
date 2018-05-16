@@ -34,16 +34,16 @@ class DashboardPage extends React.Component{
     const IsProfileReady = isEmpty(this.props.profile)
     return(
       <Row type="flex" justify="center">
-        <Col className="" span={18}>
+        <Col className="" xs={24} sm={24} md={22} lg={18}>
           <Menu ready={IsProfileReady} profile={this.props.profile} />
         </Col>
         <Col className="" span={18} style={{marginTop:'30px'}}>
           <Row gutter={30}>
-            <Col className="" span={8}>
+            <Col className="" md={24} lg={8} style={{marginBottom:'10px'}}>
               <WalletCard ready={IsWalletReady} currencies={this.state.wallets}/>
             </Col>
-            <Col className="" span={16}>
-              <Requirements ready={IsWalletReady} levels={this.props.profile.levels} progress={20} />
+            <Col className="" md={24} lg={16}>
+              <Requirements ready={IsWalletReady} levels={this.props.profile.levels} />
             </Col>
           </Row>
         </Col>

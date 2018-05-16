@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { isEmpty } from 'lodash'
-import {Form, Card, Table, Button, Select, Alert, Icon, Tag, Switch} from 'antd'
+import {Form, Card, Table, Button, Select, Alert, Icon, Tag} from 'antd'
 const FormItem = Form.Item;
 
 const CardStyle = {
@@ -29,9 +29,13 @@ export default ({form, currencies, addCurrency, makePrimary, deleteCurrency, but
     title: 'Close Currency',
     dataIndex: 'status',
     width: 120,
-    render: (text, record) => <div style={{textAlign:'center'}}><Switch checked={text} onClick={() => deleteCurrency(record.code, text)} currency={record.code} size="small"/></div>
+    align: 'center',
+    render: (text, record) => <div><Button size="small" type="danger" shape="circle" icon="minus" onClick={() => deleteCurrency(record.code, text)}></Button></div>
+    //render: (text, record) => <div style={{textAlign:'center'}}><Switch checked={text} onClick={() => deleteCurrency(record.code, text)} currency={record.code} size="small"/></div>
   }];
-  const Arr = Object.keys(currencies).map(key=>(currencies[key]))
+
+  let FilterCurrencies = currencies.filter(currency => currency.status === true )
+
   const { getFieldDecorator, isFieldTouched, getFieldError } = form
   const CurrencyError = getFieldError('Currency')
   return (
@@ -40,7 +44,6 @@ export default ({form, currencies, addCurrency, makePrimary, deleteCurrency, but
       title="Manage Your Currencies"
       style={CardStyle}
       actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
-      {/*<p style={Title}>Manage Your Currencies</p>*/}
       <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
       <br/>
       <Form layout="inline" onSubmit={addCurrency} style={{marginBottom:'15px'}}>
@@ -71,8 +74,7 @@ export default ({form, currencies, addCurrency, makePrimary, deleteCurrency, but
         </FormItem>
       </Form>
       {(error !== '') ? (<Alert message={error} type="error" showIcon closable onClose={closeAlert}/>) : null }
-      <Table rowKey="code" loading={isEmpty(Arr)} columns={columns} dataSource={Arr} pagination={{pageSize:5}} style={{marginTop:'10px'}} size="middle" bordered={false}/>
-      {/*<Link to="/client/dashboard" style={{marginTop:'20px'}} icon="left"><Icon type="caret-left" style={{fontSize:'11px'}}/> Back to Dashboard</Link>*/}
+      <Table rowKey="code" loading={isEmpty(FilterCurrencies)} columns={columns} dataSource={FilterCurrencies} pagination={{pageSize:10}} style={{marginTop:'10px'}} size="middle" bordered={false}/>
       <style jsx="true">{`
         .currency-name .make-primary{
           background-color: transparent !important;

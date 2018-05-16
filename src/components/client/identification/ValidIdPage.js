@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import ReactS3 from 'react-s3'
+// import ReactS3 from 'react-s3'
 import { Form, Row, Col, Card, Icon } from 'antd'
 import { Link } from 'react-router-dom'
 import UploadIdForm from './presentation/UploadIdForm'
@@ -27,11 +27,11 @@ class ValidIdPage extends React.Component{
       preview: false,
       image:''
     }
+    this.validateFile = this.validateFile.bind(this)
     this.handleFrontChange = this.handleFrontChange.bind(this)
     this.handleBackChange = this.handleBackChange.bind(this)
     this.handlePreview = this.handlePreview.bind(this)
     this.closePreview = this.closePreview.bind(this)
-    this.validateFile = this.validateFile.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.cancelRequest = this.cancelRequest.bind(this)
   }
@@ -39,35 +39,35 @@ class ValidIdPage extends React.Component{
     this.setState({buttonState:true})
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const config = {
-          bucketName: 'gprsv2',
-          albumName: 'creatives',
-          region: 'ap-southeast-1',
-          accessKeyId: 'AKIAJYS7YQXKNVYMW4FA',
-          secretAccessKey: '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',
-        }
-        var front = ReactS3.upload(this.state.front[0], config)
-        var back = ReactS3.upload(this.state.back[0], config)
-
-        Promise.all([front, back]).then( res =>{
-          Id({
-            'type': values['ID type'],
-            'frontLocation':res[0].location,
-            'backLocation': res[1].location
-          }, {'x-access-token':this.props.auth.token}).SubmitId()
-          .then(res => {
-            this.checkStatus()
-            setTimeout(()=>{
-              this.setState({buttonState:false})
-            }, 800)
-          })
-          .catch(err => {
-            console.log(err)
-            setTimeout(()=>{
-              this.setState({buttonState:false})
-            }, 800)
-          })
-        })
+        // const config = {
+        //   bucketName: process.env.REACT_APP_S3_BUCKET_NAME,
+        //   albumName: process.env.REACT_APP_S3_ALBUM_NAME,
+        //   region: process.env.REACT_APP_S3_REGION,
+        //   accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
+        //   secretAccessKey: process.env.REACT_APP_S3_SECERET_ACCESS_KEY,
+        // }
+        // var front = ReactS3.upload(this.state.front[0], config)
+        // var back = ReactS3.upload(this.state.back[0], config)
+        //
+        // Promise.all([front, back]).then( res =>{
+        //   Id({
+        //     'type': values['ID type'],
+        //     'frontLocation':res[0].location,
+        //     'backLocation': res[1].location
+        //   }, {'x-access-token':this.props.auth.token}).SubmitId()
+        //   .then(res => {
+        //     this.checkStatus()
+        //     setTimeout(()=>{
+        //       this.setState({buttonState:false})
+        //     }, 800)
+        //   })
+        //   .catch(err => {
+        //     console.log(err)
+        //     setTimeout(()=>{
+        //       this.setState({buttonState:false})
+        //     }, 800)
+        //   })
+        // })
       }else{
         setTimeout(()=>{
           this.setState({buttonState:false})
@@ -77,7 +77,20 @@ class ValidIdPage extends React.Component{
     event.preventDefault()
   }
   validateFile = (rule, value, callback) => {
-    //console.log(value)
+    if(value !== undefined){
+      value.fileList.map(file => {
+        if(file.type !== 'image/jpeg' && file.type !== 'image/png'){
+          callback('I can only accept jpg or png file')
+        }
+        return callback()
+      })
+      if(value.fileList.length > 1){
+        callback('You can only select no more than one file')
+      }
+      if(value.fileList.length === 0){
+        callback('File is required')
+      }
+    }
     callback()
   }
   closePreview = () => {
@@ -121,7 +134,7 @@ class ValidIdPage extends React.Component{
     this.checkStatus()
   }
   render(){
-    console.log(this.state)
+    //console.log(this.state)
     return(
       <Row type="flex" justify="center" style={{marginTop:'30px'}}>
         <Col md={12} lg={8}>

@@ -9,7 +9,6 @@ import LinkEcashCard from '../../../../assets/images/Link_EcashCard.png'
 import Check from '../../../../assets/images/check.png'
 
 const CardStyle = {
-  minHeight:'360px',
   margin: '0px',
   padding: '0px',
   cursor:'auto'
@@ -23,7 +22,8 @@ const RowStyle ={
 //   marginBottom:'30px'
 // }
 const Img = {
-  width:'80%',
+  width:'100%',
+  maxWidth:'120px',
   marginBottom:'8px'
 }
 const ProgressStyle = {
@@ -39,7 +39,8 @@ const Desc = {
   lineHeight: '13px'
 }
 
-export default ({ready, progress, levels}) => {
+export default ({ready, levels}) => {
+  let progress = (levels !== undefined ? Object.keys(levels).length : 0) * 25
   return(
     <Card
       hoverable
@@ -48,7 +49,7 @@ export default ({ready, progress, levels}) => {
       style={CardStyle}>
       {/*<p style={Title}>Get started with Eacashpay</p>*/}
       <Row type="flex" justify="space-between" style={RowStyle}>
-        <Col className="" span={4}>
+        <Col className="" xs={24} sm={12} lg={8} xl={4}>
           { includes(levels, 1)
             ?
             <div>
@@ -64,7 +65,7 @@ export default ({ready, progress, levels}) => {
             </Link>
           }
         </Col>
-        <Col className="" span={4}>
+        <Col className="" xs={24} sm={12} lg={8} xl={4}>
           { includes(levels, 2)
             ?
             <div>
@@ -80,14 +81,14 @@ export default ({ready, progress, levels}) => {
             </Link>
           }
         </Col>
-        <Col className="" span={4}>
+        <Col className="" xs={24} sm={12} lg={8} xl={4}>
           <Link to="/client/upload/pob">
             <img src={BillsStatement} style={Img} alt="add billing statement"/>
             <p style={RequirementTitle}>Proof Of Billing</p>
             <p style={Desc}>Submitting the right documents increases your maximum wallet balance</p>
           </Link>
         </Col>
-        <Col className="" span={4}>
+        <Col className="" xs={24} sm={12} lg={8} xl={4}>
           <img src={LinkEcashCard} style={Img} alt="link Ecashpay card"/>
           <p style={RequirementTitle}>Link Ecash Card</p>
           <p style={Desc}>Cash in instantly at any partnered outlets.</p>

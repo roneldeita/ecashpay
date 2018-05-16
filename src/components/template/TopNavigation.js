@@ -8,18 +8,14 @@ const SubMenu = Menu.SubMenu;
 
 const NavContainer = {
   backgroundColor: '#ffffff',
-  marginBottom: '30px',
   borderBottom: '2px solid #999999'
 }
 const Logo = {
-  marginTop: '22px',
   width: '180px'
 }
 
 const AntMenu = {
-  float: 'right',
   fontSize: '18px',
-  borderBottom: '0px',
 }
 const Caret = {
   fontSize: '11px'
@@ -69,34 +65,45 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn}) => {
     <Affix style={{width:'100%'}}>
       <div style={NavContainer}>
         <Row className="" type="flex" justify="center">
-          <Col sm={9} md={7}>
-            <Link to={loggedIn ? '/client/dashboard' : '/'}><img src={EpayLogo} alt="logo" style={Logo} /></Link>
+          <Col xs={0} sm={11} md={7}>
+            <Row type="flex" justify="start">
+              <Col>
+                <Link to={loggedIn ? '/client/dashboard' : '/'}><img src={EpayLogo} alt="logo" style={Logo} /></Link>
+              </Col>
+            </Row>
           </Col>
-          <Col sm={9} md={11}>
-            <Menu mode="horizontal" onSelect={onChangeLocale} style={AntMenu}>
-              <SubMenu title={<span>{locale.toUpperCase()} <Icon type="down" style={Caret}/></span>}>
-                <Menu.Item key="en">English</Menu.Item>
-                <Menu.Item key="zh">中文</Menu.Item>
-                <Menu.Item key="es">Español</Menu.Item>
-                <Menu.Item key="my">Malay</Menu.Item>
-                <Menu.Item key="ru">русский</Menu.Item>
-              </SubMenu>
-              <Menu.Item key="app" style={{display:isLoggedIn(loggedIn)}}>Ecashpay Card</Menu.Item>
-              <Menu.Item key="hepl" style={{display:isLoggedIn(loggedIn)}}>Help</Menu.Item>
-              <Menu.Item key="login" style={{display:isLoggedIn(loggedIn)}}><Link to="/login">Login</Link></Menu.Item>
-              <Menu.Item key="signup" style={{display:isLoggedIn(loggedIn)}}><Link to="/register">Sign up</Link></Menu.Item>
-              <Menu.Item key="bell" style={{display:isLoggedIn(!loggedIn)}}>
-                <Popover placement="bottom" title={NotifTitle} content={NotifContent} trigger="click"><div><Icon type="bell" style={{margin:'0 auto'}}/></div></Popover>
-              </Menu.Item>
-              <Menu.Item key="user" style={{display:isLoggedIn(!loggedIn)}}>
-                <Popover placement="bottom" title={profileTitle} content={profileContent} trigger="click"><div><Icon type="user" style={{margin:'0 auto'}}/></div></Popover>
-              </Menu.Item>
-              <Menu.Item key="logout" style={{display:isLoggedIn(!loggedIn)}}>Logout</Menu.Item>
-            </Menu>
+          <Col xs={24} sm={12} md={11} >
+            <Row type="flex" justify="end">
+              <Col>
+                <Menu mode="horizontal" onSelect={onChangeLocale} style={AntMenu}>
+                  <SubMenu title={<span>{locale.toUpperCase()} <Icon type="down" style={Caret}/></span>}>
+                    <Menu.Item key="en">English</Menu.Item>
+                    <Menu.Item key="zh">中文</Menu.Item>
+                    <Menu.Item key="es">Español</Menu.Item>
+                    <Menu.Item key="my">Malay</Menu.Item>
+                    <Menu.Item key="ru">русский</Menu.Item>
+                  </SubMenu>
+                  {/*<Menu.Item key="app" style={{display:isLoggedIn(loggedIn)}}>Ecashpay Card</Menu.Item>
+                <Menu.Item key="hepl" style={{display:isLoggedIn(loggedIn)}}>Help</Menu.Item>*/}
+                  <Menu.Item key="login" style={{display:isLoggedIn(loggedIn)}}><Link to="/login">Login</Link></Menu.Item>
+                  <Menu.Item key="signup" style={{display:isLoggedIn(loggedIn)}}><Link to="/register">Sign up</Link></Menu.Item>
+                  <Menu.Item key="bell" style={{display:isLoggedIn(!loggedIn)}}>
+                    <Popover placement="bottom" title={NotifTitle} content={NotifContent} trigger="click"><div><Icon type="bell" style={{margin:'0 auto'}}/></div></Popover>
+                  </Menu.Item>
+                  <Menu.Item key="user" style={{display:isLoggedIn(!loggedIn)}}>
+                    <Popover placement="bottom" title={profileTitle} content={profileContent} trigger="click"><div><Icon type="user" style={{margin:'0 auto'}}/></div></Popover>
+                  </Menu.Item>
+                  <Menu.Item key="logout" style={{display:isLoggedIn(!loggedIn)}}>Logout</Menu.Item>
+                </Menu>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </div>
       <style jsx="true" global="true">{`
+        .ant-menu-horizontal{
+          line-height:26px
+        }
         .ant-popover-arrow,
         .ant-popover-title{
           background-color:#f7f7f7

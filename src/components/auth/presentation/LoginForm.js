@@ -23,7 +23,7 @@ const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton}) => {
       <Col md={22} lg={22} xl={18} xxl={13}>
         <Card hoverable style={css.CardStyle}>
           <Row>
-            <Col className="" style={css.FormColumn} span={13}>
+            <Col className="" style={css.FormColumn} xs={24} md={13}>
               <p style={css.Greet}>Welcome to Ecashpay Asia!</p>
               <p style={css.Small}>Log in to your account here</p>
               <Form onSubmit={onSubmit}>
@@ -60,7 +60,7 @@ const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton}) => {
                 <p>{`Don't have an account`}?<Link to="/register"> Sign up now!</Link></p>
               </Form>
             </Col>
-            <Col style={css.Column} span={11}>
+            <Col style={css.Column} xs={0} md={11}>
               <RightSection />
             </Col>
           </Row>

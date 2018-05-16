@@ -34,11 +34,20 @@ class RedirectPage extends React.Component {
   }
   componentWillReceiveProps(nextProps){
     if(!isEmpty(nextProps.profile)){
-      this.isLoggedIn(nextProps.profile.status)
+      switch(nextProps.profile.type){
+        case "admin":
+          window.location.href = '/admin'
+          break;
+        case "client":
+          this.isLoggedIn(nextProps.profile.status)
+          break;
+        default:
+          window.location.href = '/'
+      }
     }
   }
   render(){
-    console.log(this.props)
+    //console.log(this.props)
     return (
       <div style={{margin:'250px 0px', textAlign:'center'}}>
         <p style={{fontSize:'40px'}}>Redirecting...</p>
