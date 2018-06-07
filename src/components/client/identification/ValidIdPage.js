@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 import UploadIdForm from './presentation/UploadIdForm'
 import Pending from './presentation/Pending'
 import Rejected from './presentation/Rejected'
-import { isEmpty } from 'lodash'
 import { Id } from '../../../services/api'
 
 const CardStyle = {
@@ -37,36 +36,23 @@ class ValidIdPage extends React.Component{
     this.setState({buttonState:true})
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log(values)
-        // const config = {
-        //   bucketName: process.env.REACT_APP_S3_BUCKET_NAME,
-        //   albumName: process.env.REACT_APP_S3_ALBUM_NAME,
-        //   region: process.env.REACT_APP_S3_REGION,
-        //   accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
-        //   secretAccessKey: process.env.REACT_APP_S3_SECERET_ACCESS_KEY,
-        // }
-        // var front = ReactS3.upload(this.state.front[0], config)
-        // var back = ReactS3.upload(this.state.back[0], config)
-        //
-        // Promise.all([front, back]).then( res =>{
-        //   Id({
-        //     'type': values['ID type'],
-        //     'frontLocation':res[0].location,
-        //     'backLocation': res[1].location
-        //   }, {'x-access-token':this.props.auth.token}).SubmitId()
-        //   .then(res => {
-        //     this.checkStatus()
-        //     setTimeout(()=>{
-        //       this.setState({buttonState:false})
-        //     }, 800)
-        //   })
-        //   .catch(err => {
-        //     console.log(err)
-        //     setTimeout(()=>{
-        //       this.setState({buttonState:false})
-        //     }, 800)
-        //   })
-        // })
+        const { fileList } = values.File
+        const formData = new FormData()
+        fileList.forEach((file) => {
+          formData.append('files', file.originFileObj);
+        });
+        Id(formData, {'x-access-token':this.props.auth.token, 'Content-type':'multipart/form-data'}).SubmitId()
+        .then(res => {
+          this.checkStatus()
+          setTimeout(()=>{
+            this.setState({buttonState:false})
+          }, 800)
+        }).catch(err => {
+          console.log(err)
+          setTimeout(()=>{
+            this.setState({buttonState:false})
+          }, 800)
+        })
       }else{
         setTimeout(()=>{
           this.setState({buttonState:false})
@@ -154,6 +140,7 @@ class ValidIdPage extends React.Component{
               <Pending
                 cancel={this.cancelRequest}
                 front={this.state.identification.frontLocation}
+                files={this.state.identification.files}
                 back={this.state.identification.backLocation}
                 handlePreview={this.handlePreview}
                 preview={this.state.preview}

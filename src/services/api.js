@@ -26,16 +26,19 @@ export function Phone(data, header){
 export function Id(data, header){
   return {
     SubmitId: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/kyc?level=1', data, {headers:header}),
-    Check: () => axios.get(process.env.REACT_APP_API + '/api/v1/profiles/kyc?level=2', {headers:header}),
-    //Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/profiles/kyc/requirements/ids', {headers:header})
+    Check: () => axios.get(process.env.REACT_APP_API + '/api/v1/profiles/kyc?level=1', {headers:header}),
+    Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/profiles/kyc?level=1', {headers:header}),
+    //admin
+    VerifyID: () => axios.get(process.env.REACT_APP_API + '/api/v1/requirements?level=1', {headers:header}),
+    VerifyPOB: () => axios.get(process.env.REACT_APP_API + '/api/v1/requirements?level=2', {headers:header})
   }
 }
 
 export function Pob(data, header){
   return {
-    SubmitPob: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/kyc/requirements/proofOfBilling', data, {headers:header}),
-    Check: () => axios.get(process.env.REACT_APP_API + '/api/v1/profiles/kyc/requirements/proofOfBilling', {headers:header}),
-    Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/profiles/kyc/requirements/proofOfBilling', {headers:header})
+    SubmitPob: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/kyc?level=2', data, {headers:header}),
+    Check: () => axios.get(process.env.REACT_APP_API + '/api/v1/profiles/kyc?level=2', {headers:header}),
+    Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/profiles/kyc?level=2', {headers:header})
   }
 }
 
@@ -45,6 +48,13 @@ export function Wallet(data, header) {
     Add: () => axios.post(process.env.REACT_APP_API + '/wallets/currencies?action=add', data, {headers:header}),
     MakePrimary: () => axios.post(process.env.REACT_APP_API + '/wallets/currencies?action=setPrimary', data, {headers:header}),
     CloseCurrency: () => axios.post(process.env.REACT_APP_API + '/wallets/currencies?action=remove', data, {headers:header})
+  }
+}
+
+export function Outlets(data, header){
+  return {
+    GetAll: () => axios.get(process.env.REACT_APP_API + '/api/v1/outlets'),
+    Featured: () => axios.get(process.env.REACT_APP_API + '/api/v1/outlets?isFeatured=true')
   }
 }
 

@@ -19,11 +19,12 @@ class SubmitPobPage extends React.Component{
     this.state={
       identification:'',
       buttonState:false,
-      fileList:[]
+      files:[]
     }
     this.validateFile = this.validateFile.bind(this)
     this.handleFileChange = this.handleFileChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.cancelRequest = this.cancelRequest.bind(this)
   }
   validateFile = (rule, value, callback) => {
     if(value !== undefined){
@@ -46,23 +47,23 @@ class SubmitPobPage extends React.Component{
     this.setState({buttonState:true})
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        //console.log(this.state.fileList)
-        // const config = {
-        //   bucketName: process.env.REACT_APP_S3_BUCKET_NAME,
-        //   albumName: process.env.REACT_APP_S3_ALBUM_NAME,
-        //   region: process.env.REACT_APP_S3_REGION,
-        //   accessKeyId: process.env.REACT_APP_S3_ACCESS_KEY_ID,
-        //   secretAccessKey: process.env.REACT_APP_S3_SECERET_ACCESS_KEY,
-        // }
-        // ReactS3.upload(this.state.fileList[0], config)
-        // .then(res=>{
-        //   console.log(res.data)
-        // })
-        // .catch((err) => {
-        //   setTimeout(()=>{
-        //     this.setState({buttonState:false})
-        //   },800)
-        // })
+        const { fileList } = values.File
+        const formData = new FormData()
+        fileList.forEach((file) => {
+          formData.append('files', file.originFileObj);
+        });
+        Pob(formData, {'x-access-token':this.props.auth.token, 'Content-type':'multipart/form-data'}).SubmitPob()
+        .then(res => {
+          this.checkStatus()
+          setTimeout(()=>{
+            this.setState({buttonState:false})
+          }, 800)
+        }).catch(err => {
+          console.log(err)
+          setTimeout(()=>{
+            this.setState({buttonState:false})
+          }, 800)
+        })
       }else{
         setTimeout(()=>{
           this.setState({buttonState:false})
@@ -71,9 +72,15 @@ class SubmitPobPage extends React.Component{
     })
     event.preventDefault()
   }
+  cancelRequest(){
+    Pob(null, {'x-access-token':this.props.auth.token}).Cancel()
+    .then(res=>{
+      this.checkStatus()
+    })
+  }
   handleFileChange(info){
     let {fileList} = info
-    this.setState({fileList});
+    this.setState({files:fileList});
   }
   checkStatus(){
     Pob(null, {'x-access-token':this.props.auth.token}).Check()
@@ -85,7 +92,7 @@ class SubmitPobPage extends React.Component{
     this.checkStatus()
   }
   render(){
-    console.log(this.state)
+    console.log(this.props)
     return (
       <Row justify="center" type="flex" style={{marginTop:'30px'}}>
         <Col md={12} lg={8}>
@@ -97,7 +104,7 @@ class SubmitPobPage extends React.Component{
               actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
                 <UploadPobForm
                   form={this.props.form}
-                  filelist={this.state.fileList}
+                  files={this.state.files}
                   validateFile={this.validateFile}
                   change={this.handleFileChange}
                   submit={this.handleSubmit}

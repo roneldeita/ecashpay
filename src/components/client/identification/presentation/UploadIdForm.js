@@ -26,7 +26,7 @@ export default ({
   }) => {
   const { getFieldDecorator, isFieldTouched, getFieldError } = form
   const IdTypeError = getFieldError('ID type')
-  const FrontIdError = getFieldError('Front ID')
+  const fileError = getFieldError('File')
 
   const FilesProps = {
     fileList:files,
@@ -72,9 +72,9 @@ export default ({
       <Form.Item
         label="Your Photo"
         {...formItemLayout}
-        validateStatus={FrontIdError ? 'error' : ''}
-        help={FrontIdError || ''}>
-        {getFieldDecorator('Front ID', {
+        validateStatus={fileError ? 'error' : ''}
+        help={fileError || ''}>
+        {getFieldDecorator('File', {
           rules: [
             { required: true },
             { validator: validateFile }
@@ -84,6 +84,9 @@ export default ({
             {UploadButton}
           </Upload.Dragger>
         )}
+      </Form.Item>
+      <Form.Item label="Note" {...formItemLayout}>
+        By clicking submit, you agree to our <a>Terms & Condition</a>
       </Form.Item>
       <Form.Item wrapperCol={{span: 18, offset: 6}}>
         <Button

@@ -137,6 +137,7 @@ class App extends Component {
     const paths = [
       '/login', '/register', '/verify', '/redirecting',
       '/admin', '/admin/login', '/admin/transactions',
+      '/admin/requirements/id', '/admin/requirements/pob',
       '/password/request', '/password/reset']
     if(paths.includes(this.props.location.pathname)){
       return 'none'
@@ -144,7 +145,9 @@ class App extends Component {
     return 'block'
   }
   showAdminNavigation(){
-    const paths = ['/admin', '/admin/transactions']
+    const paths = [
+      '/admin', '/admin/transactions',
+      '/admin/requirements/id', '/admin/requirements/pob']
     if(paths.includes(this.props.location.pathname)){
       return 'block'
     }

@@ -7,10 +7,13 @@ const UploadButton = (
     <p>Click or drag file to this area</p>
   </div>
 )
-export default ({form, filelist, change, validateFile, buttonState, submit}) => {
+const formItemLayout = {
+  wrapperCol: {span:16, offset:4},
+}
+export default ({form, files, change, validateFile, buttonState, submit}) => {
   const { getFieldDecorator, getFieldError } = form
   const fileProps = {
-    fileList:filelist,
+    fileList:files,
     onChange:change,
     listType: "picture",
     beforeUpload: (file) => {
@@ -19,8 +22,11 @@ export default ({form, filelist, change, validateFile, buttonState, submit}) => 
   }
   return(
     <Form onSubmit={submit}>
+      <Form.Item {...formItemLayout}>
+        Note: By clicking submit, you agree to our <a>Terms & Condition</a>
+      </Form.Item>
       <Form.Item
-        wrapperCol={{span:16, offset:4}}
+        {...formItemLayout}
         validateStatus={getFieldError('File') ? 'error' : ''}
         help={getFieldError('File') || ''}>
         {getFieldDecorator('File', {
@@ -29,7 +35,7 @@ export default ({form, filelist, change, validateFile, buttonState, submit}) => 
             { validator: validateFile }
           ],
         })(
-          <Upload.Dragger {...fileProps} disabled={filelist.length >= 1}>
+          <Upload.Dragger {...fileProps} disabled={files.length >= 2}>
             {UploadButton}
           </Upload.Dragger>
         )}

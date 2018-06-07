@@ -4,6 +4,7 @@ import Navigation from '../common/Navigation'
 import StepOne from './presentation/StepOne'
 import StepTwo from './presentation/StepTwo'
 import StepThree from './presentation/StepThree'
+import { Outlets } from '../../../services/api'
 
 const Step = Steps.Step
 
@@ -16,16 +17,8 @@ class AddFundsPage extends React.Component{
     super(props)
     this.state = {
       step: 0,
-      merchants:[
-        {id:0, name:'7-Eleven', via:'Dragonpay'},
-        {id:1, name:'BPI Express', via:'Dragonpay'},
-        {id:2, name:'BPI', via:'Dragonpay'},
-        {id:3, name:'Chinabank ', via:'Dragonpay'},
-        {id:4, name:'Unionbank', via:'Dragonpay'},
-        {id:5, name:'LBC Bills Express', via:'Dragonpay'},
-        {id:6, name:'SM Bills Paymnet', via:'Dragonpay'},
-        {id:7, name:'Robinsons Business Center', via:'Dragonpay'}
-      ],
+      featured:[],
+      merchants:[],
       data:{
         merchant:{},
         amount:0
@@ -56,6 +49,16 @@ class AddFundsPage extends React.Component{
   handlePrev(event){
     this.setState({step:this.state.step-1})
   }
+  componentWillMount(){
+    Outlets().Featured()
+    .then(res=>{
+      this.setState({featured:res.data})
+    })
+    Outlets().GetAll()
+    .then(res=>{
+      this.setState({merchants:res.data})
+    })
+  }
   render(){
     console.log(this.state)
     return(
@@ -72,7 +75,7 @@ class AddFundsPage extends React.Component{
                 </Steps>
               </Col>
               <Col span={18}>
-                <StepOne merchants={this.state.merchants} select={this.selectedMerchant} visibility={this.state.step === 0? true : false} next={this.handleNext}/>
+                <StepOne merchants={this.state.merchants} featured={this.state.featured} select={this.selectedMerchant} visibility={this.state.step === 0? true : false} next={this.handleNext}/>
                 <StepTwo form={this.props.form} changeAmount={this.amountChange} data={this.state.data} visibility={this.state.step === 1? true : false} prev={this.handlePrev} next={this.handleNext}/>
                 <StepThree visibility={this.state.step === 2? true : false} prev={this.handlePrev}/>
               </Col>

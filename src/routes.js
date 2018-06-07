@@ -24,6 +24,8 @@ import SubmitPob from './components/client/pob/SubmitPobPage'
 import AdminDashboard from './components/admin/dashboard/DashboardPage'
 import AdminLogin from './components/admin/auth/LoginPage'
 import AdminTransactions from './components/admin/transactions/TransactionPage'
+import AdminRequirementsId from './components/admin/requirements/VerifyIdPage'
+import AdminRequirementsPob from './components/admin/requirements/VerifyPobPage'
 
 import { hasToken, getProfile } from './assets/utils/auth'
 
@@ -59,6 +61,8 @@ const Routes = ({ store }) => (
           <Route path="/admin/login" render={ () => ( !isLoggedIn() ? <AdminLogin/> : <Redirect to="/redirecting"/> )}/>
           <Route path="/admin" exact render={ (props) => ( isAdmin() ? <AdminDashboard {...props}/> : <Redirect to="/redirecting"/> )}/>
           <Route path="/admin/transactions" render={ () => ( isAdmin() ? <AdminTransactions/> : <Redirect to="/redirecting"/> )}/>
+          <Route path="/admin/requirements/id" render={ () => ( isAdmin() ? <AdminRequirementsId/> : <Redirect to="/redirecting"/> )}/>
+          <Route path="/admin/requirements/pob" render={ () => ( isAdmin() ? <AdminRequirementsPob/> : <Redirect to="/redirecting"/> )}/>
           <Route path="/redirecting" component={Redirecting} />
           <Route path="*" component={NotFound} />
         </Switch>
