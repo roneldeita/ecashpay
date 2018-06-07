@@ -39,7 +39,8 @@ const Desc = {
   lineHeight: '13px'
 }
 
-export default ({ready, levels}) => {
+export default ({ready, levels, phone}) => {
+  console.log(phone)
   let progress = (levels !== undefined ? Object.keys(levels).length : 0) * 25
   return(
     <Card
@@ -50,7 +51,7 @@ export default ({ready, levels}) => {
       {/*<p style={Title}>Get started with Eacashpay</p>*/}
       <Row type="flex" justify="space-between" style={RowStyle}>
         <Col className="" xs={24} sm={12} lg={8} xl={4}>
-          { includes(levels, 1)
+          { (phone !== '')
             ?
             <div>
               <img src={Check} style={Img} alt="check" />
@@ -66,7 +67,7 @@ export default ({ready, levels}) => {
           }
         </Col>
         <Col className="" xs={24} sm={12} lg={8} xl={4}>
-          { includes(levels, 2)
+          { includes(levels, 1)
             ?
             <div>
               <img src={Check} style={Img} alt="check" />

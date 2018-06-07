@@ -14,15 +14,18 @@ class StepOne extends React.Component{
     this.setState({buttonState:true})
     this.props.form.validateFields((err, values) => {
       if(!err){
-        console.log(values)
-        Phone({'code':values['Verification Code']}, {'x-access-token':this.props.auth.token}).Verify()
+        const Verification = {
+          'code': values['Verification Code'],
+          'areaCode': this.props.code,
+          'phone': this.props.phone
+        }
+        Phone(Verification, {'x-access-token':this.props.auth.token}).Verify()
         .then(res=>{
           this.props.profileAction.loadProfile()
           this.props.changeStep({step:2})
         }).catch(err=>{
           console.log(err)
         })
-        //this.props.changeStep({step:0})
         setTimeout(()=>{
           this.setState({buttonState:false})
         }, 800)
@@ -35,7 +38,7 @@ class StepOne extends React.Component{
     event.preventDefault()
   }
   render(){
-    console.log(this.props)
+    //console.log(this.props)
     const { getFieldDecorator, isFieldTouched, getFieldError } = this.props.form
     const VerificationError = getFieldError('Verification Code')
     return (

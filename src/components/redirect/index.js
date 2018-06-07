@@ -14,6 +14,7 @@ class RedirectPage extends React.Component {
     window.scrollTo(0, 0)
   }
   isLoggedIn(status){
+    //console.log(status)
     switch(status){
       case 0:
         //this.props.history.push('/verify')
@@ -38,7 +39,7 @@ class RedirectPage extends React.Component {
         case "admin":
           window.location.href = '/admin'
           break;
-        case "client":
+        case "individual":
           this.isLoggedIn(nextProps.profile.status)
           break;
         default:

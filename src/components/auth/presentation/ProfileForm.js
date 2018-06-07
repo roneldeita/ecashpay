@@ -1,11 +1,13 @@
 import React from 'react'
 // import moment from 'moment';
-import {Row, Col, Card, Icon, Button, Form, Input, DatePicker, Select} from 'antd'
+import {Row, Col, Card, Icon, Button, Form, Input, DatePicker, Select, Radio, Divider} from 'antd'
 
-const FormItem = Form.Item;
+const FormItem = Form.Item
+const Option = Select.Option
+const RadioGroup = Radio.Group
 
 const AntContainer = {
-  margin: '80px 0px 100px 0px'
+  margin: '50px 0px 100px 0px'
 }
 const Head = {
   backgroundColor: '#1dA1f2',
@@ -14,10 +16,10 @@ const Head = {
   padding: '40px 10px 5px 10px'
 }
 const UseIcon = {
-  fontSize: '80px'
+  fontSize: '60px'
 }
 const Title = {
-  fontSize: '32px',
+  fontSize: '28px',
   fontWeight: 500
 }
 const AntForm = {
@@ -32,27 +34,32 @@ const Label = {
   wrapperCol: { span:18 }
 }
 
-const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonState, onClickCompleteButton}) => {
+const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonState, onClickCompleteButton, sourceOfFunds, handleSourceOfFunds}) => {
   const { getFieldDecorator, isFieldTouched, getFieldError } = form;
   const FirstNameError =  getFieldError('First Name')
   const LastNameError =  getFieldError('Last Name')
+  const GenderError = getFieldError('Gender')
   const BirthDateError =  getFieldError('Birth Date')
-  const PhoneNumberError = getFieldError('Phone Number')
+  //const PhoneNumberError = getFieldError('Phone Number')
   const Address1Error = getFieldError('Address line 1')
   const Address2Error = getFieldError('Address line 2')
   const CityMunicipalityError = getFieldError('City / Municipality')
   const RegionStateProvinceError = getFieldError('Region / State / Province')
   const CountryError = getFieldError('Country')
   const CurrencyError = getFieldError('Currency')
-  const prefixSelector = getFieldDecorator('Country Code', {
-    initialValue: '63',
-  })(
-    <Select style={{ width: 70}}>
-      <Select.Option value="63">+63</Select.Option>
-      <Select.Option value="86">+86</Select.Option>
-      <Select.Option value="87">+87</Select.Option>
-    </Select>
-  );
+  const SourceOfFundsError = getFieldError('Source of Funds')
+  const OccupationError = getFieldError('Occupation')
+  const CompanyError = getFieldError('Company')
+  const PositionError = getFieldError('Position')
+  // const prefixSelector = getFieldDecorator('Country Code', {
+  //   initialValue: '63',
+  // })(
+  //   <Select style={{ width: 70}}>
+  //     <Option value="63">+63</Option>
+  //     <Option value="86">+86</Option>
+  //     <Option value="87">+87</Option>
+  //   </Select>
+  // )
   return(
     <Row type="flex" justify="center" style={AntContainer}>
       <Col sm={24} md={11}>
@@ -99,6 +106,23 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   )}
                 </FormItem>
                 <FormItem
+                  label="Gender"
+                  {...Label}
+                  hasFeedback={isFieldTouched('Gender')}
+                  validateStatus={GenderError ? 'error' : 'success'}
+                  help={GenderError || ''}>
+                  {getFieldDecorator('Gender', {
+                    rules: [
+                      { required: true }
+                    ],
+                  })(
+                    <RadioGroup style={{width:'100%'}}>
+                      <Radio value="1">Male</Radio>
+                      <Radio value="0">Female</Radio>
+                    </RadioGroup>
+                  )}
+                </FormItem>
+                <FormItem
                   label="Birthdate"
                   {...Label}
                   hasFeedback={isFieldTouched('Birth Date')}
@@ -112,7 +136,8 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     <DatePicker size="large" placeholder="YYYY-DD-MM" format="YYYY-DD-MM" style={{width:'100%'}} />
                   )}
                 </FormItem>
-                <FormItem
+                <Divider/>
+                {/*<FormItem
                   label="Phone Number"
                   {...Label}
                   hasFeedback={isFieldTouched('Phone Number')}
@@ -128,7 +153,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   })(
                     <Input addonBefore={prefixSelector} size="large"/>
                   )}
-                </FormItem>
+                </FormItem>*/}
                 <FormItem
                   label="Address line 1"
                   {...Label}
@@ -199,7 +224,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     optionFilterProp="children"
                     size="large">
                       {countries.map((country, index) =>{
-                        return <Select.Option value={country.name} key={index}><img src={country.flag} style={Flag} alt="flag" /> {country.name}</Select.Option>
+                        return <Option value={country.name} key={index}><img src={country.flag} style={Flag} alt="flag" /> {country.name}</Option>
                       })}
                     </Select>
                   )}
@@ -219,9 +244,73 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     showSearch
                     optionFilterProp="children"
                     size="large">
-                      <Select.Option value="php">PHP - PH PESO</Select.Option>
-                      <Select.Option value="usd">USD - US DOLLAR</Select.Option>
+                      <Option value="php">PHP - PH PESO</Option>
+                      <Option value="usd">USD - US DOLLAR</Option>
                     </Select>
+                  )}
+                </FormItem>
+                <Divider/>
+                <FormItem
+                  label="Source of Funds"
+                  {...Label}
+                  hasFeedback={isFieldTouched('Source of Funds')}
+                  validateStatus={SourceOfFundsError ? 'error' : 'success'}
+                  help={SourceOfFundsError || ''}>
+                  {getFieldDecorator('Source of Funds', {
+                    rules: [
+                      { required: true }
+                    ],
+                  })(
+                    <RadioGroup onChange={handleSourceOfFunds} style={{width:'100%'}}>
+                      <Radio value="1">Employed</Radio>
+                      <Radio value="2">Self-Employed</Radio>
+                      <Radio value="3">Unemployed</Radio>
+                    </RadioGroup>
+                  )}
+                </FormItem>
+                <FormItem
+                  label="Occupation"
+                  style={{display:sourceOfFunds === "1" ? 'block': 'none'}}
+                  {...Label}
+                  hasFeedback={isFieldTouched('Occupation')}
+                  validateStatus={OccupationError ? 'error' : 'success'}
+                  help={OccupationError || ''}>
+                  {getFieldDecorator('Occupation', {
+                    rules: [
+                      { required: true }
+                    ],
+                  })(
+                    <Input size="large"/>
+                  )}
+                </FormItem>
+                <FormItem
+                  label="Company"
+                  style={{display:sourceOfFunds === "1" ? 'block': 'none'}}
+                  {...Label}
+                  hasFeedback={isFieldTouched('Company')}
+                  validateStatus={CompanyError ? 'error' : 'success'}
+                  help={CompanyError || ''}>
+                  {getFieldDecorator('Company', {
+                    rules: [
+                      { required: true }
+                    ],
+                  })(
+                    <Input size="large"/>
+                  )}
+                </FormItem>
+                <FormItem
+                  label="Position"
+                  style={{display:sourceOfFunds === "1" ? 'block': 'none'}}
+                  {...Label}
+                  hasFeedback={isFieldTouched('Position')}
+                  validateStatus={PositionError ? 'error' : 'success'}
+                  help={PositionError || ''}>
+                  {getFieldDecorator('Position', {
+                    rules: [
+                      { required: true }
+                    ],
+                  })(
+                    <Input size="large"/>
                   )}
                 </FormItem>
                 <br/>

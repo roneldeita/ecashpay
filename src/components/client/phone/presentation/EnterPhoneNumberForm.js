@@ -87,7 +87,7 @@ class StepOne extends React.Component{
               showSearch
               optionFilterProp="children"
               size="large"
-              onSelect={this.onChangeCountry}>
+              onChange={this.onChangeCountry}>
               {this.state.countries.map((country, index) =>{
                 return (<Select.Option
                   value={country.name+'-'+ country.code}

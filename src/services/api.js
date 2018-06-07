@@ -5,12 +5,12 @@ export function Auth(data, header) {
     //client
     login: () => axios.post(process.env.REACT_APP_API + '/login', data),
     register: () => axios.post(process.env.REACT_APP_API + '/register', data),
-    verifyEmail: () => axios.post(process.env.REACT_APP_API + '/verification', data, {headers:header}),
-    verificationResend: () => axios.post(process.env.REACT_APP_API + '/verification/resend', data, {headers:header}),
-    getUserProfile: () => axios.get(process.env.REACT_APP_API + '/profiles', {headers: header}),
-    completeProfile: () => axios.put(process.env.REACT_APP_API + '/profiles', data, {headers:header}),
-    recoveryRequest: () => axios.post(process.env.REACT_APP_API + '/recovery/request', data),
-    recoveryReset: () => axios.post(process.env.REACT_APP_API + '/recovery/reset', data),
+    verifyEmail: () => axios.post(process.env.REACT_APP_API + '/verifications', data, {headers:header}),
+    verificationResend: () => axios.post(process.env.REACT_APP_API + '/verifications/resend', data, {headers:header}),
+    getUserProfile: () => axios.get(process.env.REACT_APP_API + '/api/v1/profiles', {headers: header}),
+    completeProfile: () => axios.patch(process.env.REACT_APP_API + '/api/v1/profiles', data, {headers:header}),
+    recoveryRequest: () => axios.post(process.env.REACT_APP_API + '/api/recovery/request', data),
+    recoveryReset: () => axios.post(process.env.REACT_APP_API + '/api/recovery/reset', data),
     //admin
     AdminLogin: () => axios.post(process.env.REACT_APP_API + '/login?role=admin', data),
   }
@@ -18,24 +18,24 @@ export function Auth(data, header) {
 
 export function Phone(data, header){
   return {
-    Request: () => axios.post(process.env.REACT_APP_API + '/profiles/kyc/requirements/phone', data, {headers:header}),
-    Verify: () => axios.put(process.env.REACT_APP_API + '/profiles/kyc/requirements/phone', data, {headers:header})
+    Request: () => axios.patch(process.env.REACT_APP_API + '/api/v1/profiles/phones/verifications', data, {headers:header}),
+    Verify: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/phones/verifications', data, {headers:header})
   }
 }
 
 export function Id(data, header){
   return {
-    SubmitId: () => axios.post(process.env.REACT_APP_API + '/profiles/kyc/requirements/ids', data, {headers:header}),
-    Check: () => axios.get(process.env.REACT_APP_API + '/profiles/kyc/requirements/ids', {headers:header}),
-    Cancel: () => axios.delete(process.env.REACT_APP_API + '/profiles/kyc/requirements/ids', {headers:header})
+    SubmitId: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/kyc?level=1', data, {headers:header}),
+    Check: () => axios.get(process.env.REACT_APP_API + '/api/v1/profiles/kyc?level=2', {headers:header}),
+    //Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/profiles/kyc/requirements/ids', {headers:header})
   }
 }
 
 export function Pob(data, header){
   return {
-    SubmitPob: () => axios.post(process.env.REACT_APP_API + '/profiles/kyc/requirements/proofOfBilling', data, {headers:header}),
-    Check: () => axios.get(process.env.REACT_APP_API + '/profiles/kyc/requirements/proofOfBilling', {headers:header}),
-    Cancel: () => axios.delete(process.env.REACT_APP_API + '/profiles/kyc/requirements/proofOfBilling', {headers:header})
+    SubmitPob: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/kyc/requirements/proofOfBilling', data, {headers:header}),
+    Check: () => axios.get(process.env.REACT_APP_API + '/api/v1/profiles/kyc/requirements/proofOfBilling', {headers:header}),
+    Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/profiles/kyc/requirements/proofOfBilling', {headers:header})
   }
 }
 

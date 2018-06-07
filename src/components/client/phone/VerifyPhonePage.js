@@ -1,9 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as profileActions from '../../../actions/profileAction'
-import { Card, Row, Col, Icon} from 'antd'
+import { Card, Row, Col} from 'antd'
 import StepOne from './presentation/EnterPhoneNumberForm'
 import StepTwo from './presentation/EnterVerificationForm'
 import Done from './presentation/PhoneVerified'
@@ -28,16 +27,18 @@ class VerifyPhonePage extends React.Component{
     this.setState({step:data.step, phone: data.phone, code:data.code})
   }
   render(){
+    //console.log(this.state)
     return(
-      <Row type="flex" justify="center" style={{marginTop:'30px'}}>
+      <Row type="flex" justify="center" style={{marginTop:'80px'}}>
         <Col md={12} lg={6}>
           <Card
             hoverable
             title={ <span>Verify your Phone number</span> }
-            style={CardStyle}
-            actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
+            style={CardStyle}>
             <div style={{display:this.state.step === 0 ? 'block' : 'none'}}>
-              <StepOne phone={this.props.profile.phone} changeStep={this.handleStep} auth={this.props.auth}/>
+              <StepOne
+                changeStep={this.handleStep}
+                auth={this.props.auth}/>
             </div>
             <div style={{display:this.state.step === 1 ? 'block' : 'none'}}>
               <StepTwo

@@ -3,13 +3,6 @@ import {Card, Row, Col, Form, Input, Button } from 'antd'
 import RightSection from './RightSection'
 import * as css from '../../../assets/styles/VerificationForm'
 
-// import 'antd/lib/card/style/css'
-// import 'antd/lib/col/style/css'
-// import 'antd/lib/row/style/css'
-// import 'antd/lib/form/style/css'
-// import 'antd/lib/input/style/css'
-// import 'antd/lib/button/style/css'
-
 const FormItem = Form.Item;
 
 const VerificationForm = ({email, form, buttonState, onSubmit, onResend, onClickSubmitButton}) => {
@@ -22,7 +15,7 @@ const VerificationForm = ({email, form, buttonState, onSubmit, onResend, onClick
           <Row>
             <Col className="" style={css.FormColumn} span={13}>
               <p style={css.Greet}>Email Verification</p>
-              <p style={css.Small}>A verification code has been emailed to <b>{email}</b>, Please input verification code to verify.</p>
+              <p style={css.Small}>A verification code has been emailed to <span style={{fontWeight:500}}>{email}</span>, Please input verification code to verify.</p>
               <br/><br/>
               <Form onSubmit={onSubmit}>
                 <FormItem

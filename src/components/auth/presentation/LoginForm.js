@@ -4,14 +4,6 @@ import {Card, Row, Col, Form, Input, Button, Icon } from 'antd'
 import RightSection from './RightSection'
 import * as css from '../../../assets/styles/LoginForm'
 
-// import 'antd/lib/card/style/css'
-// import 'antd/lib/col/style/css'
-// import 'antd/lib/row/style/css'
-// import 'antd/lib/form/style/css'
-// import 'antd/lib/input/style/css'
-// import 'antd/lib/button/style/css'
-// import 'antd/lib/icon/style/css'
-
 const FormItem = Form.Item;
 
 const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton}) => {

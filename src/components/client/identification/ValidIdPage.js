@@ -22,14 +22,12 @@ class ValidIdPage extends React.Component{
       identification:'',
       status:'',
       buttonState:false,
-      front:[],
-      back:[],
+      files:[],
       preview: false,
       image:''
     }
     this.validateFile = this.validateFile.bind(this)
-    this.handleFrontChange = this.handleFrontChange.bind(this)
-    this.handleBackChange = this.handleBackChange.bind(this)
+    this.handleFilesChange = this.handleFilesChange.bind(this)
     this.handlePreview = this.handlePreview.bind(this)
     this.closePreview = this.closePreview.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -39,6 +37,7 @@ class ValidIdPage extends React.Component{
     this.setState({buttonState:true})
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        console.log(values)
         // const config = {
         //   bucketName: process.env.REACT_APP_S3_BUCKET_NAME,
         //   albumName: process.env.REACT_APP_S3_ALBUM_NAME,
@@ -102,21 +101,9 @@ class ValidIdPage extends React.Component{
       preview: true,
     });
   }
-  handleFrontChange(info){
+  handleFilesChange(info){
     let {fileList} = info
-    if(!isEmpty(fileList)){
-      let tmpimg = window.URL.createObjectURL(fileList[0])
-      fileList[0]['url'] = tmpimg
-    }
-    this.setState({front:fileList});
-  }
-  handleBackChange(info){
-    let {fileList} = info
-    if(!isEmpty(fileList)){
-      let tmpimg = window.URL.createObjectURL(fileList[0])
-      fileList[0]['url'] = tmpimg
-    }
-    this.setState({back:fileList});
+    this.setState({files:fileList});
   }
   cancelRequest(){
     Id(null, {'x-access-token':this.props.auth.token}).Cancel()
@@ -136,7 +123,7 @@ class ValidIdPage extends React.Component{
   render(){
     //console.log(this.state)
     return(
-      <Row type="flex" justify="center" style={{marginTop:'30px'}}>
+      <Row type="flex" justify="center" style={{marginTop:'80px'}}>
         <Col md={12} lg={8}>
           <div style={{display:this.state.identification.status === 'none' ? 'block' : 'none'}}>
             <Card
@@ -147,10 +134,8 @@ class ValidIdPage extends React.Component{
                 <UploadIdForm
                   buttonState={this.state.buttonState}
                   form={this.props.form}
-                  front={this.state.front}
-                  back={this.state.back}
-                  handleFrontChange={this.handleFrontChange}
-                  handleBackChange={this.handleBackChange}
+                  files={this.state.files}
+                  onFilesChange={this.handleFilesChange}
                   handlePreview={this.handlePreview}
                   preview={this.state.preview}
                   image={this.state.image}

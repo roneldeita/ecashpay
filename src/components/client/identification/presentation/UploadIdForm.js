@@ -15,10 +15,8 @@ const UploadButton = (
 export default ({
   form,
   buttonState,
-  front,
-  back,
-  handleFrontChange,
-  handleBackChange,
+  files,
+  onFilesChange,
   handlePreview,
   preview,
   image,
@@ -29,20 +27,10 @@ export default ({
   const { getFieldDecorator, isFieldTouched, getFieldError } = form
   const IdTypeError = getFieldError('ID type')
   const FrontIdError = getFieldError('Front ID')
-  const BackIdError = getFieldError('Back ID')
 
-  const FrontIdProps = {
-    fileList:front,
-    onChange: handleFrontChange,
-    onPreview: handlePreview,
-    listType: "picture",
-    beforeUpload: (file) => {
-      return false;
-    },
-  }
-  const BackIdProps = {
-    fileList:back,
-    onChange: handleBackChange,
+  const FilesProps = {
+    fileList:files,
+    onChange: onFilesChange,
     onPreview: handlePreview,
     listType: "picture",
     beforeUpload: (file) => {
@@ -59,10 +47,11 @@ export default ({
         help={IdTypeError || ''}>
         {getFieldDecorator('ID type', {
           rules: [
-            { required: true }
+            { required: false }
           ],
         })(
           <Select placeholder="Select your ID"
+            disabled
             showSearch
             optionFilterProp="children"
             style={{ minWidth: 180 }}>
@@ -81,7 +70,7 @@ export default ({
         )}
       </Form.Item>
       <Form.Item
-        label="Front Image"
+        label="Your Photo"
         {...formItemLayout}
         validateStatus={FrontIdError ? 'error' : ''}
         help={FrontIdError || ''}>
@@ -91,23 +80,7 @@ export default ({
             { validator: validateFile }
           ],
         })(
-          <Upload.Dragger {...FrontIdProps} disabled={front.length >= 1}>
-            {UploadButton}
-          </Upload.Dragger>
-        )}
-      </Form.Item>
-      <Form.Item
-        label="Back Image"
-        {...formItemLayout}
-        validateStatus={BackIdError ? 'error' : ''}
-        help={BackIdError || ''}>
-        {getFieldDecorator('Back ID', {
-          rules: [
-            { required: true },
-            { validator: validateFile }
-          ],
-        })(
-          <Upload.Dragger {...BackIdProps} disabled={back.length >= 1}>
+          <Upload.Dragger {...FilesProps} disabled={files.length >= 2}>
             {UploadButton}
           </Upload.Dragger>
         )}

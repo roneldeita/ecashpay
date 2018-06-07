@@ -28,16 +28,20 @@ class AdminSideNavigation extends React.Component{
         <Menu.Item key="/admin">
           <Link to="/admin"><Icon type="dashboard" /><span>Dashboard</span></Link>
         </Menu.Item>
-          <Menu.Item key="/admin/transactions">
-            <Link to="/admin/transactions"><Icon type="swap" /><span>Transactions</span></Link>
-          </Menu.Item>
-          <Menu.Item key="/shop">
-            <Icon type="shop" />
-            <span>Merchants</span>
-          </Menu.Item>
-          <SubMenu key="sub1" title={<span><Icon type="wallet" /><span>Currency</span></span>}>
-            <Menu.Item key="5">Rates</Menu.Item>
-          </SubMenu>
+        <SubMenu key="sub1" title={<span><Icon type="idcard" /><span>KYC</span></span>}>
+          <Menu.Item key="/admin/kyc/1">Verify ID</Menu.Item>
+          <Menu.Item key="/admin/kyc/2">Verify POB</Menu.Item>
+        </SubMenu>
+        <Menu.Item key="/admin/transactions">
+          <Link to="/admin/transactions"><Icon type="swap" /><span>Transactions</span></Link>
+        </Menu.Item>
+        <Menu.Item key="/shop">
+          <Icon type="shop" />
+          <span>Merchants</span>
+        </Menu.Item>
+        <SubMenu key="sub2" title={<span><Icon type="wallet" /><span>Currency</span></span>}>
+          <Menu.Item key="5">Rates</Menu.Item>
+        </SubMenu>
         </Menu>
       </div>
     );

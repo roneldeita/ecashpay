@@ -25,15 +25,13 @@ import AdminDashboard from './components/admin/dashboard/DashboardPage'
 import AdminLogin from './components/admin/auth/LoginPage'
 import AdminTransactions from './components/admin/transactions/TransactionPage'
 
-import Cart from './components/cart'
-
 import { hasToken, getProfile } from './assets/utils/auth'
 
 const isLoggedIn = () => {
   return hasToken()
 }
 const isClient = (status) => {
-  return hasToken() && getProfile().status === status && getProfile().type === "client"
+  return hasToken() && getProfile().status === status && getProfile().type === "individual"
 }
 const isAdmin = () => {
   return hasToken() && getProfile().type === "admin"
@@ -61,7 +59,6 @@ const Routes = ({ store }) => (
           <Route path="/admin/login" render={ () => ( !isLoggedIn() ? <AdminLogin/> : <Redirect to="/redirecting"/> )}/>
           <Route path="/admin" exact render={ (props) => ( isAdmin() ? <AdminDashboard {...props}/> : <Redirect to="/redirecting"/> )}/>
           <Route path="/admin/transactions" render={ () => ( isAdmin() ? <AdminTransactions/> : <Redirect to="/redirecting"/> )}/>
-          <Route path="/cart" component={Cart} />
           <Route path="/redirecting" component={Redirecting} />
           <Route path="*" component={NotFound} />
         </Switch>

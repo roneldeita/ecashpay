@@ -18,11 +18,16 @@ class ProfilePage extends React.Component{
     super(props)
     this.state = {
       buttonState: false,
-      countries: []
+      countries: [],
+      sourceOfFunds: 0,
     }
     this.onClickCompleteButton = this.onClickCompleteButton.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSourceOfFunds = this.handleSourceOfFunds.bind(this)
+  }
+  handleSourceOfFunds(e){
+    this.setState({sourceOfFunds:e.target.value})
   }
   onClickCompleteButton(event){
     this.setState({buttonState:true})
@@ -41,21 +46,31 @@ class ProfilePage extends React.Component{
           if(index === 'Region / State / Province'){
             index = 'Region'
           }
-          if(index === 'Phone Number'){
-            index = 'Phone'
-          }
+          // if(index === 'Phone Number'){
+          //   index = 'Phone'
+          // }
           if(index ==='Birth Date'){
             value = value.format('YYYY-MM-DD')
           }
+          if(index === 'Source of Funds'){
+            if(value === '1'){
+              Data['employed'] = {}
+            }else if(value === '2'){
+              Data['selfEmployed'] = {}
+            }else if(value === '3'){
+              Data['unemployed'] = {}
+            }
+          }
           Data[camelCase(index)]=value
         })
+        if(values['Source of Funds'] === "1"){
+          Data['employed']['occupation'] = values.Occupation
+          Data['employed']['company'] = values.Company
+          Data['employed']['position'] = values.Position
+        }
+        //console.log(Data)
         Auth(Data, {'x-access-token':this.props.auth.token}).completeProfile()
         .then( res => {
-          // const Auth = localStorage.getItem("auth")
-          // const parsedAuth = JSON.parse(Auth)
-          // parsedAuth.status = 2;
-          //console.log(res)
-          //this.props.authActions.saveAuth(parsedAuth)
           sessionStorage.removeItem('profile');
           this.props.profileAction.loadProfile(this.props.auth.token)
           window.location.href = '/client/dashboard'
@@ -99,6 +114,8 @@ class ProfilePage extends React.Component{
           onClickCompleteButton ={this.onClickCompleteButton}
           countries={this.state.countries}
           onSubmit={this.handleSubmit}
+          sourceOfFunds={this.state.sourceOfFunds}
+          handleSourceOfFunds={this.handleSourceOfFunds}
         />
       </div>
     )
