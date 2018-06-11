@@ -87,7 +87,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      timeOut: 600000,
+      timeOut: 0,
       collapsed: false,
     }
     this.handleChangeLocale = this.handleChangeLocale.bind(this)
@@ -173,6 +173,9 @@ class App extends Component {
       , 0);
       this.props.history.push('/login')
     }
+  }
+  componentWillMount(){
+    this.setState({timeOut:process.env.REACT_APP_TIMEOUT})
   }
   render() {
     //console.log(this.props)

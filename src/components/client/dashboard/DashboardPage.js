@@ -13,7 +13,8 @@ class DashboardPage extends React.Component{
   constructor(props){
     super(props)
     this.state = {
-      wallets:{}
+      wallets:{},
+      profile:{}
     }
   }
   loadWallets(){
@@ -26,28 +27,38 @@ class DashboardPage extends React.Component{
     //   console.log(err)
     // })
   }
+  renderPhoneVerification(){
+    window.location.href = '/client/verify/phone'
+  }
+  componentWillMount(){
+    if(this.props.profile.phone === ''){
+      this.renderPhoneVerification()
+    }
+    this.setState({profile:this.props.profile})
+  }
+  componentWillReceiveProps(nextProps){
+    if(nextProps.profile.phone === ''){
+      this.renderPhoneVerification()
+    }
+    this.setState({profile:nextProps.profile})
+  }
   componentDidMount(){
     this.loadWallets()
   }
   render(){
-    if(this.props.profile.phone === ''){
-      window.location.href = '/client/verify/phone'
-    }
-    const IsWalletReady = isEmpty(this.state.wallets)
-    const IsProfileReady = isEmpty(this.props.profile)
     return(
       <Row type="flex" justify="center">
         <Col className="" xs={24} sm={24} md={22} lg={18}>
-          <Menu ready={IsProfileReady} profile={this.props.profile} />
+          <Menu ready={isEmpty(this.state.profile)} profile={this.state.profile} />
         </Col>
         <Col className="" span={18} style={{marginTop:'30px'}}>
           <Row gutter={30}>
             <Col className="" md={24} lg={8} style={{marginBottom:'10px'}}>
-              <WalletCard ready={IsWalletReady} currencies={this.state.wallets}/>
+              <WalletCard ready={isEmpty(this.state.wallets)} currencies={this.state.wallets}/>
             </Col>
             <Col className="" md={24} lg={16}>
               {/*<Requirements ready={IsProfileReady} levels={this.props.profile.levels} />*/}
-              <Requirements levels={this.props.profile.levels} phone={this.props.profile.phone} />
+              <Requirements ready={isEmpty(this.state.profile)} levels={this.props.profile.levels} phone={this.props.profile.phone} />
             </Col>
           </Row>
         </Col>

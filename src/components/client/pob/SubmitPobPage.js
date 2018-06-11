@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import UploadPobForm from './presentation/UploadPobForm'
 import Pending from './presentation/Pending'
+import Verified from './presentation/Verified'
 import { Form, Row, Col, Card, Icon } from 'antd'
 import { Pob } from '../../../services/api'
 
@@ -92,7 +93,7 @@ class SubmitPobPage extends React.Component{
     this.checkStatus()
   }
   render(){
-    console.log(this.props)
+    //console.log(this.props)
     return (
       <Row justify="center" type="flex" style={{marginTop:'30px'}}>
         <Col md={12} lg={8}>
@@ -123,6 +124,14 @@ class SubmitPobPage extends React.Component{
                 location={this.state.identification.location}
                 type={this.state.identification.type}
                 />
+            </Card>
+          </div>
+          <div style={{display:this.state.identification.status === 'done' ? 'block' : 'none'}}>
+            <Card
+              hoverable
+              title={ <span>Submit Proof Of Billing</span> }
+              style={CardStyle}>
+              <Verified/>
             </Card>
           </div>
         </Col>

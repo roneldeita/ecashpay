@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import UploadIdForm from './presentation/UploadIdForm'
 import Pending from './presentation/Pending'
 import Rejected from './presentation/Rejected'
+import Verified from './presentation/Verified'
 import { Id } from '../../../services/api'
 
 const CardStyle = {
@@ -114,7 +115,7 @@ class ValidIdPage extends React.Component{
           <div style={{display:this.state.identification.status === 'none' ? 'block' : 'none'}}>
             <Card
               hoverable
-              title={ <span>Submit your government-issued ID</span> }
+              title={ <span>Submit your selfie with government-issued ID</span> }
               style={CardStyle}
               actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
                 <UploadIdForm
@@ -134,7 +135,7 @@ class ValidIdPage extends React.Component{
           <div style={{display:this.state.identification.status === 'pending' ? 'block' : 'none'}}>
             <Card
               hoverable
-              title={ <span>Submit your government-issued ID</span> }
+              title={ <span>Submit your selfie with government-issued ID</span> }
               style={CardStyle}
               actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
               <Pending
@@ -152,10 +153,18 @@ class ValidIdPage extends React.Component{
           <div style={{display:this.state.identification.status === 'rejected' ? 'block' : 'none'}}>
             <Card
               hoverable
-              title={ <span>Submit your government-issued ID</span> }
+              title={ <span>Submit your selfie with government-issued ID</span> }
               style={CardStyle}
               actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
               <Rejected resubmit={this.cancelRequest}/>
+            </Card>
+          </div>
+          <div style={{display:this.state.identification.status === 'done' ? 'block' : 'none'}}>
+            <Card
+              hoverable
+              title={ <span>Submit your selfie with government-issued ID</span> }
+              style={CardStyle}>
+              <Verified/>
             </Card>
           </div>
         </Col>

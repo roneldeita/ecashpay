@@ -27,6 +27,13 @@ class ProfilePage extends React.Component{
     this.handleSourceOfFunds = this.handleSourceOfFunds.bind(this)
   }
   handleSourceOfFunds(e){
+    if(e.target.value === "2"){
+      this.props.form.resetFields(['Business Name', 'Registration Date', 'Nature of Business', 'Years in Operation'])
+      this.props.form.setFieldsValue({'Occupation':'x','Company':'x', 'Position':'x'})
+    }else if(e.target.value === "1"){
+      this.props.form.resetFields(['Occupation', 'Company', 'Position'])
+      this.props.form.setFieldsValue({'Business Name':'x', 'Registration Date': 'x', 'Nature of Business': 'x', 'Years in Operation': 'x'})
+    }
     this.setState({sourceOfFunds:e.target.value})
   }
   onClickCompleteButton(event){
@@ -64,11 +71,15 @@ class ProfilePage extends React.Component{
           Data[camelCase(index)]=value
         })
         if(values['Source of Funds'] === "1"){
-          Data['employed']['occupation'] = values.Occupation
-          Data['employed']['company'] = values.Company
-          Data['employed']['position'] = values.Position
+          Data['employed']['occupation'] = Data['occupation'].toString()
+          Data['employed']['company'] = Data['company'].toString()
+          Data['employed']['position'] = Data['position'].toString()
+        }else if(values['Source of Funds'] === "2"){
+          Data['selfEmployed']['business'] = Data['businessName'].toString()
+          Data['selfEmployed']['registrationDate'] = Data['registrationDate'].toString()
+          Data['selfEmployed']['nature'] = Data['natureOfBusiness'].toString()
+          Data['selfEmployed']['yearsInOperation'] = Data['yearsInOperation'].toString()
         }
-        //console.log(Data)
         Auth(Data, {'x-access-token':this.props.auth.token}).completeProfile()
         .then( res => {
           sessionStorage.removeItem('profile');
@@ -104,6 +115,7 @@ class ProfilePage extends React.Component{
     })
   }
   render(){
+    console.log(this.props)
     return(
       <div>
         <ProfileForm

@@ -18,7 +18,7 @@ export default ({record, accept, decline}) => {
     <Table
       title={() => (
       <div>
-        <h1>Verify Photo <span style={{fontSize:'14px'}}>(Selfie while holding valid ID)</span></h1>
+        <h1>Verify Proof of billing</h1>
       </div>)}
       rowKey="id"
       columns={columns}

@@ -35,7 +35,7 @@ export default ({cancel, front, back, files, handlePreview, preview, image, clos
       </Popconfirm>
   </div>
   )
-  console.log(files)
+  //console.log(files)
   return(
     <div style={{textAlign:'center'}}>
       <Alert

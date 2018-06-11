@@ -48,9 +48,15 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
   const CountryError = getFieldError('Country')
   const CurrencyError = getFieldError('Currency')
   const SourceOfFundsError = getFieldError('Source of Funds')
+  //employed
   const OccupationError = getFieldError('Occupation')
   const CompanyError = getFieldError('Company')
   const PositionError = getFieldError('Position')
+  //self-employed
+  const BusinessNameError = getFieldError('Business Name')
+  const RegistrationDateError = getFieldError('Registration Date')
+  const BusinessNatureError = getFieldError('Nature of Business')
+  const OperationYearsError = getFieldError('Years in Operation')
   // const prefixSelector = getFieldDecorator('Country Code', {
   //   initialValue: '63',
   // })(
@@ -236,6 +242,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   validateStatus={CurrencyError ? 'error' : 'success'}
                   help={CurrencyError || ''}>
                   {getFieldDecorator('Currency', {
+                    initialValue:'php',
                     rules: [
                       { required: true }
                     ],
@@ -244,8 +251,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     showSearch
                     optionFilterProp="children"
                     size="large">
-                      <Option value="php">PHP - PH PESO</Option>
-                      <Option value="usd">USD - US DOLLAR</Option>
+                      <Option value="php">PHP</Option>
                     </Select>
                   )}
                 </FormItem>
@@ -264,7 +270,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     <RadioGroup onChange={handleSourceOfFunds} style={{width:'100%'}}>
                       <Radio value="1">Employed</Radio>
                       <Radio value="2">Self-Employed</Radio>
-                      <Radio value="3">Unemployed</Radio>
+                      <Radio value="3" disabled>Unemployed</Radio>
                     </RadioGroup>
                   )}
                 </FormItem>
@@ -280,7 +286,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                       { required: true }
                     ],
                   })(
-                    <Input size="large"/>
+                    <Input/>
                   )}
                 </FormItem>
                 <FormItem
@@ -295,7 +301,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                       { required: true }
                     ],
                   })(
-                    <Input size="large"/>
+                    <Input/>
                   )}
                 </FormItem>
                 <FormItem
@@ -310,7 +316,67 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                       { required: true }
                     ],
                   })(
-                    <Input size="large"/>
+                    <Input/>
+                  )}
+                </FormItem>
+                <FormItem
+                  label="Business Name"
+                  style={{display:sourceOfFunds === "2" ? 'block': 'none'}}
+                  {...Label}
+                  hasFeedback={isFieldTouched('Business Name')}
+                  validateStatus={BusinessNameError ? 'error' : 'success'}
+                  help={BusinessNameError || ''}>
+                  {getFieldDecorator('Business Name', {
+                    rules: [
+                      { required: true }
+                    ],
+                  })(
+                    <Input/>
+                  )}
+                </FormItem>
+                <FormItem
+                  label="Registration Date"
+                  style={{display:sourceOfFunds === "2" ? 'block': 'none'}}
+                  {...Label}
+                  hasFeedback={isFieldTouched('Registration Date')}
+                  validateStatus={RegistrationDateError ? 'error' : 'success'}
+                  help={RegistrationDateError || ''}>
+                  {getFieldDecorator('Registration Date', {
+                    rules: [
+                      { required: true }
+                    ],
+                  })(
+                    <Input/>
+                  )}
+                </FormItem>
+                <FormItem
+                  label="Nature of Business"
+                  style={{display:sourceOfFunds === "2" ? 'block': 'none'}}
+                  {...Label}
+                  hasFeedback={isFieldTouched('Nature of Business')}
+                  validateStatus={BusinessNatureError ? 'error' : 'success'}
+                  help={BusinessNatureError || ''}>
+                  {getFieldDecorator('Nature of Business', {
+                    rules: [
+                      { required: true }
+                    ],
+                  })(
+                    <Input/>
+                  )}
+                </FormItem>
+                <FormItem
+                  label="Years in Operation"
+                  style={{display:sourceOfFunds === "2" ? 'block': 'none'}}
+                  {...Label}
+                  hasFeedback={isFieldTouched('Years in Operation')}
+                  validateStatus={OperationYearsError ? 'error' : 'success'}
+                  help={OperationYearsError || ''}>
+                  {getFieldDecorator('Years in Operation', {
+                    rules: [
+                      { required: true }
+                    ],
+                  })(
+                    <Input/>
                   )}
                 </FormItem>
                 <br/>

@@ -7,7 +7,6 @@ import VerifyID from '../../../../assets/images/Verify_ID.png'
 import BillsStatement from '../../../../assets/images/Bills_Statement.png'
 import LinkEcashCard from '../../../../assets/images/Link_EcashCard.png'
 import Check from '../../../../assets/images/check.png'
-
 const CardStyle = {
   margin: '0px',
   padding: '0px',
@@ -40,8 +39,7 @@ const Desc = {
 }
 
 export default ({ready, levels, phone}) => {
-  console.log(phone)
-  let progress = (levels !== undefined ? Object.keys(levels).length : 0) * 25
+  let progress = ((levels !== undefined ? Object.keys(levels).length : 0) * 25) + 25
   return(
     <Card
       hoverable
@@ -83,11 +81,20 @@ export default ({ready, levels, phone}) => {
           }
         </Col>
         <Col className="" xs={24} sm={12} lg={8} xl={4}>
-          <Link to="/client/upload/pob">
-            <img src={BillsStatement} style={Img} alt="add billing statement"/>
-            <p style={RequirementTitle}>Proof Of Billing</p>
-            <p style={Desc}>Submitting the right documents increases your maximum wallet balance</p>
-          </Link>
+          { includes(levels, 2)
+            ?
+            <div>
+              <img src={Check} style={Img} alt="check" />
+              <p style={RequirementTitle}>Proof Of Billing</p>
+              <p style={Desc}>Submitting the right documents increases your maximum wallet balance</p>
+            </div>
+            :
+            <Link to="/client/upload/pob">
+              <img src={BillsStatement} style={Img} alt="add billing statement"/>
+              <p style={RequirementTitle}>Proof Of Billing</p>
+              <p style={Desc}>Submitting the right documents increases your maximum wallet balance</p>
+            </Link>
+          }
         </Col>
         <Col className="" xs={24} sm={12} lg={8} xl={4}>
           <img src={LinkEcashCard} style={Img} alt="link Ecashpay card"/>

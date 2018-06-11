@@ -32,9 +32,24 @@ class VerifyIdPage extends React.Component{
     this.state={
       record:[]
     }
+    this.accept = this.accept.bind(this)
+    this.decline = this.decline.bind(this)
   }
-  componentWillMount(){
-    Id(null, {'x-access-token':this.props.auth.token}).VerifyID()
+  decline(e){
+    console.log(e)
+  }
+  accept(e){
+    const RequestId = e.target.getAttribute('data-id')
+    Id({id:RequestId, 'status':1}, {'x-access-token':this.props.auth.token}).Verify()
+    .then(res=>{
+      this.getAllRecords()
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+  }
+  getAllRecords(){
+    Id(null, {'x-access-token':this.props.auth.token}).GetAllIdRequest()
     .then(res=>{
       this.setState({record:res.data})
     })
@@ -42,13 +57,20 @@ class VerifyIdPage extends React.Component{
       console.log(err)
     })
   }
+  componentWillMount(){
+    this.getAllRecords()
+  }
   render(){
-    console.log(this.state)
+    //console.log(this.state)
     return(
       <div>
         {BreadCrumbs}
         <div style={AdminContentStyle}>
-          <VerifyIdTable record={this.state.record}/>
+          <VerifyIdTable
+            record={this.state.record}
+            accept={this.accept}
+            decline={this.decline}
+            />
         </div>
       </div>
     )
