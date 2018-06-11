@@ -26,7 +26,7 @@ const Tab = {
   padding:'20px 0px 5px 0px',
 }
 const TabImg = {
-  maxHeight: '45px',
+  maxHeight: '50px',
 }
 // const TabIcon = {
 //   fontSize:'40px',
@@ -48,7 +48,7 @@ export default ({location}) =>{
   return(
     <div className="" style={Container}>
       <Row type="flex" justify="center">
-        <Col className="" xs={24} sm={24} md={24} lg={18} xl={12}>
+        <Col className="" xs={24} sm={24} md={24} lg={18} xl={14}>
           <Row type="flex" justify="center">
             <Col className="" span={4}>
               <Link className="" to="/client/addfunds" style={(Path === '/client/addfunds' ? ActiveTab : Tab)}>

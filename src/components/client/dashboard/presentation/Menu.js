@@ -57,12 +57,12 @@ export default ({ready, profile}) => {
     if(!isEmpty(profile)){
       const Levels = profile.levels
       if(Levels.length === 0){
-        return <p style={EcashStatusDesc}>Secure your account more by uploading your selfie <br/>with government-issued ID. <a href="/client/upload/id">Submit Now!</a></p>
+        return <p style={EcashStatusDesc}>Secure your account more by uploading your selfie with government-issued ID. <a href="/client/upload/id">Submit Now!</a></p>
       }else if(Levels.length === 1){
         if(includes(Levels, 1)){
-          return <p style={EcashStatusDesc}>Submitting the right documents <br/>increases your maximum ecash balance. <a href="/client/upload/pob">Submit Now!</a></p>
+          return <p style={EcashStatusDesc}>Submitting the right documents increases your maximum ecash balance. <a href="/client/upload/pob">Submit Now!</a></p>
         }else if(includes(Levels, 2)){
-          return <p style={EcashStatusDesc}>Secure your account more by uploading your selfie <br/>with government-issued ID. <a href="/client/upload/id">Submit Now!</a></p>
+          return <p style={EcashStatusDesc}>Secure your account more by uploading your selfie with government-issued ID. <a href="/client/upload/id">Submit Now!</a></p>
         }
       }else{
         return <p style={EcashStatusDesc}>Seems like you don{`'`}t have an Ecashpay Card yet. <a href="/">Apply Now!</a></p>

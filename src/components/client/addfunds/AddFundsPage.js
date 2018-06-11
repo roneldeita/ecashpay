@@ -9,7 +9,7 @@ import { Outlets } from '../../../services/api'
 const Step = Steps.Step
 
 const StepStyle = {
-  margin: '40px 0px 35px 0px'
+  margin: '15px 0px 15px 0px'
 }
 
 class AddFundsPage extends React.Component{
@@ -60,21 +60,21 @@ class AddFundsPage extends React.Component{
     })
   }
   render(){
-    //console.log(this.state)
+    console.log(this.state)
     return(
       <div>
         <Navigation location={this.props.location}/>
         <Row type="flex" justify="center">
-          <Col className="" xs={23} sm={23} md={23} lg={18} xl={12}>
+          <Col className="" xs={23} sm={23} md={23} lg={18} xl={14}>
             <Row type="flex" justify="center">
-              <Col span={17}>
+              <Col span={19}>
                 <Steps current={this.state.step} style={StepStyle}>
                   <Step title="Choose" icon={<Icon type="shop" />}/>
                   <Step title="Amount" icon={<Icon type="wallet" />}/>
                   <Step title="Pay" icon={<Icon type="check-circle-o" />}/>
                 </Steps>
               </Col>
-              <Col span={18}>
+              <Col span={19}>
                 <StepOne merchants={this.state.merchants} featured={this.state.featured} select={this.selectedMerchant} visibility={this.state.step === 0? true : false} next={this.handleNext}/>
                 <StepTwo form={this.props.form} changeAmount={this.amountChange} data={this.state.data} visibility={this.state.step === 1? true : false} prev={this.handlePrev} next={this.handleNext}/>
                 <StepThree visibility={this.state.step === 2? true : false} prev={this.handlePrev}/>

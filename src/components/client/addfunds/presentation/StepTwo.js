@@ -78,12 +78,12 @@ const StepTwo = ({visibility, next, changeAmount, data, prev, form}) => {
           <Divider dashed style={DividerStyle}/>
           <Row>
             <Col span={12}>Merchant Service fee <Icon type="info-circle" style={Info}/></Col>
-            <Col span={12} style={rightContent}>{data.amount ? data.amount + ' PHP' : '' }</Col>
+            <Col span={12} style={rightContent}>{data.amount ? data.merchant.fee + ' PHP' : '' }</Col>
           </Row>
           <Divider style={DividerStyle}/>
           <Row>
             <Col span={12}><b>Amount Due</b></Col>
-            <Col span={12} style={rightContent}><b>{data.amount ? data.amount + ' PHP' : '' }</b></Col>
+            <Col span={12} style={rightContent}><b>{data.amount ? (data.amount+data.merchant.fee) + ' PHP' : '' }</b></Col>
           </Row>
         </Col>
       </Row>
