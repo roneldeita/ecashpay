@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, Modal } from 'antd'
 import { Phone } from '../../../../services/api'
 
 class StepOne extends React.Component{
@@ -24,7 +24,10 @@ class StepOne extends React.Component{
           this.props.profileAction.loadProfile()
           this.props.changeStep({step:2})
         }).catch(err=>{
-          console.log(err)
+          Modal.error({
+            title: 'Phone verification error',
+            content: err.response.data.message,
+          })
         })
         setTimeout(()=>{
           this.setState({buttonState:false})

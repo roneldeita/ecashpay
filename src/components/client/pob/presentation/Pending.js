@@ -16,7 +16,7 @@ export default ({cancel, location, type}) => {
       that is currenty being review by out team.
       We typically review request within 1-5 business days.</p>
       <br/>
-      <Popconfirm title="Are you sure delete this task?" placement="bottom"  onConfirm={cancel} onCancel="" okText="Yes" cancelText="No">
+      <Popconfirm title="Are you sure to cancel your request?" placement="bottom"  onConfirm={cancel} onCancel="" okText="Yes" cancelText="No">
         <Button>Cancel Request</Button>
       </Popconfirm>
     </div>

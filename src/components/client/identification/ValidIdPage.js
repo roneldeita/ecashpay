@@ -40,8 +40,8 @@ class ValidIdPage extends React.Component{
         const { fileList } = values.File
         const formData = new FormData()
         fileList.forEach((file) => {
-          formData.append('files', file.originFileObj);
-        });
+          formData.append('files', file.originFileObj)
+        })
         Id(formData, {'x-access-token':this.props.auth.token, 'Content-type':'multipart/form-data'}).SubmitId()
         .then(res => {
           this.checkStatus()
@@ -108,7 +108,7 @@ class ValidIdPage extends React.Component{
     this.checkStatus()
   }
   render(){
-    //console.log(this.state)
+    //console.log(this.props)
     return(
       <Row type="flex" justify="center" style={{marginTop:'80px'}}>
         <Col md={12} lg={8}>
@@ -178,6 +178,5 @@ function mapStateToProps(state, ownProps){
     auth: state.auth,
   }
 }
-
 
 export default Form.create()(connect(mapStateToProps)(ValidIdPage))

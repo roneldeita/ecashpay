@@ -59,11 +59,13 @@ export default ({form, files, change, validateFile, buttonState, submit}) => {
         .ant-upload-list-item-info > span{
           margin-top:20px
         }
-        .ant-upload-list-picture .ant-upload-list-item-thumbnail{
-          top: 25px !important;
+        .ant-upload-list-picture .ant-upload-list-item-thumbnail img{
+          width:80px;
+          height:80px;
+          object-fit: cover !important
         }
         .ant-upload-list-picture .ant-upload-list-item-name{
-          padding-left: 50px
+          padding-left: 80px
         }
       `}
       </style>

@@ -9,10 +9,10 @@ const RequestPasswordForm = ({form, buttonState, onSubmit, buttonWasClicked}) =>
   const EmailError =  getFieldError('Email')
   return(
     <Row type="flex" justify="center" style={css.Container}>
-      <Col md={22} lg={22} xl={18} xxl={13}>
+      <Col xs={24} sm={18} md={22} lg={22} xl={18} xxl={13}>
         <Card hoverable style={css.CardStyle}>
           <Row>
-            <Col className="" style={css.FormColumn} xs={24} md={13}>
+            <Col className="" style={css.FormColumn} xs={24} sm={24} md={13}>
               <p style={css.Greet}>Forgot your password?</p>
               <p style={css.Small}>Enter your email and we will send a code to reset your password.</p>
               <br/><br/>

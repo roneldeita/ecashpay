@@ -8,7 +8,7 @@ import BillsStatement from '../../../../assets/images/Bills_Statement.png'
 import LinkEcashCard from '../../../../assets/images/Link_EcashCard.png'
 import Check from '../../../../assets/images/check.png'
 const CardStyle = {
-  margin: '0px',
+  margin: '0px 0px 15px 0px',
   padding: '0px',
   cursor:'auto'
 }
@@ -69,14 +69,14 @@ export default ({ready, levels, phone}) => {
             ?
             <div>
               <img src={Check} style={Img} alt="check" />
-              <p style={RequirementTitle}>Submit Valid ID</p>
-              <p style={Desc}>Secure your account more by uploading your government-issued ID.</p>
+              <p style={RequirementTitle}>Submit your photo</p>
+              <p style={Desc}>Secure your account more by uploading your selfie with government-issued ID.</p>
             </div>
             :
             <Link to="/client/upload/id">
               <img src={VerifyID} style={Img} alt="submit ID"/>
-              <p style={RequirementTitle}>Submit Valid ID</p>
-              <p style={Desc}>Secure your account more by uploading your government-issued ID.</p>
+              <p style={RequirementTitle}>Submit your photo</p>
+              <p style={Desc}>Secure your account more by uploading your selfie with government-issued ID.</p>
             </Link>
           }
         </Col>
@@ -85,13 +85,13 @@ export default ({ready, levels, phone}) => {
             ?
             <div>
               <img src={Check} style={Img} alt="check" />
-              <p style={RequirementTitle}>Proof Of Billing</p>
+              <p style={RequirementTitle}>Proof of Billing</p>
               <p style={Desc}>Submitting the right documents increases your maximum wallet balance</p>
             </div>
             :
             <Link to="/client/upload/pob">
               <img src={BillsStatement} style={Img} alt="add billing statement"/>
-              <p style={RequirementTitle}>Proof Of Billing</p>
+              <p style={RequirementTitle}>Proof of Billing</p>
               <p style={Desc}>Submitting the right documents increases your maximum wallet balance</p>
             </Link>
           }

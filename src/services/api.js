@@ -32,7 +32,6 @@ export function Id(data, header){
     GetAllIdRequest: () => axios.get(process.env.REACT_APP_API + '/api/v1/requirements?level=1', {headers:header}),
     GetAllPobRequest: () => axios.get(process.env.REACT_APP_API + '/api/v1/requirements?level=2', {headers:header}),
     Verify: () => axios.patch(process.env.REACT_APP_API + '/api/v1/requirements/'+data.id, data, {headers:header}),
-
   }
 }
 
@@ -57,6 +56,14 @@ export function Outlets(data, header){
   return {
     GetAll: () => axios.get(process.env.REACT_APP_API + '/api/v1/outlets'),
     Featured: () => axios.get(process.env.REACT_APP_API + '/api/v1/outlets?isFeatured=true')
+  }
+}
+
+export function Transaction(data, header){
+  return {
+    All: () => axios.get(process.env.REACT_APP_API + '/api/v1/transactions', {headers:header}),
+    Make: () => axios.post(process.env.REACT_APP_API + '/api/v1/transactions/cashIn', data, {headers:header}),
+    Get: () => axios.get(process.env.REACT_APP_API + '/api/v1/transactions/'+data.transaction, {headers:header})
   }
 }
 

@@ -53,7 +53,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                   )}
                 </FormItem>
                 <Row gutter={12}>
-                  <Col span={12}>
+                  <Col xs={24} sm={12}>
                     <FormItem
                       hasFeedback={isFieldTouched('Password')}
                       validateStatus={PasswordError ? 'error' : 'success'}
@@ -70,7 +70,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                       )}
                     </FormItem>
                   </Col>
-                  <Col span={12}>
+                  <Col xs={24} sm={12}>
                     <FormItem
                       hasFeedback={isFieldTouched('Confirm Password')}
                       validateStatus={ConfirmError ? 'error' : 'success'}
@@ -88,7 +88,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                   </Col>
                 </Row>
                 <Row gutter={12}>
-                  <Col span={12}>
+                  <Col xs={24} sm={12}>
                     <FormItem
                       hasFeedback={isFieldTouched('First Name')}
                       validateStatus={FirstNameError ? 'error' : 'success'}
@@ -103,7 +103,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                       )}
                     </FormItem>
                   </Col>
-                  <Col span={12}>
+                  <Col xs={24} sm={12}>
                     <FormItem
                       hasFeedback={isFieldTouched('Last Name')}
                       validateStatus={LastNameError ? 'error' : 'success'}

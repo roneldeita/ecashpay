@@ -9,10 +9,15 @@ export default ({record, accept, decline}) => {
     { title: '', dataIndex: '', width: 100, key: 'accept', render: (text, record) =>
       { return record.status === 1
         ? <Tag color="green">Accepted</Tag>
-        : <Button data-id={record.id} onClick={ accept } type="primary" ghost>Accept</Button>
+        : <Button data-id={record.id} onClick={ accept } size="small" type="primary" disabled={record.status ===2}>Accept</Button>
       }
     },
-    { title: '', dataIndex: '', width: 100, key: 'decline', render: record => <Button disabled onClick={decline}>Decline</Button> },
+    { title: '', dataIndex: '', width: 100, key: 'decline', render: (text, record) =>
+      { return record.status === 2
+        ? <Tag color="red">Rejected</Tag>
+        : <Button data-id={record.id} onClick={ decline } size="small" disabled={record.status ===1}>reject</Button>
+      }
+    }
   ];
   return(
     <Table
@@ -46,11 +51,14 @@ export default ({record, accept, decline}) => {
                 <p>Birthdate: {record.profile.birthDate}</p>
                 <p>Phone: +{record.profile.phone}</p>
                 <Divider/>
-                <p>Address 1: {record.profile.completeAddress.address1}</p>
-                <p>Address 2: {record.profile.completeAddress.address2}</p>
-                <p>City: {record.profile.completeAddress.city}</p>
-                <p>Country: {record.profile.completeAddress.country}</p>
-                <p>Region: {record.profile.completeAddress.region}</p>
+                {record.profile.completeAddress !== null ?
+                  <div>
+                    <p>Address 1: {record.profile.completeAddress.address1}</p>
+                    <p>Address 2: {record.profile.completeAddress.address2}</p>
+                    <p>City: {record.profile.completeAddress.city}</p>
+                    <p>Country: {record.profile.completeAddress.country}</p>
+                    <p>Region: {record.profile.completeAddress.region}</p>
+                  </div> : ''}
               </Card>
             </Col>
           </Row>

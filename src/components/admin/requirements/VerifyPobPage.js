@@ -36,11 +36,18 @@ class VerifyIdPage extends React.Component{
     this.decline = this.decline.bind(this)
   }
   decline(e){
-    console.log(e)
+    const RequestId = e.target.getAttribute('data-id')
+    Id({id:RequestId, 'status':'2'}, {'x-access-token':this.props.auth.token}).Verify()
+    .then(res=>{
+      this.getAllRecords()
+    })
+    .catch(err=>{
+      console.log(err)
+    })
   }
   accept(e){
     const RequestId = e.target.getAttribute('data-id')
-    Id({id:RequestId, 'status':1}, {'x-access-token':this.props.auth.token}).Verify()
+    Id({id:RequestId, 'status':'1'}, {'x-access-token':this.props.auth.token}).Verify()
     .then(res=>{
       this.getAllRecords()
     })

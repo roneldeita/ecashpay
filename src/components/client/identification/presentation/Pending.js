@@ -16,7 +16,7 @@ export default ({cancel, front, back, files, handlePreview, preview, image, clos
       that is currenty being review by out team.
       We typically review request within 1-5 business days.</p>
       <Row gutter={24} justify="center" type="flex">
-        {files !== undefined ?
+        {files !== undefined &&
           files.map((file,index)=>(
             <Col span={8} key={index}>
               <Card hoverable cover={<img alt="front" src={file.url}/>} onClick={()=> handlePreview({'url':file.url})}>
@@ -27,10 +27,10 @@ export default ({cancel, front, back, files, handlePreview, preview, image, clos
               </Modal>
             </Col>
           ))
-          : ''}
+        }
       </Row>
       <br/>
-      <Popconfirm title="Are you sure delete this task?" placement="bottom" onConfirm={cancel} onCancel="" okText="Yes" cancelText="No">
+      <Popconfirm title="Are you sure to cancel your request?" placement="bottom" onConfirm={cancel} onCancel="" okText="Yes" cancelText="No">
         <Button>Cancel Request</Button>
       </Popconfirm>
   </div>

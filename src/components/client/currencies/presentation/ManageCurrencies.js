@@ -73,7 +73,7 @@ export default ({form, currencies, addCurrency, makePrimary, deleteCurrency, but
           <Button type="primary" htmlType="submit" icon="plus-circle-o" loading={buttonState}>Add</Button>
         </FormItem>
       </Form>
-      {(error !== '') ? (<Alert message={error} type="error" showIcon closable onClose={closeAlert}/>) : null }
+      {(error !== '') && (<Alert message={error} type="error" showIcon closable onClose={closeAlert}/>)}
       <Table rowKey="code" loading={isEmpty(FilterCurrencies)} columns={columns} dataSource={FilterCurrencies} pagination={{pageSize:10}} style={{marginTop:'10px'}} size="middle" bordered={false}/>
       <style jsx="true">{`
         .currency-name .make-primary{

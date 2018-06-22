@@ -49,6 +49,8 @@ import 'antd/lib/upload/style/css'
 import 'antd/lib/avatar/style/css'
 import 'antd/lib/popconfirm/style/css'
 import 'antd/lib/message/style/css'
+import 'antd/lib/list/style/css'
+import 'antd/lib/badge/style/css'
 //animate-on-scroll
 import "animate.css/animate.min.css";
 //lodash
@@ -209,7 +211,7 @@ class App extends Component {
                   </Layout>
                 </Layout>
                 <Layout.Footer style={{display:this.hideTopNavigation()}}>
-                  {hasToken() ? '': <BottomNavigation/>}
+                  {!hasToken() && <BottomNavigation/>}
                 </Layout.Footer>
               </Layout>
               <BackTop>
@@ -223,7 +225,7 @@ class App extends Component {
                   background-color: transparent
                 }
                 .ant-layout-content{
-                  min-height:100vh !important
+                  min-height:90vh !important
                 }
                 .ant-layout-footer{
                   padding:0px;

@@ -1,15 +1,14 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Steps, Row, Col, Icon, Form } from 'antd'
 import Navigation from '../common/Navigation'
 import StepOne from './presentation/StepOne'
 import StepTwo from './presentation/StepTwo'
-import StepThree from './presentation/StepThree'
-import { Outlets } from '../../../services/api'
+import { Outlets, Transaction } from '../../../services/api'
 
 const Step = Steps.Step
-
 const StepStyle = {
-  margin: '15px 0px 15px 0px'
+  margin: '25px 0px 15px 0px',
 }
 
 class AddFundsPage extends React.Component{
@@ -25,29 +24,36 @@ class AddFundsPage extends React.Component{
       }
     }
     this.selectedMerchant = this.selectedMerchant.bind(this)
-    this.enteredAmount = this.enteredAmount.bind(this)
     this.amountChange = this.amountChange.bind(this)
     this.handleNext = this.handleNext.bind(this)
     this.handlePrev = this.handlePrev.bind(this)
+    this.handlePay = this.handlePay.bind(this)
   }
-  selectedMerchant(merchantId){
-    this.setState(prevState => ({ data:{...prevState.data, merchant:merchantId}}))
+  selectedMerchant(SelectedMerchant){
+    this.setState(prevState => ({ data:{...prevState.data, merchant:SelectedMerchant}}))
   }
   amountChange(event){
     const theAmount = event.target.value
     this.setState(prevState => ({ data:{...prevState.data, amount:theAmount}}))
-  }
-  enteredAmount(amountEntered){
-    // let newData = Object.assign({}, this.state.data);
-    // newData.amount = amountEntered;
-    // this.setState({data:newData})
-    this.setState(prevState => ({ data:{...prevState.data, amount:amountEntered}}))
   }
   handleNext(event){
     this.setState({step:this.state.step+1})
   }
   handlePrev(event){
     this.setState({step:this.state.step-1})
+  }
+  handlePay(){
+    const Data = {
+      outlet:this.state.data.merchant.id.toString(),
+      amount: parseFloat(this.state.data.amount).toString(),
+      currency:'PHP'
+    }
+    Transaction(Data, {'x-access-token':this.props.auth.token}).Make()
+    .then(res=>{
+      console.log(res)
+    }).catch(err=>{
+      console.log(err)
+    })
   }
   componentWillMount(){
     Outlets().Featured()
@@ -60,14 +66,14 @@ class AddFundsPage extends React.Component{
     })
   }
   render(){
-    console.log(this.state)
+    //console.log(this.props)
     return(
       <div>
         <Navigation location={this.props.location}/>
         <Row type="flex" justify="center">
           <Col className="" xs={23} sm={23} md={23} lg={18} xl={14}>
             <Row type="flex" justify="center">
-              <Col span={19}>
+              <Col span={12}>
                 <Steps current={this.state.step} style={StepStyle}>
                   <Step title="Choose" icon={<Icon type="shop" />}/>
                   <Step title="Amount" icon={<Icon type="wallet" />}/>
@@ -75,9 +81,8 @@ class AddFundsPage extends React.Component{
                 </Steps>
               </Col>
               <Col span={19}>
-                <StepOne merchants={this.state.merchants} featured={this.state.featured} select={this.selectedMerchant} visibility={this.state.step === 0? true : false} next={this.handleNext}/>
-                <StepTwo form={this.props.form} changeAmount={this.amountChange} data={this.state.data} visibility={this.state.step === 1? true : false} prev={this.handlePrev} next={this.handleNext}/>
-                <StepThree visibility={this.state.step === 2? true : false} prev={this.handlePrev}/>
+                <StepOne visibility={this.state.step === 0 ? true : false} merchants={this.state.merchants} featured={this.state.featured} select={this.selectedMerchant} next={this.handleNext}/>
+                <StepTwo visibility={this.state.step === 1 ? true : false} form={this.props.form} changeAmount={this.amountChange} data={this.state.data} prev={this.handlePrev} next={this.handlePay}/>
               </Col>
             </Row>
           </Col>
@@ -87,4 +92,10 @@ class AddFundsPage extends React.Component{
   }
 }
 
-export default Form.create()(AddFundsPage)
+function mapStateToProps(state, ownProps){
+  return {
+    auth: state.auth
+  }
+}
+
+export default Form.create()(connect(mapStateToProps)(AddFundsPage))

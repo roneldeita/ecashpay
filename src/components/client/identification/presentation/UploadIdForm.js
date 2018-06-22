@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Select, Upload, Icon, Modal, Button } from 'antd'
+import { Form, Upload, Icon, Modal, Button } from 'antd'
 
 const formItemLayout = {
   labelCol: { span: 6 },
@@ -24,8 +24,8 @@ export default ({
   validateFile,
   submit,
   }) => {
-  const { getFieldDecorator, isFieldTouched, getFieldError } = form
-  const IdTypeError = getFieldError('ID type')
+  const { getFieldDecorator, getFieldError } = form
+  // const IdTypeError = getFieldError('ID type')
   const fileError = getFieldError('File')
 
   const FilesProps = {
@@ -39,7 +39,7 @@ export default ({
   }
   return(
     <Form onSubmit={submit}>
-      <Form.Item
+      {/*<Form.Item
         label="ID type"
         {...formItemLayout}
         hasFeedback={isFieldTouched('ID type')}
@@ -68,7 +68,7 @@ export default ({
             <Select.Option value="gocc">GOCC and Government Office ID</Select.Option>
           </Select>
         )}
-      </Form.Item>
+      </Form.Item>*/}
       <Form.Item
         label="Your Photo"
         {...formItemLayout}
@@ -111,7 +111,9 @@ export default ({
             margin-top:20px
           }
           .ant-upload-list-picture .ant-upload-list-item-thumbnail img{
-            width: 80px;
+            width:80px;
+            height:80px;
+            object-fit: cover !important
           }
           .ant-upload-list-picture .ant-upload-list-item-name{
             padding-left: 80px

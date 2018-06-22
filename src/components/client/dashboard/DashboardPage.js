@@ -1,11 +1,18 @@
 import React from 'react'
+//redux
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as profileActions from '../../../actions/profileAction'
+//antd
 import {Row, Col} from 'antd'
+//components
 import Menu from './presentation/Menu'
 import WalletCard from './presentation/WalletCard'
 import Requirements from './presentation/Requirements'
+import History from './presentation/History'
 //services
-//import { Wallet } from '../../../services/api'
+import { Wallet, Transaction } from '../../../services/api'
+//import { SubscribeToTimer } from '../../../services/socket'
 //lodash
 import { isEmpty } from 'lodash'
 
@@ -14,8 +21,20 @@ class DashboardPage extends React.Component{
     super(props)
     this.state = {
       wallets:{},
-      profile:{}
+      profile:{},
+      transactions:[],
+      timestamp: 'no timestamp yet'
     }
+    //SubscribeToTimer((timestamp) => this.setState({timestamp}))
+  }
+  loadTransactions(){
+    Transaction(null, {'x-access-token':this.props.auth.token}).All()
+    .then(res => {
+      this.setState({transactions:res.data})
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
   loadWallets(){
     // Wallet(null, {'x-access-token':this.props.auth.token}).GetAll()
@@ -27,38 +46,43 @@ class DashboardPage extends React.Component{
     //   console.log(err)
     // })
   }
-  renderPhoneVerification(){
-    window.location.href = '/client/verify/phone'
+  redirectPhoneVerification(){
+    window.location.href='/client/verify/phone'
+    //this.props.history.push('/client/verify/phone')
   }
   componentWillMount(){
+    this.props.profileActions.loadProfile()
     if(this.props.profile.phone === ''){
-      this.renderPhoneVerification()
+      this.redirectPhoneVerification()
     }
     this.setState({profile:this.props.profile})
   }
   componentWillReceiveProps(nextProps){
     if(nextProps.profile.phone === ''){
-      this.renderPhoneVerification()
+      this.redirectPhoneVerification()
     }
     this.setState({profile:nextProps.profile})
   }
   componentDidMount(){
     this.loadWallets()
+    this.loadTransactions()
   }
   render(){
+    //console.log(this.props.history)
     return(
       <Row type="flex" justify="center">
         <Col className="" xs={24} sm={24} md={22} lg={18}>
           <Menu ready={isEmpty(this.state.profile)} profile={this.state.profile} />
         </Col>
-        <Col className="" span={18} style={{marginTop:'30px'}}>
-          <Row gutter={30}>
+        <Col className="" span={18}>
+          <Row gutter={20}>
             <Col className="" md={24} lg={8} style={{marginBottom:'10px'}}>
               <WalletCard ready={isEmpty(this.state.wallets)} currencies={this.state.wallets}/>
             </Col>
-            <Col className="" md={24} lg={16}>
+            <Col className="" xs={24} sm={24} md={24} lg={16}>
               {/*<Requirements ready={IsProfileReady} levels={this.props.profile.levels} />*/}
               <Requirements ready={isEmpty(this.state.profile)} levels={this.props.profile.levels} phone={this.props.profile.phone} />
+              <History transactions={this.state.transactions}/>
             </Col>
           </Row>
         </Col>
@@ -73,5 +97,10 @@ function mapStateToProps(state, ownProps){
     auth: state.auth
   }
 }
+function mapDispatchToProps(dispatch){
+  return {
+    profileActions: bindActionCreators(profileActions, dispatch)
+  }
+}
 
-export default connect(mapStateToProps)(DashboardPage)
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardPage)

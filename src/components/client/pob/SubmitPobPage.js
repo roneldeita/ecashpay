@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import UploadPobForm from './presentation/UploadPobForm'
 import Pending from './presentation/Pending'
 import Verified from './presentation/Verified'
+import Rejected from './presentation/Rejected'
 import { Form, Row, Col, Card, Icon } from 'antd'
 import { Pob } from '../../../services/api'
 
@@ -116,7 +117,7 @@ class SubmitPobPage extends React.Component{
           <div style={{display:this.state.identification.status === 'pending' ? 'block' : 'none'}}>
             <Card
               hoverable
-              title={ <span>Submit your government-issued ID</span> }
+              title={ <span>Submit Proof Of Billing</span> }
               style={CardStyle}
               actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
               <Pending
@@ -124,6 +125,15 @@ class SubmitPobPage extends React.Component{
                 location={this.state.identification.location}
                 type={this.state.identification.type}
                 />
+            </Card>
+          </div>
+          <div style={{display:this.state.identification.status === 'rejected' ? 'block' : 'none'}}>
+            <Card
+              hoverable
+              title={ <span>Submit Proof Of Billing</span> }
+              style={CardStyle}
+              actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
+              <Rejected resubmit={this.cancelRequest}/>
             </Card>
           </div>
           <div style={{display:this.state.identification.status === 'done' ? 'block' : 'none'}}>

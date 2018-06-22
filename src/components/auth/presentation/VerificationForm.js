@@ -10,10 +10,10 @@ const VerificationForm = ({email, form, buttonState, onSubmit, onResend, onClick
   const CodeError =  getFieldError('Code')
   return (
     <Row type="flex" justify="center" style={css.Container}>
-      <Col md={22} lg={22} xl={18} xxl={13}>
+      <Col xs={24} sm={22} md={22} lg={22} xl={13}>
         <Card hoverable style={css.CardStyle}>
           <Row>
-            <Col className="" style={css.FormColumn} span={13}>
+            <Col className="" style={css.FormColumn} xs={24} sm={24} md={13}>
               <p style={css.Greet}>Email Verification</p>
               <p style={css.Small}>A verification code has been emailed to <span style={{fontWeight:500}}>{email}</span>, Please input verification code to verify.</p>
               <br/><br/>

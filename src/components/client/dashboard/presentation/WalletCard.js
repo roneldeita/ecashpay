@@ -26,22 +26,22 @@ const CurrencyBal = {
 }
 const renderCurrencies = (currencies) => {
   return currencies.map((currency, index) =>{
-    return currency.status ? (
+    return currency.status && (
       <div key={index} className="">
         <span className="" style={CurrencyCode}>{currency.code}</span>
         <span className="" style={CurrencyBal}>{currency.balance}</span>
       </div>
-    ): ''
+    )
   })
 }
 const renderPrimaryCurrency = (currencies) => {
   return currencies.map((currency, index) => {
-    return currency.primary ? (
+    return currency.primary && (
       <p key={index} style={Balance}>
         <span style={{fontWeight:400}}> {currency.symbol}</span>
         <span style={{fontWeight:500}}> {currency.balance}</span>
         <span style={{fontWeight:400}}> {currency.code}*</span>
-      </p> ) : ''
+      </p> )
   })
 }
 

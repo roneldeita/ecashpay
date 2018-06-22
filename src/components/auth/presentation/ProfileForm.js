@@ -30,8 +30,8 @@ const Flag = {
   marginTop: '-3px'
 }
 const Label = {
-  labelCol: { span:6 },
-  wrapperCol: { span:18 }
+  labelCol: { xs:24, sm: 24, md:24, lg:7},
+  wrapperCol: { xs:24, sm:24, md:24, lg:17 }
 }
 
 const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonState, onClickCompleteButton, sourceOfFunds, handleSourceOfFunds}) => {
@@ -57,25 +57,16 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
   const RegistrationDateError = getFieldError('Registration Date')
   const BusinessNatureError = getFieldError('Nature of Business')
   const OperationYearsError = getFieldError('Years in Operation')
-  // const prefixSelector = getFieldDecorator('Country Code', {
-  //   initialValue: '63',
-  // })(
-  //   <Select style={{ width: 70}}>
-  //     <Option value="63">+63</Option>
-  //     <Option value="86">+86</Option>
-  //     <Option value="87">+87</Option>
-  //   </Select>
-  // )
   return(
     <Row type="flex" justify="center" style={AntContainer}>
-      <Col sm={24} md={11}>
+      <Col sm={24} md={22} lg={22} xl={13} className="">
         <Card hoverable>
           <div style={Head}>
-            <Icon type="user" style={UseIcon} className="user"/>
+            <Icon type="user" style={UseIcon}/>
             <p style={Title}>Complete your personal profile</p>
           </div>
           <Row type="flex" justify="center">
-            <Col span={20}>
+            <Col span={20} className="user">
               <Form onSubmit={onSubmit} style={AntForm}>
                 <FormItem
                   label="First Name"
@@ -139,7 +130,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                       { required: true }
                     ],
                   })(
-                    <DatePicker size="large" placeholder="YYYY-DD-MM" format="YYYY-DD-MM" style={{width:'100%'}} />
+                    <DatePicker size="large" placeholder="YYYY-DD-MM" format="YYYY-DD-MM" style={{width:'100%'}} showToday={false} />
                   )}
                 </FormItem>
                 <Divider/>
@@ -187,7 +178,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   )}
                 </FormItem>
                 <FormItem
-                  label="City / Municipality"
+                  label="City/Municipality"
                   {...Label}
                   hasFeedback={isFieldTouched('City / Municipality')}
                   validateStatus={CityMunicipalityError ? 'error' : 'success'}
@@ -201,7 +192,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   )}
                 </FormItem>
                 <FormItem
-                  label="Region / State / Province"
+                  label="Region/State/Province"
                   {...Label}
                   hasFeedback={isFieldTouched('Region / State / Province')}
                   validateStatus={RegionStateProvinceError ? 'error' : 'success'}
@@ -380,7 +371,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   )}
                 </FormItem>
                 <br/>
-                <FormItem wrapperCol={{ span: 18, offset: 6 }}>
+                <FormItem wrapperCol={{lg:{span:18, offset:6}}}>
                   <Button type="primary" htmlType="submit" size="large" style={{width:'100%'}} loading={buttonState} onClick={onClickCompleteButton}>{buttonState ? 'Completing...' : 'Complete Profile'}</Button>
                 </FormItem>
               </Form>

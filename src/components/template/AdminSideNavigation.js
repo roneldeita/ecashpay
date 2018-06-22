@@ -21,6 +21,11 @@ class AdminSideNavigation extends React.Component{
   componentWillReceiveProps(nextProps){
     this.setState({selected:nextProps.location.pathname})
   }
+  handleLogOut(){
+    localStorage.removeItem('auth')
+    sessionStorage.removeItem('profile')
+    window.location.href = '/admin/login'
+  }
   render() {
     return (
       <div>
@@ -28,20 +33,21 @@ class AdminSideNavigation extends React.Component{
         <Menu.Item key="/admin">
           <Link to="/admin"><Icon type="dashboard" /><span>Dashboard</span></Link>
         </Menu.Item>
-        <SubMenu key="sub1" title={<span><Icon type="idcard" /><span>KYC</span></span>}>
+        <SubMenu key="sub1" title={<span><Icon type="idcard"/><span>KYC</span></span>}>
           <Menu.Item key="/admin/requirements/id"><Link to="/admin/requirements/id">Verify ID</Link></Menu.Item>
           <Menu.Item key="/admin/requirements/pob"><Link to="/admin/requirements/pob">Verify POB</Link></Menu.Item>
         </SubMenu>
         <Menu.Item key="/admin/transactions">
-          <Link to="/admin/transactions"><Icon type="swap" /><span>Transactions</span></Link>
+          <Link to="/admin/transactions"><Icon type="swap"/><span>Transactions</span></Link>
         </Menu.Item>
         <Menu.Item key="/shop">
           <Icon type="shop" />
           <span>Outlets</span>
         </Menu.Item>
-        <SubMenu key="sub2" title={<span><Icon type="wallet" /><span>Currency</span></span>}>
+        <SubMenu key="sub2" title={<span><Icon type="wallet"/><span>Currency</span></span>}>
           <Menu.Item key="5">Rates</Menu.Item>
         </SubMenu>
+        <Menu.Item key="5" onClick={this.handleLogOut}><Icon type="logout"/><span>Logout</span></Menu.Item>
         </Menu>
       </div>
     );

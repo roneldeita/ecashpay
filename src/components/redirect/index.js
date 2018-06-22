@@ -5,10 +5,18 @@ import { isEmpty } from 'lodash'
 
 class RedirectPage extends React.Component {
   componentWillMount(){
-    //console.log(this.props.profile)
-    // if(this.props.profile){
-    //   this.props.history.push('/')
-    // }
+    if(!isEmpty(this.props.profile)){
+      switch(this.props.profile.type){
+        case "admin":
+          window.location.href = '/admin'
+          break;
+        case "individual":
+          this.isLoggedIn(this.props.profile.status)
+          break;
+        default:
+          window.location.href = '/'
+      }
+    }
   }
   componentDidMount() {
     window.scrollTo(0, 0)

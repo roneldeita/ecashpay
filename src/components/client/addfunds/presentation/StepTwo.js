@@ -23,14 +23,15 @@ const Info ={
 }
 const StepTwo = ({visibility, next, changeAmount, data, prev, form}) => {
   const { getFieldDecorator, isFieldTouched, getFieldError } = form;
-  const EmailError =  getFieldError('Amount');
+  const EmailError = getFieldError('Amount');
   const validate = (event) => {
+    event.preventDefault()
     form.validateFields((err, values) => {
       if(!err){
-        next();
+        next()
       }
     })
-    event.preventDefault()
+    //event.preventDefault()
   }
   return(
     <Card style={visibility ? Show : Hide}>
@@ -73,7 +74,7 @@ const StepTwo = ({visibility, next, changeAmount, data, prev, form}) => {
           <Divider dashed style={DividerStyle}/>
           <Row>
             <Col span={12}>Ecashpay fee <Icon type="info-circle" style={Info}/></Col>
-            <Col span={12} style={rightContent}>{data.amount ? data.amount + ' PHP' : '' }</Col>
+            <Col span={12} style={rightContent}>{data.amount ? '0 PHP' : '' }</Col>
           </Row>
           <Divider dashed style={DividerStyle}/>
           <Row>
@@ -83,7 +84,7 @@ const StepTwo = ({visibility, next, changeAmount, data, prev, form}) => {
           <Divider style={DividerStyle}/>
           <Row>
             <Col span={12}><b>Amount Due</b></Col>
-            <Col span={12} style={rightContent}><b>{data.amount ? (data.amount+data.merchant.fee) + ' PHP' : '' }</b></Col>
+            <Col span={12} style={rightContent}><b>{data.amount ? (parseFloat(data.amount)+parseFloat(data.merchant.fee)) + ' PHP' : '' }</b></Col>
           </Row>
         </Col>
       </Row>

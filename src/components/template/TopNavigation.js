@@ -30,37 +30,43 @@ const NotifContainerItem = {
 const isLoggedIn = (loggedIn) => {
   return loggedIn ? 'none' : 'block'
 }
-const profileTitle = (
-  <div style={{minWidth:'150px', fontWeight:400}}>Ronel A. Deita</div>
-)
-const NotifTitle = (
-  <div style={{minWidth:'250px'}}>
-    <span style={{display:'block', fontSize:'16px', float:'left', fontWeight:400}}>Notifications</span>
-    <Link to="/notifications" style={{display:'block', fontSize:'11px', lineHeight:'26px' , float:'right'}}>Open All</Link>
-  </div>
-)
-const NotifContent = (
-  <List style={NotifContainer}>
-    <List.Item>
-      <div style={NotifContainerItem}>Notif1</div>
-    </List.Item>
-    <List.Item>
-      <div style={NotifContainerItem}>Notif1</div>
-    </List.Item>
-    <List.Item>
-      <div style={NotifContainerItem}>Notif1</div>
-    </List.Item>
-  </List>
-)
-const profileContent = (
-  <List style={NotifContainer}>
-    <List.Item>
-      <div style={NotifContainerItem}>Profile</div>
-    </List.Item>
-  </List>
-)
+
 
 const TopNavigation = ({locale, onChangeLocale, loggedIn}) => {
+  const NotifTitle = (
+    <div style={{minWidth:'250px'}}>
+      <span style={{display:'block', float:'left', fontWeight:400}}>Notifications</span>
+      <Link to="/notifications" style={{display:'block', fontSize:'11px', lineHeight:'26px' , float:'right'}}>Open All</Link>
+    </div>
+  )
+  const NotifContent = (
+    <List style={NotifContainer}>
+      <List.Item>
+        <div style={NotifContainerItem}>Notif1</div>
+      </List.Item>
+      <List.Item>
+        <div style={NotifContainerItem}>Notif1</div>
+      </List.Item>
+      <List.Item>
+        <div style={NotifContainerItem}>Notif1</div>
+      </List.Item>
+    </List>
+  )
+  const profileTitle = (
+    <Affix>
+      <div style={{minWidth:'180px'}}>
+        <span style={{display:'block', float:'left', fontWeight:400}}>Ronel A. Deita</span>
+        <Link to="/client/settings" style={{display:'block', lineHeight:'26px' , float:'right'}}><Icon type="qrcode"/></Link>
+      </div>
+    </Affix>
+  )
+  const profileContent = (
+    <List size="small">
+      <List.Item>Account Level</List.Item>
+      <List.Item>Settings</List.Item>
+      <List.Item>Logout</List.Item>
+    </List>
+  )
   return(
     <Affix style={{width:'100%'}}>
       <div style={NavContainer}>
@@ -88,10 +94,14 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn}) => {
                   <Menu.Item key="login" style={{display:isLoggedIn(loggedIn)}}><Link to="/login">Login</Link></Menu.Item>
                   <Menu.Item key="signup" style={{display:isLoggedIn(loggedIn)}}><Link to="/register">Sign up</Link></Menu.Item>
                   <Menu.Item key="bell" style={{display:isLoggedIn(!loggedIn)}}>
-                    <Popover placement="bottom" title={NotifTitle} content={NotifContent} trigger="click"><div><Icon type="bell" style={{margin:'0 auto'}}/></div></Popover>
+                    <Popover placement="bottom" title={NotifTitle} content={NotifContent} trigger="click">
+                      <Icon type="bell" style={{margin:'0 auto'}}/>
+                    </Popover>
                   </Menu.Item>
                   <Menu.Item key="user" style={{display:isLoggedIn(!loggedIn)}}>
-                    <Popover placement="bottom" title={profileTitle} content={profileContent} trigger="click"><div><Icon type="user" style={{margin:'0 auto'}}/></div></Popover>
+                    <Popover placement="bottom" title={profileTitle} content={profileContent} trigger="click">
+                      <Icon type="user" style={{margin:'0 auto'}}/>
+                    </Popover>
                   </Menu.Item>
                   <Menu.Item key="logout" style={{display:isLoggedIn(!loggedIn)}}>Logout</Menu.Item>
                 </Menu>
@@ -104,19 +114,20 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn}) => {
         .ant-menu-horizontal{
           line-height:26px
         }
-        .ant-popover-arrow,
+        /*.ant-popover-arrow,
         .ant-popover-title{
           background-color:#f7f7f7
         }
         .ant-popover-inner-content{
           background-color:#f7f7f7
         }
+        .ant-popover-inner-content{
+          padding:0px
+        }*/
         .ant-menu-submenu-title{
           padding: 0px
         }
-        .ant-popover-inner-content{
-          padding:0px
-        }
+
         .ant-menu-horizontal > .ant-menu-item, .ant-menu-horizontal > .ant-menu-submenu {
           padding: 18px 15px;
         }
