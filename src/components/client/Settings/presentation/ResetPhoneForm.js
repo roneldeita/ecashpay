@@ -22,18 +22,18 @@ class ResetEmailForm extends React.Component{
   }
   render(){
     const { getFieldDecorator, isFieldTouched, getFieldError } = this.props.form
-    const EmailError = getFieldError('Verification Code')
+    const CodeError = getFieldError('Phone Verification Code')
     return(
       <div style={{display:this.props.displayForm?'block':'none', margin:'15px 0px 25px 0px'}}>
-        <Card title="Verify Email Address">
-          <p>A verification code has been sent, Please input verification code to verify.</p>
+        <Card title="Verify Phone Number">
+          <p>A verification code has been sent to your new phone number, Please input verification code to verify.</p>
           <Form onSubmit={this.handleSubmit}>
             <Form.Item
               wrapperCol={{span:12}}
-              hasFeedback={isFieldTouched('Verification Code')}
-              validateStatus={EmailError ? 'error' : ''}
-              help={EmailError || ''}>
-              {getFieldDecorator('Verification Code', {
+              hasFeedback={isFieldTouched('Phone Verification Code')}
+              validateStatus={CodeError ? 'error' : ''}
+              help={CodeError || ''}>
+              {getFieldDecorator('Phone Verification Code', {
                 rules: [
                   { required: true },
                   { max: 4, message: 'Verification Code cannot be longer than 4 characters. ' },
@@ -48,7 +48,7 @@ class ResetEmailForm extends React.Component{
                 type="primary"
                 htmlType="submit"
                 style={{marginRight:8}}>
-                Verify Email Address
+                Verify Phone Number
               </Button>
               <Button onClick={this.handleCancel}>Cancel</Button>
             </Form.Item>

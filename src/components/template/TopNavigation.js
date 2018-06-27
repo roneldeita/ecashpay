@@ -1,8 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { Affix, Menu, Row, Col, Icon, Popover, List } from 'antd'
+import { Affix, Menu, Row, Col, Icon, Popover, List, Badge } from 'antd'
 import EpayLogo from '../../assets/images/Ecashpay_Logo_Orig.png'
+//components
+import Notifications from './Notifications'
 
 const SubMenu = Menu.SubMenu;
 
@@ -10,61 +12,34 @@ const NavContainer = {
   backgroundColor: '#ffffff',
   borderBottom: '2px solid #999999'
 }
+const IconStyle = {
+  margin:'0 auto',
+  fontSize:'18px'
+}
 const Logo = {
   width: '180px'
 }
-
-const AntMenu = {
-  fontSize: '18px',
-}
 const Caret = {
   fontSize: '11px'
-}
-const NotifContainer = {
-  padding: '10px 0px'
-}
-const NotifContainerItem = {
-  padding:'8px 15px',
-  fontSize: '13px'
 }
 const isLoggedIn = (loggedIn) => {
   return loggedIn ? 'none' : 'block'
 }
 
-
-const TopNavigation = ({locale, onChangeLocale, loggedIn}) => {
-  const NotifTitle = (
-    <div style={{minWidth:'250px'}}>
-      <span style={{display:'block', float:'left', fontWeight:400}}>Notifications</span>
-      <Link to="/notifications" style={{display:'block', fontSize:'11px', lineHeight:'26px' , float:'right'}}>Open All</Link>
-    </div>
-  )
-  const NotifContent = (
-    <List style={NotifContainer}>
-      <List.Item>
-        <div style={NotifContainerItem}>Notif1</div>
-      </List.Item>
-      <List.Item>
-        <div style={NotifContainerItem}>Notif1</div>
-      </List.Item>
-      <List.Item>
-        <div style={NotifContainerItem}>Notif1</div>
-      </List.Item>
-    </List>
-  )
+const TopNavigation = ({locale, onChangeLocale, loggedIn, logout}) => {
   const profileTitle = (
     <Affix>
       <div style={{minWidth:'180px'}}>
         <span style={{display:'block', float:'left', fontWeight:400}}>Ronel A. Deita</span>
-        <Link to="/client/settings" style={{display:'block', lineHeight:'26px' , float:'right'}}><Icon type="qrcode"/></Link>
+        <span style={{display:'block', lineHeight:'26px' , float:'right'}}><Icon type="qrcode"/></span>
       </div>
     </Affix>
   )
   const profileContent = (
     <List size="small">
       <List.Item>Account Level</List.Item>
-      <List.Item>Settings</List.Item>
-      <List.Item>Logout</List.Item>
+      <List.Item><Link to="/client/settings">Settings</Link></List.Item>
+      <List.Item><a to="" onClick={logout}>Logout</a></List.Item>
     </List>
   )
   return(
@@ -81,8 +56,8 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn}) => {
           <Col xs={24} sm={12} md={11} >
             <Row type="flex" justify="end">
               <Col>
-                <Menu mode="horizontal" onSelect={onChangeLocale} style={AntMenu}>
-                  <SubMenu title={<span>{locale.toUpperCase()} <Icon type="down" style={Caret}/></span>}>
+                <Menu mode="horizontal" onSelect={onChangeLocale}>
+                  <SubMenu style={{display:isLoggedIn(loggedIn)}} title={<span>{locale.toUpperCase()} <Icon type="down" style={Caret}/></span>}>
                     <Menu.Item key="en">English</Menu.Item>
                     <Menu.Item key="zh">中文</Menu.Item>
                     <Menu.Item key="es">Español</Menu.Item>
@@ -94,16 +69,24 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn}) => {
                   <Menu.Item key="login" style={{display:isLoggedIn(loggedIn)}}><Link to="/login">Login</Link></Menu.Item>
                   <Menu.Item key="signup" style={{display:isLoggedIn(loggedIn)}}><Link to="/register">Sign up</Link></Menu.Item>
                   <Menu.Item key="bell" style={{display:isLoggedIn(!loggedIn)}}>
-                    <Popover placement="bottom" title={NotifTitle} content={NotifContent} trigger="click">
-                      <Icon type="bell" style={{margin:'0 auto'}}/>
+                    <Popover placement="bottom" content={<Notifications/>} trigger="click">
+                      <Badge>
+                        <Icon type="bell" style={IconStyle}/>
+                      </Badge>
                     </Popover>
                   </Menu.Item>
                   <Menu.Item key="user" style={{display:isLoggedIn(!loggedIn)}}>
                     <Popover placement="bottom" title={profileTitle} content={profileContent} trigger="click">
-                      <Icon type="user" style={{margin:'0 auto'}}/>
+                      <Badge>
+                        <Icon type="user" style={IconStyle}/>
+                      </Badge>
                     </Popover>
                   </Menu.Item>
-                  <Menu.Item key="logout" style={{display:isLoggedIn(!loggedIn)}}>Logout</Menu.Item>
+                  <Menu.Item key="logout" style={{display:isLoggedIn(!loggedIn)}}>
+                    <Badge>
+                      <Icon type="logout" style={IconStyle}/>
+                    </Badge>
+                  </Menu.Item>
                 </Menu>
               </Col>
             </Row>

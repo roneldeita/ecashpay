@@ -26,8 +26,9 @@ class CurrenciesPage extends React.Component{
     this.setState({buttonState:true})
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        Wallet({code:values.Currency}, {'x-access-token':this.props.auth.token}).Add()
+        Wallet({currency:values.Currency}, {'x-access-token':this.props.auth.token}).Add()
         .then(res => {
+          console.log(res.data)
           this.clearError()
           //(optimize) just push the new object to the state currencies
           let newCurrencies = Object.assign([], this.state.currencies)
@@ -47,8 +48,8 @@ class CurrenciesPage extends React.Component{
     event.preventDefault()
   }
   handleMakePrimaryCurrency(event){
-    let currency = event.target.attributes.currency.value
-    Wallet({code:currency}, {'x-access-token':this.props.auth.token}).MakePrimary()
+    let NewPrimaryCurrency = event.target.attributes.currency.value
+    Wallet({currency:NewPrimaryCurrency, primary: true}, {'x-access-token':this.props.auth.token}).Update()
     .then(res => {
       //(optimize) just apdate the selected currency to primary
       let newCurrencies = this.state.currencies.map(currency => {
@@ -66,10 +67,12 @@ class CurrenciesPage extends React.Component{
       console.log(err)
     })
   }
-  handleDeleteCurrency(currency, status){
-    const Action = !status ? Wallet({code:currency}, {'x-access-token':this.props.auth.token}).Add() : Wallet({code:currency}, {'x-access-token':this.props.auth.token}).CloseCurrency()
-    Action.then(res => {
+  handleDeleteCurrency(SelectedCurrency, status){
+    //const Action = !status ? Wallet({code:currency}, {'x-access-token':this.props.auth.token}).Add() : Wallet({code:currency}, {'x-access-token':this.props.auth.token}).CloseCurrency()
+    Wallet({currency:SelectedCurrency, status: false}, {'x-access-token':this.props.auth.token}).Update()
+      .then(res => {
       //(optimize) just apdate the selected currency status to response status
+      console.log(res.data)
       let newCurrencies = this.state.currencies.map(currency => {
          if(currency.code === res.data.code){
            currency.status = res.data.status
@@ -88,7 +91,7 @@ class CurrenciesPage extends React.Component{
       this.setState({serverErrorMessage:''})
     }, 500)
   }
-  componentWillMount(){
+  componentDidMount(){
     Wallet(null, {'x-access-token':this.props.auth.token}).GetAll()
     .then(res =>{
       this.setState({currencies:res.data.currencies})

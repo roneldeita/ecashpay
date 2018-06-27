@@ -17,40 +17,41 @@ import my from 'react-intl/locale-data/my';
 //antd & global css
 import {Layout, BackTop, Icon, message } from 'antd'
 import './App.css'
-import 'antd/lib/row/style/css'
-import 'antd/lib/col/style/css'
-import 'antd/lib/card/style/css'
-import 'antd/lib/icon/style/css'
-import 'antd/lib/form/style/css'
-import 'antd/lib/input/style/css'
-import 'antd/lib/date-picker/style/css'
-import 'antd/lib/select/style/css'
-import 'antd/lib/button/style/css'
-import 'antd/lib/back-top/style/css'
-import 'antd/lib/radio/style/css'
-import 'antd/lib/affix/style/css'
-import 'antd/lib/menu/style/css'
-import 'antd/lib/modal/style/css'
-import 'antd/lib/divider/style/css'
-import 'antd/lib/progress/style/css'
-import 'antd/lib/modal/style/css'
-import 'antd/lib/popover/style/css'
-import 'antd/lib/tabs/style/css'
-import 'antd/lib/divider/style/css'
-import 'antd/lib/steps/style/css'
-import 'antd/lib/layout/style/css'
-import 'antd/lib/dropdown/style/css'
-import 'antd/lib/breadcrumb/style/css'
-import 'antd/lib/table/style/css'
-import 'antd/lib/alert/style/css'
-import 'antd/lib/tag/style/css'
-import 'antd/lib/switch/style/css'
-import 'antd/lib/upload/style/css'
-import 'antd/lib/avatar/style/css'
-import 'antd/lib/popconfirm/style/css'
-import 'antd/lib/message/style/css'
-import 'antd/lib/list/style/css'
-import 'antd/lib/badge/style/css'
+// import 'antd/lib/row/style/css'
+// import 'antd/lib/col/style/css'
+// import 'antd/lib/card/style/css'
+// import 'antd/lib/icon/style/css'
+// import 'antd/lib/form/style/css'
+// import 'antd/lib/input/style/css'
+// import 'antd/lib/date-picker/style/css'
+// import 'antd/lib/select/style/css'
+// import 'antd/lib/button/style/css'
+// import 'antd/lib/back-top/style/css'
+// import 'antd/lib/radio/style/css'
+// import 'antd/lib/affix/style/css'
+// import 'antd/lib/menu/style/css'
+// import 'antd/lib/modal/style/css'
+// import 'antd/lib/divider/style/css'
+// import 'antd/lib/progress/style/css'
+// import 'antd/lib/modal/style/css'
+// import 'antd/lib/popover/style/css'
+// import 'antd/lib/tabs/style/css'
+// import 'antd/lib/divider/style/css'
+// import 'antd/lib/steps/style/css'
+// import 'antd/lib/layout/style/css'
+// import 'antd/lib/dropdown/style/css'
+// import 'antd/lib/breadcrumb/style/css'
+// import 'antd/lib/table/style/css'
+// import 'antd/lib/alert/style/css'
+// import 'antd/lib/tag/style/css'
+// import 'antd/lib/switch/style/css'
+// import 'antd/lib/upload/style/css'
+// import 'antd/lib/avatar/style/css'
+// import 'antd/lib/popconfirm/style/css'
+// import 'antd/lib/message/style/css'
+// import 'antd/lib/list/style/css'
+// import 'antd/lib/badge/style/css'
+import 'antd/dist/antd.min.css'
 //animate-on-scroll
 import "animate.css/animate.min.css";
 //lodash
@@ -89,7 +90,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      timeOut: 0,
+      timeOut: process.env.REACT_APP_TIMEOUT,
       collapsed: false,
     }
     this.handleChangeLocale = this.handleChangeLocale.bind(this)
@@ -176,9 +177,6 @@ class App extends Component {
       this.props.history.push('/login')
     }
   }
-  componentWillMount(){
-    this.setState({timeOut:process.env.REACT_APP_TIMEOUT})
-  }
   render() {
     //console.log(this.props)
     return (
@@ -194,6 +192,7 @@ class App extends Component {
                   loggedIn={hasToken()}
                   locale={this.props.locale}
                   onChangeLocale={this.handleChangeLocale}
+                  logout={this.handleLogOut}
                   />
                 </Layout.Header>
                 <Layout>

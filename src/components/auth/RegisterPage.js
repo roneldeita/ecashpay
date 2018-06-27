@@ -21,7 +21,7 @@ class RegisterPage extends React.Component {
     this.onClickLoginButton = this.onClickLoginButton.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.checkConfirm = this.checkConfirm.bind(this)
-    this.checkPassword = this.checkPassword.bind(this)
+    //this.checkPassword = this.checkPassword.bind(this)
   }
   onClickLoginButton(event){
     this.setState({buttonState:true})
@@ -30,7 +30,6 @@ class RegisterPage extends React.Component {
     const form = this.props.form
     const confirm = form.getFieldValue('Confirm Password')
     if (confirm !== undefined && confirm !== '' && value !== confirm && value.length >= 6) {
-      callback('Password does not match the confirm password')
       form.setFieldsValue({'Confirm Password':''})
     }
     callback();
@@ -38,7 +37,7 @@ class RegisterPage extends React.Component {
   checkConfirm = (rule, value, callback) => {
     const form = this.props.form
     const password = form.getFieldValue('Password')
-    if (value !=='' && value !== password && value.length >= 6) {
+    if (value !=='' && value !== password) {
       callback('Password does not match the confirm password')
     }
     callback();

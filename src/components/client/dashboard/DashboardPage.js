@@ -23,7 +23,8 @@ class DashboardPage extends React.Component{
       wallets:{},
       profile:{},
       transactions:[],
-      timestamp: 'no timestamp yet'
+      timestamp: 'no timestamp yet',
+      progress: 0,
     }
     //SubscribeToTimer((timestamp) => this.setState({timestamp}))
   }
@@ -37,14 +38,14 @@ class DashboardPage extends React.Component{
     })
   }
   loadWallets(){
-    // Wallet(null, {'x-access-token':this.props.auth.token}).GetAll()
-    // .then(res => {
-    //   //console.log(res)
-    //   this.setState({wallets:res.data.currencies})
-    // })
-    // .catch(err => {
-    //   console.log(err)
-    // })
+    Wallet(null, {'x-access-token':this.props.auth.token}).GetAll()
+    .then(res => {
+      //console.log(res)
+      this.setState({wallets:res.data.currencies})
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
   redirectPhoneVerification(){
     window.location.href='/client/verify/phone'
@@ -55,7 +56,6 @@ class DashboardPage extends React.Component{
     if(this.props.profile.phone === ''){
       this.redirectPhoneVerification()
     }
-    this.setState({profile:this.props.profile})
   }
   componentWillReceiveProps(nextProps){
     if(nextProps.profile.phone === ''){
@@ -64,11 +64,17 @@ class DashboardPage extends React.Component{
     this.setState({profile:nextProps.profile})
   }
   componentDidMount(){
+    this.setState({profile:this.props.profile})
+    setTimeout(()=>this.progress(), 1000)
     this.loadWallets()
     this.loadTransactions()
   }
+  progress(){
+    let Levels = this.state.profile.levels;
+    let ProgressValue = ((Levels !== undefined ? Object.keys(Levels).length : 0) * 25) + 25
+    this.setState({progress:ProgressValue})
+  }
   render(){
-    //console.log(this.props.history)
     return(
       <Row type="flex" justify="center">
         <Col className="" xs={24} sm={24} md={22} lg={18}>
@@ -81,7 +87,11 @@ class DashboardPage extends React.Component{
             </Col>
             <Col className="" xs={24} sm={24} md={24} lg={16}>
               {/*<Requirements ready={IsProfileReady} levels={this.props.profile.levels} />*/}
-              <Requirements ready={isEmpty(this.state.profile)} levels={this.props.profile.levels} phone={this.props.profile.phone} />
+              <Requirements
+                ready={isEmpty(this.state.profile)}
+                levels={this.state.profile.levels}
+                phone={this.state.profile.phone}
+                progress={this.state.progress}/>
               <History transactions={this.state.transactions}/>
             </Col>
           </Row>

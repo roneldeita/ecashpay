@@ -16,7 +16,7 @@ export function loadProfile(){
         sessionStorage.setItem("profile", JSON.stringify(res.data));
       }).catch(err=>{
         if(err){
-          message.error('Network Error', 0)
+          message.error('Server Error', 0)
         }
       })
     }

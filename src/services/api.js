@@ -45,10 +45,9 @@ export function Pob(data, header){
 
 export function Wallet(data, header) {
   return {
-    GetAll: () => axios.get(process.env.REACT_APP_API + '/wallets', {headers:header}),
-    Add: () => axios.post(process.env.REACT_APP_API + '/wallets/currencies?action=add', data, {headers:header}),
-    MakePrimary: () => axios.post(process.env.REACT_APP_API + '/wallets/currencies?action=setPrimary', data, {headers:header}),
-    CloseCurrency: () => axios.post(process.env.REACT_APP_API + '/wallets/currencies?action=remove', data, {headers:header})
+    GetAll: () => axios.get(process.env.REACT_APP_API + '/api/v1/wallets', {headers:header}),
+    Add: () => axios.post(process.env.REACT_APP_API + '/api/v1/wallets/currencies', data, {headers:header}),
+    Update: () => axios.patch(process.env.REACT_APP_API + '/api/v1/wallets/currencies', data, {headers:header})
   }
 }
 

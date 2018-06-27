@@ -15,7 +15,7 @@ class AdminSideNavigation extends React.Component{
   toggleCollapsed(){
     this.setState({collapsed: !this.state.collapsed})
   }
-  componentWillMount(){
+  componentDidMount(){
     this.setState({selected:this.props.location.pathname})
   }
   componentWillReceiveProps(nextProps){

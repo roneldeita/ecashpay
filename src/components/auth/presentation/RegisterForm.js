@@ -61,7 +61,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                       {getFieldDecorator('Password', {
                         rules: [
                           { required: true },
-                          { min: 8 , message:"Password must be at least 6 characters. "},
+                          { min: 8 , message:"Password must be at least 8 characters. "},
                           { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/, message: "The password must contain atleast 1 lower and 1 uppercase letter, 1 number and 1 special character. " },
                           { validator: checkPassword }
                         ],
@@ -78,7 +78,6 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                       {getFieldDecorator('Confirm Password', {
                         rules: [
                           { required: true },
-                          { min:8 },
                           { validator: checkConfirm }
                         ],
                       })(

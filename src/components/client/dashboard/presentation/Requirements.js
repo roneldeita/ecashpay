@@ -38,8 +38,7 @@ const Desc = {
   lineHeight: '13px'
 }
 
-export default ({ready, levels, phone}) => {
-  let progress = ((levels !== undefined ? Object.keys(levels).length : 0) * 25) + 25
+export default ({ready, levels, phone, progress}) => {
   return(
     <Card
       hoverable
