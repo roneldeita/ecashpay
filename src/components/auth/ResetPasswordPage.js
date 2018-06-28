@@ -23,7 +23,8 @@ class ResetPasswordPage extends React.Component{
     const form = this.props.form
     const confirm = form.getFieldValue('Confirm Password')
     if (confirm !== undefined && confirm !== '' && value !== confirm && value.length >= 6) {
-      callback('Password does not match the confirm password')
+      //callback('Password does not match the confirm password')
+      form.setFieldsValue({'Confirm Password':''})
     }
     callback();
   }

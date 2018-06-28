@@ -6,7 +6,7 @@ import UploadPobForm from './presentation/UploadPobForm'
 import Pending from './presentation/Pending'
 import Verified from './presentation/Verified'
 import Rejected from './presentation/Rejected'
-import { Form, Row, Col, Card, Icon } from 'antd'
+import { Form, Row, Col, Card, Icon, Modal } from 'antd'
 import { Pob } from '../../../services/api'
 
 const CardStyle = {
@@ -61,7 +61,10 @@ class SubmitPobPage extends React.Component{
             this.setState({buttonState:false})
           }, 800)
         }).catch(err => {
-          console.log(err)
+          Modal.error({
+            title: 'Sumission Error',
+            content: err.response.data.message
+          })
           setTimeout(()=>{
             this.setState({buttonState:false})
           }, 800)
@@ -78,6 +81,11 @@ class SubmitPobPage extends React.Component{
     Pob(null, {'x-access-token':this.props.auth.token}).Cancel()
     .then(res=>{
       this.checkStatus()
+    }).catch(err=>{
+      Modal.error({
+        title: 'Cancellation error',
+        content: err.response.data.message
+      })
     })
   }
   handleFileChange(info){
@@ -90,7 +98,7 @@ class SubmitPobPage extends React.Component{
       this.setState({identification:res.data})
     })
   }
-  componentWillMount(){
+  componentDidMount(){
     this.checkStatus()
   }
   render(){
@@ -98,12 +106,15 @@ class SubmitPobPage extends React.Component{
     return (
       <Row justify="center" type="flex" style={{marginTop:'30px'}}>
         <Col md={12} lg={8}>
-          <div style={{display:this.state.identification.status === 'none' ? 'block' : 'none'}}>
-            <Card
-              hoverable
-              title={ <span>Submit Proof Of Billing</span> }
-              style={CardStyle}
-              actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
+          <Card
+            hoverable
+            title={ <span>Submit Proof Of Billing</span> }
+            style={CardStyle}
+            actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
+              <div style={{display:this.state.identification === '' ? 'block' : 'none', minHeight:200, lineHeight:'200px', textAlign:'center'}}>
+                <p style={{verticalAlign:'middle', fontSize:'20px'}}>Loading...</p>
+              </div>
+              <div style={{display:this.state.identification.status === 'none' ? 'block' : 'none'}}>
                 <UploadPobForm
                   form={this.props.form}
                   files={this.state.files}
@@ -112,38 +123,21 @@ class SubmitPobPage extends React.Component{
                   submit={this.handleSubmit}
                   buttonState={this.state.buttonState}
                   />
-            </Card>
-          </div>
-          <div style={{display:this.state.identification.status === 'pending' ? 'block' : 'none'}}>
-            <Card
-              hoverable
-              title={ <span>Submit Proof Of Billing</span> }
-              style={CardStyle}
-              actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
-              <Pending
-                cancel={this.cancelRequest}
-                location={this.state.identification.location}
-                type={this.state.identification.type}
-                />
-            </Card>
-          </div>
-          <div style={{display:this.state.identification.status === 'rejected' ? 'block' : 'none'}}>
-            <Card
-              hoverable
-              title={ <span>Submit Proof Of Billing</span> }
-              style={CardStyle}
-              actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
-              <Rejected resubmit={this.cancelRequest}/>
-            </Card>
-          </div>
-          <div style={{display:this.state.identification.status === 'done' ? 'block' : 'none'}}>
-            <Card
-              hoverable
-              title={ <span>Submit Proof Of Billing</span> }
-              style={CardStyle}>
-              <Verified/>
-            </Card>
-          </div>
+              </div>
+              <div style={{display:this.state.identification.status === 'pending' ? 'block' : 'none'}}>
+                <Pending
+                  cancel={this.cancelRequest}
+                  location={this.state.identification.location}
+                  type={this.state.identification.type}
+                  />
+              </div>
+              <div style={{display:this.state.identification.status === 'rejected' ? 'block' : 'none'}}>
+                <Rejected resubmit={this.cancelRequest}/>
+              </div>
+              <div style={{display:this.state.identification.status === 'done' ? 'block' : 'none'}}>
+                <Verified/>
+              </div>
+          </Card>
         </Col>
       </Row>
     )

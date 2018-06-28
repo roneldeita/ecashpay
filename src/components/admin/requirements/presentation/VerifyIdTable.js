@@ -1,11 +1,13 @@
 import React from 'react'
 import { Table, Card, Row, Col, Divider, Button, Tag } from 'antd'
+import Moment from 'react-moment'
+
 export default ({record, accept, decline}) => {
   console.log(record)
   const columns = [
     { title: 'Client', dataIndex: 'profile.firstName', key: 'client' },
-    { title: 'Birthdate', dataIndex: 'profile.birthDate', key: 'birthdate' },
-    { title: 'Date Requested', dataIndex: 'createdAt', key: 'requested' },
+    { title: 'Birthdate', dataIndex: 'profile.birthDate', key: 'birthdate',  render:(text,record)=> <Moment format="MMMM D, Y" date={record.profile.birthDate}/>  },
+    { title: 'Date Requested', dataIndex: 'createdAt', key: 'requested', render:(text,record)=> <Moment format="MMMM D, Y" date={record.createdAt}/> },
     { title: '', dataIndex: '', width: 100, key: 'accept', render: (text, record) =>
       { return record.status === 1
         ? <Tag color="green">Accepted</Tag>

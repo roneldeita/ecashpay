@@ -1,17 +1,44 @@
 import React from 'react'
-import {Card, Form, Input, Button} from 'antd'
+import {Card, Form, Input, Button, Modal} from 'antd'
+import { Phone } from '../../../../services/api'
 
 class ResetEmailForm extends React.Component{
   constructor(props){
     super(props)
+    this.state = {
+      ButtonStatus:false
+    }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
   }
   handleSubmit(event){
+    this.setState({ButtonStatus:true})
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.toggleRequest()
-        this.props.showReset()
+        const Verification = {
+          'code': values['Phone Verification Code'],
+          'areaCode': this.props.code,
+          'phone': this.props.phone
+        }
+        Phone(Verification, {'x-access-token':this.props.auth.token}).Verify()
+        .then(res=>{
+          //message.success('Phone number updated successfully', 25)639169187846
+          this.props.toggleReset()
+          this.props.profileAction.loadProfile()
+          Modal.success({
+            title: 'Phone verification success',
+            content: 'Phone number updated successfully',
+          })
+          setTimeout(()=>this.setState({ButtonStatus:false}), 500)
+        }).catch(err=>{
+          Modal.error({
+            title: 'Phone verification error',
+            content: err.response.data.message,
+          })
+          setTimeout(()=>this.setState({ButtonStatus:false}), 500)
+        })
+      }else{
+        setTimeout(()=>this.setState({ButtonStatus:false}), 500)
       }
     })
     event.preventDefault()
@@ -26,7 +53,7 @@ class ResetEmailForm extends React.Component{
     return(
       <div style={{display:this.props.displayForm?'block':'none', margin:'15px 0px 25px 0px'}}>
         <Card title="Verify Phone Number">
-          <p>A verification code has been sent to your new phone number, Please input verification code to verify.</p>
+          <p>A verification code has been sent to your new phone number <span style={{fontWeight:500}}>+{this.props.code}{this.props.phone}</span>, Please input verification code to verify.</p>
           <Form onSubmit={this.handleSubmit}>
             <Form.Item
               wrapperCol={{span:12}}
@@ -47,6 +74,7 @@ class ResetEmailForm extends React.Component{
               <Button
                 type="primary"
                 htmlType="submit"
+                loading={this.state.ButtonStatus}
                 style={{marginRight:8}}>
                 Verify Phone Number
               </Button>

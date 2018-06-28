@@ -39,7 +39,7 @@ class LoginPage extends React.Component {
               window.location.href = '/client/dashboard'
               break;
             default:
-              window.location.href = '/login'
+              window.location.href = '/'
           }
         })
         .catch( err => {

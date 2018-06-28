@@ -65,9 +65,12 @@ class DashboardPage extends React.Component{
   }
   componentDidMount(){
     this.setState({profile:this.props.profile})
-    setTimeout(()=>this.progress(), 1000)
+    this.delayProgressBar = setTimeout(()=>this.progress(), 600)
     this.loadWallets()
     this.loadTransactions()
+  }
+  componentWillUnmount(){
+    clearTimeout(this.delayProgressBar)
   }
   progress(){
     let Levels = this.state.profile.levels;

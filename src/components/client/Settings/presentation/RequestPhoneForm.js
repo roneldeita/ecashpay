@@ -1,6 +1,6 @@
 import React from 'react'
-import { Card, Form, Select, Input, Button} from 'antd'
-import { Country } from '../../../../services/api'
+import { Card, Form, Select, Input, Button, Modal } from 'antd'
+import { Country, Phone } from '../../../../services/api'
 
 class RequestEmailForm extends React.Component{
   constructor(props){
@@ -10,16 +10,35 @@ class RequestEmailForm extends React.Component{
       country:'Phillipines',
       callingCode: '63',
       phone: null,
+      ButtonStatus:false,
     }
     this.onChangeCountry = this.onChangeCountry.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
   }
   handleSubmit(event){
+    this.setState({ButtonStatus:true})
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.toggleRequest()
-        this.props.showReset()
+        let CallingCode = values.Country.split("-")
+        if(CallingCode[0] === 'Phillipines'){ CallingCode[1] = '63' }
+        Phone(
+          {'areaCode':CallingCode[1], 'phone':values['Phone Number']},
+          {'x-access-token':this.props.auth.token})
+        .Request()
+        .then(res => {
+          this.props.toggleRequest()
+          this.props.showReset({phone:values['Phone Number'], code: CallingCode[1]})
+          setTimeout(()=>this.setState({ButtonStatus:false}), 500)
+        }).catch(err=>{
+          setTimeout(()=>this.setState({ButtonStatus:false}), 500)
+          Modal.error({
+            title: 'Phone Number Error',
+            content: err.response.data.message
+          })
+        })
+      }else{
+        setTimeout(()=>this.setState({ButtonStatus:false}), 500)
       }
     })
     event.preventDefault()
@@ -46,6 +65,7 @@ class RequestEmailForm extends React.Component{
     })
   }
   render(){
+    //console.log(this.props)
     const { getFieldDecorator, isFieldTouched, getFieldError } = this.props.form
     const CountryError = getFieldError('Country')
     const PhoneNumberError = getFieldError('Phone Number')
@@ -100,6 +120,7 @@ class RequestEmailForm extends React.Component{
               <Button
                 type="primary"
                 htmlType="submit"
+                loading={this.state.ButtonStatus}
                 style={{marginRight:8}}>
                 Send Code
               </Button>

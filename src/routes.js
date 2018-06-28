@@ -14,7 +14,7 @@ import NotFound from './components/notFound'
 import Redirecting from './components/redirect'
 
 import ClientDashboard from './components/client/dashboard/DashboardPage'
-import Settings from './components/client/Settings/SettingsPage'
+import Settings from './components/client/settings/SettingsPage'
 import AddFunds from './components/client/addfunds/AddFundsPage'
 import Transaction from './components/client/addfunds/TransactionPage'
 import SendMoney from './components/client/sendmoney/SendMoney'

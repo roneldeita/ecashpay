@@ -16,10 +16,24 @@ export function Auth(data, header) {
   }
 }
 
+export function Email(data, header){
+  return {
+    Request: () => axios.post(process.env.REACT_APP_API + '/api/v1/users/email/request', data, {headers:header}),
+    Verify: () => axios.post(process.env.REACT_APP_API + '/api/v1/users/email/reset', data, {headers:header})
+  }
+}
+
 export function Phone(data, header){
   return {
     Request: () => axios.patch(process.env.REACT_APP_API + '/api/v1/profiles/phones/verifications', data, {headers:header}),
     Verify: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/phones/verifications', data, {headers:header})
+  }
+}
+
+export function Password(data, header){
+  return {
+    Request: () => axios.post(process.env.REACT_APP_API + '/api/v1/users/password/request', data, {headers:header}),
+    Reset: () => axios.post(process.env.REACT_APP_API + '/api/v1/users/password/reset', data, {headers:header})
   }
 }
 

@@ -1,17 +1,36 @@
 import React from 'react'
-import {Card, Form, Input, Button} from 'antd'
+import {Card, Form, Input, Button, Modal} from 'antd'
+import { Email } from '../../../../services/api'
 
 class RequestEmailForm extends React.Component{
   constructor(props){
     super(props)
+    this.state = {
+      email: undefined,
+      ButtonStatus:false,
+    }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
   }
   handleSubmit(event){
+    this.setState({ButtonStatus:true})
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.toggleRequest()
-        this.props.showReset()
+        Email({email:values['New Email']},{'x-access-token':this.props.auth.token}).Request()
+        .then(res=>{
+          this.props.toggleRequest()
+          this.props.showReset({email:values['New Email']})
+          setTimeout(()=>this.setState({ButtonStatus:false}), 500)
+        }).catch(err=>{
+          Modal.error({
+            title: 'Change email error',
+            content: err.response.data.message
+          })
+          setTimeout(()=>this.setState({ButtonStatus:false}), 500)
+        })
+
+      }else{
+        setTimeout(()=>this.setState({ButtonStatus:false}), 500)
       }
     })
     event.preventDefault()
@@ -29,7 +48,7 @@ class RequestEmailForm extends React.Component{
           <Form onSubmit={this.handleSubmit}>
             <Form.Item
               wrapperCol={{span:12}}
-              hasFeedback={isFieldTouched('Email')}
+              hasFeedback={isFieldTouched('New Email')}
               validateStatus={EmailError ? 'error' : ''}
               help={EmailError || ''}>
               {getFieldDecorator('New Email', {
@@ -45,6 +64,7 @@ class RequestEmailForm extends React.Component{
               <Button
                 type="primary"
                 htmlType="submit"
+                loading={this.state.ButtonStatus}
                 style={{marginRight:8}}>
                 Send Code
               </Button>

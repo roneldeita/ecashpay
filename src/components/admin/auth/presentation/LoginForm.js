@@ -12,7 +12,7 @@ export default ({form, submit, buttonState}) =>{
   const PasswordError = getFieldError('Password')
   return(
     <Row type="flex" justify="center" style={{marginTop:'100px'}}>
-      <Col span={6}>
+      <Col xs={22} sm={14} md={12} lg={8} xl={6}>
         <Card
           hoverable
           style={CardStyle}

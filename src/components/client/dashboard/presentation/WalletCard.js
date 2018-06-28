@@ -15,37 +15,32 @@ const Balance = {
 }
 const CurrencyContainer = {
   padding: '10px 15px',
-  backgroundColor:'#eaf4f9'
-}
-const CurrencyCode = {
-  fontSize: '16px'
+  backgroundColor:'#f0f5ff'
 }
 const CurrencyBal = {
-  fontSize: '16px',
   float:'right'
-}
-const renderCurrencies = (currencies) => {
-  return currencies.map((currency, index) =>{
-    return currency.status && (
-      <div key={index} className="">
-        <span className="" style={CurrencyCode}>{currency.code}</span>
-        <span className="" style={CurrencyBal}>{currency.balance}</span>
-      </div>
-    )
-  })
-}
-const renderPrimaryCurrency = (currencies) => {
-  return currencies.map((currency, index) => {
-    return currency.primary && (
-      <p key={index} style={Balance}>
-        <span style={{fontWeight:400}}> {currency.symbol}</span>
-        <span style={{fontWeight:500}}> {currency.balance}</span>
-        <span style={{fontWeight:400}}> {currency.code}*</span>
-      </p> )
-  })
 }
 
 export default ({ready, currencies}) => {
+  const renderPrimaryCurrency = (currencies) => {
+    return currencies.filter(currency =>  currency.primary === true).map((currency, index) => {
+      return(
+        <p key={index} style={Balance}>
+          <span style={{fontWeight:400}}> {currency.symbol}</span>
+          <span style={{fontWeight:500}}> {currency.balance}</span>
+          <span style={{fontWeight:400}}> {currency.code}*</span>
+        </p>)
+    })
+  }
+  const renderCurrencies = (currencies) => {
+    return currencies.filter(currency => currency.primary === false && currency.status).map((currency, index) => {
+      return(
+        <div key={index} style={{marginBottom:'2px'}}>
+          <span>{currency.code}</span>
+          <span style={CurrencyBal}>{currency.balance}</span>
+        </div>)
+    })
+  }
   //console.log(currencies)
   return(
     <Card
@@ -59,14 +54,14 @@ export default ({ready, currencies}) => {
         <Link to="/client/manage/currencies">Manage Currencies</Link>]}>
       {/*<Link style={{float: 'right'}} to='/client/manage/currencies'><span>Manage Currencies <Icon type="caret-right" style={{fontSize:'11px'}}/></span></Link>*/}
       {/*<p style={Title}>Ecash</p>*/}
-      <p style={{marginBottom:'0px'}}>Available</p>
+      <p style={{marginBottom:'0px', fontWeight:200}}>Available</p>
       <div>
         {!isEmpty(currencies) ?  renderPrimaryCurrency(currencies) : '<p>Error Fetching Your Wallet</p>'}
       </div>
       <div style={CurrencyContainer}>
         {!isEmpty(currencies) ?  renderCurrencies(currencies) : '<p>Error Fetching Your Wallet</p>'}
       </div>
-      <Button type="primary" style={{marginTop:'15px'}}><Link to="/client/addfunds"><Icon type="wallet"/> Add Funds</Link></Button>
+      <Button style={{marginTop:'15px'}}><Link to="/client/addfunds"><Icon type="plus"/> Add Funds</Link></Button>
     </Card>
   )
 }

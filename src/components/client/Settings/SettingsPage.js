@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import * as profileActions from '../../../actions/profileAction'
 //import { bindActionCreators } from 'redux'
 import ManageEmail from './ManageEmail'
 import ManagePhone from './ManagePhone'
@@ -19,9 +21,19 @@ class SettingsPage extends React.Component{
           <Col xs={23} sm={23} md={20} lg={16} xl={11}>
             <Card title="General Settings" style={{marginTop:'50px'}}>
               <List size="small">
-                <ManageEmail/>
-                <ManagePhone/>
-                <ManagePassword/>
+                <ManageEmail
+                  auth={this.props.auth}
+                  profile={this.props.profile}
+                  profileAction={this.props.profileAction}/>
+                <ManagePhone
+                  auth={this.props.auth}
+                  profile={this.props.profile}
+                  profileAction={this.props.profileAction}/>
+                <ManagePassword
+                  auth={this.props.auth}
+                  profile={this.props.profile}
+                  profileAction={this.props.profileAction}
+                  />
               </List>
             </Card>
             <Privacy/>
@@ -35,8 +47,16 @@ class SettingsPage extends React.Component{
 
 function mapStateToProps(state, ownProps){
   return {
+    auth: state.auth,
     profile: state.profile
   }
 }
 
-export default connect(mapStateToProps)(SettingsPage)
+function mapDispatchToProps(dispatch){
+  return {
+    profileAction: bindActionCreators(profileActions, dispatch),
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsPage)

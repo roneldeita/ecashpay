@@ -30,7 +30,7 @@ class VerifyPhonePage extends React.Component{
     //console.log(this.state)
     return(
       <Row type="flex" justify="center" style={{marginTop:'80px'}}>
-        <Col md={12} lg={6}>
+        <Col sm={18} md={13} lg={8}>
           <Card
             hoverable
             title={ <span>Verify your Phone number</span> }

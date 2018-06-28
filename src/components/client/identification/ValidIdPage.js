@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 // import ReactS3 from 'react-s3'
-import { Form, Row, Col, Card, Icon } from 'antd'
+import { Form, Row, Col, Card, Icon, Modal } from 'antd'
 import { Link } from 'react-router-dom'
 import UploadIdForm from './presentation/UploadIdForm'
 import Pending from './presentation/Pending'
@@ -49,7 +49,10 @@ class ValidIdPage extends React.Component{
             this.setState({buttonState:false})
           }, 800)
         }).catch(err => {
-          console.log(err)
+          Modal.error({
+            title: 'Sumission Error',
+            content: err.response.data.message
+          })
           setTimeout(()=>{
             this.setState({buttonState:false})
           }, 800)
@@ -96,6 +99,11 @@ class ValidIdPage extends React.Component{
     Id(null, {'x-access-token':this.props.auth.token}).Cancel()
     .then(res=>{
       this.checkStatus()
+    }).catch(err=>{
+      Modal.error({
+        title: 'Cancellation error',
+        content: err.response.data.message
+      })
     })
   }
   checkStatus(){
@@ -104,20 +112,22 @@ class ValidIdPage extends React.Component{
       this.setState({identification:res.data})
     })
   }
-  componentWillMount(){
+  componentDidMount(){
     this.checkStatus()
   }
   render(){
-    //console.log(this.props)
     return(
       <Row type="flex" justify="center" style={{marginTop:'80px'}}>
         <Col md={12} lg={8}>
-          <div style={{display:this.state.identification.status === 'none' ? 'block' : 'none'}}>
             <Card
               hoverable
               title={ <span>Submit your selfie with government-issued ID</span> }
               style={CardStyle}
               actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
+              <div style={{display:this.state.identification === '' ? 'block' : 'none', minHeight:200, lineHeight:'200px', textAlign:'center'}}>
+                <p style={{verticalAlign:'middle', fontSize:'20px'}}>Loading...</p>
+              </div>
+              <div style={{display:this.state.identification.status === 'none' ? 'block' : 'none'}}>
                 <UploadIdForm
                   buttonState={this.state.buttonState}
                   form={this.props.form}
@@ -130,43 +140,26 @@ class ValidIdPage extends React.Component{
                   validateFile={this.validateFile}
                   submit={this.handleSubmit}
                   />
+              </div>
+              <div style={{display:this.state.identification.status === 'pending' ? 'block' : 'none'}}>
+                <Pending
+                  cancel={this.cancelRequest}
+                  front={this.state.identification.frontLocation}
+                  files={this.state.identification.files}
+                  back={this.state.identification.backLocation}
+                  handlePreview={this.handlePreview}
+                  preview={this.state.preview}
+                  image={this.state.image}
+                  closePreview={this.closePreview}
+                  />
+              </div>
+              <div style={{display:this.state.identification.status === 'rejected' ? 'block' : 'none'}}>
+                <Rejected resubmit={this.cancelRequest}/>
+              </div>
+              <div style={{display:this.state.identification.status === 'done' ? 'block' : 'none'}}>
+                <Verified/>
+              </div>
             </Card>
-          </div>
-          <div style={{display:this.state.identification.status === 'pending' ? 'block' : 'none'}}>
-            <Card
-              hoverable
-              title={ <span>Submit your selfie with government-issued ID</span> }
-              style={CardStyle}
-              actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
-              <Pending
-                cancel={this.cancelRequest}
-                front={this.state.identification.frontLocation}
-                files={this.state.identification.files}
-                back={this.state.identification.backLocation}
-                handlePreview={this.handlePreview}
-                preview={this.state.preview}
-                image={this.state.image}
-                closePreview={this.closePreview}
-                />
-            </Card>
-          </div>
-          <div style={{display:this.state.identification.status === 'rejected' ? 'block' : 'none'}}>
-            <Card
-              hoverable
-              title={ <span>Submit your selfie with government-issued ID</span> }
-              style={CardStyle}
-              actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
-              <Rejected resubmit={this.cancelRequest}/>
-            </Card>
-          </div>
-          <div style={{display:this.state.identification.status === 'done' ? 'block' : 'none'}}>
-            <Card
-              hoverable
-              title={ <span>Submit your selfie with government-issued ID</span> }
-              style={CardStyle}>
-              <Verified/>
-            </Card>
-          </div>
         </Col>
       </Row>
     )
