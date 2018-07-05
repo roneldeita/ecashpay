@@ -2,8 +2,7 @@ import React from 'react'
 import { Form, Upload, Icon, Modal, Button } from 'antd'
 
 const formItemLayout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 17},
+  wrapperCol: {md:{span:16, offset:4}}
 }
 const UploadButton = (
   <div>
@@ -70,7 +69,6 @@ export default ({
         )}
       </Form.Item>*/}
       <Form.Item
-        label="Your Photo"
         {...formItemLayout}
         validateStatus={fileError ? 'error' : ''}
         help={fileError || ''}>
@@ -85,10 +83,10 @@ export default ({
           </Upload.Dragger>
         )}
       </Form.Item>
-      <Form.Item label="Note" {...formItemLayout}>
-        By clicking submit, you agree to our <a>Terms & Condition</a>
+      <Form.Item {...formItemLayout}>
+        Note: By clicking submit, you agree to our <a>Terms & Condition</a>
       </Form.Item>
-      <Form.Item wrapperCol={{span: 18, offset: 6}}>
+      <Form.Item wrapperCol={{md:{span: 16, offset: 4}}}>
         <Button
           type="primary"
           htmlType="submit"

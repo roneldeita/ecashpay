@@ -6,7 +6,7 @@ import { Form, Modal } from 'antd'
 //services
 import { Auth } from '../../services/api'
 
-class RequestPasswordPage extends React.Component{
+class RequestPasswordPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
@@ -14,6 +14,7 @@ class RequestPasswordPage extends React.Component{
     }
     this.onClickSubmitButton = this.onClickSubmitButton.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    document.title="Forgot Password - Ecashpay"
   }
   onClickSubmitButton(event){
     this.setState({buttonState:true})

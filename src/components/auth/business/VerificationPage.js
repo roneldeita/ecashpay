@@ -1,47 +1,50 @@
-import React from 'react';
+import React from 'react'
 //redux
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as authActions from '../../actions/authAction'
-import * as profileActions from '../../actions/profileAction'
+import * as authActions from '../../../actions/authAction'
+import * as profileActions from '../../../actions/profileAction'
 //components
 import VerificationForm from './presentation/VerificationForm'
 //services
-import { Auth } from '../../services/api'
+import { Auth } from '../../../services/api'
 //ant design
 import { Modal, Form } from 'antd'
 
-class VerificationPage extends React.Component {
+class VerificationPage extends React.PureComponent {
   constructor(props){
     super(props)
     this.state = {
       buttonState: false
     }
-    this.onClickSubmitButton = this.onClickSubmitButton.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleResend = this.handleResend.bind(this)
+    this.autoCheck = this.autoCheck.bind(this)
+    document.title="Verify Email - Ecashpay"
   }
-  onClickSubmitButton(event){
-    this.setState({buttonState:true})
+  autoCheck(event){
+    console.log(event.target)
   }
   handleSubmit(event){
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        Auth({code:values.Code}, {'x-access-token':this.props.auth.token}).verifyEmail()
-        .then(res => {
-          sessionStorage.removeItem('profile');
-          this.props.profileAction.loadProfile(this.props.auth.token)
-          window.location.href = '/profile'
-        })
-        .catch(error => {
-          Modal.error({
-            title: 'Email Verification Error',
-            content: error.response.data.message,
-          });
-          setTimeout(() => {
-            this.setState({buttonState:false})
-          }, 800)
-        })
+        if(values.Code.length === 4){
+          this.setState({buttonState:true})
+          Auth({code:values.Code}, {'x-access-token':this.props.auth.token}).verifyEmail()
+          .then(res => {
+            this.props.profileAction.loadProfile(this.props.auth.token)
+            window.location.href = 'business/profile'
+          })
+          .catch(error => {
+            Modal.error({
+              title: 'Email Verification Error',
+              content: error.response.data.message,
+            });
+            setTimeout(() => {
+              this.setState({buttonState:false})
+            }, 800)
+          })
+        }
       }else{
         setTimeout(() => {
           this.setState({buttonState:false})
@@ -68,14 +71,14 @@ class VerificationPage extends React.Component {
   }
   render() {
     return (
-      <div className="font">
+      <div>
         <VerificationForm
           email={this.props.profile.email}
           form={this.props.form}
           buttonState={this.state.buttonState}
-          onClickSubmitButton={this.onClickSubmitButton}
           onSubmit={this.handleSubmit}
           onResend={this.handleResend}
+          autoCheck={this.autoCheck}
         />
       </div>
     );

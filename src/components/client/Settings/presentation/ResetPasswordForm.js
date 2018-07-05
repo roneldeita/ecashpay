@@ -2,7 +2,7 @@ import React from 'react'
 import {Card, Form, Input, Button, Modal} from 'antd'
 import { Password } from '../../../../services/api'
 
-class ResetPasswordForm extends React.Component{
+class ResetPasswordForm extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {

@@ -2,17 +2,17 @@ import React from 'react';
 //redux
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as authActions from '../../actions/authAction'
+import * as authActions from '../../../actions/authAction'
 //lodash
 import { camelCase } from 'lodash'
 //services
-import { Auth } from '../../services/api'
+import { Auth } from '../../../services/api'
 //component
 import RegisterForm from './presentation/RegisterForm'
 //ant design
 import { Form, Modal } from 'antd'
 
-class RegisterPage extends React.Component {
+class RegisterPage extends React.PureComponent {
   constructor(props){
     super(props)
     this.state = {
@@ -21,7 +21,7 @@ class RegisterPage extends React.Component {
     this.onClickLoginButton = this.onClickLoginButton.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.checkConfirm = this.checkConfirm.bind(this)
-    //this.checkPassword = this.checkPassword.bind(this)
+    document.title="Register - Ecashpay"
   }
   onClickLoginButton(event){
     this.setState({buttonState:true})
@@ -51,8 +51,8 @@ class RegisterPage extends React.Component {
         })
         Auth(Data).register()
         .then( res => {
-          this.props.authActions.saveAuth(res.data)
-          window.location.href = '/verify'
+          this.props.authActions.saveAuth(res.data.token)
+          window.location.href = '/business/verify'
         })
         .catch( err => {
           Modal.error({
@@ -75,7 +75,6 @@ class RegisterPage extends React.Component {
     window.scrollTo(0, 0)
   }
   render(){
-    console.log(this.props.form)
     return (
       <div className="font">
         <RegisterForm

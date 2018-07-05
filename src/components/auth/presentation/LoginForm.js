@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {Card, Row, Col, Form, Input, Button, Icon } from 'antd'
+import QueueAnim from 'rc-queue-anim'
 import RightSection from './RightSection'
 import * as css from '../../../assets/styles/LoginForm'
 
@@ -12,54 +13,60 @@ const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton}) => {
   const PasswordError =  getFieldError('Password')
   return (
     <Row type="flex" justify="center" style={css.Container}>
-      <Col md={22} lg={22} xl={18} xxl={13}>
-        <Card hoverable style={css.CardStyle}>
-          <Row>
-            <Col className="" style={css.FormColumn} xs={24} md={13}>
-              <p style={css.Greet}>Welcome to Ecashpay Asia!</p>
-              <p style={css.Small}>Log in to your account here</p>
-              <Form onSubmit={onSubmit}>
-                <FormItem
-                  hasFeedback={isFieldTouched('Email')}
-                  validateStatus={EmailError ? 'error' : 'success'}
-                  help={EmailError || ''}>
-                  {getFieldDecorator('Email', {
-                    rules: [
-                      { required: true },
-                      { type: 'email', message: 'Not a valid email' }
-                    ],
-                  })(
-                    <Input placeholder="Email" prefix={<Icon type="mail" style={css.PrefixIcon} /> }/>
-                  )}
-                </FormItem>
-                <FormItem
-                  hasFeedback={isFieldTouched('Password')}
-                  validateStatus={PasswordError ? 'error' : 'success'}
-                  help={PasswordError || ''}>
-                  {getFieldDecorator('Password', {
-                    rules: [
-                      { required: true },
-                      { min:6 }
-                    ],
-                  })(
-                    <Input placeholder="Password" type="password" prefix={<Icon type="lock" style={css.PrefixIcon} /> }/>
-                  )}
-                </FormItem>
-                <div style={{textAlign:'right'}}><Link to="/password/request">Forgot password?</Link></div>
-                <FormItem>
-                  <Button type="primary" htmlType="submit" loading={buttonState} onClick={onClickLoginButton}>{buttonState ? 'logging in..' : 'Login'}</Button>
-                </FormItem>
-                <p>{`Don't have an account`}?<Link to="/register"> Sign up now!</Link></p>
-              </Form>
-            </Col>
-            <Col style={css.Column} xs={0} md={11}>
-              <RightSection />
-            </Col>
-          </Row>
-        </Card>
+      <Col xs={23} sm={22} md={22} lg={22} xl={17} xxl={12}>
+        <QueueAnim
+          type={['bottom', 'top']}
+          ease={['easeOutBack', 'easeInOutCirc']}>
+          <div key="0">
+            <Card hoverable style={css.CardStyle}>
+              <Row>
+                <Col className="form-column" xs={24} md={13}>
+                  <p style={css.Greet}>Welcome to Ecashpay Asia!</p>
+                  <p style={css.Small}>Log in to your account here</p>
+                  <Form onSubmit={onSubmit}>
+                    <FormItem
+                      hasFeedback={isFieldTouched('Email')}
+                      validateStatus={EmailError ? 'error' : 'success'}
+                      help={EmailError || ''}>
+                      {getFieldDecorator('Email', {
+                        rules: [
+                          { required: true },
+                          { type: 'email', message: 'Not a valid email' }
+                        ],
+                      })(
+                        <Input placeholder="Email" prefix={<Icon type="mail" style={css.PrefixIcon} /> }/>
+                      )}
+                    </FormItem>
+                    <FormItem
+                      hasFeedback={isFieldTouched('Password')}
+                      validateStatus={PasswordError ? 'error' : 'success'}
+                      help={PasswordError || ''}>
+                      {getFieldDecorator('Password', {
+                        rules: [
+                          { required: true },
+                          { min:6 }
+                        ],
+                      })(
+                        <Input placeholder="Password" type="password" prefix={<Icon type="lock" style={css.PrefixIcon} /> }/>
+                      )}
+                    </FormItem>
+                    <div style={{textAlign:'right'}}><Link to="/password/request">Forgot password?</Link></div>
+                    <FormItem>
+                      <Button id="submit" type="primary" htmlType="submit" loading={buttonState} onClick={onClickLoginButton}>{buttonState ? 'logging in..' : 'Login'}</Button>
+                    </FormItem>
+                    <p>{`Don't have an account`}?<Link to="/register"> Sign up now!</Link></p>
+                  </Form>
+                </Col>
+                <Col style={css.Column} xs={0} md={11}>
+                  <RightSection />
+                </Col>
+              </Row>
+            </Card>
+          </div>
+        </QueueAnim>
       </Col>
       <style jsx="true">{`
-        .ant-btn-primary{
+        #submit.ant-btn-primary{
           height: auto;
           width: 100%;
           font-size: 18px;
@@ -81,6 +88,14 @@ const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton}) => {
         .ant-card-body{
           font-family: 'Work Sans', sans-serif !important;
           padding:0px
+        }
+        .form-column{
+          padding: 80px 60px 30px 60px
+        }
+        @media only screen and (max-width: 600px) {
+          .form-column{
+            padding: 80px 20px 30px 20px
+          }
         }
       `}
       </style>

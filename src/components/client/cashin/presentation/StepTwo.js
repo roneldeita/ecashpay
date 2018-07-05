@@ -35,7 +35,7 @@ const StepTwo = ({visibility, next, changeAmount, data, prev, form}) => {
   }
   return(
     <Card style={visibility ? Show : Hide}>
-      <p style={Title}>Enter Amount</p>
+      <p style={Title}>How much would you like to Cash In?</p>
       <Form onSubmit={validate}>
         <Row type="flex" justify="center">
           <Col span={14}>
@@ -68,7 +68,7 @@ const StepTwo = ({visibility, next, changeAmount, data, prev, form}) => {
           </Row>
           <Divider dashed style={DividerStyle}/>
           <Row>
-            <Col span={12}>You will recieve</Col>
+            <Col span={12}>You will receive</Col>
             <Col span={12} style={rightContent}>{data.amount ? data.amount + ' PHP' : '' }</Col>
           </Row>
           <Divider dashed style={DividerStyle}/>
@@ -79,7 +79,7 @@ const StepTwo = ({visibility, next, changeAmount, data, prev, form}) => {
           <Divider dashed style={DividerStyle}/>
           <Row>
             <Col span={12}>Merchant Service fee <Icon type="info-circle" style={Info}/></Col>
-            <Col span={12} style={rightContent}>{data.amount ? data.merchant.fee + ' PHP' : '' }</Col>
+            <Col span={12} style={rightContent}>{data.merchant.fee + ' PHP' }</Col>
           </Row>
           <Divider style={DividerStyle}/>
           <Row>

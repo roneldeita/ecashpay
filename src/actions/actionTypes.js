@@ -6,3 +6,6 @@ export const SAVE_AUTH_SUCCESS = 'SAVE_AUTH_SUCCESS'
 export const CHECK_AUTH_SUCCESS = 'CHECK_AUTH_SUCCESS'
 //Profile
 export const LOAD_PROFILE_SUCCESS = 'LOAD_PROFILE_SUCCESS'
+//two-factor authentication
+export const SAVE_TFA_SUCCESS = 'SAVE_TFA_SUCCESS'
+export const CHECK_TFA_SUCCESS = 'CHECK_TFA_SUCCESS'

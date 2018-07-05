@@ -14,11 +14,11 @@ const StoreInstance = Store()
 
 StoreInstance.dispatch(loadLocale())
 StoreInstance.dispatch(checkAuth())
-//StoreInstance.dispatch(loadProfile())
 
 //load profile
 const Token = StoreInstance.getState().auth.token
-if(Token !== undefined){
+//console.log(Token)
+if(Token !== null){
   StoreInstance.dispatch(loadProfile())
 }
 

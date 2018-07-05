@@ -2,18 +2,18 @@ import React from 'react'
 //redux
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as authActions from '../../actions/authAction'
-import * as profileActions from '../../actions/profileAction'
+import * as authActions from '../../../actions/authAction'
+import * as profileActions from '../../../actions/profileAction'
 //lodash
 import { camelCase } from 'lodash'
 //ant design
 import { Form } from 'antd'
 //services
-import { Auth, Country } from '../../services/api'
+import { Auth, Country } from '../../../services/api'
 //child component
 import ProfileForm from './presentation/ProfileForm'
 
-class ProfilePage extends React.Component{
+class ProfilePage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
@@ -25,6 +25,7 @@ class ProfilePage extends React.Component{
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSourceOfFunds = this.handleSourceOfFunds.bind(this)
+    document.title="Complete Profile - Ecashpay"
   }
   handleSourceOfFunds(e){
     if(e.target.value === "2"){
@@ -44,9 +45,9 @@ class ProfilePage extends React.Component{
       if (!err) {
         const Data = {}
         Object.entries(values).forEach(([index,value])=>{
-          if(index === 'Address line 1'){
-            index = 'Address1'
-          }
+          // if(index === 'Address line 1'){
+          //   index = 'Address1'
+          // }
           if(index === 'City / Municipality'){
             index = 'City'
           }
@@ -82,9 +83,7 @@ class ProfilePage extends React.Component{
         }
         Auth(Data, {'x-access-token':this.props.auth.token}).completeProfile()
         .then( res => {
-          sessionStorage.removeItem('profile');
-          this.props.profileAction.loadProfile(this.props.auth.token)
-          window.location.href = '/client/dashboard'
+          window.location.href = '/'
         })
         .catch(err => {
           console.log(err)
@@ -115,7 +114,6 @@ class ProfilePage extends React.Component{
     })
   }
   render(){
-    console.log(this.props)
     return(
       <div>
         <ProfileForm

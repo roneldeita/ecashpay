@@ -1,6 +1,6 @@
 import * as types from '../actions/actionTypes'
 
-export default function(state = [], payload) {
+export default function(state = {}, payload) {
   switch(payload.type){
     case types.SAVE_AUTH_SUCCESS:
       return payload.auth

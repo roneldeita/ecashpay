@@ -2,7 +2,7 @@ import React from 'react'
 import {Card, Form, Input, Button, Modal} from 'antd'
 import { Email } from '../../../../services/api'
 
-class RequestEmailForm extends React.Component{
+class RequestEmailForm extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {

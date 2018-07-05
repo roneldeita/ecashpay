@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table, Card, Row, Col, Divider, Button, Tag } from 'antd'
+
 export default ({record, accept, decline}) => {
-  console.log(record)
   const columns = [
     { title: 'Client', dataIndex: 'profile.firstName', key: 'client' },
     { title: 'Birthdate', dataIndex: 'profile.birthDate', key: 'birthdate' },

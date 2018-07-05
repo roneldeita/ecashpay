@@ -20,13 +20,13 @@ const BreadCrumbs = (
       <span>Dashboard</span>
     </Breadcrumb.Item>
     <Breadcrumb.Item>
-      <Icon type="idcard" />
+      <Icon type="picture" />
       <span>Verify ID</span>
     </Breadcrumb.Item>
   </Breadcrumb>
 )
 
-class VerifyIdPage extends React.Component{
+class VerifyIdPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state={
@@ -64,7 +64,7 @@ class VerifyIdPage extends React.Component{
       console.log(err)
     })
   }
-  componentWillMount(){
+  componentDidMount(){
     this.getAllRecords()
   }
   render(){

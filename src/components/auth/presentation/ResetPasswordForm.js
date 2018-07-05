@@ -14,7 +14,7 @@ const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSu
       <Col md={22} lg={22} xl={18} xxl={13}>
         <Card hoverable style={css.CardStyle}>
           <Row>
-            <Col className="" style={css.FormColumn} xs={24} md={13}>
+            <Col className="form-column" xs={24} md={13}>
               <p style={css.Greet}>Reset your password?</p>
               <p style={css.Small}>Please enter the 4-digit code you just received and your new password.</p>
               <br/><br/>
@@ -62,7 +62,7 @@ const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSu
                     )}
                   </Form.Item>
                   <Form.Item>
-                    <Button type="primary" htmlType="submit" loading={buttonState} onClick={buttonWasClicked}>{buttonState ? 'Resetting...' : 'Reset'}</Button>
+                    <Button id="submit" type="primary" htmlType="submit" loading={buttonState} onClick={buttonWasClicked}>{buttonState ? 'Resetting...' : 'Reset'}</Button>
                   </Form.Item>
                   <div style={{textAlign:'center'}}>Don't have a Ecashpay Account? <Link to="/register">Sign Up</Link></div>
                 </Form>
@@ -74,7 +74,7 @@ const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSu
         </Card>
       </Col>
       <style jsx="true">{`
-        .ant-btn-primary{
+        #submit.ant-btn-primary{
           height: auto;
           width: 100%;
           font-size: 18px;
@@ -96,6 +96,14 @@ const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSu
         .ant-card-body{
           font-family: 'Work Sans', sans-serif !important;
           padding:0px
+        }
+        .form-column{
+          padding: 80px 60px 30px 60px
+        }
+        @media only screen and (max-width: 600px) {
+          .form-column{
+            padding: 80px 20px 30px 20px
+          }
         }
       `}
       </style>

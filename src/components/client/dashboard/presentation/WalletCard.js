@@ -1,12 +1,13 @@
 import React from 'react'
 import { isEmpty } from 'lodash'
 import { Link } from 'react-router-dom'
-import {Card, Button, Icon} from 'antd'
+import {Card, Button} from 'antd'
+import QueueAnim from 'rc-queue-anim'
 
 const CardStyle = {
   margin: '0px',
   padding: '0px',
-  cursor:'auto'
+  cursor: 'default'
 }
 const Balance = {
   fontSize:'30px',
@@ -43,25 +44,29 @@ export default ({ready, currencies}) => {
   }
   //console.log(currencies)
   return(
-    <Card
-      hoverable
-      className="wallet-card"
-      title="Ecash"
-      loading={ready}
-      style={CardStyle}
-      actions={[
-        <Link to="/client/convert">Convert</Link>,
-        <Link to="/client/manage/currencies">Manage Currencies</Link>]}>
-      {/*<Link style={{float: 'right'}} to='/client/manage/currencies'><span>Manage Currencies <Icon type="caret-right" style={{fontSize:'11px'}}/></span></Link>*/}
-      {/*<p style={Title}>Ecash</p>*/}
-      <p style={{marginBottom:'0px', fontWeight:200}}>Available</p>
-      <div>
-        {!isEmpty(currencies) ?  renderPrimaryCurrency(currencies) : '<p>Error Fetching Your Wallet</p>'}
+    <QueueAnim type={['bottom', 'top']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
+      <div key="0">
+        <Card
+          hoverable
+          className="wallet-card"
+          title="Ecash"
+          loading={ready}
+          style={CardStyle}
+          actions={[
+            <Link to="/client/convert">Convert</Link>,
+            <Link to="/client/manage/currencies">Manage Currencies</Link>]}>
+          {/*<Link style={{float: 'right'}} to='/client/manage/currencies'><span>Manage Currencies <Icon type="caret-right" style={{fontSize:'11px'}}/></span></Link>*/}
+          {/*<p style={Title}>Ecash</p>*/}
+          <p style={{marginBottom:'0px', fontWeight:200}}>Available</p>
+          <div>
+            {!isEmpty(currencies) ?  renderPrimaryCurrency(currencies) : '<p>Error Fetching Your Wallet</p>'}
+          </div>
+          <div style={CurrencyContainer}>
+            {!isEmpty(currencies) ?  renderCurrencies(currencies) : '<p>Error Fetching Your Wallet</p>'}
+          </div>
+          <Button style={{marginTop:'15px'}}><Link to="/client/cashin">Cash In</Link></Button>
+        </Card>
       </div>
-      <div style={CurrencyContainer}>
-        {!isEmpty(currencies) ?  renderCurrencies(currencies) : '<p>Error Fetching Your Wallet</p>'}
-      </div>
-      <Button style={{marginTop:'15px'}}><Link to="/client/addfunds"><Icon type="plus"/> Add Funds</Link></Button>
-    </Card>
+    </QueueAnim>
   )
 }

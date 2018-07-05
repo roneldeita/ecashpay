@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Select, Input, Button, Modal } from 'antd'
 import { Country, Phone } from '../../../../services/api'
 
-class StepOne extends React.Component{
+class StepOne extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {

@@ -1,9 +1,6 @@
 export const Container = {
   marginTop: '100px',
 }
-export const FormColumn = {
-  padding: '80px 60px 30px 60px'
-}
 export const Greet = {
   textAlign: 'center',
   color:'#000000',

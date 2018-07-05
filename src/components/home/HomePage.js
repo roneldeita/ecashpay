@@ -5,7 +5,7 @@ import DebitCard from './presentation/DebitCard.js'
 import GlobalTrust from './presentation/GlobalTrust.js'
 import Services from './presentation/Services.js'
 
-class HomePage extends React.Component{
+class HomePage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state= {
@@ -15,6 +15,7 @@ class HomePage extends React.Component{
     }
     this.handleSenderValue = this.handleSenderValue.bind(this)
     this.handleRecepientValue = this.handleRecepientValue.bind(this)
+    document.title="Ecashpay Asia"
   }
   handleSenderValue(value) {
 		this.setState({selectedSenderVal:value });

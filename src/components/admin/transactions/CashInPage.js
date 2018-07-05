@@ -1,5 +1,7 @@
 import React from 'react'
 import { Breadcrumb, Icon } from 'antd'
+import { connect } from 'react-redux'
+import CashInTable from './presentation/CashInTable'
 
 const AdminContentStyle = {
   backgroundColor:'#ffffff',
@@ -17,23 +19,28 @@ const BreadCrumbs = (
       <span>Dashboard</span>
     </Breadcrumb.Item>
     <Breadcrumb.Item>
-      <Icon type="swap" />
-      <span>Transactions</span>
+      <Icon type="wallet" />
+      <span>Cash In</span>
     </Breadcrumb.Item>
   </Breadcrumb>
 )
 
-class TransactionPage extends React.Component{
+class CashInPage extends React.PureComponent{
   render(){
     return(
       <div>
         {BreadCrumbs}
         <div style={AdminContentStyle}>
-          Administrative Transactions
+          <CashInTable/>
         </div>
       </div>
     )
   }
 }
+function mapStateToProps(state, ownProps){
+  return {
+    auth: state.auth,
+  }
+}
 
-export default TransactionPage
+export default connect(mapStateToProps)(CashInPage)

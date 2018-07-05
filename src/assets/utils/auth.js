@@ -1,13 +1,13 @@
 export function getToken() {
-  const auth = localStorage.getItem('auth')
-  if(!auth){
-    return false
-  }
-  return JSON.parse(auth)
+  return localStorage.getItem('auth')
+  //const auth = localStorage.getItem('auth')
+  // if(!auth){
+  //   return false
+  // }
 }
 
 export function hasToken(){
-  const Token = getToken().token
+  const Token = getToken()
   return !!Token
 }
 

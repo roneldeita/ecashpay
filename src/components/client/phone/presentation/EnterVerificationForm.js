@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Input, Button, Modal } from 'antd'
 import { Phone } from '../../../../services/api'
 
-class StepOne extends React.Component{
+class StepOne extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
@@ -11,27 +11,29 @@ class StepOne extends React.Component{
     this.handleSubmit = this.handleSubmit.bind(this)
   }
   handleSubmit(event){
-    this.setState({buttonState:true})
     this.props.form.validateFields((err, values) => {
       if(!err){
-        const Verification = {
-          'code': values['Verification Code'],
-          'areaCode': this.props.code,
-          'phone': this.props.phone
-        }
-        Phone(Verification, {'x-access-token':this.props.auth.token}).Verify()
-        .then(res=>{
-          this.props.profileAction.loadProfile()
-          this.props.changeStep({step:2})
-        }).catch(err=>{
-          Modal.error({
-            title: 'Phone verification error',
-            content: err.response.data.message,
+        if(values['Verification Code'].length === 4){
+          this.setState({buttonState:true})
+          const Verification = {
+            'code': values['Verification Code'],
+            'areaCode': this.props.code,
+            'phone': this.props.phone
+          }
+          Phone(Verification, {'x-access-token':this.props.auth.token}).Verify()
+          .then(res=>{
+            this.props.profileAction.loadProfile()
+            this.props.changeStep({step:2})
+          }).catch(err=>{
+            Modal.error({
+              title: 'Phone verification error',
+              content: err.response.data.message,
+            })
+            setTimeout(()=>{
+              this.setState({buttonState:false})
+            }, 800)
           })
-        })
-        setTimeout(()=>{
-          this.setState({buttonState:false})
-        }, 800)
+        }
       }else{
         setTimeout(()=>{
           this.setState({buttonState:false})
@@ -46,7 +48,7 @@ class StepOne extends React.Component{
     const VerificationError = getFieldError('Verification Code')
     return (
       <Form onSubmit={this.handleSubmit}>
-        <p>Verification code has been sent to +{this.props.code} <b>{this.props.phone}</b> via sms. It may takes several seconds to arrive.</p>
+        <p>Verification code has been sent to +{this.props.code}<b>{this.props.phone}</b> via sms. It may takes several seconds to arrive.</p>
         <Form.Item
           hasFeedback={isFieldTouched('Verification Code')}
           validateStatus={VerificationError ? 'error' : ''}
@@ -58,7 +60,7 @@ class StepOne extends React.Component{
               { max: 4 }
             ],
           })(
-            <Input size="large" placeholder="Verification Code"/>
+            <Input size="large" placeholder="Verification Code" onKeyUp={this.handleSubmit}/>
           )}
         </Form.Item>
         <Form.Item style={{textAlign:'center'}}>

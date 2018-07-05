@@ -4,20 +4,21 @@ import Navigation from '../common/Navigation'
 import { Steps, Row, Col, Icon } from 'antd'
 import StepThree from './presentation/StepThree'
 import { Transaction } from '../../../services/api'
-import { isEmpty } from 'lodash'
+//import { isEmpty } from 'lodash'
+
 const Step = Steps.Step
 const StepStyle = {
   margin: '25px 0px 15px 0px',
 }
 
-class TransactionPage extends React.Component{
+class TransactionPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
       transaction:{}
     }
   }
-  componentWillMount(){
+  componentDidMount(){
     Transaction({transaction:this.props.match.params.no}, {'x-access-token':this.props.auth.token}).Get()
     .then(res=>{
       this.setState({transaction:res.data})
@@ -30,9 +31,8 @@ class TransactionPage extends React.Component{
     return(
       <div>
         <Navigation location={this.props.location}/>
-        {!isEmpty(this.state.transaction) &&
           <Row type="flex" justify="center">
-            <Col className="" xs={23} sm={23} md={23} lg={18} xl={14}>
+            <Col className="" xs={24} sm={24} md={24} lg={20} xl={18} xxl={12}>
               <Row type="flex" justify="center">
                 <Col span={12}>
                   <Steps current={2} style={StepStyle}>
@@ -42,11 +42,11 @@ class TransactionPage extends React.Component{
                   </Steps>
                 </Col>
                 <Col span={19}>
-                  <StepThree />
+                  <StepThree transaction={this.state.transaction} />
                 </Col>
               </Row>
             </Col>
-          </Row>}
+          </Row>
       </div>
     )
   }

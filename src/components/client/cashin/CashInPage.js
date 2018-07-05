@@ -11,7 +11,7 @@ const StepStyle = {
   margin: '25px 0px 15px 0px',
 }
 
-class AddFundsPage extends React.Component{
+class CashInPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
@@ -28,6 +28,7 @@ class AddFundsPage extends React.Component{
     this.handleNext = this.handleNext.bind(this)
     this.handlePrev = this.handlePrev.bind(this)
     this.handlePay = this.handlePay.bind(this)
+    document.title = "Cash In - Ecashpay"
   }
   selectedMerchant(SelectedMerchant){
     this.setState(prevState => ({ data:{...prevState.data, merchant:SelectedMerchant}}))
@@ -48,9 +49,9 @@ class AddFundsPage extends React.Component{
       amount: parseFloat(this.state.data.amount).toString(),
       currency:'PHP'
     }
-    Transaction(Data, {'x-access-token':this.props.auth.token}).Make()
+    Transaction(Data, {'x-access-token':this.props.auth.token}).CashIn()
     .then(res=>{
-      console.log(res)
+      this.props.history.push(`/client/transactions/${res.data.no}`)
     }).catch(err=>{
       console.log(err)
     })
@@ -66,12 +67,11 @@ class AddFundsPage extends React.Component{
     })
   }
   render(){
-    //console.log(this.props)
     return(
       <div>
         <Navigation location={this.props.location}/>
         <Row type="flex" justify="center">
-          <Col className="" xs={23} sm={23} md={23} lg={18} xl={14}>
+          <Col className="" xs={24} sm={24} md={24} lg={20} xl={18} xxl={14}>
             <Row type="flex" justify="center">
               <Col span={12}>
                 <Steps current={this.state.step} style={StepStyle}>
@@ -81,8 +81,19 @@ class AddFundsPage extends React.Component{
                 </Steps>
               </Col>
               <Col span={19}>
-                <StepOne visibility={this.state.step === 0 ? true : false} merchants={this.state.merchants} featured={this.state.featured} select={this.selectedMerchant} next={this.handleNext}/>
-                <StepTwo visibility={this.state.step === 1 ? true : false} form={this.props.form} changeAmount={this.amountChange} data={this.state.data} prev={this.handlePrev} next={this.handlePay}/>
+                <StepOne
+                  visibility={this.state.step === 0 ? true : false}
+                  merchants={this.state.merchants}
+                  featured={this.state.featured}
+                  select={this.selectedMerchant}
+                  next={this.handleNext}/>
+                <StepTwo
+                  visibility={this.state.step === 1 ? true : false}
+                  form={this.props.form}
+                  changeAmount={this.amountChange}
+                  data={this.state.data}
+                  prev={this.handlePrev}
+                  next={this.handlePay}/>
               </Col>
             </Row>
           </Col>
@@ -98,4 +109,4 @@ function mapStateToProps(state, ownProps){
   }
 }
 
-export default Form.create()(connect(mapStateToProps)(AddFundsPage))
+export default Form.create()(connect(mapStateToProps)(CashInPage))

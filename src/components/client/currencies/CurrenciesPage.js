@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Form, Row, Col} from 'antd'
+import QueueAnim from 'rc-queue-anim'
 import Currencies from './presentation/ManageCurrencies'
 import { Wallet } from '../../../services/api'
 
-class CurrenciesPage extends React.Component{
+class CurrenciesPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
@@ -101,16 +102,20 @@ class CurrenciesPage extends React.Component{
     return (
       <Row type="flex" justify="center" style={{marginTop:'30px'}}>
         <Col className="" xs={22} md={16} lg={10}>
-          <Currencies
-            form={this.props.form}
-            currencies={this.state.currencies}
-            addCurrency={this.handleAddCurrency}
-            makePrimary={this.handleMakePrimaryCurrency}
-            deleteCurrency={this.handleDeleteCurrency}
-            buttonState={this.state.buttonState}
-            error={this.state.serverErrorMessage}
-            closeAlert={this.clearError}
-          />
+          <QueueAnim type={['top', 'bottom']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
+            <div key="0">
+              <Currencies
+                form={this.props.form}
+                currencies={this.state.currencies}
+                addCurrency={this.handleAddCurrency}
+                makePrimary={this.handleMakePrimaryCurrency}
+                deleteCurrency={this.handleDeleteCurrency}
+                buttonState={this.state.buttonState}
+                error={this.state.serverErrorMessage}
+                closeAlert={this.clearError}
+              />
+            </div>
+          </QueueAnim>
         </Col>
       </Row>
     )

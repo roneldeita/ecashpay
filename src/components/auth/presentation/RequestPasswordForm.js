@@ -12,7 +12,7 @@ const RequestPasswordForm = ({form, buttonState, onSubmit, buttonWasClicked}) =>
       <Col xs={24} sm={18} md={22} lg={22} xl={18} xxl={13}>
         <Card hoverable style={css.CardStyle}>
           <Row>
-            <Col className="" style={css.FormColumn} xs={24} sm={24} md={13}>
+            <Col className="form-column" xs={24} sm={24} md={13}>
               <p style={css.Greet}>Forgot your password?</p>
               <p style={css.Small}>Enter your email and we will send a code to reset your password.</p>
               <br/><br/>
@@ -31,9 +31,9 @@ const RequestPasswordForm = ({form, buttonState, onSubmit, buttonWasClicked}) =>
                     )}
                   </Form.Item>
                   <Form.Item>
-                    <Button type="primary" htmlType="submit" loading={buttonState} onClick={buttonWasClicked}>{buttonState ? 'Sending...' : 'Send code'}</Button>
+                    <Button id="submit" type="primary" htmlType="submit" loading={buttonState} onClick={buttonWasClicked}>{buttonState ? 'Sending...' : 'Send code'}</Button>
                   </Form.Item>
-                  <div style={{textAlign:'center'}}>Don't have a Ecashpay Account? <Link to="/register">Sign Up</Link></div>
+                  <div style={{textAlign:'center'}}>Dont have a Ecashpay Account? <Link to="/register">Sign Up</Link></div>
                 </Form>
             </Col>
             <Col style={css.Column} xs={0} md={11}>
@@ -43,7 +43,7 @@ const RequestPasswordForm = ({form, buttonState, onSubmit, buttonWasClicked}) =>
         </Card>
       </Col>
       <style jsx="true">{`
-        .ant-btn-primary{
+        #submit.ant-btn-primary{
           height: auto;
           width: 100%;
           font-size: 18px;
@@ -65,6 +65,14 @@ const RequestPasswordForm = ({form, buttonState, onSubmit, buttonWasClicked}) =>
         .ant-card-body{
           font-family: 'Work Sans', sans-serif !important;
           padding:0px
+        }
+        .form-column{
+          padding: 80px 60px 30px 60px
+        }
+        @media only screen and (max-width: 600px) {
+          .form-column{
+            padding: 80px 20px 30px 20px
+          }
         }
       `}
       </style>

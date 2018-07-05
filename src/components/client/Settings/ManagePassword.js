@@ -3,7 +3,7 @@ import { List, Icon } from 'antd'
 import ResetPasswordForm from './presentation/ResetPasswordForm'
 import { Password } from '../../../services/api'
 
-class ManagePassword extends React.Component{
+class ManagePassword extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
@@ -40,6 +40,7 @@ class ManagePassword extends React.Component{
           auth={this.props.auth}
           displayForm={this.state.resetDisplay}
           toggleReset={this.toggleReset}/>
+        <style>{`.ant-list-item{border:none}`}</style>
       </div>
     )
   }

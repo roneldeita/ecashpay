@@ -7,6 +7,7 @@ import Pending from './presentation/Pending'
 import Verified from './presentation/Verified'
 import Rejected from './presentation/Rejected'
 import { Form, Row, Col, Card, Icon, Modal } from 'antd'
+import QueueAnim from 'rc-queue-anim'
 import { Pob } from '../../../services/api'
 
 const CardStyle = {
@@ -15,7 +16,7 @@ const CardStyle = {
   cursor:'auto'
 }
 
-class SubmitPobPage extends React.Component{
+class SubmitPobPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state={
@@ -32,12 +33,11 @@ class SubmitPobPage extends React.Component{
     if(value !== undefined){
       value.fileList.map(file => {
         if(file.type !== 'image/jpeg' && file.type !== 'application/pdf'){
-          callback('I can only accept jpg or pdf file')
+          callback('File is required')
         }
-        return callback()
       })
-      if(value.fileList.length > 1){
-        callback('You can only select no more than one file')
+      if(value.fileList.length > 2){
+        callback('Maximum of 2 files allowed')
       }
       if(value.fileList.length === 0){
         callback('File is required')
@@ -106,38 +106,40 @@ class SubmitPobPage extends React.Component{
     return (
       <Row justify="center" type="flex" style={{marginTop:'30px'}}>
         <Col md={12} lg={8}>
-          <Card
-            hoverable
-            title={ <span>Submit Proof Of Billing</span> }
-            style={CardStyle}
-            actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
-              <div style={{display:this.state.identification === '' ? 'block' : 'none', minHeight:200, lineHeight:'200px', textAlign:'center'}}>
-                <p style={{verticalAlign:'middle', fontSize:'20px'}}>Loading...</p>
-              </div>
-              <div style={{display:this.state.identification.status === 'none' ? 'block' : 'none'}}>
-                <UploadPobForm
-                  form={this.props.form}
-                  files={this.state.files}
-                  validateFile={this.validateFile}
-                  change={this.handleFileChange}
-                  submit={this.handleSubmit}
-                  buttonState={this.state.buttonState}
-                  />
-              </div>
-              <div style={{display:this.state.identification.status === 'pending' ? 'block' : 'none'}}>
-                <Pending
-                  cancel={this.cancelRequest}
-                  location={this.state.identification.location}
-                  type={this.state.identification.type}
-                  />
-              </div>
-              <div style={{display:this.state.identification.status === 'rejected' ? 'block' : 'none'}}>
-                <Rejected resubmit={this.cancelRequest}/>
-              </div>
-              <div style={{display:this.state.identification.status === 'done' ? 'block' : 'none'}}>
-                <Verified/>
-              </div>
-          </Card>
+          <QueueAnim type={['top', 'bottom']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
+            <div key="0">
+              <Card
+                hoverable
+                title={ <span>Submit Proof Of Billing</span> }
+                style={CardStyle}
+                loading={this.state.identification === ''}
+                actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
+                  <div style={{display:this.state.identification.status === 'none' ? 'block' : 'none'}}>
+                    <UploadPobForm
+                      form={this.props.form}
+                      files={this.state.files}
+                      validateFile={this.validateFile}
+                      change={this.handleFileChange}
+                      submit={this.handleSubmit}
+                      buttonState={this.state.buttonState}
+                      />
+                  </div>
+                  <div style={{display:this.state.identification.status === 'pending' ? 'block' : 'none'}}>
+                    <Pending
+                      cancel={this.cancelRequest}
+                      location={this.state.identification.location}
+                      type={this.state.identification.type}
+                      />
+                  </div>
+                  <div style={{display:this.state.identification.status === 'rejected' ? 'block' : 'none'}}>
+                    <Rejected resubmit={this.cancelRequest}/>
+                  </div>
+                  <div style={{display:this.state.identification.status === 'done' ? 'block' : 'none'}}>
+                    <Verified/>
+                  </div>
+              </Card>
+            </div>
+          </QueueAnim>
         </Col>
       </Row>
     )

@@ -3,7 +3,10 @@ import { connect } from 'react-redux'
 //lodash
 import { isEmpty } from 'lodash'
 
-class RedirectPage extends React.Component {
+class RedirectPage extends React.PureComponent {
+  componentDidMount(){
+    window.scrollTo(0, 0)
+  }
   componentWillMount(){
     if(!isEmpty(this.props.profile)){
       switch(this.props.profile.type){
@@ -18,27 +21,27 @@ class RedirectPage extends React.Component {
       }
     }
   }
-  componentDidMount() {
-    window.scrollTo(0, 0)
-  }
-  isLoggedIn(status){
-    //console.log(status)
-    switch(status){
-      case 0:
-        //this.props.history.push('/verify')
-        window.location.href = '/verify'
-        break;
-      case 1:
-        //this.props.history.push('/profile')
-        window.location.href = '/profile'
-        break;
-      case 2:
-        //this.props.history.push('/client/dashboard')
-        window.location.href = '/client/dashboard'
-        break;
-      default:
-        //this.props.history.push('/')
-        window.location.href = '/'
+  isLoggedIn(status, phone){
+    if(phone === ''){
+      window.location.href = '/client/verify/phone'
+    }else{
+      switch(status){
+        case 0:
+          //this.props.history.push('/verify')
+          window.location.href = '/verify'
+          break;
+        case 1:
+          //this.props.history.push('/profile')
+          window.location.href = '/profile'
+          break;
+        case 2:
+          //this.props.history.push('/client/dashboard')
+          window.location.href = '/client/dashboard'
+          break;
+        default:
+          //this.props.history.push('/')
+          window.location.href = '/'
+      }
     }
   }
   componentWillReceiveProps(nextProps){
@@ -48,7 +51,7 @@ class RedirectPage extends React.Component {
           window.location.href = '/admin'
           break;
         case "individual":
-          this.isLoggedIn(nextProps.profile.status)
+          this.isLoggedIn(nextProps.profile.status, nextProps.profile.phone)
           break;
         default:
           window.location.href = '/'
@@ -56,7 +59,6 @@ class RedirectPage extends React.Component {
     }
   }
   render(){
-    //console.log(this.props)
     return (
       <div style={{margin:'250px 0px', textAlign:'center'}}>
         <p style={{fontSize:'40px'}}>Redirecting...</p>

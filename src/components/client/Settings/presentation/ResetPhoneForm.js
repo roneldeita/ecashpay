@@ -2,7 +2,7 @@ import React from 'react'
 import {Card, Form, Input, Button, Modal} from 'antd'
 import { Phone } from '../../../../services/api'
 
-class ResetEmailForm extends React.Component{
+class ResetEmailForm extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {

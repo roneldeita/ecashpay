@@ -16,7 +16,7 @@ import { Wallet, Transaction } from '../../../services/api'
 //lodash
 import { isEmpty } from 'lodash'
 
-class DashboardPage extends React.Component{
+class DashboardPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
@@ -26,6 +26,7 @@ class DashboardPage extends React.Component{
       timestamp: 'no timestamp yet',
       progress: 0,
     }
+    document.title="Dashboard - Ecashpay"
     //SubscribeToTimer((timestamp) => this.setState({timestamp}))
   }
   loadTransactions(){
@@ -40,7 +41,6 @@ class DashboardPage extends React.Component{
   loadWallets(){
     Wallet(null, {'x-access-token':this.props.auth.token}).GetAll()
     .then(res => {
-      //console.log(res)
       this.setState({wallets:res.data.currencies})
     })
     .catch(err => {
@@ -49,18 +49,17 @@ class DashboardPage extends React.Component{
   }
   redirectPhoneVerification(){
     window.location.href='/client/verify/phone'
-    //this.props.history.push('/client/verify/phone')
   }
   componentWillMount(){
     this.props.profileActions.loadProfile()
-    if(this.props.profile.phone === ''){
-      this.redirectPhoneVerification()
-    }
+    // if(this.props.profile.phone === ''){
+    //   this.redirectPhoneVerification()
+    // }
   }
   componentWillReceiveProps(nextProps){
-    if(nextProps.profile.phone === ''){
-      this.redirectPhoneVerification()
-    }
+    // if(nextProps.profile.phone === ''){
+    //   this.redirectPhoneVerification()
+    // }
     this.setState({profile:nextProps.profile})
   }
   componentDidMount(){
@@ -74,7 +73,8 @@ class DashboardPage extends React.Component{
   }
   progress(){
     let Levels = this.state.profile.levels;
-    let ProgressValue = ((Levels !== undefined ? Object.keys(Levels).length : 0) * 25) + 25
+    let Phone = this.state.profile.phone !=='' ? 25 : 0
+    let ProgressValue = ((Levels !== undefined ? Object.keys(Levels).length : 0) * 25) + Phone
     this.setState({progress:ProgressValue})
   }
   render(){
@@ -89,7 +89,6 @@ class DashboardPage extends React.Component{
               <WalletCard ready={isEmpty(this.state.wallets)} currencies={this.state.wallets}/>
             </Col>
             <Col className="" xs={24} sm={24} md={24} lg={16}>
-              {/*<Requirements ready={IsProfileReady} levels={this.props.profile.levels} />*/}
               <Requirements
                 ready={isEmpty(this.state.profile)}
                 levels={this.state.profile.levels}

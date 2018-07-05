@@ -6,7 +6,7 @@ const ToggleStyle = {
   padding:'10px',
   cursor:'pointer'
 }
-class AdminTopNavigation extends React.Component{
+class AdminTopNavigation extends React.PureComponent{
   render() {
     return (
       <div style={{backgroundColor:'#ffffff', height:'40px',}}>

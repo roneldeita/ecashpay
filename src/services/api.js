@@ -4,6 +4,8 @@ export function Auth(data, header) {
   return {
     //client
     login: () => axios.post(process.env.REACT_APP_API + '/login', data),
+    verifyTFA: () => axios.post(process.env.REACT_APP_API + '/api/v1/tfas/verify', data, {headers:header}),
+    resendTFA: () => axios.post(process.env.REACT_APP_API + '/api/v1/tfas/resend', data, {headers:header}),
     register: () => axios.post(process.env.REACT_APP_API + '/register', data),
     verifyEmail: () => axios.post(process.env.REACT_APP_API + '/verifications', data, {headers:header}),
     verificationResend: () => axios.post(process.env.REACT_APP_API + '/verifications/resend', data, {headers:header}),
@@ -75,8 +77,9 @@ export function Outlets(data, header){
 export function Transaction(data, header){
   return {
     All: () => axios.get(process.env.REACT_APP_API + '/api/v1/transactions', {headers:header}),
-    Make: () => axios.post(process.env.REACT_APP_API + '/api/v1/transactions/cashIn', data, {headers:header}),
-    Get: () => axios.get(process.env.REACT_APP_API + '/api/v1/transactions/'+data.transaction, {headers:header})
+    CashIn: () => axios.post(process.env.REACT_APP_API + '/api/v1/transactions/cashIn', data, {headers:header}),
+    Get: () => axios.get(process.env.REACT_APP_API + '/api/v1/transactions/'+data.transaction, {headers:header}),
+    Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/transactions/'+data.transaction, {headers:header})
   }
 }
 

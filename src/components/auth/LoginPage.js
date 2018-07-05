@@ -10,7 +10,7 @@ import { Auth } from '../../services/api'
 //ant design
 import { Form, Modal } from 'antd'
 
-class LoginPage extends React.Component {
+class LoginPage extends React.PureComponent {
   constructor(props, context){
     super(props, context)
     this.state = {
@@ -18,6 +18,7 @@ class LoginPage extends React.Component {
     }
     this.onClickLoginButton = this.onClickLoginButton.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    document.title="Login - Ecashpay"
   }
   onClickLoginButton(event){
     this.setState({buttonState:true})
@@ -27,19 +28,17 @@ class LoginPage extends React.Component {
       if (!err) {
         Auth({email: values.Email, password: values.Password}).login()
         .then( res =>{
-          this.props.authActions.saveAuth(res.data)
-          switch(res.data.status){
-            case 0:
-              window.location.href = '/verify'
-              break;
-            case 1:
-              window.location.href = '/profile'
-              break;
-            case 2:
-              window.location.href = '/client/dashboard'
-              break;
-            default:
-              window.location.href = '/'
+          sessionStorage.removeItem('tfa')
+          if(res.data.tfa){
+            let TfaInfo = {
+              ...res.data,
+              email:values.Email
+            }
+            sessionStorage.setItem("tfa", JSON.stringify(TfaInfo))
+            window.location.href = '/login/tfa'
+          }else{
+            this.props.authActions.saveAuth(res.data.token)
+            window.location.href = '/'
           }
         })
         .catch( err => {

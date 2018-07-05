@@ -26,11 +26,11 @@ const isLoggedIn = (loggedIn) => {
   return loggedIn ? 'none' : 'block'
 }
 
-const TopNavigation = ({locale, onChangeLocale, loggedIn, logout}) => {
+const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
   const profileTitle = (
     <Affix>
-      <div style={{minWidth:'180px'}}>
-        <span style={{display:'block', float:'left', fontWeight:400}}>Ronel A. Deita</span>
+      <div style={{minWidth:'200px'}}>
+        <span style={{display:'block', float:'left', fontWeight:400}}>{profile.firstName} {profile.lastName}</span>
         <span style={{display:'block', lineHeight:'26px' , float:'right'}}><Icon type="qrcode"/></span>
       </div>
     </Affix>
@@ -46,14 +46,14 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn, logout}) => {
     <Affix style={{width:'100%'}}>
       <div style={NavContainer}>
         <Row className="" type="flex" justify="center">
-          <Col xs={0} sm={11} md={7}>
+          <Col xs={0} sm={9} md={7}>
             <Row type="flex" justify="start">
               <Col>
                 <Link to={loggedIn ? '/client/dashboard' : '/'}><img src={EpayLogo} alt="logo" style={Logo} /></Link>
               </Col>
             </Row>
           </Col>
-          <Col xs={24} sm={12} md={11} >
+          <Col xs={18} sm={9} md={11}>
             <Row type="flex" justify="end">
               <Col>
                 <Menu mode="horizontal" onSelect={onChangeLocale}>

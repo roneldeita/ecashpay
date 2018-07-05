@@ -3,7 +3,7 @@ import { List } from 'antd'
 import RequestEmailForm from './presentation/RequestEmailForm'
 import ResetEmailForm from './presentation/ResetEmailForm'
 
-class ManageEmail extends React.Component{
+class ManageEmail extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {

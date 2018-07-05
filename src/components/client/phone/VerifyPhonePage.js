@@ -2,10 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as profileActions from '../../../actions/profileAction'
-import { Card, Row, Col} from 'antd'
+import { Link } from 'react-router-dom'
+import { Card, Row, Col, Icon} from 'antd'
+import QueueAnim from 'rc-queue-anim'
 import StepOne from './presentation/EnterPhoneNumberForm'
 import StepTwo from './presentation/EnterVerificationForm'
 import Done from './presentation/PhoneVerified'
+import {isEmpty} from 'lodash'
 
 const CardStyle = {
   margin: '0px',
@@ -13,7 +16,7 @@ const CardStyle = {
   cursor:'auto'
 }
 
-class VerifyPhonePage extends React.Component{
+class VerifyPhonePage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
@@ -27,31 +30,36 @@ class VerifyPhonePage extends React.Component{
     this.setState({step:data.step, phone: data.phone, code:data.code})
   }
   render(){
-    //console.log(this.state)
     return(
       <Row type="flex" justify="center" style={{marginTop:'80px'}}>
         <Col sm={18} md={13} lg={8}>
-          <Card
-            hoverable
-            title={ <span>Verify your Phone number</span> }
-            style={CardStyle}>
-            <div style={{display:this.state.step === 0 ? 'block' : 'none'}}>
-              <StepOne
-                changeStep={this.handleStep}
-                auth={this.props.auth}/>
+          <QueueAnim type={['top', 'bottom']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
+            <div key="0">
+              <Card
+                hoverable
+                title={ <span>Verify your Phone number</span> }
+                style={CardStyle}
+                loading={isEmpty(this.props.profile)}
+                actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> {this.state.step===2?'Return to Dashboard':'Skip'}</Link>]}>
+                <div style={{display:this.state.step === 0 && this.props.profile.phone === '' ? 'block' : 'none'}}>
+                  <StepOne
+                    changeStep={this.handleStep}
+                    auth={this.props.auth}/>
+                </div>
+                <div style={{display:this.state.step === 1 && this.props.profile.phone === ''? 'block' : 'none'}}>
+                  <StepTwo
+                    changeStep={this.handleStep}
+                    phone={this.state.phone}
+                    code={this.state.code}
+                    auth={this.props.auth}
+                    profileAction={this.props.profileAction}/>
+                </div>
+                <div style={{display:this.state.step === 2 || this.props.profile.phone !== ''? 'block' : 'none'}}>
+                  <Done/>
+                </div>
+              </Card>
             </div>
-            <div style={{display:this.state.step === 1 ? 'block' : 'none'}}>
-              <StepTwo
-                changeStep={this.handleStep}
-                phone={this.state.phone}
-                code={this.state.code}
-                auth={this.props.auth}
-                profileAction={this.props.profileAction}/>
-            </div>
-            <div style={{display:this.state.step === 2 ? 'block' : 'none'}}>
-              <Done/>
-            </div>
-          </Card>
+          </QueueAnim>
         </Col>
       </Row>
     )

@@ -1,7 +1,7 @@
 import React from 'react'
 import Navigation from '../common/Navigation'
 
-class SendMoney extends React.Component{
+class SendMoney extends React.PureComponent{
   render(){
     //console.log(this.props)
     return(

@@ -10,7 +10,7 @@ import LoginForm from './presentation/LoginForm'
 //services
 import { Auth } from '../../../services/api'
 
-class LoginPage extends React.Component{
+class LoginPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
@@ -24,7 +24,7 @@ class LoginPage extends React.Component{
       if (!err) {
         Auth({'email':values.Email, 'password': values.Password}).AdminLogin()
         .then(res => {
-          this.props.authActions.saveAuth(res.data)
+          this.props.authActions.saveAuth(res.data.token)
           window.location.href = '/admin'
         })
         .catch(err => {

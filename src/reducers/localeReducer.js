@@ -1,6 +1,6 @@
 import * as types from '../actions/actionTypes'
 
-export default function(state = [], payload) {
+export default function(state = {}, payload) {
   switch(payload.type){
     case types.LOAD_LOCALE_SUCCESS:
       return payload.locale

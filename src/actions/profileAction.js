@@ -10,7 +10,7 @@ export function loadProfileSuccess(profile){
 export function loadProfile(){
   if(getToken()){
     return dispatch => {
-      Auth(null, {'x-access-token':getToken().token}).getUserProfile()
+      Auth(null, {'x-access-token':getToken()}).getUserProfile()
       .then(res => {
         dispatch(loadProfileSuccess(res.data))
         sessionStorage.setItem("profile", JSON.stringify(res.data));
@@ -20,5 +20,7 @@ export function loadProfile(){
         }
       })
     }
+  }else{
+    return loadProfileSuccess({})
   }
 }

@@ -1,11 +1,11 @@
 import React from 'react'
 import {Card, Row, Col, Form, Input, Button } from 'antd'
-import RightSection from './RightSection'
-import * as css from '../../../assets/styles/VerificationForm'
+import RightSection from '../../presentation/RightSection'
+import * as css from '../../../../assets/styles/VerificationForm'
 
 const FormItem = Form.Item;
 
-const VerificationForm = ({email, form, buttonState, onSubmit, onResend, onClickSubmitButton}) => {
+const VerificationForm = ({email, form, buttonState, onSubmit, autoCheck, onResend}) => {
   const { getFieldDecorator, getFieldError } = form
   const CodeError =  getFieldError('Code')
   return (
@@ -13,7 +13,7 @@ const VerificationForm = ({email, form, buttonState, onSubmit, onResend, onClick
       <Col xs={24} sm={22} md={22} lg={22} xl={13}>
         <Card hoverable style={css.CardStyle}>
           <Row>
-            <Col className="" style={css.FormColumn} xs={24} sm={24} md={13}>
+            <Col className="form-column" xs={24} sm={24} md={13}>
               <p style={css.Greet}>Email Verification</p>
               <p style={css.Small}>A verification code has been emailed to <span style={{fontWeight:500}}>{email}</span>, Please input verification code to verify.</p>
               <br/><br/>
@@ -28,11 +28,11 @@ const VerificationForm = ({email, form, buttonState, onSubmit, onResend, onClick
                       { pattern: /^[0-9]+$/, message: 'Code should only contain digits.' }
                     ],
                   })(
-                    <Input/>
+                    <Input onKeyUp={onSubmit}/>
                   )}
                 </FormItem>
                 <FormItem>
-                  <Button type="primary" htmlType="submit" loading={buttonState} onClick={onClickSubmitButton}>{buttonState ? 'Verifying..' : 'Submit'}</Button>
+                  <Button id="submit" type="primary" htmlType="submit" loading={buttonState}>{buttonState ? 'Verifying..' : 'Submit'}</Button>
                 </FormItem>
               </Form>
               <p>Haven't received a verification? <a onClick={onResend}>Resend</a></p>
@@ -44,7 +44,7 @@ const VerificationForm = ({email, form, buttonState, onSubmit, onResend, onClick
         </Card>
       </Col>
       <style jsx="true">{`
-        .ant-btn-primary{
+        #submit.ant-btn-primary{
           height: auto;
           width: 100%;
           font-size: 18px;
@@ -68,6 +68,14 @@ const VerificationForm = ({email, form, buttonState, onSubmit, onResend, onClick
         .ant-card-body{
           font-family: 'Work Sans', sans-serif !important;
           padding:0px
+        }
+        .form-column{
+          padding: 80px 60px 30px 60px
+        }
+        @media only screen and (max-width: 600px) {
+          .form-column{
+            padding: 80px 20px 30px 20px
+          }
         }
       `}
       </style>

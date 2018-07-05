@@ -3,7 +3,7 @@ import { List } from 'antd'
 import RequestPhoneForm from './presentation/RequestPhoneForm'
 import ResetPhoneForm from './presentation/ResetPhoneForm'
 
-class ManagePhone extends React.Component{
+class ManagePhone extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
@@ -36,9 +36,9 @@ class ManagePhone extends React.Component{
   }
 
   render(){
-  //  console.log(this.props)
+    //console.log(this.props)
     return(
-      <div>
+      <div style={{display:this.props.profile.phone==='' ? 'none' : 'block'}}>
         <List.Item actions={[<a onClick={this.toggleAll}>
           { !(this.state.requestDisplay || this.state.resetDisplay) && 'Change Phone Number'}</a>]}>
           <List.Item.Meta

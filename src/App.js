@@ -17,40 +17,6 @@ import my from 'react-intl/locale-data/my';
 //antd & global css
 import {Layout, BackTop, Icon, message } from 'antd'
 import './App.css'
-// import 'antd/lib/row/style/css'
-// import 'antd/lib/col/style/css'
-// import 'antd/lib/card/style/css'
-// import 'antd/lib/icon/style/css'
-// import 'antd/lib/form/style/css'
-// import 'antd/lib/input/style/css'
-// import 'antd/lib/date-picker/style/css'
-// import 'antd/lib/select/style/css'
-// import 'antd/lib/button/style/css'
-// import 'antd/lib/back-top/style/css'
-// import 'antd/lib/radio/style/css'
-// import 'antd/lib/affix/style/css'
-// import 'antd/lib/menu/style/css'
-// import 'antd/lib/modal/style/css'
-// import 'antd/lib/divider/style/css'
-// import 'antd/lib/progress/style/css'
-// import 'antd/lib/modal/style/css'
-// import 'antd/lib/popover/style/css'
-// import 'antd/lib/tabs/style/css'
-// import 'antd/lib/divider/style/css'
-// import 'antd/lib/steps/style/css'
-// import 'antd/lib/layout/style/css'
-// import 'antd/lib/dropdown/style/css'
-// import 'antd/lib/breadcrumb/style/css'
-// import 'antd/lib/table/style/css'
-// import 'antd/lib/alert/style/css'
-// import 'antd/lib/tag/style/css'
-// import 'antd/lib/switch/style/css'
-// import 'antd/lib/upload/style/css'
-// import 'antd/lib/avatar/style/css'
-// import 'antd/lib/popconfirm/style/css'
-// import 'antd/lib/message/style/css'
-// import 'antd/lib/list/style/css'
-// import 'antd/lib/badge/style/css'
 import 'antd/dist/antd.min.css'
 //animate-on-scroll
 import "animate.css/animate.min.css";
@@ -139,9 +105,11 @@ class App extends Component {
   hideTopNavigation(){
     const paths = [
       '/login', '/register', '/verify', '/redirecting',
+      '/password/request', '/password/reset', '/login/tfa',
+      '/business/register',
       '/admin', '/admin/login', '/admin/transactions',
       '/admin/requirements/id', '/admin/requirements/pob',
-      '/password/request', '/password/reset']
+      '/admin/transactions/cashin']
     if(paths.includes(this.props.location.pathname)){
       return 'none'
     }
@@ -150,7 +118,8 @@ class App extends Component {
   showAdminNavigation(){
     const paths = [
       '/admin', '/admin/transactions',
-      '/admin/requirements/id', '/admin/requirements/pob']
+      '/admin/requirements/id', '/admin/requirements/pob',
+      '/admin/transactions/cashin']
     if(paths.includes(this.props.location.pathname)){
       return 'block'
     }
@@ -159,6 +128,8 @@ class App extends Component {
   handleLogOut(){
     localStorage.removeItem('auth')
     sessionStorage.removeItem('profile')
+    sessionStorage.removeItem('tfa')
+    sessionStorage.removeItem('recover')
     window.location.href = '/login'
   }
   handleIdle(idle){
@@ -178,7 +149,6 @@ class App extends Component {
     }
   }
   render() {
-    //console.log(this.props)
     return (
       <Idle
         timeout={this.state.timeOut}
@@ -189,6 +159,7 @@ class App extends Component {
               <Layout>
                 <Layout.Header style={{display:this.hideTopNavigation()}}>
                   <TopNavigation
+                  profile={this.props.profile}
                   loggedIn={hasToken()}
                   locale={this.props.locale}
                   onChangeLocale={this.handleChangeLocale}
@@ -241,7 +212,8 @@ class App extends Component {
 function mapStateToProps(state, ownProps){
   return {
     locale: state.locale,
-    auth: state.auth
+    auth: state.auth,
+    profile: state.profile
   }
 }
 function mapDispatchToProps(dispatch){
@@ -255,6 +227,7 @@ App.propTypes = {
   children: PropTypes.object.isRequired,
   locale: PropTypes.string.isRequired,
   auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
   localeActions: PropTypes.objectOf(PropTypes.func).isRequired
 }
 

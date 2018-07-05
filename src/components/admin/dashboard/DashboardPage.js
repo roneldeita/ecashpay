@@ -19,7 +19,7 @@ const BreadCrumbs = (
   </Breadcrumb>
 )
 
-class DashboardPage extends React.Component{
+class DashboardPage extends React.PureComponent{
   render(){
     return(
       <div>

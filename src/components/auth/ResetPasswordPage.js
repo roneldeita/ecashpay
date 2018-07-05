@@ -8,7 +8,7 @@ import { Auth } from '../../services/api'
 //lodash
 import { camelCase } from 'lodash'
 
-class ResetPasswordPage extends React.Component{
+class ResetPasswordPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
@@ -18,6 +18,7 @@ class ResetPasswordPage extends React.Component{
     this.handleSubmit = this.handleSubmit.bind(this)
     this.checkConfirm = this.checkConfirm.bind(this)
     this.checkPassword = this.checkPassword.bind(this)
+    document.title="Forgot Password - Ecashpay"
   }
   checkPassword = (rule, value, callback) => {
     const form = this.props.form

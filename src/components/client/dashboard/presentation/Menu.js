@@ -1,26 +1,26 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Animate from 'rc-animate'
 import {Row, Col, Card} from 'antd'
 import {includes, isEmpty} from 'lodash'
-// import FontAwesome from 'react-fontawesome'
-// import SendMoney from '../../../../assets/images/Send_Money.png'
-// import BuyLoad from '../../../../assets/images/Buy_Load_1.png'
-// import PayBills from '../../../../assets/images/Pay_Bills.png'
-// import BookTravel from '../../../../assets/images/Travel.png'
-import Addfunds from '../../../../assets/svg/ecommerce/ecommerce_wallet.svg'
-import SendMoney from '../../../../assets/svg/ecommerce/ecommerce_banknotes.svg'
-import BuyLoad from '../../../../assets/svg/basic/basic_smartphone.svg'
-import PayBills from '../../../../assets/svg/ecommerce/ecommerce_creditcard.svg'
-import BookTravel from '../../../../assets/svg/basic/basic_compass.svg'
+import QueueAnim from 'rc-queue-anim'
+// import Addfunds from '../../../../assets/svg/ecommerce/ecommerce_wallet.svg'
+// import SendMoney from '../../../../assets/svg/ecommerce/ecommerce_banknote.svg'
+// import BuyLoad from '../../../../assets/svg/basic/basic_smartphone.svg'
+// import PayBills from '../../../../assets/svg/ecommerce/ecommerce_creditcard.svg'
+// import BookTravel from '../../../../assets/svg/basic/basic_compass.svg'
 
 const CardStyle = {
-  cursor:'auto',
+  cursor:'default',
   backgroundColor: 'transparent',
   border:'none'
 }
-const TabImg = {
-  maxHeight: '50px',
+// const TabImg = {
+//   maxHeight: '50px',
+//   margin: '20px 0px 5px 0px'
+// }
+const MenuICon={
+  color:'#0C0C0C',
+  fontSize:50,
   margin: '20px 0px 5px 0px'
 }
 // const UserIcon = {
@@ -61,55 +61,73 @@ export default ({ready, profile}) => {
       <Row>
         <Col className="" md={24} lg={8}>
           <div className="user-icon">
-            <div className="">
-              {/*<span className="fa fa-user-circle" name="user-circle" style={UserIcon} />*/}
-              <span className="" style={{display:'inline-block'}}>
-                <p className="" style={UserName}>{profile.firstName} {profile.lastName}</p><br/>
-                {Directlink()}
-              </span>
-            </div>
+            <QueueAnim type={['left', 'right']} delay="100" ease={['easeOutBack', 'easeInOutCirc']}>
+              <div key="0">
+                {/*<span className="fa fa-user-circle" name="user-circle" style={UserIcon} />*/}
+                <span className="" style={{display:'inline-block'}}>
+                  <p className="" style={UserName}>{profile.firstName} {profile.lastName}</p><br/>
+                  {Directlink()}
+                </span>
+              </div>
+            </QueueAnim>
           </div>
         </Col>
         <Col className="" xs={24} sm={24} lg={24} xl={16}>
-          <Row type="flex" justify="end" className="tab-container">
+          <Row id="menu" type="flex" justify="end" className="tab-container">
             <Col className="" span={4}>
-              <Animate transitionAppear transitionName="fade">
-                <Link to="/client/addfunds" >
-                  {/*<span className="la la-money" style={ServicesIcons}></span>*/}
-                  <img src={Addfunds} alt="send money" style={TabImg}/>
-                  <p>Cash In</p>
-                </Link>
-              </Animate>
+              <QueueAnim type={['bottom', 'top']} delay="200" ease={['easeOutBack', 'easeInOutCirc']}>
+                <div key="0">
+                  <Link to="/client/cashin" >
+                    <span className="pe-7s-wallet" style={MenuICon}></span>
+                    {/*<img src={Addfunds} alt="send money" style={TabImg}/>*/}
+                    <p>Cash In</p>
+                  </Link>
+                </div>
+              </QueueAnim>
+            </Col>
+            <Col key="2" className="" span={4}>
+              <QueueAnim type={['bottom', 'top']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
+                <div key="0">
+                  <Link to="/client/sendmoney" >
+                    <span className="pe-7s-cash" style={MenuICon}></span>
+                    {/*<img src={SendMoney} alt="send money" style={TabImg}/>*/}
+                    <p>Send Money</p>
+                  </Link>
+                </div>
+              </QueueAnim>
             </Col>
             <Col className="" span={4}>
-              <Animate transitionAppear transitionName="fade">
-                <Link to="/client/sendmoney" >
-                  {/*<span className="la la-money" style={ServicesIcons}></span>*/}
-                  <img src={SendMoney} alt="send money" style={TabImg}/>
-                  <p>Send Money</p>
-                </Link>
-              </Animate>
+              <QueueAnim type={['bottom', 'top']} delay="400" ease={['easeOutBack', 'easeInOutCirc']}>
+                <div key="0">
+                  <Link to="/client/buyload" >
+                    <span className="pe-7s-phone" style={MenuICon}></span>
+                    {/*<img src={BuyLoad} alt="buy money" style={TabImg}/>*/}
+                    <p>Buy Load</p>
+                  </Link>
+                </div>
+              </QueueAnim>
             </Col>
             <Col className="" span={4}>
-              <Link to="/client/buyload" >
-                {/*<span className="la la-mobile" style={ServicesIcons}></span>*/}
-                <img src={BuyLoad} alt="buy money" style={TabImg}/>
-                <p>Buy Load</p>
-              </Link>
+              <QueueAnim type={['bottom', 'top']} delay="500" ease={['easeOutBack', 'easeInOutCirc']}>
+                <div key="0">
+                  <Link to="/client/paybills" >
+                    <span className="pe-7s-credit" style={MenuICon}></span>
+                    {/*<img src={PayBills} alt="pay bills" style={TabImg}/>*/}
+                    <p>Pay Bills</p>
+                  </Link>
+                </div>
+              </QueueAnim>
             </Col>
             <Col className="" span={4}>
-              <Link to="/client/paybills" >
-                {/*<span className="la la-credit-card" style={ServicesIcons}></span>*/}
-                <img src={PayBills} alt="pay bills" style={TabImg}/>
-                <p>Pay Bills</p>
-              </Link>
-            </Col>
-            <Col className="" span={4}>
-              <Link to="/client/booktravel" >
-                {/*<span className="la la-plane" style={ServicesIcons}></span>*/}
-                <img src={BookTravel} alt="book travel" style={TabImg}/>
-                <p>Book Travel</p>
-              </Link>
+              <QueueAnim type={['bottom', 'top']} delay="600" ease={['easeOutBack', 'easeInOutCirc']}>
+                <div key="0">
+                  <Link to="/client/booktravel" >
+                    <span className="pe-7s-compass" style={MenuICon}></span>
+                    {/*<img src={BookTravel} alt="book travel" style={TabImg}/>*/}
+                    <p>Book Travel</p>
+                  </Link>
+                </div>
+              </QueueAnim>
             </Col>
           </Row>
         </Col>
@@ -139,7 +157,7 @@ export default ({ready, profile}) => {
             .user-icon{
               display:none !important
             }
-            .ant-row-flex-end{
+            #menu.ant-row-flex-end{
               justify-content:center
             }
           }

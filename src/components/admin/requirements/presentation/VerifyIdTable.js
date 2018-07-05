@@ -1,13 +1,13 @@
 import React from 'react'
 import { Table, Card, Row, Col, Divider, Button, Tag } from 'antd'
 import Moment from 'react-moment'
+import { isEmpty } from 'lodash'
 
 export default ({record, accept, decline}) => {
-  console.log(record)
   const columns = [
     { title: 'Client', dataIndex: 'profile.firstName', key: 'client' },
     { title: 'Birthdate', dataIndex: 'profile.birthDate', key: 'birthdate',  render:(text,record)=> <Moment format="MMMM D, Y" date={record.profile.birthDate}/>  },
-    { title: 'Date Requested', dataIndex: 'createdAt', key: 'requested', render:(text,record)=> <Moment format="MMMM D, Y" date={record.createdAt}/> },
+    { title: 'Date Requested', dataIndex: 'createdAt', key: 'requested', render:(text,record)=> <Moment format="MMMM D, Y h:mm A" date={record.createdAt}/> },
     { title: '', dataIndex: '', width: 100, key: 'accept', render: (text, record) =>
       { return record.status === 1
         ? <Tag color="green">Accepted</Tag>
@@ -29,6 +29,7 @@ export default ({record, accept, decline}) => {
       </div>)}
       rowKey="id"
       columns={columns}
+      loading={isEmpty(record)}
       dataSource={record}
       expandedRowRender={record => {
         let Photos = JSON.parse(record.payload)
@@ -53,7 +54,7 @@ export default ({record, accept, decline}) => {
                 <p>Birthdate: {record.profile.birthDate}</p>
                 <p>Phone: +{record.profile.phone}</p>
                 <Divider/>
-                <p>Address 1: </p>
+                <p>Address 1: {record.profile.completeAddress.address1}</p>
                 <p>Address 2: {record.profile.completeAddress.address2}</p>
                 <p>City: {record.profile.completeAddress.city}</p>
                 <p>Country: {record.profile.completeAddress.country}</p>
