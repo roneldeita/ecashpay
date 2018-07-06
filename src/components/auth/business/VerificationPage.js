@@ -15,7 +15,8 @@ class VerificationPage extends React.PureComponent {
   constructor(props){
     super(props)
     this.state = {
-      buttonState: false
+      buttonState: false,
+      resendState:true
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleResend = this.handleResend.bind(this)
@@ -54,18 +55,25 @@ class VerificationPage extends React.PureComponent {
     event.preventDefault()
   }
   handleResend(event){
+    this.setState({resendState:true})
     Auth(null, {'x-access-token': this.props.auth.token}).verificationResend()
     .then(res => {
       Modal.success({
         title: 'Resend Verification Success',
         content: 'Verification email successfully sent',
       })
+      setTimeout(() => {
+        this.setState({resendState:false})
+      }, 800)
     })
     .catch(error => {
       Modal.error({
         title: 'Resend Verification Error',
         content: error.response.data.message,
       })
+      setTimeout(() => {
+        this.setState({resendState:false})
+      }, 800)
     })
     event.preventDefault()
   }
@@ -79,7 +87,7 @@ class VerificationPage extends React.PureComponent {
           onSubmit={this.handleSubmit}
           onResend={this.handleResend}
           autoCheck={this.autoCheck}
-        />
+          resendState={this.state.resendState}/>
       </div>
     );
   }

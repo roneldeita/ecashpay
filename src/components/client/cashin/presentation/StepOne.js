@@ -39,7 +39,7 @@ const renderMerchants = (merchants, next, select) => {
 }
 const StepOne = ({visibility, next, merchants, featured, select}) => {
   return(
-    <div className="" style={visibility ? Show : Hide}>
+    <div style={visibility ? Show : Hide}>
       <Card loading={isEmpty(merchants)}>
         <p style={Title}>How would you like to Cash In?</p>
           <Card>

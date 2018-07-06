@@ -3,7 +3,7 @@ import {Card, Row, Col, Form, Input, Button } from 'antd'
 import RightSection from './RightSection'
 import * as css from '../../../assets/styles/VerificationForm'
 
-const TfaForm = ({tfa, form, submit, buttonState}) => {
+const TfaForm = ({tfa, form, submit, buttonState, onResend, resendState}) => {
   const { getFieldDecorator, getFieldError } = form
   const CodeError =  getFieldError('Code')
   return(
@@ -33,6 +33,11 @@ const TfaForm = ({tfa, form, submit, buttonState}) => {
                   <Button id="submit" type="primary" htmlType="submit" loading={buttonState}>{buttonState ? 'Verifying..' : 'Submit'}</Button>
                 </Form.Item>
               </Form>
+              <p>Haven't received a verification?
+                {resendState ?
+                  <span style={{color:'#999999'}}> Resending...</span> :
+                  <a onClick={onResend}> Resend</a>}
+              </p>
             </Col>
             <Col style={css.Column} xs={0} md={11}>
               <RightSection />

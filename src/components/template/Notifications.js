@@ -1,13 +1,13 @@
 import React from 'react'
 import { Tabs, Icon, Badge } from 'antd'
 const TabPane = Tabs.TabPane
-const NotifContainer = {
-  width:250
-}
-const NotifContainerItem = {
-  padding:'8px 15px',
-  fontSize: '13px'
-}
+// const NotifContainer = {
+//   width:250
+// }
+// const NotifContainerItem = {
+//   padding:'8px 15px',
+//   fontSize: '13px'
+// }
 
 class Notifications extends React.Component{
   render(){

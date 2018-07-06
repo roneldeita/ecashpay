@@ -1,12 +1,11 @@
 import React from 'react'
-import {Card, Button, Col, Row, Divider, Icon, Tag, Popconfirm} from 'antd'
+import {Card, Button, Col, Row, Divider, Icon, Tag} from 'antd'
 import {isEmpty} from 'lodash'
+import Pending from './Pending'
+import Canceled from './Canceled'
+import UploadSlip from './UploadSlip'
+import Processing from './Processing'
 
-const Title = {
-  fontSize:'28px',
-  fontWeight: 300,
-  textAlign: 'center'
-}
 const DividerStyle = {
   margin:'10px 0px'
 }
@@ -17,7 +16,7 @@ const Info ={
   color:'rgb(29, 161, 242)'
 }
 
-const StepThree = ({transaction, confirm}) => {
+const StepThree = ({auth, transaction, cancel, cancelState, uploadState, toggleUpload, loadTransaction}) => {
   const Status = (status) => {
     switch(status){
       case 0:
@@ -32,31 +31,21 @@ const StepThree = ({transaction, confirm}) => {
   }
   return(
     <Card loading={isEmpty(transaction)} hoverable  style={{cursor:'default '}}>
-      <p style={Title}>Complete your payment</p>
-      <ol>
-        <li>
-          <p>Complete payment at any <span style={{fontWeight:600}}>{transaction.outletName}</span> branch to the following account</p>
-          <ul>
-            <li>Amount due: <span style={{fontWeight:600}}>{transaction.totalAmount}</span></li>
-            <li>Account name: <span style={{fontWeight:600}}>ECASHPAY INC.</span></li>
-            <li>Account number: <span style={{fontWeight:600}}>000910028667</span></li>
-            <li>Account type: <span style={{fontWeight:600}}>CHECKING</span></li>
-          </ul>
-          <br/>
-          <p>Please ensure the amount and reference number match your order. Check deposits and payments through third-party agents and international wire transfer are not accepted.</p>
-        </li>
-        <li>
-          <p>After completing your payment, click on Mark as paid button.</p>
-          <div style={{textAlign:'center'}}>
-            <Popconfirm placement="leftBottom" title="Are you sure you want to cancel this order?" onConfirm={confirm} okText="Yes" cancelText="No">
-              <Button style={{marginRight:'8px'}}>Cancel</Button>
-            </Popconfirm>,
-            <Button type="primary">Mark as paid</Button>
-          </div>
-        </li>
-      </ol>
       <Row style={{marginTop:'50px'}} type="flex" justify="center">
-        <Col span={20}>
+        <Col span={22}>
+          {transaction.status === 2 && !uploadState && <Canceled transaction={transaction}/>}
+          {transaction.status === 0 && !uploadState && <Pending
+            transaction={transaction}
+            cancel={cancel}
+            cancelState={cancelState}
+            toggleUpload={toggleUpload}/>}
+          {uploadState && transaction.status === 0 && <UploadSlip
+            auth={auth}
+            transaction={transaction}
+            toggleUpload={toggleUpload}
+            loadTransaction={loadTransaction}/>}
+          {transaction.status === 4 && <Processing uploadState={uploadState}/>}
+          <br/>
           <Row>
             <Col span={12}>Status</Col>
             <Col span={12} style={rightContent}>{Status(transaction.status)}</Col>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Steps, Row, Col, Icon, Form } from 'antd'
+import { Steps, Row, Col, Icon, Form, Modal } from 'antd'
+import QueueAnim from 'rc-queue-anim'
 import Navigation from '../common/Navigation'
 import StepOne from './presentation/StepOne'
 import StepTwo from './presentation/StepTwo'
@@ -54,6 +55,10 @@ class CashInPage extends React.PureComponent{
       this.props.history.push(`/client/transactions/${res.data.no}`)
     }).catch(err=>{
       console.log(err)
+      Modal.error({
+        title: 'Login Error',
+        content: err.response.data.message,
+      })
     })
   }
   componentWillMount(){
@@ -81,19 +86,23 @@ class CashInPage extends React.PureComponent{
                 </Steps>
               </Col>
               <Col span={19}>
-                <StepOne
-                  visibility={this.state.step === 0 ? true : false}
-                  merchants={this.state.merchants}
-                  featured={this.state.featured}
-                  select={this.selectedMerchant}
-                  next={this.handleNext}/>
-                <StepTwo
-                  visibility={this.state.step === 1 ? true : false}
-                  form={this.props.form}
-                  changeAmount={this.amountChange}
-                  data={this.state.data}
-                  prev={this.handlePrev}
-                  next={this.handlePay}/>
+                <QueueAnim type={['bottom', 'top']} ease={['easeOutBack', 'easeInOutCirc']}>
+                  <div key="0">
+                    <StepOne
+                      visibility={this.state.step === 0 ? true : false}
+                      merchants={this.state.merchants}
+                      featured={this.state.featured}
+                      select={this.selectedMerchant}
+                      next={this.handleNext}/>
+                    <StepTwo
+                      visibility={this.state.step === 1 ? true : false}
+                      form={this.props.form}
+                      changeAmount={this.amountChange}
+                      data={this.state.data}
+                      prev={this.handlePrev}
+                      next={this.handlePay}/>
+                  </div>
+                </QueueAnim>
               </Col>
             </Row>
           </Col>

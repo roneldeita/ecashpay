@@ -31,11 +31,15 @@ class SubmitPobPage extends React.PureComponent{
   }
   validateFile = (rule, value, callback) => {
     if(value !== undefined){
-      value.fileList.map(file => {
+      const Invalid = value.fileList.map(file => {
         if(file.type !== 'image/jpeg' && file.type !== 'application/pdf'){
-          callback('File is required')
+          return true
         }
+        return false
       })
+      if(Invalid.includes(true)){
+        callback('Invalid File')
+      }
       if(value.fileList.length > 2){
         callback('Maximum of 2 files allowed')
       }

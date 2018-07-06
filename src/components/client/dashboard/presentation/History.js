@@ -30,11 +30,15 @@ export default ({transactions}) => {
   const Status = (status) => {
     switch(status){
       case 0:
-        return <Tag color="blue">Payment pending</Tag>
+        return <Tag>Payment pending</Tag>
       case 1:
         return 'Completed'
       case 2:
         return <Tag>Canceled</Tag>
+      case 3:
+        return <Tag>Expired</Tag>
+      case 4:
+        return <Tag color="blue">Verifying your payment</Tag>
       default:
         //
     }
@@ -42,17 +46,21 @@ export default ({transactions}) => {
   const BadgeStatus = (status) => {
     switch(status){
       case 0:
-        return 'processing'
+        return 'default'
       case 1:
         return 'success'
       case 2:
         return 'default'
+      case 3:
+        return 'default'
+      case 4:
+        return 'processing'
       default:
         //
     }
   }
   return(
-    <QueueAnim type={['bottom', 'top']} delay="500" ease={['easeOutBack', 'easeInOutCirc']}>
+    <QueueAnim type={['bottom', 'top']} delay="400" ease={['easeOutBack', 'easeInOutCirc']}>
       <div key="0">
         <Card
           hoverable

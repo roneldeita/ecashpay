@@ -14,9 +14,11 @@ class TfaPage extends React.PureComponent{
     super(props)
     this.state={
       buttonState:false,
+      resendState:false,
       tfa:{}
     }
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleResend = this.handleResend.bind(this)
   }
   componentDidMount(){
     const TfaInfo = sessionStorage.getItem('tfa')
@@ -49,6 +51,29 @@ class TfaPage extends React.PureComponent{
     })
     event.preventDefault()
   }
+  handleResend(event){
+    this.setState({resendState:true})
+    Auth(null, {'x-access-token': this.state.tfa.token}).resendTFA()
+    .then(res => {
+      Modal.success({
+        title: 'Resend Verification Success',
+        content: 'Verification email successfully sent',
+      })
+      setTimeout(() => {
+        this.setState({resendState:false})
+      }, 800)
+    })
+    .catch(error => {
+      Modal.error({
+        title: 'Resend Verification Error',
+        content: error.response.data.message,
+      })
+      setTimeout(() => {
+        this.setState({resendState:false})
+      }, 800)
+    })
+    event.preventDefault()
+  }
   render(){
     return(
       <div>
@@ -57,7 +82,8 @@ class TfaPage extends React.PureComponent{
           submit={this.handleSubmit}
           form={this.props.form}
           tfa={this.state.tfa}
-          />
+          onResend={this.handleResend}
+          resendState={this.state.resendState}/>
       </div>
     )
   }

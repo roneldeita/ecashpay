@@ -68,17 +68,21 @@ class ValidIdPage extends React.PureComponent{
   }
   validateFile = (rule, value, callback) => {
     if(value !== undefined){
-      if(value.fileList.length > 1){
+      const Invalid = value.fileList.map(file => {
+        if(file.type !== 'image/jpeg' && file.type !== 'image/png'){
+          return true
+        }
+        return false
+      })
+      if(Invalid.includes(true)){
+        callback('Invalid File')
+      }
+      if(value.fileList.length > 2){
         callback('Maximum of 2 files allowed')
       }
       if(value.fileList.length === 0){
         callback('File is required')
       }
-      value.fileList.map(file => {
-        if(file.type !== 'image/jpeg' && file.type !== 'image/png'){
-          callback('Invalid file type')
-        }
-      })
     }
     callback()
   }

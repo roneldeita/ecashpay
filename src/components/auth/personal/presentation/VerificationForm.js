@@ -5,7 +5,7 @@ import * as css from '../../../../assets/styles/VerificationForm'
 
 const FormItem = Form.Item;
 
-const VerificationForm = ({email, form, buttonState, onSubmit, autoCheck, onResend}) => {
+const VerificationForm = ({email, form, buttonState, onSubmit, autoCheck, onResend, resendState}) => {
   const { getFieldDecorator, getFieldError } = form
   const CodeError =  getFieldError('Code')
   return (
@@ -35,7 +35,11 @@ const VerificationForm = ({email, form, buttonState, onSubmit, autoCheck, onRese
                   <Button id="submit" type="primary" htmlType="submit" loading={buttonState}>{buttonState ? 'Verifying..' : 'Submit'}</Button>
                 </FormItem>
               </Form>
-              <p>Haven't received a verification? <a onClick={onResend}>Resend</a></p>
+              <p>Haven't received a verification?
+                {resendState ?
+                  <span style={{color:'#999999'}}> Resending...</span> :
+                  <a onClick={onResend}> Resend</a>}
+              </p>
             </Col>
             <Col style={css.Column} xs={0} md={11}>
               <RightSection />

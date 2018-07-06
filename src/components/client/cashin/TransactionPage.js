@@ -15,10 +15,30 @@ class TransactionPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
+      cancelState: false,
+      uploadState: false,
       transaction:{}
     }
+    this.handleCancel = this.handleCancel.bind(this)
+    this.ToggleUpload = this.ToggleUpload.bind(this)
+    this.loadTransaction = this.loadTransaction.bind(this)
   }
-  componentDidMount(){
+  handleCancel(){
+    this.setState({cancelState:true})
+    Transaction({transaction:this.props.match.params.no}, {'x-access-token':this.props.auth.token}).Cancel()
+    .then(res=>{
+      this.loadTransaction()
+      setTimeout(() => {
+        this.setState({cancelState:false})
+      }, 800)
+    })
+    .catch(err=>{
+      setTimeout(() => {
+        this.setState({cancelState:false})
+      }, 800)
+    })
+  }
+  loadTransaction(){
     Transaction({transaction:this.props.match.params.no}, {'x-access-token':this.props.auth.token}).Get()
     .then(res=>{
       this.setState({transaction:res.data})
@@ -26,6 +46,12 @@ class TransactionPage extends React.PureComponent{
     .catch(err=>{
       console.log(err)
     })
+  }
+  ToggleUpload(){
+    this.setState({uploadState:!this.state.uploadState})
+  }
+  componentDidMount(){
+    this.loadTransaction()
   }
   render(){
     return(
@@ -42,7 +68,14 @@ class TransactionPage extends React.PureComponent{
                   </Steps>
                 </Col>
                 <Col span={19}>
-                  <StepThree transaction={this.state.transaction} />
+                  <StepThree
+                    auth={this.props.auth}
+                    transaction={this.state.transaction}
+                    cancel={this.handleCancel}
+                    cancelState={this.state.cancelState}
+                    uploadState={this.state.uploadState}
+                    toggleUpload={this.ToggleUpload}
+                    loadTransaction={this.loadTransaction}/>
                 </Col>
               </Row>
             </Col>
