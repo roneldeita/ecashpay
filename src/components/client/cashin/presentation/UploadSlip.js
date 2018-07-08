@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Button, Form, Upload, Icon, Modal } from 'antd'
+import { Button, Form, Upload, Icon, Modal } from 'antd'
 import QueueAnim from 'rc-queue-anim'
 import { Transaction } from '../../../../services/api'
 

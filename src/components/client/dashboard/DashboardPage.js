@@ -20,7 +20,7 @@ class DashboardPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
-      wallets:{},
+      wallets:[],
       profile:{},
       transactions:[],
       timestamp: 'no timestamp yet',
@@ -80,10 +80,10 @@ class DashboardPage extends React.PureComponent{
   render(){
     return(
       <Row type="flex" justify="center">
-        <Col className="" xs={24} sm={24} md={22} lg={18}>
+        <Col className="" xs={24} sm={24} md={22} lg={20} xl={18}>
           <Menu ready={isEmpty(this.state.profile)} profile={this.state.profile} />
         </Col>
-        <Col className="" span={18}>
+        <Col className="" xs={24} sm={24} md={22} lg={20} xl={18}>
           <Row gutter={20}>
             <Col className="" md={24} lg={8} style={{marginBottom:'10px'}}>
               <WalletCard ready={isEmpty(this.state.wallets)} currencies={this.state.wallets}/>

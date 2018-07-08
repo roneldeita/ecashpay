@@ -80,7 +80,9 @@ export function Transaction(data, header){
     CashIn: () => axios.post(process.env.REACT_APP_API + '/api/v1/transactions/cashIn', data, {headers:header}),
     Get: () => axios.get(process.env.REACT_APP_API + '/api/v1/transactions/'+data.transaction, {headers:header}),
     Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/transactions/'+data.transaction, {headers:header}),
-    Upload: () => axios.patch(process.env.REACT_APP_API + '/api/v1/transactions/'+data.get('transaction'), data, {headers:header})
+    Upload: () => axios.patch(process.env.REACT_APP_API + '/api/v1/transactions/'+data.get('transaction'), data, {headers:header}),
+    //Admin
+    GetAllCashIn: () => axios.get(process.env.REACT_APP_API + '/api/v1/payments', {headers:header}),
   }
 }
 

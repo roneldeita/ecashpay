@@ -1,7 +1,8 @@
 import React from 'react'
-import { Breadcrumb, Icon } from 'antd'
 import { connect } from 'react-redux'
+import { Breadcrumb, Icon } from 'antd'
 import CashInTable from './presentation/CashInTable'
+import { Transaction, Id } from '../../../services/api'
 
 const AdminContentStyle = {
   backgroundColor:'#ffffff',
@@ -19,24 +20,69 @@ const BreadCrumbs = (
       <span>Dashboard</span>
     </Breadcrumb.Item>
     <Breadcrumb.Item>
-      <Icon type="wallet" />
-      <span>Cash In</span>
+      <Icon type="picture" />
+      <span>Verify ID</span>
     </Breadcrumb.Item>
   </Breadcrumb>
 )
 
 class CashInPage extends React.PureComponent{
+  constructor(props){
+    super(props)
+    this.state={
+      record:[]
+    }
+    this.accept = this.accept.bind(this)
+    this.decline = this.decline.bind(this)
+  }
+  decline(e){
+    const RequestId = e.target.getAttribute('data-id')
+    Id({id:RequestId, 'status':'2'}, {'x-access-token':this.props.auth.token}).Verify()
+    .then(res=>{
+      this.getAllRecords()
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+  }
+  accept(e){
+    const RequestId = e.target.getAttribute('data-id')
+    Id({id:RequestId, 'status':'1'}, {'x-access-token':this.props.auth.token}).Verify()
+    .then(res=>{
+      this.getAllRecords()
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+  }
+  getAllRecords(){
+    Transaction(null, {'x-access-token':this.props.auth.token}).GetAllCashIn()
+    .then(res=>{
+      this.setState({record:res.data})
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+  }
+  componentDidMount(){
+    this.getAllRecords()
+  }
   render(){
     return(
       <div>
         {BreadCrumbs}
         <div style={AdminContentStyle}>
-          <CashInTable/>
+          <CashInTable
+            record={this.state.record}
+            accept={this.accept}
+            decline={this.decline}
+            />
         </div>
       </div>
     )
   }
 }
+
 function mapStateToProps(state, ownProps){
   return {
     auth: state.auth,

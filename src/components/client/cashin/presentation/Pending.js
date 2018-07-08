@@ -1,6 +1,5 @@
 import React from 'react'
-import { Card, Popconfirm, Button } from 'antd'
-import Moment from 'react-moment'
+import { Popconfirm, Button } from 'antd'
 import QueueAnim from 'rc-queue-anim'
 
 const Title = {

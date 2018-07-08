@@ -53,7 +53,7 @@ export default ({ready, currencies}) => {
           loading={ready}
           style={CardStyle}
           actions={[
-            <Link to="/client/convert">Convert</Link>,
+            <Link to="/client/transfer">Transfer</Link>,
             <Link to="/client/manage/currencies">Manage Currencies</Link>]}>
           {/*<Link style={{float: 'right'}} to='/client/manage/currencies'><span>Manage Currencies <Icon type="caret-right" style={{fontSize:'11px'}}/></span></Link>*/}
           {/*<p style={Title}>Ecash</p>*/}

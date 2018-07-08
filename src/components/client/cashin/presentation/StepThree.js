@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, Button, Col, Row, Divider, Icon, Tag} from 'antd'
+import {Card, Col, Row, Divider, Icon, Tag} from 'antd'
 import {isEmpty} from 'lodash'
 import Pending from './Pending'
 import Canceled from './Canceled'

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Card } from 'antd'
-import Moment from 'react-moment'
 import QueueAnim from 'rc-queue-anim'
 
 export default ({transaction}) => {

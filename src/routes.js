@@ -30,6 +30,7 @@ import Currencies from './components/client/currencies/CurrenciesPage'
 import VerifyPhone from './components/client/phone/VerifyPhonePage'
 import UploadValidId from './components/client/identification/ValidIdPage'
 import SubmitPob from './components/client/pob/SubmitPobPage'
+import Transfer from './components/client/transfer/TransferPage'
 import AdminDashboard from './components/admin/dashboard/DashboardPage'
 import AdminLogin from './components/admin/auth/LoginPage'
 //import AdminTransactions from './components/admin/transactions/TransactionPage'
@@ -71,6 +72,7 @@ const Routes = ({ store }) => (
           <Route path="/client/verify/phone" render={ props => ( isClient(2) ? <VerifyPhone {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/upload/id" render={ props => ( isClient(2) ? <UploadValidId {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/upload/pob" render={ props => ( isClient(2) ? <SubmitPob {...props}/> : <Redirect to="/redirecting"/>)} />
+          <Route path="/client/transfer" render={ props => ( isClient(2) ? <Transfer {...props}/> : <Redirect to="/redirecting"/>)} />
 
           <Route path="/business/register" render={ () => ( !isLoggedIn() ? <BusinessRegisterPage/> : <Redirect to="/redirecting"/>)}/>
           <Route path="/business/verify" render={ (props) => ( !isClient() ? <BusinessVerificationPage/> : <Redirect to="/redirecting"/> )} />

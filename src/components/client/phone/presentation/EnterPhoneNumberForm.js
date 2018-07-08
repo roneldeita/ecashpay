@@ -117,12 +117,13 @@ class StepOne extends React.PureComponent{
               placeholder="Phone Number"/>
           )}
         </Form.Item>
-        <Form.Item wrapperCol={{ sm:{span: 16, offset: 8} }}>
+        <Form.Item wrapperCol={{ sm:{span: 16, offset: 8} }} style={{textAlign:'center'}}>
           <Button
             type="primary"
             htmlType="submit"
             size="large"
-            loading={this.state.buttonState}>
+            loading={this.state.buttonState}
+            style={{width:'100%'}}>
             {this.state.buttonState ? 'Sending Verification...' : 'Send Verification Code'}
           </Button>
         </Form.Item>

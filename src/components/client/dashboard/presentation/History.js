@@ -12,11 +12,9 @@ export default ({transactions}) => {
     <div>
       <Badge status="success" text="Completed" />
       <br />
-      <Badge status="processing" text="Pending" />
+      <Badge status="processing" text="Verifying/Pending Payment" />
       <br />
-      <Badge status="default" text="Cancelled" />
-      <br />
-      <Badge status="error" text="Expired" />
+      <Badge status="default" text="Cancelled/Expired" />
     </div>
   )
   const Title = (
@@ -30,7 +28,7 @@ export default ({transactions}) => {
   const Status = (status) => {
     switch(status){
       case 0:
-        return <Tag>Payment pending</Tag>
+        return <Tag color="blue">Payment pending</Tag>
       case 1:
         return 'Completed'
       case 2:
@@ -46,7 +44,7 @@ export default ({transactions}) => {
   const BadgeStatus = (status) => {
     switch(status){
       case 0:
-        return 'default'
+        return 'processing'
       case 1:
         return 'success'
       case 2:
@@ -83,7 +81,7 @@ export default ({transactions}) => {
                 <div>
                   <Badge status={BadgeStatus(item.status)} /><Moment format="MMM D" date={item.createdAt} style={{fontSize:'20px'}}/>
                   <Divider type="vertical"/>
-                  {startCase(item.type)} via {item.outletName} - {item.totalAmount}
+                  {startCase(item.type)} via {item.outletName} - <span style={{color:'#999999'}}>{item.currency}</span>{item.totalAmount}
                 </div>
               </List.Item>
             )}/>
