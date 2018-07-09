@@ -56,12 +56,14 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
   const RegistrationDateError = getFieldError('Registration Date')
   const BusinessNatureError = getFieldError('Nature of Business')
   const OperationYearsError = getFieldError('Years in Operation')
+  //Unemployed
+  const SourceError = getFieldError('Source')
   return(
     <Row type="flex" justify="center" style={AntContainer}>
       <Col sm={24} md={22} lg={22} xl={13} className="">
         <Card hoverable>
           <div style={Head}>
-            <Icon type="user" style={UseIcon}/>
+            <Icon id="user" type="user" style={UseIcon}/>
             <p style={Title}>Complete your personal profile</p>
           </div>
           <Row type="flex" justify="center">
@@ -73,7 +75,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   {...Label}
                   className="name"
                   hasFeedback={isFieldTouched('First Name')}
-                  validateStatus={FirstNameError ? 'error' : 'success'}
+                  validateStatus={FirstNameError ? 'error' : ''}
                   help={FirstNameError || ''}>
                   {getFieldDecorator('First Name', {
                     initialValue: firstName,
@@ -91,7 +93,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   {...Label}
                   className="name"
                   hasFeedback={isFieldTouched('Last Name')}
-                  validateStatus={LastNameError ? 'error' : 'success'}
+                  validateStatus={LastNameError ? 'error' : ''}
                   help={LastNameError || ''}>
                   {getFieldDecorator('Last Name', {
                     initialValue: lastName,
@@ -108,7 +110,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   required={false}
                   {...Label}
                   hasFeedback={isFieldTouched('Gender')}
-                  validateStatus={GenderError ? 'error' : 'success'}
+                  validateStatus={GenderError ? 'error' : ''}
                   help={GenderError || ''}>
                   {getFieldDecorator('Gender', {
                     rules: [
@@ -126,7 +128,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   required={false}
                   {...Label}
                   hasFeedback={isFieldTouched('Birth Date')}
-                  validateStatus={BirthDateError ? 'error' : 'success'}
+                  validateStatus={BirthDateError ? 'error' : ''}
                   help={BirthDateError || ''}>
                   {getFieldDecorator('Birth Date', {
                     rules: [
@@ -142,7 +144,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   required={false}
                   {...Label}
                   hasFeedback={isFieldTouched('Street')}
-                  validateStatus={StreetError ? 'error' : 'success'}
+                  validateStatus={StreetError ? 'error' : ''}
                   help={StreetError || ''}>
                   {getFieldDecorator('Street', {
                     rules: [
@@ -157,7 +159,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   required={false}
                   {...Label}
                   hasFeedback={isFieldTouched('City / Municipality')}
-                  validateStatus={CityMunicipalityError ? 'error' : 'success'}
+                  validateStatus={CityMunicipalityError ? 'error' : ''}
                   help={CityMunicipalityError || ''}>
                   {getFieldDecorator('City / Municipality', {
                     rules: [
@@ -172,7 +174,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   required={false}
                   {...Label}
                   hasFeedback={isFieldTouched('Region / State / Province')}
-                  validateStatus={RegionStateProvinceError ? 'error' : 'success'}
+                  validateStatus={RegionStateProvinceError ? 'error' : ''}
                   help={RegionStateProvinceError || ''}>
                   {getFieldDecorator('Region / State / Province', {
                     rules: [
@@ -187,7 +189,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   required={false}
                   {...Label}
                   hasFeedback={isFieldTouched('Country')}
-                  validateStatus={CountryError ? 'error' : 'success'}
+                  validateStatus={CountryError ? 'error' : ''}
                   help={CountryError || ''}>
                   {getFieldDecorator('Country', {
                     rules: [
@@ -209,7 +211,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   required={false}
                   {...Label}
                   hasFeedback={isFieldTouched('Currency')}
-                  validateStatus={CurrencyError ? 'error' : 'success'}
+                  validateStatus={CurrencyError ? 'error' : ''}
                   help={CurrencyError || ''}>
                   {getFieldDecorator('Currency', {
                     initialValue:'php',
@@ -241,7 +243,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     <RadioGroup onChange={handleSourceOfFunds} style={{width:'100%'}}>
                       <Radio value="1">Employed</Radio>
                       <Radio value="2">Self-Employed</Radio>
-                      <Radio value="3" disabled>Unemployed</Radio>
+                      <Radio value="3">Unemployed</Radio>
                     </RadioGroup>
                   )}
                 </FormItem>
@@ -251,7 +253,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   style={{display:sourceOfFunds === "1" ? 'block': 'none'}}
                   {...Label}
                   hasFeedback={isFieldTouched('Occupation')}
-                  validateStatus={OccupationError ? 'error' : 'success'}
+                  validateStatus={OccupationError ? 'error' : ''}
                   help={OccupationError || ''}>
                   {getFieldDecorator('Occupation', {
                     rules: [
@@ -267,7 +269,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   style={{display:sourceOfFunds === "1" ? 'block': 'none'}}
                   {...Label}
                   hasFeedback={isFieldTouched('Company')}
-                  validateStatus={CompanyError ? 'error' : 'success'}
+                  validateStatus={CompanyError ? 'error' : ''}
                   help={CompanyError || ''}>
                   {getFieldDecorator('Company', {
                     rules: [
@@ -283,7 +285,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   style={{display:sourceOfFunds === "1" ? 'block': 'none'}}
                   {...Label}
                   hasFeedback={isFieldTouched('Position')}
-                  validateStatus={PositionError ? 'error' : 'success'}
+                  validateStatus={PositionError ? 'error' : ''}
                   help={PositionError || ''}>
                   {getFieldDecorator('Position', {
                     rules: [
@@ -299,7 +301,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   style={{display:sourceOfFunds === "2" ? 'block': 'none'}}
                   {...Label}
                   hasFeedback={isFieldTouched('Business Name')}
-                  validateStatus={BusinessNameError ? 'error' : 'success'}
+                  validateStatus={BusinessNameError ? 'error' : ''}
                   help={BusinessNameError || ''}>
                   {getFieldDecorator('Business Name', {
                     rules: [
@@ -315,7 +317,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   style={{display:sourceOfFunds === "2" ? 'block': 'none'}}
                   {...Label}
                   hasFeedback={isFieldTouched('Registration Date')}
-                  validateStatus={RegistrationDateError ? 'error' : 'success'}
+                  validateStatus={RegistrationDateError ? 'error' : ''}
                   help={RegistrationDateError || ''}>
                   {getFieldDecorator('Registration Date', {
                     rules: [
@@ -331,7 +333,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   style={{display:sourceOfFunds === "2" ? 'block': 'none'}}
                   {...Label}
                   hasFeedback={isFieldTouched('Nature of Business')}
-                  validateStatus={BusinessNatureError ? 'error' : 'success'}
+                  validateStatus={BusinessNatureError ? 'error' : ''}
                   help={BusinessNatureError || ''}>
                   {getFieldDecorator('Nature of Business', {
                     rules: [
@@ -347,7 +349,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   style={{display:sourceOfFunds === "2" ? 'block': 'none'}}
                   {...Label}
                   hasFeedback={isFieldTouched('Years in Operation')}
-                  validateStatus={OperationYearsError ? 'error' : 'success'}
+                  validateStatus={OperationYearsError ? 'error' : ''}
                   help={OperationYearsError || ''}>
                   {getFieldDecorator('Years in Operation', {
                     rules: [
@@ -355,6 +357,27 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     ],
                   })(
                     <Input/>
+                  )}
+                </FormItem>
+                <FormItem
+                  label="Source"
+                  required={false}
+                  style={{display:sourceOfFunds === "3" ? 'block': 'none'}}
+                  {...Label}
+                  hasFeedback={isFieldTouched('Source')}
+                  validateStatus={SourceError ? 'error' : ''}
+                  help={SourceError || ''}>
+                  {getFieldDecorator('Source', {
+                    initialValue: "Remittance",
+                    rules: [
+                      { required: true }
+                    ],
+                  })(
+                    <RadioGroup>
+                      <Radio value="Remittance">Remittance</Radio>
+                      <Radio value="Pension">Pension</Radio>
+                      <Radio value="Allowance">Allowance</Radio>
+                    </RadioGroup>
                   )}
                 </FormItem>
                 <br/>
@@ -373,7 +396,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
         .name .ant-input{
           color: #1890ff !important;
         }
-        .anticon-user{
+        #user.anticon-user{
           border-radius: 100px;
           border: 2px solid #ffffff;
           padding: 0.2em 0.2em;

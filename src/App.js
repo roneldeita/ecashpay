@@ -149,6 +149,7 @@ class App extends Component {
     }
   }
   render() {
+    console.log(this.props.profile)
     return (
       <Idle
         timeout={this.state.timeOut}

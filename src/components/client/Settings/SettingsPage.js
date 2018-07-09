@@ -46,7 +46,7 @@ class SettingsPage extends React.PureComponent{
               </List>
             </Card>
             <TwoFactorAuthentication/>
-            <Privacy/>
+            {/*<Privacy/>*/}
           </Col>
         </Row>
       </div>

@@ -31,7 +31,7 @@ class VerifyPhonePage extends React.PureComponent{
   }
   render(){
     return(
-      <Row type="flex" justify="center" style={{marginTop:'80px'}}>
+      <Row type="flex" justify="center" style={{marginTop:'50px'}}>
         <Col sm={18} md={13} lg={8}>
           <QueueAnim type={['top', 'bottom']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
             <div key="0">

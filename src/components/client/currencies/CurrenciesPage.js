@@ -100,7 +100,7 @@ class CurrenciesPage extends React.PureComponent{
   }
   render(){
     return (
-      <Row type="flex" justify="center" style={{marginTop:'30px'}}>
+      <Row type="flex" justify="center" style={{marginTop:'50px'}}>
         <Col className="" xs={22} md={16} lg={10}>
           <QueueAnim type={['top', 'bottom']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
             <div key="0">

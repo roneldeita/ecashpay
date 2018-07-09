@@ -64,7 +64,7 @@ class DashboardPage extends React.PureComponent{
   }
   componentDidMount(){
     this.setState({profile:this.props.profile})
-    this.delayProgressBar = setTimeout(()=>this.progress(), 600)
+    this.delayProgressBar = setTimeout(()=>this.progress(), 1000)
     this.loadWallets()
     this.loadTransactions()
   }

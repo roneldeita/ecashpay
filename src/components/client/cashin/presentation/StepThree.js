@@ -33,18 +33,23 @@ const StepThree = ({auth, transaction, cancel, cancelState, uploadState, toggleU
     <Card loading={isEmpty(transaction)} hoverable  style={{cursor:'default '}}>
       <Row style={{marginTop:'50px'}} type="flex" justify="center">
         <Col span={22}>
-          {transaction.status === 2 && !uploadState && <Canceled transaction={transaction}/>}
           {transaction.status === 0 && !uploadState && <Pending
             transaction={transaction}
             cancel={cancel}
             cancelState={cancelState}
             toggleUpload={toggleUpload}/>}
+          {transaction.status === 2 && !uploadState && <Canceled transaction={transaction}/>}
           {uploadState && transaction.status === 0 && <UploadSlip
             auth={auth}
             transaction={transaction}
             toggleUpload={toggleUpload}
             loadTransaction={loadTransaction}/>}
           {transaction.status === 4 && <Processing uploadState={uploadState}/>}
+          {transaction.status === 5 && <UploadSlip
+            auth={auth}
+            transaction={transaction}
+            toggleUpload={toggleUpload}
+            loadTransaction={loadTransaction}/>}
           <br/>
           <Row>
             <Col span={12}>Status</Col>

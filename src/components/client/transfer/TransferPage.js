@@ -10,6 +10,7 @@ class TransferPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state={
+      transferStatus:'New',
       buttonState:false,
       currencies:[],
       primary:''
@@ -18,6 +19,15 @@ class TransferPage extends React.PureComponent{
   }
   handleSubmit(event){
     this.setState({buttonState:true})
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log(values)
+      }else{
+        setTimeout(()=>{
+          this.setState({buttonState:false})
+        }, 800)
+      }
+    })
     event.preventDefault()
   }
   loadWallets(){
@@ -37,7 +47,7 @@ class TransferPage extends React.PureComponent{
   render(){
     return(
       <Row type="flex" justify="center" style={{marginTop:'50px'}}>
-        <Col sm={18} md={14} lg={10}>
+        <Col sm={18} md={14} lg={12} xl={10} xxl={8}>
           <QueueAnim type={['top', 'bottom']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
             <div key="0">
               <TransferForm

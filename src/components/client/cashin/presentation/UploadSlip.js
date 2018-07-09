@@ -1,10 +1,10 @@
 import React from 'react'
-import { Button, Form, Upload, Icon, Modal } from 'antd'
+import { Row, Col, Button, Form, Upload, Icon, Modal, Alert } from 'antd'
 import QueueAnim from 'rc-queue-anim'
 import { Transaction } from '../../../../services/api'
 
 const Title = {
-  fontSize:'28px',
+  fontSize:'24px',
   fontWeight: 300,
   textAlign: 'center'
 }
@@ -81,27 +81,41 @@ class UploadSlip extends React.PureComponent{
     return(
       <QueueAnim type={['bottom', 'top']} ease={['easeOutBack', 'easeInOutCirc']}>
         <div key="0">
-          <p style={Title}>Payment via <b>{this.props.transaction.outletName}</b></p>
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Item
-              {...formItemLayout}
-              validateStatus={getFieldError('File') ? 'error' : ''}
-              help={getFieldError('File') || ''}>
-              {getFieldDecorator('File', {
-                rules: [
-                  { required: true }
-                ],
-              })(
-                <Upload.Dragger {...fileProps} disabled={this.state.files.length >= 1}>
-                  {UploadButton}
-                </Upload.Dragger>
-              )}
-            </Form.Item>
-            <div style={{textAlign:'center'}}>
-              <Button onClick={this.props.toggleUpload} style={{marginRight:'10px'}}>Cancel</Button>
-              <Button htmlType="submit" type="primary" loading={this.state.uploadState}>{this.state.uploadState ? 'Uploading' : 'Upload'}</Button>
-            </div>
-          </Form>
+          <Row type="flex" justify="center">
+            <Col xs={24} md={18}>
+              {this.props.transaction.status === 5 &&
+                <Alert
+                  message="Upload again"
+                  description="We failed to match your payment copy to our records. Please upload a photo of your deposit slip."
+                  type="warning"
+                  showIcon
+                  closable
+                  style={{marginBottom:'10px'}}
+                />}
+              <p style={Title}>Upload the copy of your deposit slip from <b>{this.props.transaction.outletName}</b></p>
+              <Form onSubmit={this.handleSubmit}>
+                <Form.Item
+                  {...formItemLayout}
+                  validateStatus={getFieldError('File') ? 'error' : ''}
+                  help={getFieldError('File') || ''}>
+                  {getFieldDecorator('File', {
+                    rules: [
+                      { required: true }
+                    ],
+                  })(
+                    <Upload.Dragger {...fileProps} disabled={this.state.files.length >= 1}>
+                      {UploadButton}
+                    </Upload.Dragger>
+                  )}
+                </Form.Item>
+                <div style={{textAlign:'center'}}>
+                  {this.props.transaction.status === 0 &&
+                  <Button onClick={this.props.toggleUpload} style={{marginRight:'10px'}}>Cancel</Button>}
+                  <Button htmlType="submit" type="primary" loading={this.state.uploadState}>{this.state.uploadState ? 'Uploading' : 'Upload'}</Button>
+                </div>
+              </Form>
+            </Col>
+          </Row>
           <style jsx="true">{`
             .ant-upload-disabled{
               display:none

@@ -1,14 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Row, Col, Select, Input, Card, Form, Tag, Icon, Button } from 'antd'
+import { Row, Col, Select, Input, Card, Form, Tag, Icon, Button, } from 'antd'
 import { isEmpty } from 'lodash'
 
 export default ({currencies, primary, form, buttonState, submit}) => {
-  console.log(primary)
   const { getFieldDecorator, isFieldTouched, getFieldError } = form
   const CurrencyError =  getFieldError('Currency')
   const AmountError =  getFieldError('Amount')
-  const AccountNumerError =  getFieldError('Account Number')
+  const AccountNumberError =  getFieldError('Account Number')
+  const RemarkError = getFieldError('Remark')
   return(
     <Card
       loading={isEmpty(currencies) && primary === ''}
@@ -62,10 +62,10 @@ export default ({currencies, primary, form, buttonState, submit}) => {
         <Form.Item
           label="Receiver"
           required={false}
-          hasFeedback={isFieldTouched('Account Numer')}
-          validateStatus={AccountNumerError ? 'error' : ''}
-          help={AccountNumerError || ''}>
-          {getFieldDecorator('Account Numer', {
+          hasFeedback={isFieldTouched('Account Number')}
+          validateStatus={AccountNumberError ? 'error' : ''}
+          help={AccountNumberError || ''}>
+          {getFieldDecorator('Account Number', {
             rules: [
               { required: true }
             ],
@@ -73,13 +73,22 @@ export default ({currencies, primary, form, buttonState, submit}) => {
             <Input size="large" placeholder="Receiver's Ecash Account Number"/>
           )}
         </Form.Item>
+        <Form.Item
+          label="Remark (Optional)"
+          required={false}
+          hasFeedback={isFieldTouched('Remark')}
+          validateStatus={RemarkError ? 'error' : ''}
+          help={RemarkError || ''}>
+          {getFieldDecorator('Remark', {
+            rules: [
+              { required: false }
+            ],
+          })(
+            <Input.TextArea rows={3} />
+          )}
+        </Form.Item>
         <Form.Item>
           <div style={{textAlign:'center'}}>
-            <Button
-              size="large"
-              style={{marginRight:'8px'}}>
-              Cancel
-            </Button>
             <Button
               id="submit"
               type="primary"

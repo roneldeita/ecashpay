@@ -7,7 +7,7 @@ import * as profileActions from '../../../actions/profileAction'
 //lodash
 import { camelCase } from 'lodash'
 //ant design
-import { Form } from 'antd'
+import { Form, Modal } from 'antd'
 //services
 import { Auth, Country } from '../../../services/api'
 //child component
@@ -28,7 +28,10 @@ class ProfilePage extends React.PureComponent{
     document.title="Complete Profile - Ecashpay"
   }
   handleSourceOfFunds(e){
-    if(e.target.value === "2"){
+    if(e.target.value === "3"){
+      this.props.form.setFieldsValue({'Business Name':'x', 'Registration Date': 'x', 'Nature of Business': 'x', 'Years in Operation': 'x'})
+      this.props.form.setFieldsValue({'Occupation':'x','Company':'x', 'Position':'x'})
+    }else if(e.target.value === "2"){
       this.props.form.resetFields(['Business Name', 'Registration Date', 'Nature of Business', 'Years in Operation'])
       this.props.form.setFieldsValue({'Occupation':'x','Company':'x', 'Position':'x'})
     }else if(e.target.value === "1"){
@@ -45,7 +48,7 @@ class ProfilePage extends React.PureComponent{
       if (!err) {
         const Data = {}
         Object.entries(values).forEach(([index,value])=>{
-          // if(index === 'Address line 1'){
+          // if(index === 'Street'){
           //   index = 'Address1'
           // }
           if(index === 'City / Municipality'){
@@ -80,13 +83,18 @@ class ProfilePage extends React.PureComponent{
           Data['selfEmployed']['registrationDate'] = Data['registrationDate'].toString()
           Data['selfEmployed']['nature'] = Data['natureOfBusiness'].toString()
           Data['selfEmployed']['yearsInOperation'] = Data['yearsInOperation'].toString()
+        }else if(values['Source of Funds'] === "3"){
+          Data['unemployed']['source'] = Data['source'].toString()
         }
         Auth(Data, {'x-access-token':this.props.auth.token}).completeProfile()
         .then( res => {
           window.location.href = '/'
         })
         .catch(err => {
-          console.log(err)
+          Modal.error({
+            title: 'Login Error',
+            content: err.response.data.message,
+          })
           setTimeout(() => {
             this.setState({buttonState:false})
           }, 800)

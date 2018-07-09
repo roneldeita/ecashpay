@@ -14,7 +14,9 @@ export default ({transactions}) => {
       <br />
       <Badge status="processing" text="Verifying/Pending Payment" />
       <br />
-      <Badge status="default" text="Cancelled/Expired" />
+      <Badge status="default" text="Canceled/Expired" />
+      <br />
+      <Badge status="warning" text="Payment Rejected" />
     </div>
   )
   const Title = (
@@ -37,6 +39,8 @@ export default ({transactions}) => {
         return <Tag>Expired</Tag>
       case 4:
         return <Tag color="blue">Verifying your payment</Tag>
+      case 5:
+        return <Tag color="orange">Payment Rejected</Tag>
       default:
         //
     }
@@ -53,6 +57,8 @@ export default ({transactions}) => {
         return 'default'
       case 4:
         return 'processing'
+      case 5:
+        return 'warning'
       default:
         //
     }

@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Breadcrumb, Icon } from 'antd'
 import CashInTable from './presentation/CashInTable'
-import { Transaction, Id } from '../../../services/api'
+import { Transaction } from '../../../services/api'
 
 const AdminContentStyle = {
   backgroundColor:'#ffffff',
@@ -37,7 +37,7 @@ class CashInPage extends React.PureComponent{
   }
   decline(e){
     const RequestId = e.target.getAttribute('data-id')
-    Id({id:RequestId, 'status':'2'}, {'x-access-token':this.props.auth.token}).Verify()
+    Transaction({id:RequestId}, {'x-access-token':this.props.auth.token}).RejectCashIn()
     .then(res=>{
       this.getAllRecords()
     })
@@ -47,7 +47,7 @@ class CashInPage extends React.PureComponent{
   }
   accept(e){
     const RequestId = e.target.getAttribute('data-id')
-    Id({id:RequestId, 'status':'1'}, {'x-access-token':this.props.auth.token}).Verify()
+    Transaction({id:RequestId, 'status':'1'}, {'x-access-token':this.props.auth.token}).RejectCashIn()
     .then(res=>{
       this.getAllRecords()
     })

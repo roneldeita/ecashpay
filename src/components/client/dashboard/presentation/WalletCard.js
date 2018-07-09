@@ -59,10 +59,10 @@ export default ({ready, currencies}) => {
           {/*<p style={Title}>Ecash</p>*/}
           <p style={{marginBottom:'0px', fontWeight:200}}>Available</p>
           <div>
-            {!isEmpty(currencies) ?  renderPrimaryCurrency(currencies) : '<p>Error Fetching Your Wallet</p>'}
+            {!isEmpty(currencies) &&  renderPrimaryCurrency(currencies)}
           </div>
           <div style={CurrencyContainer}>
-            {!isEmpty(currencies) ?  renderCurrencies(currencies) : '<p>Error Fetching Your Wallet</p>'}
+            {!isEmpty(currencies) &&  renderCurrencies(currencies)}
           </div>
           <Button style={{marginTop:'15px'}}><Link to="/client/cashin">Cash In</Link></Button>
         </Card>

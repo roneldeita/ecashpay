@@ -3,22 +3,21 @@ import { Table, Card, Row, Col, Divider, Button, Tag } from 'antd'
 import Moment from 'react-moment'
 import { isEmpty } from 'lodash'
 
-export default ({record, accept, reject}) => {
+export default ({record, accept, decline}) => {
   console.log(record)
   const columns = [
     { title: 'Transaction Number', dataIndex: 'transaction.no', key: 'transaction_no' },
     { title: 'Payment via', dataIndex: 'transaction.outletName', key: 'payment' },
     { title: 'Payment Posted on', dataIndex: 'createdAt', key: 'requested', render:(text,record)=> <Moment format="MMMM D, Y h:mm A" date={record.createdAt}/> },
     { title: '', dataIndex: '', width: 100, key: 'accept', render: (text, record) =>
-      { return record.status === 1
-        ? <Tag color="green">Accepted</Tag>
-        : <Button data-id={record.id} onClick={ accept } size="small" type="primary" disabled={record.status ===2}>Accept</Button>
+      { return record.status === 'pending'
+        && <Button data-id={record.id} onClick={ accept } size="small" type="primary" disabled={record.status === 'rejected'}>Accept</Button>
       }
     },
     { title: '', dataIndex: '', width: 100, key: 'decline', render: (text, record) =>
-      { return record.status === 2
+      { return record.status === 'rejected'
         ? <Tag color="red">For Reupload</Tag>
-        : <Button data-id={record.id} onClick={ reject } size="small" disabled={record.status ===1}>Don't match</Button>
+        : <Button data-id={record.id} onClick={ decline } size="small" disabled={record.status === 'rejected'}>Reject</Button>
       }
     }
   ];
