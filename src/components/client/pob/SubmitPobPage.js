@@ -118,7 +118,7 @@ class SubmitPobPage extends React.PureComponent{
                 style={CardStyle}
                 loading={this.state.identification === ''}
                 actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
-                  <div style={{display:this.state.identification.status === 'none' ? 'block' : 'none'}}>
+                  <div style={{display:this.state.identification.statusCode === 'none' ? 'block' : 'none'}}>
                     <UploadPobForm
                       form={this.props.form}
                       files={this.state.files}

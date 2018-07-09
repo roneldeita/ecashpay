@@ -47,7 +47,7 @@ class CashInPage extends React.PureComponent{
   }
   accept(e){
     const RequestId = e.target.getAttribute('data-id')
-    Transaction({id:RequestId, 'status':'1'}, {'x-access-token':this.props.auth.token}).RejectCashIn()
+    Transaction({id:RequestId}, {'x-access-token':this.props.auth.token}).AcceptCashIn()
     .then(res=>{
       this.getAllRecords()
     })

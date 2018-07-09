@@ -10,14 +10,15 @@ export default ({record, accept, decline}) => {
     { title: 'Payment via', dataIndex: 'transaction.outletName', key: 'payment' },
     { title: 'Payment Posted on', dataIndex: 'createdAt', key: 'requested', render:(text,record)=> <Moment format="MMMM D, Y h:mm A" date={record.createdAt}/> },
     { title: '', dataIndex: '', width: 100, key: 'accept', render: (text, record) =>
-      { return record.status === 'pending'
-        && <Button data-id={record.id} onClick={ accept } size="small" type="primary" disabled={record.status === 'rejected'}>Accept</Button>
+      { return record.status === 'completed'
+        ? <Tag color="green">Accepted</Tag>
+        : <Button data-id={record.id} onClick={ accept } size="small" type="primary" disabled={record.status === 'rejected'}>Accept</Button>
       }
     },
     { title: '', dataIndex: '', width: 100, key: 'decline', render: (text, record) =>
       { return record.status === 'rejected'
         ? <Tag color="red">For Reupload</Tag>
-        : <Button data-id={record.id} onClick={ decline } size="small" disabled={record.status === 'rejected'}>Reject</Button>
+        : <Button data-id={record.id} onClick={ decline } size="small" disabled={record.status === 'completed'}>Reject</Button>
       }
     }
   ];

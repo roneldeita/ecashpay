@@ -120,6 +120,7 @@ class ValidIdPage extends React.PureComponent{
     this.checkStatus()
   }
   render(){
+    console.log(this.state.identification)
     return(
       <Row type="flex" justify="center" style={{marginTop:'50px'}}>
         <Col md={12} lg={8}>
@@ -131,7 +132,7 @@ class ValidIdPage extends React.PureComponent{
                 style={CardStyle}
                 loading={this.state.identification === ''}
                 actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
-                <div style={{display:this.state.identification.status === 'none' ? 'block' : 'none'}}>
+                <div style={{display:this.state.identification.statusCode === 'none' ? 'block' : 'none'}}>
                   <UploadIdForm
                     buttonState={this.state.buttonState}
                     form={this.props.form}
