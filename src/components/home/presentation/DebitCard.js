@@ -4,7 +4,7 @@ import ScrollAnimation from 'react-animate-on-scroll'
 // import { Parallax } from 'react-parallax'
 import EcashcardBack from '../../../assets/images/Ecashcard_Back.png'
 import EcashcardFront from '../../../assets/images/Ecashcard_Front.png'
-import BSPregulated from '../../../assets/images/BSP_Regulated.png'
+import BSPregulated from '../../../assets/images/WooCommerce-Multicurrency-Product-Base-Price-Icon.png'
 import Reviews from '../../../assets/images/Reviews.png'
 import Customers from '../../../assets/images/Customers.png'
 
@@ -58,7 +58,7 @@ const FactsCol = {
   textAlign:'center'
 }
 const ImgBsp = {
-  width:'180px',
+  height:'120px',
   margin:'10px 0'
 }
 const ImgReviews = {
@@ -98,21 +98,21 @@ const DebitCard = () => {
         <Row style={FactsRow} type="flex" justify="center">
           <Col className="" span={7} style={FactsCol}>
             <ScrollAnimation animateIn="bounceIn" initiallyVisible={false} animateOnce={true}>
-              <img style={ImgBsp} src={BSPregulated} alt="BSP Regulated"/>
+              <img style={ImgBsp} src={BSPregulated} alt="Support Multi-currency"/>
             </ScrollAnimation>
-            <h1 style={FactHeader}>BSP Regulated</h1>
+            <h1 style={FactHeader}>Multi-currency</h1>
             <a style={Anchor} href="/">Learn more</a>
           </Col>
           <Col className="" span={7} style={FactsCol}>
             <ScrollAnimation animateIn="bounceIn" initiallyVisible={false} animateOnce={true}>
-              <img style={ImgReviews} src={Reviews} alt="BSP Regulated"/>
+              <img style={ImgReviews} src={Reviews} alt="Thousand Reviews"/>
             </ScrollAnimation>
             <h1 style={FactHeader}>Thousands Reviews</h1>
             <a style={Anchor} href="/">Learn more</a>
           </Col>
           <Col className="" span={7} style={FactsCol}>
             <ScrollAnimation animateIn="bounceIn" initiallyVisible={false} animateOnce={true}>
-              <img style={ImgCustomers} src={Customers} alt="BSP Regulated"/>
+              <img style={ImgCustomers} src={Customers} alt="B0ver 300k Customers"/>
             </ScrollAnimation>
             <h1 style={FactHeader}>Over 300k Customers</h1>
             <a style={Anchor} href="/">Learn more</a>

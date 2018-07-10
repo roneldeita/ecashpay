@@ -32,7 +32,8 @@ class DashboardPage extends React.PureComponent{
   loadTransactions(){
     Transaction(null, {'x-access-token':this.props.auth.token}).All()
     .then(res => {
-      this.setState({transactions:res.data})
+      const DebitOnly = res.data.filter(transaction=> transaction.entryType === 'debit')
+      this.setState({transactions:DebitOnly})
     })
     .catch(err => {
       console.log(err)
@@ -94,7 +95,7 @@ class DashboardPage extends React.PureComponent{
                 levels={this.state.profile.levels}
                 phone={this.state.profile.phone}
                 progress={this.state.progress}/>
-              <History transactions={this.state.transactions}/>
+              <History transactions={this.state.transactions} profile={this.props.profile}/>
             </Col>
           </Row>
         </Col>

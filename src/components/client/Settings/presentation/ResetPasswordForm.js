@@ -127,7 +127,7 @@ class ResetPasswordForm extends React.PureComponent{
                 htmlType="submit"
                 loading={this.state.ButtonStatus}
                 style={{marginRight:8}}>
-                Send Code
+                Submit
               </Button>
               <Button onClick={this.props.toggleReset}>Cancel</Button>
             </Form.Item>

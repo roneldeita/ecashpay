@@ -86,7 +86,7 @@ class UploadSlip extends React.PureComponent{
               {this.props.transaction.status === 5 &&
                 <Alert
                   message="Upload again"
-                  description="We failed to match your payment copy to our records. Please upload a photo of your deposit slip."
+                  description="We were unable to match your payment with the details of your Cash In. Please send us a copy of your deposit slip and/or screenshot of the transaction."
                   type="warning"
                   showIcon
                   closable

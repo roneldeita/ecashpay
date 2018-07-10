@@ -9,7 +9,7 @@ export default ({record, accept, decline}) => {
     { title: 'Birthdate', dataIndex: 'profile.birthDate', key: 'birthdate',  render:(text,record)=> <Moment format="MMMM D, Y" date={record.profile.birthDate}/>  },
     { title: 'Date Requested', dataIndex: 'createdAt', key: 'requested', render:(text,record)=> <Moment format="MMMM D, Y h:mm A" date={record.createdAt}/> },
     { title: '', dataIndex: '', width: 100, key: 'accept', render: (text, record) =>
-      { return record.status === 0
+      { return record.status === 1
         ? <Tag color="green">Accepted</Tag>
         : <Button data-id={record.id} onClick={ accept } size="small" type="primary" disabled={record.status ===2}>Accept</Button>
       }

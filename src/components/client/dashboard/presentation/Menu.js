@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {Row, Col, Card} from 'antd'
+import {Row, Col, Card, Tag} from 'antd'
 import {includes, isEmpty} from 'lodash'
 import QueueAnim from 'rc-queue-anim'
 // import Addfunds from '../../../../assets/svg/ecommerce/ecommerce_wallet.svg'
@@ -65,7 +65,7 @@ export default ({ready, profile}) => {
               <div key="0">
                 {/*<span className="fa fa-user-circle" name="user-circle" style={UserIcon} />*/}
                 <span className="" style={{display:'inline-block'}}>
-                  <p className="" style={UserName}>{profile.firstName} {profile.lastName}</p><br/>
+                  <p className="" style={UserName}>{profile.firstName} {profile.lastName}</p> <Tag style={{color:'#1890ff', fontSize:'14px', border:'none', paddingTop:'1px'}}>{profile.account}</Tag><br/>
                   {Directlink()}
                 </span>
               </div>

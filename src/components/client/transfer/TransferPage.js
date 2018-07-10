@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import TransferForm from './presentation/TransferForm'
-import { Row, Col, Form } from 'antd'
+import { Row, Col, Form, Modal } from 'antd'
 import QueueAnim from 'rc-queue-anim'
 //services
-import { Wallet } from '../../../services/api'
+import { Wallet, Transaction } from '../../../services/api'
 
 class TransferPage extends React.PureComponent{
   constructor(props){
@@ -22,6 +22,30 @@ class TransferPage extends React.PureComponent{
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log(values)
+        const Data = {
+          targetAccount:values['Account Number'],
+          amount:values.Amount,
+          currency:values.Currency
+        }
+        Transaction(Data, {'x-access-token':this.props.auth.token}).Transfer()
+        .then(res=>{
+          this.props.form.resetFields()
+          Modal.success({
+            title: 'Transfer Success',
+            content: 'You have successfully sent '+ values.Currency + values.Amount + ' to ' + values['Account Number']
+          })
+          setTimeout(()=>{
+            this.setState({buttonState:false})
+          }, 800)
+        }).catch(err=>{
+          Modal.error({
+            title: 'Transfer Error',
+            content: err.response.data.message
+          })
+          setTimeout(()=>{
+            this.setState({buttonState:false})
+          }, 800)
+        })
       }else{
         setTimeout(()=>{
           this.setState({buttonState:false})
@@ -45,6 +69,7 @@ class TransferPage extends React.PureComponent{
     this.loadWallets()
   }
   render(){
+    console.log(this.props)
     return(
       <Row type="flex" justify="center" style={{marginTop:'50px'}}>
         <Col sm={18} md={14} lg={12} xl={10} xxl={8}>

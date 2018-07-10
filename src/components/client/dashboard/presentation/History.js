@@ -7,10 +7,11 @@ import Moment from 'react-moment';
 //import 'moment-timezone';
 //import {isEmpty} from 'lodash'
 
-export default ({transactions}) => {
+export default ({transactions, profile}) => {
+  console.log(transactions)
   const PopOverContent = (
     <div>
-      <Badge status="success" text="Completed" />
+      <Badge status="success" text="Completed"/>
       <br />
       <Badge status="processing" text="Verifying/Pending Payment" />
       <br />
@@ -32,7 +33,7 @@ export default ({transactions}) => {
       case 0:
         return <Tag color="blue">Payment pending</Tag>
       case 1:
-        return 'Completed'
+        return <Tag color="green">Completed</Tag>
       case 2:
         return <Tag>Canceled</Tag>
       case 3:
@@ -87,7 +88,19 @@ export default ({transactions}) => {
                 <div>
                   <Badge status={BadgeStatus(item.status)} /><Moment format="MMM D" date={item.createdAt} style={{fontSize:'20px'}}/>
                   <Divider type="vertical"/>
-                  {startCase(item.type)} via {item.outletName} - <span style={{color:'#999999'}}>{item.currency}</span>{item.totalAmount}
+                  { item.type === 'cashIn' && item.entryType === 'debit' && <span>{startCase(item.type)} via {item.outletName}</span>}
+                  { item.type === 'transfer' && item.entryType === 'debit' &&
+                    <span>
+                      {item.targetAccount === profile.account ? 'Transfer to ' + item.sourceAccount : ''}
+                      {item.sourceAccount === profile.account ? 'Recieved from ' + item.targetAccount : ''}
+                    </span>
+                  }
+                  (<span style={{color:'#999999'}}>{item.currency}{item.amount}
+                      <span>
+                        {item.type === 'cashIn' ? '+'+item.currency + item.fee: ''}
+                        {item.type === 'transfer' && item.targetAccount === profile.account ? '+'+item.currency +item.fee : ''}
+                      </span>
+                  </span>)
                 </div>
               </List.Item>
             )}/>
