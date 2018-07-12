@@ -49,7 +49,7 @@ export default ({ready, currencies}) => {
         <Card
           hoverable
           className="wallet-card"
-          title="Ecash"
+          title="Ecash Wallet"
           loading={ready}
           style={CardStyle}
           actions={[

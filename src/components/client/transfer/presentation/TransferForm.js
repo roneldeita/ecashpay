@@ -51,10 +51,11 @@ export default ({currencies, primary, form, buttonState, submit}) => {
               help={AmountError || ''}>
               {getFieldDecorator('Amount', {
                 rules: [
-                  { required: true }
+                  { required: true },
+                  { pattern: /^(0|[1-9][0-9]*)$/, message: 'Invalid Amount'}
                 ],
               })(
-                <Input type="number" size="large" placeholder="0.00"/>
+                <Input type="number" size="large" min="0" placeholder="0"/>
               )}
             </Form.Item>
           </Col>

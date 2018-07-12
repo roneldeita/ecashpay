@@ -6,8 +6,8 @@ export default () => {
   return(
     <div>
       <Alert
-        message="Verification Success!"
-        description="Your photo(s) had been successfully verified."
+        message="Identification Request Status!"
+        description="Your ID has been successfully verified!"
         type="success"
         showIcon
       />

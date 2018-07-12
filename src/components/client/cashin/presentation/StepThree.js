@@ -17,6 +17,7 @@ const Info ={
 }
 
 const StepThree = ({auth, transaction, cancel, cancelState, uploadState, toggleUpload, loadTransaction}) => {
+  console.log(transaction)
   const Status = (status) => {
     switch(status){
       case 0:
@@ -29,9 +30,15 @@ const StepThree = ({auth, transaction, cancel, cancelState, uploadState, toggleU
         //
     }
   }
+  const Title = (
+    <div>
+      <span style={{fontSize:'14px', color:'#999999'}}>Transaction ID : </span>
+      <span style={{fontSize:'18px'}}>{transaction.no}</span>
+    </div>
+  )
   return(
-    <Card loading={isEmpty(transaction)} hoverable  style={{cursor:'default '}}>
-      <Row style={{marginTop:'50px'}} type="flex" justify="center">
+    <Card loading={isEmpty(transaction)} hoverable  style={{cursor:'default '}} title={Title}>
+      <Row style={{marginTop:'10px'}} type="flex" justify="center">
         <Col span={22}>
           {transaction.status === 0 && !uploadState && <Pending
             transaction={transaction}

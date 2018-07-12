@@ -55,14 +55,14 @@ export default ({ready, levels, phone, progress}) => {
                 ?
                 <div>
                   <img src={Check} style={Img} alt="check" />
-                  <p style={RequirementTitle}>Verify Phone Number</p>
-                  <p style={Desc}>This allows us to contact you and send important updates.</p>
+                  <p style={RequirementTitle}>Mobile Verification</p>
+                  <p style={Desc}>Receive all the latest and important updates on products and services through sms by verifying your mobile number.</p>
                 </div>
                 :
                 <Link to="/client/verify/phone">
                   <img src={VerifyPhoneNumber} style={Img} alt="verify phone number" />
-                  <p style={RequirementTitle}>Verify Phone Number</p>
-                  <p style={Desc}>This allows us to contact you and send important updates.</p>
+                  <p style={RequirementTitle}>Mobile Verification</p>
+                  <p style={Desc}>Receive all the latest and important updates on products and services through sms by verifying your mobile number.</p>
                 </Link>
               }
             </Col>
@@ -71,14 +71,14 @@ export default ({ready, levels, phone, progress}) => {
                 ?
                 <div>
                   <img src={Check} style={Img} alt="check" />
-                  <p style={RequirementTitle}>Submit your photo</p>
-                  <p style={Desc}>Secure your account more by uploading your selfie with government-issued ID.</p>
+                  <p style={RequirementTitle}>KYC Level 1</p>
+                  <p style={Desc}>Maximize features and access the easy-to-use tools in your account by uploading governement-issued I.D and Selfie.</p>
                 </div>
                 :
                 <Link to="/client/upload/id">
                   <img src={VerifyID} style={Img} alt="submit ID"/>
-                  <p style={RequirementTitle}>Submit your photo</p>
-                  <p style={Desc}>Secure your account more by uploading your selfie with government-issued ID.</p>
+                  <p style={RequirementTitle}>KYC Level 1</p>
+                  <p style={Desc}>Maximize features and access the easy-to-use tools in your account by uploading governement-issued I.D and Selfie.</p>
                 </Link>
               }
             </Col>
@@ -87,21 +87,21 @@ export default ({ready, levels, phone, progress}) => {
                 ?
                 <div>
                   <img src={Check} style={Img} alt="check" />
-                  <p style={RequirementTitle}>Proof of Billing</p>
-                  <p style={Desc}>Submitting the right documents increases your maximum wallet balance</p>
+                  <p style={RequirementTitle}>KYC Level 2</p>
+                  <p style={Desc}>Increase your fund limits and access more tools by uploading your latest proof of billing.</p>
                 </div>
                 :
                 <Link to="/client/upload/pob">
                   <img src={BillsStatement} style={Img} alt="add billing statement"/>
-                  <p style={RequirementTitle}>Proof of Billing</p>
-                  <p style={Desc}>Submitting the right documents increases your maximum wallet balance</p>
+                  <p style={RequirementTitle}>KYC Level 2</p>
+                  <p style={Desc}>Increase your fund limits and access more tools by uploading your latest proof of billing.</p>
                 </Link>
               }
             </Col>
             <Col className="" xs={24} sm={12} lg={8} xl={4}>
               <img src={LinkEcashCard} style={Img} alt="link Ecashpay card"/>
-              <p style={RequirementTitle}>Link Ecash Card</p>
-              <p style={Desc}>Cash in instantly at any partnered outlets.</p>
+              <p style={RequirementTitle}>Link Your Ecash Card</p>
+              <p style={Desc}>Transfer and get your cash instantly through our accredited banks nationwide.</p>
               <Tag>Available soon</Tag>
             </Col>
           </Row>

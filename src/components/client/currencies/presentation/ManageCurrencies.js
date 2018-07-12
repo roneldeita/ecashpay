@@ -41,10 +41,10 @@ export default ({form, currencies, addCurrency, makePrimary, deleteCurrency, but
   return (
     <Card
       hoverable
-      title="Manage Your Currencies"
+      title="Manage Currency"
       style={CardStyle}
       actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
-      <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.</p>
+      <p>Any payment received in new currency will be automatically credited to that balance. Primary currency will be used in sending or requesting payments.</p>
       <br/>
       <Form layout="inline" onSubmit={addCurrency} style={{marginBottom:'15px'}}>
         <FormItem

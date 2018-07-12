@@ -41,14 +41,15 @@ const StepTwo = ({visibility, next, changeAmount, data, prev, form}) => {
           <Col span={14}>
             <FormItem
               hasFeedback={isFieldTouched('Amount')}
-              validateStatus={EmailError ? 'error' : 'success'}
+              validateStatus={EmailError ? 'error' : ''}
               help={EmailError || ''}>
               {getFieldDecorator('Amount', {
                 rules: [
-                  { required: true }
+                  { required: true },
+                  { pattern: /^(0|[1-9][0-9]*)$/, message: 'Invalid Amount'}
                 ],
               })(
-                <Input type="number" size="large" placeholder="0" onChange={changeAmount}/>
+                <Input type="number" size="large" min="0" placeholder="0" onChange={changeAmount}/>
               )}
               <Button type="primary" htmlType="submit" id="SubmitButton" style={{display:'none'}}>Submit</Button>
             </FormItem>

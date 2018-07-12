@@ -83,7 +83,7 @@ class StepOne extends React.PureComponent{
             ],
           })(
             <Select
-              placeholder="Please select a country"
+              placeholder="Choose"
               showSearch
               optionFilterProp="children"
               size="large"
@@ -114,7 +114,7 @@ class StepOne extends React.PureComponent{
             <Input
               addonBefore={'+' + this.state.callingCode}
               size="large"
-              placeholder="Phone Number"/>
+              placeholder="Input"/>
           )}
         </Form.Item>
         <Form.Item wrapperCol={{ sm:{span: 16, offset: 8} }} style={{textAlign:'center'}}>
@@ -124,7 +124,7 @@ class StepOne extends React.PureComponent{
             size="large"
             loading={this.state.buttonState}
             style={{width:'100%'}}>
-            {this.state.buttonState ? 'Sending Verification...' : 'Send Verification Code'}
+            {this.state.buttonState ? 'Sending...' : 'Send Code'}
           </Button>
         </Form.Item>
         <style jsx="true">{`

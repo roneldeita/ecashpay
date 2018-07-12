@@ -6,9 +6,11 @@ class StepOne extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
-      buttonState: false
+      buttonState: false,
+      resendState:false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleResend = this.handleResend.bind(this)
   }
   handleSubmit(event){
     this.props.form.validateFields((err, values) => {
@@ -42,13 +44,32 @@ class StepOne extends React.PureComponent{
     })
     event.preventDefault()
   }
+  handleResend(event){
+    this.setState({resendState:true})
+    Phone({areaCode:this.props.code, phone:this.props.phone}, {'x-access-token':this.props.auth.token}).Request()
+    .then(res => {
+      Modal.success({
+        title: 'Resending verification success',
+        content: res.data.message,
+      })
+      this.setState({resendState:false})
+    }).catch(err => {
+      Modal.error({
+        title: 'Phone verification error',
+        content: err.response.data.message,
+      })
+      setTimeout(()=>{
+        this.setState({resendState:false})
+      }, 800)
+    })
+  }
   render(){
     //console.log(this.props)
     const { getFieldDecorator, isFieldTouched, getFieldError } = this.props.form
     const VerificationError = getFieldError('Verification Code')
     return (
       <Form onSubmit={this.handleSubmit}>
-        <p>Verification code has been sent to +{this.props.code}<b>{this.props.phone}</b> via sms. It may takes several seconds to arrive.</p>
+        <p>A verification code was sent to +{this.props.code}<b>{this.props.phone}</b>.</p>
         <Form.Item
           hasFeedback={isFieldTouched('Verification Code')}
           validateStatus={VerificationError ? 'error' : ''}
@@ -60,11 +81,16 @@ class StepOne extends React.PureComponent{
               { max: 4 }
             ],
           })(
-            <Input size="large" placeholder="Verification Code" onKeyUp={this.handleSubmit}/>
+            <Input size="large" placeholder="Enter the 4-digit code" onKeyUp={this.handleSubmit}/>
           )}
         </Form.Item>
+        <p>Didn't receive the code?
+          {this.state.resendState ?
+            <span style={{color:'#999999'}}> Resending...</span> :
+            <a onClick={this.handleResend}> Resend</a>}
+        </p>
         <Form.Item style={{textAlign:'center'}}>
-          <Button size="large" style={{marginRight:'10px'}} onClick={()=>{this.props.changeStep({step:0})}}>Cancel</Button>
+          <Button size="large" style={{marginRight:'10px'}} onClick={()=>{this.props.changeStep({step:0})}}>Change Number</Button>
           <Button type="primary" htmlType="submit" size="large" loading={this.state.buttonState}>{this.state.buttonState ? 'Verifying...' : 'Verify Phone'}</Button>
         </Form.Item>
       </Form>

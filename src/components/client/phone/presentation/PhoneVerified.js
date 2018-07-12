@@ -6,8 +6,8 @@ export default () => {
   return(
     <div>
       <Alert
-        message="verification Success!"
-        description="Your phone has been successfully verified."
+        message="Verification Successful!"
+        description="You have successfully verified your mobile number."
         type="success"
         showIcon
       />

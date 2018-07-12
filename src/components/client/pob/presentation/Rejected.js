@@ -10,9 +10,9 @@ const IconStyle = {
 export default ({resubmit}) => {
   const Desc = (
     <div>
-      <h2>Unable to verify your identity</h2>
+      <h2>Identification Request Status</h2>
       <br/>
-      <p>Unfortunately, we were unable to verify your identity. Please try submitting proof of billing again.</p>
+      <p>We're sorry. We are unable to verify your identity. To proceed, please re-submit valid requirements.</p>
     <Button onClick={resubmit}>Try Again</Button>
     </div>
   )

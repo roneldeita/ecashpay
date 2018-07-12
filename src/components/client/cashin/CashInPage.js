@@ -56,7 +56,7 @@ class CashInPage extends React.PureComponent{
     }).catch(err=>{
       console.log(err)
       Modal.error({
-        title: 'Login Error',
+        title: 'Cash In Error',
         content: err.response.data.message,
       })
     })

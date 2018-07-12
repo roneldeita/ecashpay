@@ -69,8 +69,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   {getFieldDecorator('Nature of Business', {
                     initialValue: firstName,
                     rules: [
-                      { required: true },
-                      { pattern: /^[a-zA-Z\s-'ñÑ_]+$/, message: 'Nature of Business should only contain letters' }
+                      { required: true }
                     ],
                   })(
                     <Select
@@ -79,16 +78,24 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                       size="large">
                       <Option value="Advertising / Marketing / Promotion / PR">Advertising / Marketing / Promotion/ PR</Option>
                       <Option value="Banking / Financial Services">Banking / Financial Services</Option>
-                      <Option value="Call Center / IT-Enabled / BPO">Call Center / IT-Enabled / BPO</Option>
+                      <Option value="Call Center / IT-Enabled / BPO">Call Center / IT-Enabled Services / BPO</Option>
                       <Option value="Computer / Information Technology">Computer / Information Technology</Option>
                       <Option value="Education">Education</Option>
                       <Option value="Entertainment / Media / Journalism">Entertainment / Media / Journalism</Option>
-                      <Option value="Entertainment / Media / Journalism">Entertainment / Media / Journalism</Option>
                       <Option value="Food & Beverage/ Catering/ Restaurant">Food & Beverage/ Catering / Restaurant</Option>
-                      <Option value="General / Wholesale Trading">General / Wholesale Trading</Option>
+                      <Option value="General & Wholesale Trading">General & Wholesale Trading</Option>
                       <Option value="Government / Defence">Government / Defence</Option>
                       <Option value="Healthcare / Medical">Healthcare / Medical</Option>
-                    </Select>
+                      <Option value="Hotel / Hospitality">Hotel / Hospitality</Option>
+                      <Option value="Human Resources Management / Consulting">Human Resources Management / Consulting</Option>
+                      <Option value="Manufacturing / Production">Manufacturing / Production</Option>
+                      <Option value="Non-Profit Organization / Social Services / NGO">Non-Profit Organization / Social Services / NGO</Option>
+                      <Option value="Property / Real Estate">Property / Real Estate</Option>
+                      <Option value="Retail / Merchandise">Retail / Merchandise</Option>
+                      <Option value="Telecommunication">Telecommunication</Option>
+                      <Option value="Transportation / Logistics">Transportation / Logistics</Option>
+                      <Option value="Travel / Tourism">Travel / Tourism</Option>
+                </Select>
                   )}
                 </FormItem>
                 <FormItem

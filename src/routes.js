@@ -19,6 +19,7 @@ import ProfilePage from './components/auth/personal/ProfilePage'
 import BusinessRegisterPage from './components/auth/business/RegisterPage'
 import BusinessVerificationPage from './components/auth/business/VerificationPage'
 import BusinesProfilePage from './components/auth/business/ProfilePage'
+import RequirementsPage from './components/auth/business/RequirementsPage'
 
 //individual Account
 import ClientDashboard from './components/client/dashboard/DashboardPage'
@@ -77,6 +78,7 @@ const Routes = ({ store }) => (
           <Route path="/business/register" render={ () => ( !isLoggedIn() ? <BusinessRegisterPage/> : <Redirect to="/redirecting"/>)}/>
           <Route path="/business/verify" render={ (props) => ( !isClient() ? <BusinessVerificationPage/> : <Redirect to="/redirecting"/> )} />
           <Route path="/business/profile" render={ (props) => ( !isClient() ? <BusinesProfilePage {...props}/> : <Redirect to="/redirecting"/> )} />
+          <Route path="/business/requirements" render={ (props) => ( !isClient() ? <RequirementsPage {...props}/> : <Redirect to="/redirecting"/> )} />
 
           <Route path="/admin/login" render={ () => ( !isLoggedIn() ? <AdminLogin/> : <Redirect to="/redirecting"/> )}/>
           <Route path="/admin" exact render={ (props) => ( isAdmin() ? <AdminDashboard {...props}/> : <Redirect to="/redirecting"/> )}/>

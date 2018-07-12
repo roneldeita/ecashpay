@@ -35,6 +35,8 @@ import Idle from 'react-idle'
 //api services
 //import { Auth } from './services/api'
 import { hasToken } from './assets/utils/auth'
+//socket.io
+import SubscribeToTimer from './services/socket'
 //styles
 const LogoContainer = {
   margin:'20px 10px 20px 10px',

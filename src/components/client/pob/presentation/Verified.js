@@ -6,7 +6,7 @@ export default () => {
   return(
     <div>
       <Alert
-        message="Verification Success!"
+        message="Identification Request Status"
         description="Your file(s) had been successfully verified."
         type="success"
         showIcon

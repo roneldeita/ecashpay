@@ -10,11 +10,9 @@ const IconStyle = {
 export default ({cancel, location, type}) => {
   const Desc = (
     <div>
-      <h2>Identification request pending approval</h2>
+      <h2>Identification Request Sent for Approval</h2>
       <br/>
-      <p>You have already submitted your Identification request
-      that is currenty being review by out team.
-      We typically review request within 1-5 business days.</p>
+      <p>Your pending identification request is currently being reviewed by Ecashpay asia team. You will be notified within 1-5 business days via SMS and Email.</p>
       <br/>
       <Popconfirm title="Are you sure to cancel your request?" placement="bottom"  onConfirm={cancel} onCancel="" okText="Yes" cancelText="No">
         <Button>Cancel Request</Button>
