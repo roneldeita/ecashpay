@@ -41,13 +41,16 @@ const StepOne = ({visibility, next, merchants, featured, select}) => {
   return(
     <div style={visibility ? Show : Hide}>
       <Card loading={isEmpty(merchants)}>
-        <p style={Title}>How would you like to Cash In?</p>
+        <p style={Title}>Add money to your Ecash Pay Account <br/>at any of our Cash In channels.</p>
           <Card>
             {renderFeatured(featured, next, select)}
           </Card>
+          <p>1. Over-the-counter (OTC)</p>
+          <p>2. Bank Deposit</p>
           <Card>
             {renderMerchants(merchants, next, select)}
           </Card>
+          <p>3. Credit/Debit Card</p>
       </Card>
       <style jsx="true">{`
         .ant-card-bordered{

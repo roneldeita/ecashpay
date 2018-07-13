@@ -3,7 +3,7 @@ import {Row, Col} from 'antd'
 import Navigation from '../common/Navigation'
 import ComingSoon from '../common/ComingSoon'
 
-class BuyLoadPage extends React.PureComponent{
+class BookTravelPage extends React.PureComponent{
   render(){
     //console.log(this.props)
     return(
@@ -19,4 +19,4 @@ class BuyLoadPage extends React.PureComponent{
   }
 }
 
-export default BuyLoadPage
+export default BookTravelPage

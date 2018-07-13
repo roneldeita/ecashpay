@@ -37,7 +37,7 @@ class VerifyPhonePage extends React.PureComponent{
             <div key="0">
               <Card
                 hoverable
-                title={ <span>Verify your Phone number</span> }
+                title={ <span>Mobile Number Verification</span> }
                 style={CardStyle}
                 loading={isEmpty(this.props.profile)}
                 actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> {this.state.step===2?'Return to Dashboard':'Skip'}</Link>]}>

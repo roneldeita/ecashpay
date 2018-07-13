@@ -26,7 +26,10 @@ import ClientDashboard from './components/client/dashboard/DashboardPage'
 import Settings from './components/client/settings/SettingsPage'
 import CashIn from './components/client/cashin/CashInPage'
 import Transaction from './components/client/cashin/TransactionPage'
-import SendMoney from './components/client/sendmoney/SendMoney'
+import SendMoney from './components/client/sendmoney/SendMoneyPage'
+import BuyLoad from './components/client/buyload/BuyLoadPage'
+import PayBills from './components/client/paybills/PayBillsPage'
+import BookTravel from './components/client/booktravel/BookTravelPage'
 import Currencies from './components/client/currencies/CurrenciesPage'
 import VerifyPhone from './components/client/phone/VerifyPhonePage'
 import UploadValidId from './components/client/identification/ValidIdPage'
@@ -68,6 +71,9 @@ const Routes = ({ store }) => (
           <Route path="/client/settings" render={ props => ( isClient(2) ? <Settings {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/cashin" render={ props => ( isClient(2) ? <CashIn {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/sendmoney" render={ props => ( isClient(2) ? <SendMoney {...props}/> : <Redirect to="/redirecting"/>)} />
+          <Route path="/client/buyload" render={ props => ( isClient(2) ? <BuyLoad {...props}/> : <Redirect to="/redirecting"/>)} />
+          <Route path="/client/paybills" render={ props => ( isClient(2) ? <PayBills {...props}/> : <Redirect to="/redirecting"/>)} />
+          <Route path="/client/booktravel" render={ props => ( isClient(2) ? <BookTravel {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/transactions/:no" render={ props => ( isClient(2) ? <Transaction {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/manage/currencies" render={ props => ( isClient(2) ? <Currencies {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/verify/phone" render={ props => ( isClient(2) ? <VerifyPhone {...props}/> : <Redirect to="/redirecting"/>)} />

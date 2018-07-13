@@ -114,7 +114,7 @@ class SubmitPobPage extends React.PureComponent{
             <div key="0">
               <Card
                 hoverable
-                title={ <span>Submit Proof Of Billing</span> }
+                title={ <span>KYC Level 2</span> }
                 style={CardStyle}
                 loading={this.state.identification === ''}
                 actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>

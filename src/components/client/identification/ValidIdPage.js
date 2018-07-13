@@ -20,15 +20,17 @@ class ValidIdPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
-      identification:'',
+      identification:{},
       status:'',
       buttonState:false,
-      files:[],
+      selfie:[],
+      id:[],
       preview: false,
       image:''
     }
     this.validateFile = this.validateFile.bind(this)
-    this.handleFilesChange = this.handleFilesChange.bind(this)
+    this.handleSelfieChange = this.handleSelfieChange.bind(this)
+    this.handleIdChange = this.handleIdChange.bind(this)
     this.handlePreview = this.handlePreview.bind(this)
     this.closePreview = this.closePreview.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -38,9 +40,13 @@ class ValidIdPage extends React.PureComponent{
     this.setState({buttonState:true})
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const { fileList } = values.File
+        const SelfieList = values.Selfie.fileList
+        const IdList  = values.Id.fileList
         const formData = new FormData()
-        fileList.forEach((file) => {
+        SelfieList.forEach((file) => {
+          formData.append('files', file.originFileObj)
+        })
+        IdList.forEach((file) => {
           formData.append('files', file.originFileObj)
         })
         Id(formData, {'x-access-token':this.props.auth.token, 'Content-type':'multipart/form-data'}).SubmitId()
@@ -78,7 +84,7 @@ class ValidIdPage extends React.PureComponent{
         callback('Invalid File')
       }
       if(value.fileList.length > 2){
-        callback('Maximum of 2 files allowed')
+        callback('Maximum of one (1) file allowed')
       }
       if(value.fileList.length === 0){
         callback('File is required')
@@ -95,9 +101,13 @@ class ValidIdPage extends React.PureComponent{
       preview: true,
     });
   }
-  handleFilesChange(info){
+  handleSelfieChange(info){
     let {fileList} = info
-    this.setState({files:fileList});
+    this.setState({selfie:fileList});
+  }
+  handleIdChange(info){
+    let {fileList} = info
+    this.setState({id:fileList});
   }
   cancelRequest(){
     Id(null, {'x-access-token':this.props.auth.token}).Cancel()
@@ -128,7 +138,7 @@ class ValidIdPage extends React.PureComponent{
             <div key="0">
               <Card
                 hoverable
-                title={ <span>Submit your selfie with government-issued ID</span> }
+                title="KYC Level 1"
                 style={CardStyle}
                 loading={this.state.identification === ''}
                 actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
@@ -136,8 +146,10 @@ class ValidIdPage extends React.PureComponent{
                   <UploadIdForm
                     buttonState={this.state.buttonState}
                     form={this.props.form}
-                    files={this.state.files}
-                    onFilesChange={this.handleFilesChange}
+                    selfie={this.state.selfie}
+                    onSelfieChange={this.handleSelfieChange}
+                    id={this.state.id}
+                    onIdChange={this.handleIdChange}
                     handlePreview={this.handlePreview}
                     preview={this.state.preview}
                     image={this.state.image}
@@ -148,9 +160,10 @@ class ValidIdPage extends React.PureComponent{
                 </div>
                 <div style={{display:this.state.identification.status === 'pending' ? 'block' : 'none'}}>
                   <Pending
+                    identification={this.state.identification}
                     cancel={this.cancelRequest}
                     front={this.state.identification.frontLocation}
-                    files={this.state.identification.files}
+                    selfie={this.state.identification.selfie}
                     back={this.state.identification.backLocation}
                     handlePreview={this.handlePreview}
                     preview={this.state.preview}

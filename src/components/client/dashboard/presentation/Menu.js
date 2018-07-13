@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {Row, Col, Card, Tag} from 'antd'
-import {includes, isEmpty} from 'lodash'
+import {includes} from 'lodash'
 import QueueAnim from 'rc-queue-anim'
 // import Addfunds from '../../../../assets/svg/ecommerce/ecommerce_wallet.svg'
 // import SendMoney from '../../../../assets/svg/ecommerce/ecommerce_banknote.svg'
@@ -39,22 +39,22 @@ const EcashStatusDesc = {
 }
 export default ({ready, profile}) => {
 
-  const Directlink = () => {
-    if(!isEmpty(profile)){
-      const Levels = profile.levels
-      if(Levels.length === 0){
-        return <p style={EcashStatusDesc}>Secure your account more by uploading your selfie with government-issued ID. <a href="/client/upload/id">Submit Now!</a></p>
-      }else if(Levels.length === 1){
-        if(includes(Levels, 1)){
-          return <p style={EcashStatusDesc}>Submitting the right documents increases your maximum ecash balance. <a href="/client/upload/pob">Submit Now!</a></p>
-        }else if(includes(Levels, 2)){
-          return <p style={EcashStatusDesc}>Secure your account more by uploading your selfie with government-issued ID. <a href="/client/upload/id">Submit Now!</a></p>
-        }
-      }else{
-        return <p style={EcashStatusDesc}>Seems like you don{`'`}t have an Ecashpay Card yet. <a href="/">Apply Now!</a></p>
-      }
-    }
-  }
+  // const Directlink = () => {
+  //   if(!isEmpty(profile)){
+  //     const Levels = profile.levels
+  //     if(Levels.length === 0){
+  //       return <p style={EcashStatusDesc}>Secure your account more by uploading your selfie with government-issued ID. <a href="/client/upload/id">Submit Now!</a></p>
+  //     }else if(Levels.length === 1){
+  //       if(includes(Levels, 1)){
+  //         return <p style={EcashStatusDesc}>Submitting the right documents increases your maximum ecash balance. <a href="/client/upload/pob">Submit Now!</a></p>
+  //       }else if(includes(Levels, 2)){
+  //         return <p style={EcashStatusDesc}>Secure your account more by uploading your selfie with government-issued ID. <a href="/client/upload/id">Submit Now!</a></p>
+  //       }
+  //     }else{
+  //       return <p style={EcashStatusDesc}>Seems like you don{`'`}t have an Ecashpay Card yet. <a href="/">Apply Now!</a></p>
+  //     }
+  //   }
+  // }
   //console.log(profile)
   return(
     <Card loading={ready} style={CardStyle}>
@@ -65,8 +65,10 @@ export default ({ready, profile}) => {
               <div key="0">
                 {/*<span className="fa fa-user-circle" name="user-circle" style={UserIcon} />*/}
                 <span className="" style={{display:'inline-block'}}>
-                  <p className="" style={UserName}>{profile.firstName} {profile.lastName}</p> <Tag style={{color:'#1890ff', fontSize:'14px', border:'none', paddingTop:'1px'}}>{profile.account}</Tag><br/>
-                  {Directlink()}
+                  <br/>
+                  <p className="" style={UserName}>{profile.firstName} {profile.lastName}</p><br/>
+                  <Tag style={{color:'#1890ff', fontSize:'14px', border:'none', paddingTop:'1px'}}>{profile.account}</Tag>
+                  {/*{Directlink()}*/}
                 </span>
               </div>
             </QueueAnim>

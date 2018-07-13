@@ -12,10 +12,12 @@ class ResetPasswordPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
-      buttonState: false
+      buttonState: false,
+      resendState:false
     }
     this.onClickSubmitButton = this.onClickSubmitButton.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleResend = this.handleResend.bind(this)
     this.checkConfirm = this.checkConfirm.bind(this)
     this.checkPassword = this.checkPassword.bind(this)
     document.title="Forgot Password - Ecashpay"
@@ -71,8 +73,30 @@ class ResetPasswordPage extends React.PureComponent{
     })
     event.preventDefault()
   }
+  handleResend(){
+    this.setState({resendState:true})
+    const Email = sessionStorage.getItem('recovery')
+    Auth({'email':Email}).recoveryRequest()
+    .then( res => {
+      setTimeout(() => {
+        this.setState({resendState:false})
+      }, 800)
+      Modal.success({
+        title: 'Resend Success',
+        content: 'A Verification code has been sent to your email',
+      })
+    })
+    .catch( err => {
+      setTimeout(() => {
+        this.setState({resendState:false})
+      }, 800)
+      Modal.error({
+        title: 'Resend Error',
+        content: err.response.data.message,
+      })
+    })
+  }
   render(){
-    console.log(this.state)
     return(
       <div>
         <ResetPasswordForm
@@ -82,6 +106,8 @@ class ResetPasswordPage extends React.PureComponent{
           checkPassword = {this.checkPassword}
           checkConfirm = {this.checkConfirm}
           buttonWasClicked={this.onClickSubmitButton}
+          resendState={this.state.resendState}
+          resend={this.handleResend}
           />
       </div>
     )

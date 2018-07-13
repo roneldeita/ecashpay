@@ -59,38 +59,38 @@ export default ({location}) =>{
         <Col className="" xs={24} sm={24} md={24} lg={20} xl={18} xxl={14}>
           <Row type="flex" justify="center">
             <Col className="" span={4}>
-              <Link to="/client/cashin" style={(Path === '/client/cashin' ? ActiveTab : Tab)}>
+              <Link to="/client/cashin" style={(Path === '/client/cashin' ?  ActiveTab : Tab)}>
                 <span className="pe-7s-wallet" style={(Path === '/client/cashin' ?  TabIconActive : TabIcon)}></span>
                 {/*<img src={(Path === '/client/cashin' ?  AddfundsActive : Addfunds)} alt="send money" style={TabImg}/>*/}
                 <p style={(Path === '/client/cashin' ?  TabNameActive : TabName)}>Cash In</p>
               </Link>
             </Col>
             <Col className="" span={4}>
-              <Link to="/client/sendmoney" style={ (Path === '/client/sendmoney' ? ActiveTab : Tab) }>
+              <Link to="/client/sendmoney" style={(Path === '/client/sendmoney' ?  ActiveTab : Tab)}>
                 <span className="pe-7s-cash" style={(Path === '/client/sendmoney' ?  TabIconActive : TabIcon)}></span>
                 {/*<img src={(Path === '/client/sendmoney' ?  SendMoneyActive : SendMoney)} alt="send money" style={TabImg}/>*/}
                 <p style={(Path === '/client/sendmoney' ?  TabNameActive : TabName)}>Send Money</p>
               </Link>
             </Col>
             <Col className="" span={4}>
-              <Link to="/client/buyload" style={Tab}>
+              <Link to="/client/buyload" style={(Path === '/client/buyload' ?  ActiveTab : Tab)}>
                 <span className="pe-7s-phone" style={(Path === '/client/buyload' ?  TabIconActive : TabIcon)}></span>
                 {/*<img src={BuyLoad} alt="send money" style={TabImg}/>*/}
                 <p style={(Path === '/client/buyload' ?  TabNameActive : TabName)}>Buy Load</p>
               </Link>
             </Col>
             <Col className="" span={4}>
-              <Link to="/client/paybills" style={Tab}>
+              <Link to="/client/paybills" style={(Path === '/client/paybills' ?  ActiveTab : Tab)}>
                 <span className="pe-7s-credit" style={(Path === '/client/paybills' ?  TabIconActive : TabIcon)}></span>
                 {/*<img src={PayBills} alt="send money" style={TabImg}/>*/}
                 <p style={(Path === '/client/paybills' ?  TabNameActive : TabName)}>Pay Bills</p>
               </Link>
             </Col>
             <Col className="" span={4}>
-              <Link to="/client/book" style={Tab}>
-                <span className="pe-7s-map-2" style={(Path === '/client/book' ?  TabIconActive : TabIcon)}></span>
+              <Link to="/client/booktravel" style={(Path === '/client/booktravel' ?  ActiveTab : Tab)}>
+                <span className="pe-7s-map-2" style={(Path === '/client/booktravel' ?  TabIconActive : TabIcon)}></span>
                 {/*<img src={BookTravel} alt="send money" style={TabImg}/>*/}
-                <p style={(Path === '/client/book' ?  TabNameActive : TabName)}>Book Travel</p>
+                <p style={(Path === '/client/booktravel' ?  TabNameActive : TabName)}>Book Travel</p>
               </Link>
             </Col>
           </Row>

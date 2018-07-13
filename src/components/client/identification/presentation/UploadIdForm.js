@@ -1,19 +1,27 @@
 import React from 'react'
-import { Form, Upload, Icon, Modal, Button, Row, Col } from 'antd'
+import { Form, Upload, Modal, Button, Row, Col } from 'antd'
+import SelfieWithId from '../../../../assets/images/selfie_with_id.png'
+import Id from '../../../../assets/images/id.png'
 
-const UploadButton = (
+const UploadSelfieButton = (
   <div>
-    <Icon type="inbox" style={{fontSize:'32px'}}/>
+    <img src={SelfieWithId} style={{height:'100px'}} alt="selfie watermark"/>
     <p>Click or drag to this area</p>
   </div>
 )
-
+const UploadIdButton = (
+  <div>
+    <img src={Id} style={{height:'100px'}}  alt="id watermark"/>
+    <p>Click or drag to this area</p>
+  </div>
+)
 export default ({
   form,
   buttonState,
-  files,
+  selfie,
   id,
-  onFilesChange,
+  onSelfieChange,
+  onIdChange,
   handlePreview,
   preview,
   image,
@@ -23,20 +31,21 @@ export default ({
   }) => {
   const { getFieldDecorator, getFieldError } = form
   // const IdTypeError = getFieldError('ID type')
-  const fileError = getFieldError('File')
+  const SelfieError = getFieldError('Selfie')
+  const IdError = getFieldError('Id')
 
-  const FilesProps = {
-    fileList:files,
-    onChange: onFilesChange,
+  const SelfieProps = {
+    fileList:selfie,
+    onChange: onSelfieChange,
     onPreview: handlePreview,
     listType: "picture",
     beforeUpload: (file) => {
       return false;
     },
   }
-  const FileIdProps = {
+  const IdProps = {
     fileList:id,
-    onChange: onFilesChange,
+    onChange: onIdChange,
     onPreview: handlePreview,
     listType: "picture",
     beforeUpload: (file) => {
@@ -80,31 +89,31 @@ export default ({
           </Form.Item>*/}
           <p>1. Please take a clear photo of yourself holding your government-issued ID next to your face.</p>
           <Form.Item
-            validateStatus={fileError ? 'error' : ''}
-            help={fileError || ''}>
-            {getFieldDecorator('File', {
+            validateStatus={SelfieError ? 'error' : ''}
+            help={SelfieError || ''}>
+            {getFieldDecorator('Selfie', {
               rules: [
                 { required: true },
                 { validator: validateFile }
               ],
             })(
-              <Upload.Dragger {...FilesProps} disabled={files.length >= 1}>
-                {UploadButton}
+              <Upload.Dragger {...SelfieProps} disabled={selfie.length >= 1}>
+                {UploadSelfieButton}
               </Upload.Dragger>
             )}
           </Form.Item>
           <p>2. Upload government-issued ID.</p>
           <Form.Item
-            validateStatus={fileError ? 'error' : ''}
-            help={fileError || ''}>
-            {getFieldDecorator('File', {
+            validateStatus={IdError ? 'error' : ''}
+            help={IdError || ''}>
+            {getFieldDecorator('Id', {
               rules: [
                 { required: true },
                 { validator: validateFile }
               ],
             })(
-              <Upload.Dragger {...FileIdProps} disabled={files.length >= 1}>
-                {UploadButton}
+              <Upload.Dragger {...IdProps} disabled={id.length >= 1}>
+                {UploadIdButton}
               </Upload.Dragger>
             )}
           </Form.Item>
@@ -130,18 +139,18 @@ export default ({
           }
           .ant-upload-list-picture .ant-upload-list-item,
           .ant-upload-list-picture-card .ant-upload-list-item{
-            height: 100px
+            height: 150px
           }
           .ant-upload-list-item-info > span{
-            margin-top:20px
+            margin-top:0px
           }
           .ant-upload-list-picture .ant-upload-list-item-thumbnail img{
-            width:80px;
-            height:80px;
+            width:130px;
+            height:130px;
             object-fit: cover !important
           }
           .ant-upload-list-picture .ant-upload-list-item-name{
-            padding-left: 80px
+            padding-left: 130px
           }
         `}
       </style>

@@ -7,15 +7,15 @@ const IconStyle = {
   marginBottom:'10px'
 }
 
-export default ({cancel, front, back, files, handlePreview, preview, image, closePreview}) => {
+export default ({cancel, front, back, identification, handlePreview, preview, image, closePreview}) => {
   const Desc = (
     <div>
       <h2>Identification Request Sent for Approval</h2>
       <br/>
       <p>Your pending identification request is currently being reviewed by Ecashpay asia team. You will be notified within 1-5 business days via SMS and Email.</p>
       <Row gutter={24} justify="center" type="flex">
-        {files !== undefined &&
-          files.map((file,index)=>(
+        {identification.files !== undefined &&
+          identification.files.map((file,index)=>(
             <Col span={8} key={index}>
               <Card hoverable cover={<img alt="front" src={file.url}/>} onClick={()=> handlePreview({'url':file.url})}>
                 <Card.Meta title={file.name}/>

@@ -4,7 +4,7 @@ import QueueAnim from 'rc-queue-anim'
 import { Transaction } from '../../../../services/api'
 
 const Title = {
-  fontSize:'24px',
+  fontSize:'22px',
   fontWeight: 300,
   textAlign: 'center'
 }
@@ -92,7 +92,7 @@ class UploadSlip extends React.PureComponent{
                   closable
                   style={{marginBottom:'10px'}}
                 />}
-              <p style={Title}>Upload the copy of your deposit slip from <b>{this.props.transaction.outletName}</b></p>
+              <p style={Title}>Confirm your Cash in transaction by uploading a clear copy of your official receipt / deposit slip.</p>
               <Form onSubmit={this.handleSubmit}>
                 <Form.Item
                   {...formItemLayout}

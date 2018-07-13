@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { Row, Col, Card, Form, Input, Icon, Button } from 'antd'
 import * as css from '../../../assets/styles/ResetPasswordForm'
 
-const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSubmit, buttonWasClicked}) => {
+const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSubmit, buttonWasClicked, resendState, resend}) => {
   const { getFieldDecorator, isFieldTouched, getFieldError } = form
   const CodeError =  getFieldError('Code')
   const PasswordError =  getFieldError('Password');
@@ -61,6 +61,11 @@ const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSu
                       <Input placeholder="Confirm New Password" type="password" size="large" prefix={<Icon type="key" style={css.PrefixIcon} /> }/>
                     )}
                   </Form.Item>
+                  <p>Haven't received a verification?
+                    {resendState ?
+                      <span style={{color:'#999999'}}> Resending...</span> :
+                      <a onClick={resend}> Resend</a>}
+                  </p>
                   <Form.Item>
                     <Button id="submit" type="primary" htmlType="submit" loading={buttonState} onClick={buttonWasClicked}>{buttonState ? 'Resetting...' : 'Reset'}</Button>
                   </Form.Item>

@@ -5,6 +5,7 @@ import Pending from './Pending'
 import Canceled from './Canceled'
 import UploadSlip from './UploadSlip'
 import Processing from './Processing'
+import Completed from './Completed'
 
 const DividerStyle = {
   margin:'10px 0px'
@@ -23,9 +24,15 @@ const StepThree = ({auth, transaction, cancel, cancelState, uploadState, toggleU
       case 0:
         return <Tag color="blue">Payment pending</Tag>
       case 1:
-        return <Tag color="green">Done</Tag>
+        return <Tag color="green">Completed</Tag>
       case 2:
         return <Tag>Canceled</Tag>
+      case 3:
+        return <Tag>Expired</Tag>
+      case 4:
+        return <Tag color="blue">Verifying your payment</Tag>
+      case 5:
+        return <Tag color="orange">Payment Rejected</Tag>
       default:
         //
     }
@@ -45,6 +52,7 @@ const StepThree = ({auth, transaction, cancel, cancelState, uploadState, toggleU
             cancel={cancel}
             cancelState={cancelState}
             toggleUpload={toggleUpload}/>}
+          {transaction.status === 1 && <Completed/>}
           {transaction.status === 2 && !uploadState && <Canceled transaction={transaction}/>}
           {uploadState && transaction.status === 0 && <UploadSlip
             auth={auth}
