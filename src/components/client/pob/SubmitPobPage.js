@@ -22,7 +22,9 @@ class SubmitPobPage extends React.PureComponent{
     this.state={
       identification:'',
       buttonState:false,
-      files:[]
+      files:[],
+      preview: false,
+      image:''
     }
     this.validateFile = this.validateFile.bind(this)
     this.handleFileChange = this.handleFileChange.bind(this)
@@ -102,6 +104,15 @@ class SubmitPobPage extends React.PureComponent{
       this.setState({identification:res.data})
     })
   }
+  closePreview = () => {
+    this.setState({preview:false})
+  }
+  handlePreview = (file) => {
+    this.setState({
+      image: file.url || file.thumbUrl,
+      preview: true,
+    });
+  }
   componentDidMount(){
     this.checkStatus()
   }
@@ -114,7 +125,7 @@ class SubmitPobPage extends React.PureComponent{
             <div key="0">
               <Card
                 hoverable
-                title={ <span>KYC Level 2</span> }
+                title={ <span>Upgrade Level 2</span> }
                 style={CardStyle}
                 loading={this.state.identification === ''}
                 actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
@@ -130,9 +141,14 @@ class SubmitPobPage extends React.PureComponent{
                   </div>
                   <div style={{display:this.state.identification.status === 'pending' ? 'block' : 'none'}}>
                     <Pending
+                      identification={this.state.identification}
                       cancel={this.cancelRequest}
                       location={this.state.identification.location}
                       type={this.state.identification.type}
+                      handlePreview={this.handlePreview}
+                      preview={this.state.preview}
+                      image={this.state.image}
+                      closePreview={this.closePreview}
                       />
                   </div>
                   <div style={{display:this.state.identification.status === 'rejected' ? 'block' : 'none'}}>

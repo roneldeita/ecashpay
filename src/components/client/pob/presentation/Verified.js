@@ -6,8 +6,8 @@ export default () => {
   return(
     <div>
       <Alert
-        message="Identification Request Status"
-        description="Your file(s) had been successfully verified."
+        message="Congratulations!"
+        description="Your Upgrade Level 1 was successfully approved!"
         type="success"
         showIcon
       />

@@ -138,7 +138,7 @@ class ValidIdPage extends React.PureComponent{
             <div key="0">
               <Card
                 hoverable
-                title="KYC Level 1"
+                title="Upgrade Level 2"
                 style={CardStyle}
                 loading={this.state.identification === ''}
                 actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>

@@ -71,13 +71,13 @@ export default ({ready, levels, phone, progress}) => {
                 ?
                 <div>
                   <img src={Check} style={Img} alt="check" />
-                  <p style={RequirementTitle}>KYC Level 1</p>
+                  <p style={RequirementTitle}>Upgrade Level 1</p>
                   <p style={Desc}>Maximize features and access the easy-to-use tools in your account by uploading governement-issued I.D and Selfie.</p>
                 </div>
                 :
                 <Link to="/client/upload/id">
                   <img src={VerifyID} style={Img} alt="submit ID"/>
-                  <p style={RequirementTitle}>KYC Level 1</p>
+                  <p style={RequirementTitle}>Upgrade Level 1</p>
                   <p style={Desc}>Maximize features and access the easy-to-use tools in your account by uploading governement-issued I.D and Selfie.</p>
                 </Link>
               }
@@ -87,13 +87,13 @@ export default ({ready, levels, phone, progress}) => {
                 ?
                 <div>
                   <img src={Check} style={Img} alt="check" />
-                  <p style={RequirementTitle}>KYC Level 2</p>
+                  <p style={RequirementTitle}>Upgrade Level 2</p>
                   <p style={Desc}>Increase your fund limits and access more tools by uploading your latest proof of billing.</p>
                 </div>
                 :
                 <Link to="/client/upload/pob">
                   <img src={BillsStatement} style={Img} alt="add billing statement"/>
-                  <p style={RequirementTitle}>KYC Level 2</p>
+                  <p style={RequirementTitle}>Upgrade Level 2</p>
                   <p style={Desc}>Increase your fund limits and access more tools by uploading your latest proof of billing.</p>
                 </Link>
               }

@@ -10,9 +10,10 @@ const IconStyle = {
 export default ({cancel, front, back, identification, handlePreview, preview, image, closePreview}) => {
   const Desc = (
     <div>
-      <h2>Identification Request Sent for Approval</h2>
       <br/>
-      <p>Your pending identification request is currently being reviewed by Ecashpay asia team. You will be notified within 1-5 business days via SMS and Email.</p>
+      <h3>Status: Pending Approval</h3>
+      <br/>
+      <p>Youe Upgrade Level 1 request is currently being reviewed. Notification will be sent within 1-5 business days via email.</p>
       <Row gutter={24} justify="center" type="flex">
         {identification.files !== undefined &&
           identification.files.map((file,index)=>(

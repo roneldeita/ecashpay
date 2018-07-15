@@ -6,8 +6,8 @@ export default () => {
   return(
     <div>
       <Alert
-        message="Identification Request Status!"
-        description="Your ID has been successfully verified!"
+        message="Congratulations!"
+        description="Your Upgrade Level 2 was successfully approved!"
         type="success"
         showIcon
       />
