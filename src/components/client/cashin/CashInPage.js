@@ -52,7 +52,7 @@ class CashInPage extends React.PureComponent{
     }
     Transaction(Data, {'x-access-token':this.props.auth.token}).CashIn()
     .then(res=>{
-      this.props.history.push(`/client/transactions/${res.data.no}`)
+      this.props.history.push(`/client/transactions/cashin/${res.data.no}`)
     }).catch(err=>{
       console.log(err)
       Modal.error({

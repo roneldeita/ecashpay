@@ -1,6 +1,5 @@
 import React from 'react'
 import {Row, Col, Card, Form, Radio, Tooltip, Icon, Upload, Button} from 'antd'
-import { isEmpty } from 'lodash'
 
 const AntForm = {
   margin:'50px 0px'

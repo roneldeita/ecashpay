@@ -28,11 +28,11 @@ class RedirectPage extends React.PureComponent {
       switch(status){
         case 0:
           //this.props.history.push('/verify')
-          window.location.href = '/verify'
+          window.location.href = '/client/verify'
           break;
         case 1:
           //this.props.history.push('/profile')
-          window.location.href = '/profile'
+          window.location.href = '/client/profile'
           break;
         case 2:
           //this.props.history.push('/client/dashboard')

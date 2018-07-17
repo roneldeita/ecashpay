@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Form, Row, Col} from 'antd'
 import QueueAnim from 'rc-queue-anim'
-import Currencies from './presentation/ManageCurrencies'
+import ManageCurrencies from './presentation/ManageCurrencies'
 import { Wallet } from '../../../services/api'
 
 class CurrenciesPage extends React.PureComponent{
@@ -104,7 +104,7 @@ class CurrenciesPage extends React.PureComponent{
         <Col className="" xs={22} md={16} lg={10}>
           <QueueAnim type={['top', 'bottom']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
             <div key="0">
-              <Currencies
+              <ManageCurrencies
                 form={this.props.form}
                 currencies={this.state.currencies}
                 addCurrency={this.handleAddCurrency}

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Row, Col, Select, Input, Card, Form, Tag, Icon, Button, } from 'antd'
+import { Row, Col, Select, Input, Card, Form, Tag, Icon, Button} from 'antd'
 import { isEmpty } from 'lodash'
 
-export default ({currencies, primary, form, buttonState, submit}) => {
+export default ({currencies, primary, form, submit, summaryVisible}) => {
   const { getFieldDecorator, isFieldTouched, getFieldError } = form
   const CurrencyError =  getFieldError('Currency')
   const AmountError =  getFieldError('Amount')
@@ -71,7 +71,7 @@ export default ({currencies, primary, form, buttonState, submit}) => {
               { required: true }
             ],
           })(
-            <Input size="large" placeholder="Receiver's Ecash Account Number"/>
+            <Input type="number" size="large" placeholder="Receiver's Ecash Account Number"/>
           )}
         </Form.Item>
         <Form.Item
@@ -85,7 +85,7 @@ export default ({currencies, primary, form, buttonState, submit}) => {
               { required: false }
             ],
           })(
-            <Input.TextArea rows={3} />
+            <Input.TextArea rows={3}/>
           )}
         </Form.Item>
         <Form.Item>
@@ -95,8 +95,8 @@ export default ({currencies, primary, form, buttonState, submit}) => {
               type="primary"
               htmlType="submit"
               size="large"
-              loading={buttonState}>
-              {buttonState ? 'Transfering...' : 'Transfer'}
+              disabled={summaryVisible}>
+              Continue
             </Button>
           </div>
         </Form.Item>

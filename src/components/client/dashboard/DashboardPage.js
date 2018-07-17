@@ -9,6 +9,7 @@ import {Row, Col} from 'antd'
 import Menu from './presentation/Menu'
 import WalletCard from './presentation/WalletCard'
 import Requirements from './presentation/Requirements'
+import ShortcutList from './presentation/ShortcutList'
 import History from './presentation/History'
 //services
 import { Wallet, Transaction } from '../../../services/api'
@@ -88,6 +89,7 @@ class DashboardPage extends React.PureComponent{
           <Row gutter={20}>
             <Col className="" md={24} lg={8} style={{marginBottom:'10px'}}>
               <WalletCard ready={isEmpty(this.state.wallets)} currencies={this.state.wallets}/>
+              <ShortcutList/>
             </Col>
             <Col className="" xs={24} sm={24} md={24} lg={16}>
               <Requirements

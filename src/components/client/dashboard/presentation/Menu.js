@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {Row, Col, Card, Tag} from 'antd'
-import {includes} from 'lodash'
 import QueueAnim from 'rc-queue-anim'
 // import Addfunds from '../../../../assets/svg/ecommerce/ecommerce_wallet.svg'
 // import SendMoney from '../../../../assets/svg/ecommerce/ecommerce_banknote.svg'
@@ -32,11 +31,11 @@ const UserName = {
   display:'inline',
   fontSize:'30px',
 }
-const EcashStatusDesc = {
-  fontSize:'16px',
-  verticalAlign:'top',
-  letterSpacing: '-1px'
-}
+// const EcashStatusDesc = {
+//   fontSize:'16px',
+//   verticalAlign:'top',
+//   letterSpacing: '-1px'
+// }
 export default ({ready, profile}) => {
 
   // const Directlink = () => {

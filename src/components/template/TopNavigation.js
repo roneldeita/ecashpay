@@ -67,7 +67,7 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
                   {/*<Menu.Item key="app" style={{display:isLoggedIn(loggedIn)}}>Ecashpay Card</Menu.Item>
                 <Menu.Item key="hepl" style={{display:isLoggedIn(loggedIn)}}>Help</Menu.Item>*/}
                   <Menu.Item key="login" style={{display:isLoggedIn(loggedIn)}}><Link to="/login">Login</Link></Menu.Item>
-                  <Menu.Item key="signup" style={{display:isLoggedIn(loggedIn)}}><Link to="/register">Sign up</Link></Menu.Item>
+                  <Menu.Item key="signup" style={{display:isLoggedIn(loggedIn)}}><Link to="/client/register">Sign up</Link></Menu.Item>
                   <Menu.Item key="bell" style={{display:isLoggedIn(!loggedIn)}}>
                     <Popover placement="bottom" content={<Notifications/>} trigger="click">
                       <Badge>

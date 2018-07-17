@@ -50,7 +50,7 @@ export default ({ready, levels, phone, progress}) => {
           style={CardStyle}>
           {/*<p style={Title}>Get started with Eacashpay</p>*/}
           <Row type="flex" justify="space-between" style={RowStyle}>
-            <Col className="" xs={24} sm={12} lg={8} xl={4}>
+            <Col className="" xs={24} sm={11} lg={7} xl={5}>
               { (phone !== '')
                 ?
                 <div>
@@ -66,7 +66,7 @@ export default ({ready, levels, phone, progress}) => {
                 </Link>
               }
             </Col>
-            <Col className="" xs={24} sm={12} lg={8} xl={4}>
+            <Col className="" xs={24} sm={11} lg={7} xl={5}>
               { includes(levels, 1)
                 ?
                 <div>
@@ -82,7 +82,7 @@ export default ({ready, levels, phone, progress}) => {
                 </Link>
               }
             </Col>
-            <Col className="" xs={24} sm={12} lg={8} xl={4}>
+            <Col className="" xs={24} sm={11} lg={7} xl={5}>
               { includes(levels, 2)
                 ?
                 <div>
@@ -98,7 +98,7 @@ export default ({ready, levels, phone, progress}) => {
                 </Link>
               }
             </Col>
-            <Col className="" xs={24} sm={12} lg={8} xl={4}>
+            <Col className="" xs={24} sm={11} lg={7} xl={5}>
               <img src={LinkEcashCard} style={Img} alt="link Ecashpay card"/>
               <p style={RequirementTitle}>Link Your Ecash Card</p>
               <p style={Desc}>Transfer and get your cash instantly through our accredited banks nationwide.</p>

@@ -25,12 +25,13 @@ import RequirementsPage from './components/auth/business/RequirementsPage'
 import ClientDashboard from './components/client/dashboard/DashboardPage'
 import Settings from './components/client/settings/SettingsPage'
 import CashIn from './components/client/cashin/CashInPage'
-import Transaction from './components/client/cashin/TransactionPage'
+import CashInTransaction from './components/client/cashin/TransactionPage'
 import SendMoney from './components/client/sendmoney/SendMoneyPage'
 import BuyLoad from './components/client/buyload/BuyLoadPage'
 import PayBills from './components/client/paybills/PayBillsPage'
 import BookTravel from './components/client/booktravel/BookTravelPage'
 import Currencies from './components/client/currencies/CurrenciesPage'
+import KnownAccounts from './components/client/knownaccounts/KnownAccountsPage'
 import VerifyPhone from './components/client/phone/VerifyPhonePage'
 import UploadValidId from './components/client/identification/ValidIdPage'
 import SubmitPob from './components/client/pob/SubmitPobPage'
@@ -62,11 +63,12 @@ const Routes = ({ store }) => (
           <Route path="/" exact render={ props => ( !isLoggedIn() ? <HomePage/> : <Redirect to="redirecting"/> )}/>
           <Route path="/login" exact render={ () => ( !isLoggedIn() ? <LoginPage/> : <Redirect to="/redirecting"/> )}/>
           <Route path="/login/tfa" render={ () => ( !isLoggedIn() ? <TfaPage/> : <Redirect to="/redirecting"/> )}/>
-          <Route path="/register" render={ () => ( !isLoggedIn() ? <RegisterPage/> : <Redirect to="/redirecting"/> )} />
           <Route path="/password/request" render={ () => ( !isLoggedIn() ? <RequestPasswordPage/> : <Redirect to="/redirecting"/> )} />
           <Route path="/password/reset" render={ () => ( !isLoggedIn() ? <ResetPasswordPage/> : <Redirect to="/redirecting"/> )} />
-          <Route path="/verify" render={ (props) => ( isClient(0) ? <VerificationPage/> : <Redirect to="/redirecting"/> )} />
-          <Route path="/profile" render={ (props) => ( !isClient() ? <ProfilePage {...props}/> : <Redirect to="/redirecting"/> )} />
+
+          <Route path="/client/register" render={ () => ( !isLoggedIn() ? <RegisterPage/> : <Redirect to="/redirecting"/> )} />
+          <Route path="/client/verify" exact render={ (props) => ( isClient(0) ? <VerificationPage/> : <Redirect to="/redirecting"/> )} />
+          <Route path="/client/profile" render={ (props) => ( isClient(1) ? <ProfilePage {...props}/> : <Redirect to="/redirecting"/> )} />
           <Route path="/client/dashboard" render={ props => ( isClient(2) ? <ClientDashboard {...props}/> : <Redirect to="/redirecting"/> )}/>
           <Route path="/client/settings" render={ props => ( isClient(2) ? <Settings {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/cashin" render={ props => ( isClient(2) ? <CashIn {...props}/> : <Redirect to="/redirecting"/>)} />
@@ -74,8 +76,9 @@ const Routes = ({ store }) => (
           <Route path="/client/buyload" render={ props => ( isClient(2) ? <BuyLoad {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/paybills" render={ props => ( isClient(2) ? <PayBills {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/booktravel" render={ props => ( isClient(2) ? <BookTravel {...props}/> : <Redirect to="/redirecting"/>)} />
-          <Route path="/client/transactions/:no" render={ props => ( isClient(2) ? <Transaction {...props}/> : <Redirect to="/redirecting"/>)} />
+          <Route path="/client/transactions/cashin/:no" render={ props => ( isClient(2) ? <CashInTransaction {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/manage/currencies" render={ props => ( isClient(2) ? <Currencies {...props}/> : <Redirect to="/redirecting"/>)} />
+          <Route path="/client/manage/knownaccounts" render={ props => ( isClient(2) ? <KnownAccounts {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/verify/phone" render={ props => ( isClient(2) ? <VerifyPhone {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/upload/id" render={ props => ( isClient(2) ? <UploadValidId {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/upload/pob" render={ props => ( isClient(2) ? <SubmitPob {...props}/> : <Redirect to="/redirecting"/>)} />

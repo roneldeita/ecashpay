@@ -36,7 +36,7 @@ import Idle from 'react-idle'
 //import { Auth } from './services/api'
 import { hasToken } from './assets/utils/auth'
 //socket.io
-import { SubscribeToKyc } from './services/socket'
+//import { SubscribeToKyc } from './services/socket'
 //styles
 const LogoContainer = {
   margin:'20px 10px 20px 10px',
@@ -65,7 +65,7 @@ class App extends Component {
     this.handleChangeLocale = this.handleChangeLocale.bind(this)
     this.translateContent = this.translateContent.bind(this)
     this.handleLogOut = this.handleLogOut.bind(this)
-    SubscribeToKyc((data) => this.setState({notif:data}));
+    //SubscribeToKyc((data) => this.setState({notif:data}));
   }
   toggleCollapse = () => {
     this.setState({collapsed:!this.state.collapsed})
@@ -108,7 +108,7 @@ class App extends Component {
   }
   hideTopNavigation(){
     const paths = [
-      '/login', '/register', '/verify', '/redirecting',
+      '/login', '/client/register', '/client/verify', '/redirecting',
       '/password/request', '/password/reset', '/login/tfa',
       '/business/register',
       '/admin', '/admin/login', '/admin/transactions',
@@ -163,7 +163,6 @@ class App extends Component {
         render={({ idle }) =>
           <IntlProvider locale={this.props.locale} messages={this.translateContent(this.props.locale)}>
             <div className="App">
-              {this.state.notif}
               <Layout>
                 <Layout.Header style={{display:this.hideTopNavigation()}}>
                   <TopNavigation

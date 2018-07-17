@@ -5,7 +5,7 @@ import {Card, Button} from 'antd'
 import QueueAnim from 'rc-queue-anim'
 
 const CardStyle = {
-  margin: '0px',
+  margin: '0px 0px 15px 0px',
   padding: '0px',
   cursor: 'default'
 }
@@ -54,7 +54,7 @@ export default ({ready, currencies}) => {
           style={CardStyle}
           actions={[
             <Link to="/client/transfer">Transfer</Link>,
-            <Link to="/client/manage/currencies">Manage Currencies</Link>]}>
+            <Link to="/client/manage/currencies">Convert</Link>]}>
           {/*<Link style={{float: 'right'}} to='/client/manage/currencies'><span>Manage Currencies <Icon type="caret-right" style={{fontSize:'11px'}}/></span></Link>*/}
           {/*<p style={Title}>Ecash</p>*/}
           <p style={{marginBottom:'0px', fontWeight:200}}>Available</p>

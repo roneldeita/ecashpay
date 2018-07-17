@@ -125,7 +125,7 @@ class SubmitPobPage extends React.PureComponent{
             <div key="0">
               <Card
                 hoverable
-                title={ <span>Upgrade Level 2</span> }
+                title="Upgrade Level 2"
                 style={CardStyle}
                 loading={this.state.identification === ''}
                 actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
@@ -136,8 +136,7 @@ class SubmitPobPage extends React.PureComponent{
                       validateFile={this.validateFile}
                       change={this.handleFileChange}
                       submit={this.handleSubmit}
-                      buttonState={this.state.buttonState}
-                      />
+                      buttonState={this.state.buttonState}/>
                   </div>
                   <div style={{display:this.state.identification.status === 'pending' ? 'block' : 'none'}}>
                     <Pending
@@ -148,8 +147,7 @@ class SubmitPobPage extends React.PureComponent{
                       handlePreview={this.handlePreview}
                       preview={this.state.preview}
                       image={this.state.image}
-                      closePreview={this.closePreview}
-                      />
+                      closePreview={this.closePreview}/>
                   </div>
                   <div style={{display:this.state.identification.status === 'rejected' ? 'block' : 'none'}}>
                     <Rejected resubmit={this.cancelRequest}/>

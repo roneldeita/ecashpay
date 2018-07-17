@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import TransferForm from './presentation/TransferForm'
+import TransferSummary from './presentation/TransferSummary'
 import { Row, Col, Form, Modal } from 'antd'
 import QueueAnim from 'rc-queue-anim'
 //services
@@ -10,15 +11,47 @@ class TransferPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state={
-      transferStatus:'New',
       buttonState:false,
+      summaryVisible:false,
+      okState:false,
       currencies:[],
+      transfer:{},
       primary:''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleCancel = this.handleCancel.bind(this)
+    this.handleTransfer = this.handleTransfer.bind(this)
+  }
+  handleCancel(){
+    this.setState({buttonState:false})
+    this.setState({summaryVisible:false})
+    this.setState({okState:false})
+  }
+  handleTransfer(){
+    this.setState({buttonState:true})
+    Transaction(this.state.transfer, {'x-access-token':this.props.auth.token}).Transfer()
+    .then(res=>{
+      this.props.form.resetFields()
+      Modal.success({
+        title: 'Transfer Success',
+        content: 'You have successfully sent '+ this.state.transfer.currency + this.state.transfer.amount + ' to ' + this.state.transfer.targetAccount
+      })
+      setTimeout(()=>{
+        this.setState({buttonState:false})
+        this.setState({summaryVisible:false})
+      }, 800)
+    }).catch(err=>{
+      Modal.error({
+        title: 'Transfer Error',
+        content: err.response.data.message
+      })
+      setTimeout(()=>{
+        this.setState({buttonState:false})
+      }, 800)
+    })
   }
   handleSubmit(event){
-    this.setState({buttonState:true})
+    //this.setState({buttonState:true})
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log(values)
@@ -27,29 +60,12 @@ class TransferPage extends React.PureComponent{
           amount:values.Amount,
           currency:values.Currency
         }
-        Transaction(Data, {'x-access-token':this.props.auth.token}).Transfer()
-        .then(res=>{
-          this.props.form.resetFields()
-          Modal.success({
-            title: 'Transfer Success',
-            content: 'You have successfully sent '+ values.Currency + values.Amount + ' to ' + values['Account Number']
-          })
-          setTimeout(()=>{
-            this.setState({buttonState:false})
-          }, 800)
-        }).catch(err=>{
-          Modal.error({
-            title: 'Transfer Error',
-            content: err.response.data.message
-          })
-          setTimeout(()=>{
-            this.setState({buttonState:false})
-          }, 800)
-        })
+        this.setState({transfer: Data})
+        this.setState({summaryVisible:true})
       }else{
-        setTimeout(()=>{
-          this.setState({buttonState:false})
-        }, 800)
+        // setTimeout(()=>{
+        //   this.setState({buttonState:false})
+        // }, 800)
       }
     })
     event.preventDefault()
@@ -69,7 +85,6 @@ class TransferPage extends React.PureComponent{
     this.loadWallets()
   }
   render(){
-    console.log(this.props)
     return(
       <Row type="flex" justify="center" style={{marginTop:'50px'}}>
         <Col sm={18} md={14} lg={12} xl={10} xxl={8}>
@@ -79,11 +94,22 @@ class TransferPage extends React.PureComponent{
                 currencies={this.state.currencies}
                 primary={this.state.primary}
                 form={this.props.form}
-                buttonState={this.state.buttonState}
-                submit={this.handleSubmit}/>
+                submit={this.handleSubmit}
+                summaryVisible={this.state.summaryVisible}/>
             </div>
           </QueueAnim>
         </Col>
+        <Modal
+          title="Transfer Summary"
+          visible={this.state.summaryVisible}
+          onOk={this.handleTransfer}
+          okText={this.state.buttonState ? 'Transfering' : 'Transfer'}
+          confirmLoading={this.state.buttonState}
+          onCancel={this.handleCancel}
+          cancelText="Edit">
+          <TransferSummary
+            transfer={this.state.transfer}/>
+        </Modal>
       </Row>
     )
   }

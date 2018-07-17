@@ -54,7 +54,7 @@ const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton}) => {
                     <FormItem>
                       <Button id="submit" type="primary" htmlType="submit" loading={buttonState} onClick={onClickLoginButton}>{buttonState ? 'logging in..' : 'Login'}</Button>
                     </FormItem>
-                    <p>{`Don't have an account`}?<Link to="/register"> Sign up now!</Link></p>
+                    <p>{`Don't have an account`}?<Link to="/client/register"> Sign up now!</Link></p>
                   </Form>
                 </Col>
                 <Col style={css.Column} xs={0} md={11}>

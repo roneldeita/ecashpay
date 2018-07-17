@@ -83,7 +83,7 @@ export default ({transactions, profile}) => {
               pageSize: 10
             }}
             renderItem={ item => (
-              <List.Item actions={[<Link to={`/client/transactions/${item.no}`}>{Status(item.status)}</Link>]}>
+              <List.Item actions={[<Link to={`/client/transactions/cashin/${item.no}`}>{Status(item.status)}</Link>]}>
                 <div>
                   <Badge status={BadgeStatus(item.status)} /><Moment format="MMM D" date={item.createdAt} style={{fontSize:'20px'}}/>
                   <Divider type="vertical"/>
@@ -108,3 +108,4 @@ export default ({transactions, profile}) => {
     </QueueAnim>
   )
 }
+//

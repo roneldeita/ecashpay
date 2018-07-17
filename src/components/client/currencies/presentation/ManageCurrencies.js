@@ -30,7 +30,7 @@ export default ({form, currencies, addCurrency, makePrimary, deleteCurrency, but
     dataIndex: 'status',
     width: 120,
     align: 'center',
-    render: (text, record) => <div><Button size="small" type="danger" shape="circle" icon="minus" onClick={() => deleteCurrency(record.code, text)}></Button></div>
+    render: (text, record) => <div><Button size="small" type="danger" shape="circle" icon="minus" onClick={() => deleteCurrency(record.code, text)}/></div>
     //render: (text, record) => <div style={{textAlign:'center'}}><Switch checked={text} onClick={() => deleteCurrency(record.code, text)} currency={record.code} size="small"/></div>
   }];
 
