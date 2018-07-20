@@ -45,10 +45,9 @@ export default ({ready, levels, phone, progress}) => {
       <div key="0">
         <Card
           hoverable
-          title="Get started with Eacashpay"
+          title="Get started with Ecashpay"
           loading={ready}
           style={CardStyle}>
-          {/*<p style={Title}>Get started with Eacashpay</p>*/}
           <Row type="flex" justify="space-between" style={RowStyle}>
             <Col className="" xs={0} sm={0} lg={0} xl={1}>
             </Col>
@@ -77,7 +76,7 @@ export default ({ready, levels, phone, progress}) => {
                   <p style={Desc}>Maximize features and access the easy-to-use tools in your account by uploading governement-issued I.D and Selfie.</p>
                 </div>
                 :
-                <Link to="/client/upload/id">
+                <Link to={phone !== '' ? `/client/upload/id` : '/client/verify/phone'}>
                   <img src={VerifyID} style={Img} alt="submit ID"/>
                   <p style={RequirementTitle}>Upgrade Level 1</p>
                   <p style={Desc}>Maximize features and access the easy-to-use tools in your account by uploading governement-issued I.D and Selfie.</p>
@@ -93,7 +92,7 @@ export default ({ready, levels, phone, progress}) => {
                   <p style={Desc}>Increase your fund limits and access more tools by uploading your latest proof of billing.</p>
                 </div>
                 :
-                <Link to="/client/upload/pob">
+                <Link to={phone !== '' ? `/client/upload/pob` : '/client/upload/id'}>
                   <img src={BillsStatement} style={Img} alt="add billing statement"/>
                   <p style={RequirementTitle}>Upgrade Level 2</p>
                   <p style={Desc}>Increase your fund limits and access more tools by uploading your latest proof of billing.</p>

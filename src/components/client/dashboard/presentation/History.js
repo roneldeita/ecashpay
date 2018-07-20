@@ -8,7 +8,6 @@ import Moment from 'react-moment';
 //import {isEmpty} from 'lodash'
 
 export default ({transactions, profile}) => {
-  console.log(transactions)
   const PopOverContent = (
     <div>
       <Badge status="success" text="Completed"/>
@@ -77,21 +76,21 @@ export default ({transactions, profile}) => {
             dataSource={transactions}
             pagination={{
               size:"small",
-              showQuickJumper:true,
+              showQuickJumper:false,
               onChange: (page) => {
                 console.log(page);
               },
               pageSize: 10
             }}
             renderItem={ item => (
-              <List.Item actions={[<Link to={`/cashin/transactions/${item.no}`}>{Status(item.status)}</Link>]}>
+              <List.Item actions={[<Link to={`/${item.type}/transactions/${item.no}`}>{Status(item.status)}</Link>]}>
                 <div>
                   <Badge status={BadgeStatus(item.status)} /><Moment format="MMM D" date={item.createdAt} style={{fontSize:'20px'}}/>
                   <Divider type="vertical"/>
 
                   { item.type === 'cashIn' && item.entryType === 'debit' && <span>{startCase(item.type)} via {item.outletName}</span>}
-                  { item.type === 'transfer' && item.entryType === 'debit' && <span>Recieved from {item.targetAccount}</span>}
-                  { item.type === 'transfer' && item.entryType === 'credit' && <span>Transfer to {item.sourceAccount}</span>}
+                  { item.type === 'transfer' && item.entryType === 'debit' && <span>Recieved from {item.sourceAccount}</span>}
+                  { item.type === 'transfer' && item.entryType === 'credit' && <span>Transfer to {item.targetAccount}</span>}
                   {/*{ item.type === 'transfer' && item.entryType === 'debit' &&
                     <span>
                       {item.targetAccount === profile.account ? 'Transfer to ' + item.sourceAccount : ''}

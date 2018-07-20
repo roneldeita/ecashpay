@@ -31,7 +31,7 @@ class RequirementsPage extends React.PureComponent{
       ],
       cooperative:[
         { required: true, id:12, name:'BIR 2303', description: 'Certified True Copy of the BIR Certificate of Registration'},
-        { required: true, id:13, name:'Certificate of Cooperation', description: ''},
+        { required: true, id:13, name:'Certificate of Registration', description: 'Issued by Cooperative Development Authority'},
         { required: true, id:14, name:'Notarized Board Resolution', description: 'For Authorized Signatories Only *Authorization to enter into Agreement'},
         { required: true, id:15, name:"Government-issued ID 1", description: "Authorized Signatories Only *Duly authenticated by Corporate Secretary"},
         { required: true, id:16, name:"Government-issued ID 2", description: "Authorized Signatories Only *Duly authenticated by Corporate Secretary"},

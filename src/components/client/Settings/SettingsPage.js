@@ -45,7 +45,7 @@ class SettingsPage extends React.PureComponent{
                     />
                 </List>
               </Card>
-              <TwoFactorAuthentication/>
+              {/*<TwoFactorAuthentication/>*/}
             </div>
           </QueueAnim>
           {/*<Privacy/>*/}

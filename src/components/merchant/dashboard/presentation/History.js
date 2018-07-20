@@ -76,7 +76,7 @@ export default ({transactions, profile}) => {
             dataSource={transactions}
             pagination={{
               size:"small",
-              showQuickJumper:true,
+              showQuickJumper:false,
               onChange: (page) => {
                 console.log(page);
               },

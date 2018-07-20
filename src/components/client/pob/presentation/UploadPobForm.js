@@ -21,7 +21,7 @@ export default ({form, files, change, validateFile, buttonState, submit}) => {
     },
   }
   return(
-    <Form onSubmit={submit}>
+    <Form onSubmit={submit} autocomplete="off">
       <Form.Item
         {...formItemLayout}
         validateStatus={getFieldError('File') ? 'error' : ''}
@@ -38,7 +38,7 @@ export default ({form, files, change, validateFile, buttonState, submit}) => {
         )}
       </Form.Item>
       <Form.Item {...formItemLayout}>
-        Note: By clicking submit, you agree to our <a>Terms & Condition</a>
+        By clicking submit, you agree to our <a>Terms & Condition</a>
       </Form.Item>
       <Form.Item wrapperCol={{md:{span: 16, offset: 4}}}>
         <Button

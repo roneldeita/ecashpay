@@ -29,15 +29,15 @@ const isLoggedIn = (loggedIn) => {
 const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
   const profileTitle = (
     <Affix>
-      <div style={{minWidth:'200px'}}>
+      {/*<div style={{minWidth:'200px'}}>
         <span style={{display:'block', float:'left', fontWeight:400}}>{profile.firstName} {profile.lastName}</span>
         <span style={{display:'block', lineHeight:'26px' , float:'right'}}><Icon type="qrcode"/></span>
-      </div>
+      </div>*/}
     </Affix>
   )
   const profileContent = (
     <List size="small">
-      <List.Item>Account Level</List.Item>
+      {/*<List.Item>Account Level</List.Item>*/}
       <List.Item><Link to="/client/settings">Settings</Link></List.Item>
       <List.Item><a to="" onClick={logout}>Logout</a></List.Item>
     </List>
@@ -68,19 +68,20 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
                 <Menu.Item key="hepl" style={{display:isLoggedIn(loggedIn)}}>Help</Menu.Item>*/}
                   <Menu.Item key="login" style={{display:isLoggedIn(loggedIn)}}><Link to="/login">Login</Link></Menu.Item>
                   <Menu.Item key="signup" style={{display:isLoggedIn(loggedIn)}}><Link to="/client/register">Sign up</Link></Menu.Item>
-                  <Menu.Item key="bell" style={{display:isLoggedIn(!loggedIn)}}>
+                  {/*<Menu.Item key="bell" style={{display:isLoggedIn(!loggedIn)}}>
                     <Popover placement="bottom" content={<Notifications/>} trigger="click">
                       <Badge>
                         <Icon type="bell" style={IconStyle}/>
                       </Badge>
                     </Popover>
-                  </Menu.Item>
-                  <Menu.Item key="user" style={{display:isLoggedIn(!loggedIn)}}>
-                    <Popover placement="bottom" title={profileTitle} content={profileContent} trigger="click">
+                  </Menu.Item>*/}
+                  <Menu.Item key="setting" style={{display:isLoggedIn(!loggedIn)}}>
+                    <Link to="/client/settings" style={IconStyle}><Icon type="setting"/></Link>
+                    {/*<Popover placement="bottom" title={profileTitle} content={profileContent} trigger="click">
                       <Badge>
-                        <Icon type="user" style={IconStyle}/>
+                        <Icon type="setting" style={IconStyle}/>
                       </Badge>
-                    </Popover>
+                    </Popover>*/}
                   </Menu.Item>
                   <Menu.Item key="logout" style={{display:isLoggedIn(!loggedIn)}}>
                     <Badge>

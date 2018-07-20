@@ -23,7 +23,7 @@ const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton}) => {
                 <Col className="form-column" xs={24} md={13}>
                   <p style={css.Greet}>Welcome to Ecashpay Asia!</p>
                   <p style={css.Small}>Log in to your account here</p>
-                  <Form onSubmit={onSubmit}>
+                  <Form onSubmit={onSubmit} autocomplete="off">
                     <FormItem
                       hasFeedback={isFieldTouched('Email')}
                       validateStatus={EmailError ? 'error' : 'success'}
@@ -39,7 +39,7 @@ const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton}) => {
                     </FormItem>
                     <FormItem
                       hasFeedback={isFieldTouched('Password')}
-                      validateStatus={PasswordError ? 'error' : 'success'}
+                      validateStatus={PasswordError ? 'error' : ''}
                       help={PasswordError || ''}>
                       {getFieldDecorator('Password', {
                         rules: [
@@ -47,7 +47,12 @@ const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton}) => {
                           { min:6 }
                         ],
                       })(
-                        <Input placeholder="Password" type="password" prefix={<Icon type="lock" style={css.PrefixIcon} /> }/>
+                        <Input
+                          placeholder="Password"
+                          type="password"
+                          prefix={<Icon type="lock"/>}
+                          suffix={PasswordError ? '' : <Icon type="eye-o"/> }
+                          style={css.PrefixIcon}/>
                       )}
                     </FormItem>
                     <div style={{textAlign:'right'}}><Link to="/password/request">Forgot password?</Link></div>

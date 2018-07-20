@@ -32,10 +32,12 @@ class TransferPage extends React.PureComponent{
     Transaction(this.state.transfer, {'x-access-token':this.props.auth.token}).Transfer()
     .then(res=>{
       this.props.form.resetFields()
+      const path = this.props.profile.type === 'individual' ? '/client/dashboard' : '/business/dashboard'
       Modal.success({
         title: 'Transfer Success',
         content: 'You have successfully sent '+ this.state.transfer.currency + this.state.transfer.amount + ' to ' + this.state.transfer.targetAccount
       })
+      this.props.history.push(path)
       setTimeout(()=>{
         this.setState({buttonState:false})
         this.setState({summaryVisible:false})
@@ -85,6 +87,7 @@ class TransferPage extends React.PureComponent{
     this.loadWallets()
   }
   render(){
+    console.log(this.props)
     return(
       <Row type="flex" justify="center" style={{marginTop:'50px'}}>
         <Col sm={18} md={14} lg={12} xl={10} xxl={8}>

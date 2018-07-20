@@ -15,7 +15,7 @@ const TfaForm = ({tfa, form, submit, buttonState, onResend, resendState}) => {
               <p style={css.Greet}>Verification Code Required</p>
               <p style={css.Small}>A verification code has been emailed to <span style={{fontWeight:500}}>{tfa.email}</span>, Please input verification code to login.</p>
               <br/><br/>
-              <Form onSubmit={submit}>
+              <Form onSubmit={submit} autocomplete="off">
                 <Form.Item
                   validateStatus={CodeError ? 'error' : ''}
                   help={CodeError || ''}>

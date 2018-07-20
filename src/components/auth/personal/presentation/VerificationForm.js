@@ -17,7 +17,7 @@ const VerificationForm = ({email, form, buttonState, onSubmit, autoCheck, onRese
               <p style={css.Greet}>Email Verification</p>
               <p style={css.Small}>A verification code has been emailed to <span style={{fontWeight:500}}>{email}</span>, Please input verification code to verify.</p>
               <br/><br/>
-              <Form onSubmit={onSubmit}>
+              <Form onSubmit={onSubmit} autocomplete="off">
                 <FormItem
                   validateStatus={CodeError ? 'error' : ''}
                   help={CodeError || ''}>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Upload, Modal, Button, Row, Col } from 'antd'
+import { Form, Upload, Modal, Button, Row, Col, Select, Input } from 'antd'
 import SelfieWithId from '../../../../assets/images/selfie_with_id.png'
 import Id from '../../../../assets/images/id.png'
 
@@ -30,7 +30,8 @@ export default ({
   submit,
   }) => {
   const { getFieldDecorator, getFieldError } = form
-  // const IdTypeError = getFieldError('ID type')
+  const IdTypeError = getFieldError('ID Type')
+  const IdNumberError = getFieldError('ID Number')
   const SelfieError = getFieldError('Selfie')
   const IdError = getFieldError('Id')
 
@@ -56,20 +57,17 @@ export default ({
     <Row type="flex" justify="center">
       <Col xs={24} sm={22} md={18}>
         <p></p>
-        <Form onSubmit={submit}>
-          {/*<Form.Item
-            label="ID type"
-            {...formItemLayout}
-            hasFeedback={isFieldTouched('ID type')}
-            validateStatus={IdTypeError ? 'error' : 'success'}
+        <Form onSubmit={submit} autocomplete="off">
+          <p>1. Choose valid ID</p>
+          <Form.Item
+            validateStatus={IdTypeError ? 'error' : ''}
             help={IdTypeError || ''}>
-            {getFieldDecorator('ID type', {
+            {getFieldDecorator('ID Type', {
               rules: [
-                { required: false }
+                { required: true }
               ],
             })(
               <Select placeholder="Select your ID"
-                disabled
                 showSearch
                 optionFilterProp="children"
                 style={{ minWidth: 180 }}>
@@ -82,12 +80,25 @@ export default ({
                 <Select.Option value="owwa">OWWA ID</Select.Option>
                 <Select.Option value="diplomat">Diplomat ID</Select.Option>
                 <Select.Option value="senior_citizen">Senior Citizen ID</Select.Option>
-                <Select.Option value="voter">Voter’s ID</Select.Option>
+                <Select.Option value="voter">Voter's ID</Select.Option>
                 <Select.Option value="gocc">GOCC and Government Office ID</Select.Option>
               </Select>
             )}
-          </Form.Item>*/}
-          <p>1. Please take a clear photo of yourself holding your government-issued ID next to your face.</p>
+          </Form.Item>
+          <p>2. ID Number</p>
+            <Form.Item
+              validateStatus={IdNumberError ? 'error' : ''}
+              help={IdNumberError || ''}>
+              {getFieldDecorator('ID Number', {
+                rules: [
+                  { required: true },
+                  { max: 50}
+                ],
+              })(
+                <Input/>
+              )}
+            </Form.Item>
+          <p>3. Please take a clear photo of yourself holding your government-issued ID next to your face.</p>
           <Form.Item
             validateStatus={SelfieError ? 'error' : ''}
             help={SelfieError || ''}>
@@ -102,7 +113,7 @@ export default ({
               </Upload.Dragger>
             )}
           </Form.Item>
-          <p>2. Upload government-issued ID.</p>
+          <p>4. Upload government-issued ID.</p>
           <Form.Item
             validateStatus={IdError ? 'error' : ''}
             help={IdError || ''}>
@@ -118,7 +129,7 @@ export default ({
             )}
           </Form.Item>
           <Form.Item>
-            Note: By clicking submit, you agree to our <a>Terms & Condition</a>
+            By clicking submit, you agree to our <a>Terms & Condition</a>
           </Form.Item>
           <Form.Item>
             <Button

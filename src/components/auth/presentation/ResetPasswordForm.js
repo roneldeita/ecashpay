@@ -18,7 +18,7 @@ const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSu
               <p style={css.Greet}>Reset your password?</p>
               <p style={css.Small}>Please enter the 4-digit code you just received and your new password.</p>
               <br/><br/>
-                <Form onSubmit={onSubmit}>
+                <Form onSubmit={onSubmit} autocomplete="off">
                   <Form.Item
                     validateStatus={CodeError ? 'error' : ''}
                     help={CodeError || ''}>
@@ -45,7 +45,12 @@ const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSu
                         { validator: checkPassword }
                       ],
                     })(
-                      <Input placeholder="New Password" type="password" size="large" prefix={<Icon type="key" style={css.PrefixIcon} /> }/>
+                      <Input
+                        placeholder="New Password"
+                        type="password" size="large"
+                        prefix={<Icon type="key" style={css.PrefixIcon} /> }
+                        uffix={PasswordError ? '' : <Icon type="eye-o"/> }
+                        />
                     )}
                   </Form.Item>
                   <Form.Item

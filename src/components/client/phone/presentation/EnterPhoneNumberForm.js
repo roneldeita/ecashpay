@@ -69,7 +69,8 @@ class StepOne extends React.PureComponent{
     const PhoneNumberError = getFieldError('Phone Number')
     return (
       <Form
-        onSubmit={this.handleSubmit}>
+        onSubmit={this.handleSubmit}
+        autocomplete="off">
         <Form.Item
           label="Country"
           {...Label}

@@ -27,7 +27,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
               <Row>
                 <Col className="form-column" xs={24} md={13}>
                   <p style={css.Greet}>Create your Ecashpay account</p>
-                  <Form onSubmit={onSubmit}>
+                  <Form onSubmit={onSubmit} autocomplete="off">
                     <FormItem
                     hasFeedback={isFieldTouched('Type')}
                     validateStatus={AccTypeError ? 'error' : ''}

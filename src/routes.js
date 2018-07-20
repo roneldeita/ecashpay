@@ -34,15 +34,6 @@ import Settings from './components/client/settings/SettingsPage'
 import ClientVerifyPhone from './components/client/phone/VerifyPhonePage'
 import ClientUploadValidId from './components/client/identification/ValidIdPage'
 import ClientSubmitPob from './components/client/pob/SubmitPobPage'
-// import ClientCashIn from './components/client/cashin/CashInPage'
-// import ClientCashInTransaction from './components/client/cashin/TransactionPage'
-// import ClientSendMoney from './components/client/sendmoney/SendMoneyPage'
-// import ClientBuyLoad from './components/client/buyload/BuyLoadPage'
-// import ClientPayBills from './components/client/paybills/PayBillsPage'
-// import ClientBookTravel from './components/client/booktravel/BookTravelPage'
-// import ClientTransfer from './components/client/transfer/TransferPage'
-// import ClientCurrencies from './components/client/currencies/CurrenciesPage'
-// import ClientKnownAccounts from './components/client/knownaccounts/KnownAccountsPage'
 
 //common and transactions
 import CashIn from './components/transaction/cashin/CashInPage'
@@ -110,19 +101,10 @@ const Routes = ({ store }) => (
           <Route path="/client/verify" exact render={ (props) => ( isClient('unverified') ? <VerificationPage/> : <Redirect to="/redirecting"/> )} />
           <Route path="/client/profile" render={ (props) => ( isClient('verified') ? <ProfilePage {...props}/> : <Redirect to="/redirecting"/> )} />
           <Route path="/client/dashboard" render={ props => ( isClient('completed') ? <ClientDashboard {...props}/> : <Redirect to="/redirecting"/> )}/>
-          <Route path="/client/settings" render={ props => ( isClient('completed') ? <Settings {...props}/> : <Redirect to="/redirecting"/>)} />
+          <Route path="/client/settings" render={ props => ( isLoggedIn('completed') ? <Settings {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/verify/phone" render={ props => ( isClient('completed') ? <ClientVerifyPhone {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/upload/id" render={ props => ( isClient('completed') ? <ClientUploadValidId {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/client/upload/pob" render={ props => ( isClient('completed') ? <ClientSubmitPob {...props}/> : <Redirect to="/redirecting"/>)} />
-          {/*<Route path="/client/cashin" render={ props => ( isClient('completed') ? <ClientCashIn {...props}/> : <Redirect to="/redirecting"/>)} />
-          <Route path="/client/sendmoney" render={ props => ( isClient('completed') ? <ClientSendMoney {...props}/> : <Redirect to="/redirecting"/>)} />
-          <Route path="/client/buyload" render={ props => ( isClient('completed') ? <ClientBuyLoad {...props}/> : <Redirect to="/redirecting"/>)} />
-          <Route path="/client/paybills" render={ props => ( isClient('completed') ? <ClientPayBills {...props}/> : <Redirect to="/redirecting"/>)} />
-          <Route path="/client/booktravel" render={ props => ( isClient('completed') ? <ClientBookTravel {...props}/> : <Redirect to="/redirecting"/>)} />
-          <Route path="/client/transactions/cashin/:no" render={ props => ( isClient('completed') ? <ClientCashInTransaction {...props}/> : <Redirect to="/redirecting"/>)} />
-          <Route path="/client/manage/currencies" render={ props => ( isClient('completed') ? <ClientCurrencies {...props}/> : <Redirect to="/redirecting"/>)} />
-          <Route path="/client/manage/knownaccounts" render={ props => ( isClient('completed') ? <ClientKnownAccounts {...props}/> : <Redirect to="/redirecting"/>)} />
-          <Route path="/client/transfer" render={ props => ( isClient('completed') ? <ClientTransfer {...props}/> : <Redirect to="/redirecting"/>)} />*/}
 
           <Route path="/business/register" render={ () => ( !isLoggedIn() ? <BusinessRegisterPage/> : <Redirect to="/redirecting"/>)}/>
           <Route path="/business/verify" render={ (props) => ( isBusiness('unverified') ? <BusinessVerificationPage/> : <Redirect to="/redirecting"/> )} />

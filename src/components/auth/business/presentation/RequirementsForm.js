@@ -57,7 +57,7 @@ export default ({
           </div>
           <Row type="flex" justify="center">
             <Col span={20}>
-              <Form onSubmit={submit} style={AntForm}>
+              <Form onSubmit={submit} style={AntForm} autocomplete="off">
                 <Form.Item
                 label="Type of your business"
                 required={false}

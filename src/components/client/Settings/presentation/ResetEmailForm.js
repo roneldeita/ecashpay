@@ -52,7 +52,7 @@ class ResetEmailForm extends React.PureComponent{
       <div style={{display:this.props.displayForm?'block':'none', margin:'15px 0px 25px 0px'}}>
         <Card title="Verify Email Address">
           <p>A verification code has been sent to <span style={{fontWeight:500}}>{this.props.email}</span>, Please input verification code to verify.</p>
-          <Form onSubmit={this.handleSubmit}>
+          <Form onSubmit={this.handleSubmit} autocomplete="off">
             <Form.Item
               wrapperCol={{span:12}}
               hasFeedback={isFieldTouched('Verification Code')}

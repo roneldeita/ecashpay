@@ -28,7 +28,7 @@ export default () => {
             <p style={Title}>Registration Completed</p>
           </div>
           <div style={{margin:50, fontSize: 20, fontWeight: 300, textAlign:'center'}}>
-              Approval status will be sent through email/text within 1-5 business days
+              Approval status will be sent to your registered email within 1-5 business days
           </div>
         </Card>
       </Col>

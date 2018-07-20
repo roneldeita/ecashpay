@@ -45,7 +45,7 @@ class RequestEmailForm extends React.PureComponent{
     return(
       <div style={{display:this.props.displayForm?'block':'none', margin:'-1px 0px 25px 0px'}}>
         <Card title="Link New Email">
-          <Form onSubmit={this.handleSubmit}>
+          <Form onSubmit={this.handleSubmit} autocomplete="off">
             <Form.Item
               wrapperCol={{span:12}}
               hasFeedback={isFieldTouched('New Email')}

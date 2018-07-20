@@ -35,7 +35,7 @@ class SubmitPobPage extends React.PureComponent{
   validateFile = (rule, value, callback) => {
     if(value !== undefined){
       const Invalid = value.fileList.map(file => {
-        if(file.type !== 'image/jpeg' && file.type !== 'application/pdf'){
+        if(file.type !== 'image/jpeg' && file.type !== 'application/pdf' && file.type !== 'image/png'){
           return true
         }
         return false

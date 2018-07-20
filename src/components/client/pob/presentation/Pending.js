@@ -20,8 +20,8 @@ export default ({identification, cancel, location, type, handlePreview, preview,
         {identification.files !== undefined &&
           identification.files.map((file,index)=>(
             <Col span={8} key={index}>
-              <Card hoverable onClick={()=> file.mimeType === 'image/jpeg' && handlePreview({'url':file.url}) } cover={
-                  file.mimeType === 'image/jpeg' &&
+              <Card hoverable onClick={()=> (file.mimeType === 'image/jpeg' || file.mimeType === 'image/png') && handlePreview({'url':file.url}) } cover={
+                  (file.mimeType === 'image/jpeg' || file.mimeType === 'image/png') &&
                   <img alt="front" src={file.url}/>
                 }>
                 <Card.Meta title={file.name}/>

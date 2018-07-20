@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, Col, Row, Button, Icon, Divider, Form, Input} from 'antd'
+import {Card, Col, Row, Button, Icon, Divider, Form, Input, Popover} from 'antd'
 const FormItem = Form.Item
 const Title = {
   fontSize:'28px',
@@ -36,7 +36,7 @@ const StepTwo = ({visibility, next, changeAmount, data, prev, form}) => {
   return(
     <Card style={visibility ? Show : Hide}>
       <p style={Title}>How much would you like to Cash In?</p>
-      <Form onSubmit={validate}>
+      <Form onSubmit={validate} autocomplete="off">
         <Row type="flex" justify="center">
           <Col span={14}>
             <FormItem
@@ -74,12 +74,20 @@ const StepTwo = ({visibility, next, changeAmount, data, prev, form}) => {
           </Row>
           <Divider dashed style={DividerStyle}/>
           <Row>
-            <Col span={12}>Ecashpay fee <Icon type="info-circle" style={Info}/></Col>
+            <Col span={12}>Ecashpay fee{` `}
+              <Popover placement="right" content="This helps us run our platform ad offer services like live support." trigger="click">
+                <Icon type="info-circle" style={Info}/>
+              </Popover>
+            </Col>
             <Col span={12} style={rightContent}>{data.amount ? '0 PHP' : '' }</Col>
           </Row>
           <Divider dashed style={DividerStyle}/>
           <Row>
-            <Col span={12}>{data.merchant.name} Service fee <Icon type="info-circle" style={Info}/></Col>
+            <Col span={12}>Channel Service fee{` `}
+              <Popover placement="right" content="This goes out to our channel partners as payment for their services" trigger="click">
+                <Icon type="info-circle" style={Info}/>
+              </Popover>
+            </Col>
             <Col span={12} style={rightContent}>{data.merchant.fee + ' PHP' }</Col>
           </Row>
           <Divider style={DividerStyle}/>

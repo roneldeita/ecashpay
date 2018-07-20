@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, Col, Row, Divider, Icon, Tag} from 'antd'
+import {Card, Col, Row, Divider, Icon, Tag, Popover} from 'antd'
 import {isEmpty} from 'lodash'
 import Pending from './Pending'
 import Canceled from './Canceled'
@@ -82,17 +82,25 @@ const StepThree = ({auth, transaction, cancel, cancelState, uploadState, toggleU
           </Row>
           <Divider dashed style={DividerStyle}/>
           <Row>
-            <Col span={12}>Ecashpay fee <Icon type="info-circle" style={Info}/></Col>
+            <Col span={12}>Ecashpay fee{` `}
+              <Popover placement="right" content="This helps us run our platform ad offer services like live support." trigger="click">
+                <Icon type="info-circle" style={Info}/>
+              </Popover>
+            </Col>
             <Col span={12} style={rightContent}>{'0 ' + transaction.currency}</Col>
           </Row>
           <Divider dashed style={DividerStyle}/>
           <Row>
-            <Col span={12}>Merchant Service fee <Icon type="info-circle" style={Info}/></Col>
+            <Col span={12}>Channel Service fee{` `}
+              <Popover placement="right" content="This goes out to our channel partners as payment for their services" trigger="click">
+                <Icon type="info-circle" style={Info}/>
+              </Popover>
+            </Col>
             <Col span={12} style={rightContent}>{transaction.fee +' '+ transaction.currency }</Col>
           </Row>
           <Divider style={DividerStyle}/>
           <Row>
-            <Col span={12}><b>Amount Due</b></Col>
+            <Col span={12}><b>{transaction.status === 1?'Total Amount' :'Amount Due'}</b></Col>
             <Col span={12} style={rightContent}><b>{parseFloat(transaction.amount)+parseFloat(transaction.fee) +' '+ transaction.currency}</b></Col>
           </Row>
           <Row style={{marginTop:'30px', marginBottom:'20px'}}>
