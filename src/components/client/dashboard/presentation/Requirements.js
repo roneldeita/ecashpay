@@ -41,7 +41,7 @@ const Desc = {
 
 export default ({ready, levels, phone, progress}) => {
   return(
-    <QueueAnim type={['bottom', 'top']} delay="400" ease={['easeOutBack', 'easeInOutCirc']}>
+    <QueueAnim type={['bottom', 'top']} delay="800" ease={['easeOutBack', 'easeInOutCirc']}>
       <div key="0">
         <Card
           hoverable
@@ -50,7 +50,9 @@ export default ({ready, levels, phone, progress}) => {
           style={CardStyle}>
           {/*<p style={Title}>Get started with Eacashpay</p>*/}
           <Row type="flex" justify="space-between" style={RowStyle}>
-            <Col className="" xs={24} sm={11} lg={7} xl={5}>
+            <Col className="" xs={0} sm={0} lg={0} xl={1}>
+            </Col>
+            <Col className="" xs={24} sm={11} lg={7} xl={6}>
               { (phone !== '')
                 ?
                 <div>
@@ -66,7 +68,7 @@ export default ({ready, levels, phone, progress}) => {
                 </Link>
               }
             </Col>
-            <Col className="" xs={24} sm={11} lg={7} xl={5}>
+            <Col className="" xs={24} sm={11} lg={7} xl={6}>
               { includes(levels, 1)
                 ?
                 <div>
@@ -82,7 +84,7 @@ export default ({ready, levels, phone, progress}) => {
                 </Link>
               }
             </Col>
-            <Col className="" xs={24} sm={11} lg={7} xl={5}>
+            <Col className="" xs={24} sm={11} lg={7} xl={6}>
               { includes(levels, 2)
                 ?
                 <div>
@@ -98,11 +100,11 @@ export default ({ready, levels, phone, progress}) => {
                 </Link>
               }
             </Col>
-            <Col className="" xs={24} sm={11} lg={7} xl={5}>
-              <img src={LinkEcashCard} style={Img} alt="link Ecashpay card"/>
+            <Col className="" xs={0} sm={0} lg={0} xl={1}>
+              {/*<img src={LinkEcashCard} style={Img} alt="link Ecashpay card"/>
               <p style={RequirementTitle}>Link Your Ecash Card</p>
               <p style={Desc}>Transfer and get your cash instantly through our accredited banks nationwide.</p>
-              <Tag>Available soon</Tag>
+              <Tag>Available soon</Tag>*/}
             </Col>
           </Row>
           <Progress percent={progress} status="active" style={ProgressStyle} />

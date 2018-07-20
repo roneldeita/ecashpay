@@ -78,7 +78,7 @@ export default ({ready, profile}) => {
             <Col className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="200" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/client/cashin" >
+                  <Link to="/cashin" >
                     <span className="pe-7s-wallet" style={MenuICon}></span>
                     {/*<img src={Addfunds} alt="send money" style={TabImg}/>*/}
                     <p>Cash In</p>
@@ -89,7 +89,7 @@ export default ({ready, profile}) => {
             <Col key="2" className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/client/sendmoney" >
+                  <Link to="/sendmoney" >
                     <span className="pe-7s-cash" style={MenuICon}></span>
                     {/*<img src={SendMoney} alt="send money" style={TabImg}/>*/}
                     <p>Send Money</p>
@@ -100,7 +100,7 @@ export default ({ready, profile}) => {
             <Col className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="400" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/client/buyload" >
+                  <Link to="/buyload" >
                     <span className="pe-7s-phone" style={MenuICon}></span>
                     {/*<img src={BuyLoad} alt="buy money" style={TabImg}/>*/}
                     <p>Buy Load</p>
@@ -111,7 +111,7 @@ export default ({ready, profile}) => {
             <Col className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="500" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/client/paybills" >
+                  <Link to="/paybills" >
                     <span className="pe-7s-credit" style={MenuICon}></span>
                     {/*<img src={PayBills} alt="pay bills" style={TabImg}/>*/}
                     <p>Pay Bills</p>
@@ -122,7 +122,7 @@ export default ({ready, profile}) => {
             <Col className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="600" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/client/booktravel" >
+                  <Link to="/booktravel" >
                     <span className="pe-7s-compass" style={MenuICon}></span>
                     {/*<img src={BookTravel} alt="book travel" style={TabImg}/>*/}
                     <p>Book Travel</p>

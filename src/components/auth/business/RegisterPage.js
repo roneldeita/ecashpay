@@ -47,9 +47,12 @@ class RegisterPage extends React.PureComponent {
       if (!err) {
         const Data = {}
         Object.entries(values).forEach(([index,value])=>{
+          if(index === 'Business Name'){
+            index = 'Name'
+          }
           Data[camelCase(index)]=value
         })
-        Auth(Data).register()
+        Auth(Data).BusinessRegister()
         .then( res => {
           this.props.authActions.saveAuth(res.data.token)
           window.location.href = '/business/verify'

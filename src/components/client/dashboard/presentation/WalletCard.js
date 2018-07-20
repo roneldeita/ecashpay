@@ -44,17 +44,15 @@ export default ({ready, currencies}) => {
   }
   //console.log(currencies)
   return(
-    <QueueAnim type={['bottom', 'top']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
+    <QueueAnim type={['bottom', 'top']} delay="700" ease={['easeOutBack', 'easeInOutCirc']}>
       <div key="0">
         <Card
           hoverable
           className="wallet-card"
-          title="Ecash Wallet"
+          title="Ecashpay Wallet"
           loading={ready}
           style={CardStyle}
-          actions={[
-            <Link to="/client/transfer">Transfer</Link>,
-            <Link to="/client/manage/currencies">Convert</Link>]}>
+          actions={[<Link to="/transfer">Transfer</Link>]}>
           {/*<Link style={{float: 'right'}} to='/client/manage/currencies'><span>Manage Currencies <Icon type="caret-right" style={{fontSize:'11px'}}/></span></Link>*/}
           {/*<p style={Title}>Ecash</p>*/}
           <p style={{marginBottom:'0px', fontWeight:200}}>Available</p>
@@ -64,7 +62,7 @@ export default ({ready, currencies}) => {
           <div style={CurrencyContainer}>
             {!isEmpty(currencies) &&  renderCurrencies(currencies)}
           </div>
-          <Button style={{marginTop:'15px'}}><Link to="/client/cashin">Cash In</Link></Button>
+          <Button style={{marginTop:'15px'}}><Link to="/cashin">Cash In</Link></Button>
         </Card>
       </div>
     </QueueAnim>

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Table, Card, Row, Col, Divider, Button, Tag } from 'antd'
 import Moment from 'react-moment'
-import { isEmpty } from 'lodash'
 
 export default ({record, accept, decline}) => {
   console.log(record)
@@ -30,7 +29,6 @@ export default ({record, accept, decline}) => {
       </div>)}
       rowKey="id"
       columns={columns}
-      loading={isEmpty(record)}
       dataSource={record}
       expandedRowRender={record => {
         let Photos = JSON.parse(record.payload)

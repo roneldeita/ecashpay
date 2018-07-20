@@ -37,7 +37,7 @@ class VerifyIdPage extends React.PureComponent{
   }
   decline(e){
     const RequestId = e.target.getAttribute('data-id')
-    Id({id:RequestId, 'status':'2'}, {'x-access-token':this.props.auth.token}).Verify()
+    Id({id:RequestId, 'status':'rejected'}, {'x-access-token':this.props.auth.token}).Verify()
     .then(res=>{
       this.getAllRecords()
     })
@@ -47,7 +47,7 @@ class VerifyIdPage extends React.PureComponent{
   }
   accept(e){
     const RequestId = e.target.getAttribute('data-id')
-    Id({id:RequestId, 'status':'1'}, {'x-access-token':this.props.auth.token}).Verify()
+    Id({id:RequestId, 'status':'accepted'}, {'x-access-token':this.props.auth.token}).Verify()
     .then(res=>{
       this.getAllRecords()
     })

@@ -29,7 +29,7 @@ class AdminSideNavigation extends React.PureComponent{
   render() {
     return (
       <div>
-        <Menu mode="inline" theme="dark" selectedKeys={[this.state.selected]}>
+        <Menu theme="dark" selectedKeys={[this.state.selected]}>
         <Menu.Item key="/admin">
           <Link to="/admin"><Icon type="dashboard" /><span>Dashboard</span></Link>
         </Menu.Item>
@@ -40,11 +40,13 @@ class AdminSideNavigation extends React.PureComponent{
         <SubMenu key="sub2" title={<span><Icon type="swap"/><span>Transactions</span></span>}>
           <Menu.Item key="/admin/transactions/cashin"><Link to="/admin/transactions/cashin">Cash In</Link></Menu.Item>
         </SubMenu>
-        <Menu.Item key="/shop">
-          <Icon type="shop" />
-          <span>Outlets</span>
-        </Menu.Item>
-        <SubMenu key="sub3" title={<span><Icon type="wallet"/><span>Currency</span></span>}>
+        <SubMenu key="sub3" title={<span><Icon type="shop"/><span>Business</span></span>}>
+          <Menu.Item key="/admin/business/accounts"><Link to="/admin/business/accounts">New Accounts</Link></Menu.Item>
+        </SubMenu>
+        <SubMenu key="sub4" title={<span><Icon type="shop"/><span>Merchant</span></span>}>
+          <Menu.Item key="/admin/merchant/accounts"><Link to="/admin/merchant/accounts">New Accounts</Link></Menu.Item>
+        </SubMenu>
+        <SubMenu key="sub5" title={<span><Icon type="wallet"/><span>Currency</span></span>}>
           <Menu.Item key="5">Rates</Menu.Item>
         </SubMenu>
         <Menu.Item key="6" onClick={this.handleLogOut}><Icon type="logout"/><span>Logout</span></Menu.Item>

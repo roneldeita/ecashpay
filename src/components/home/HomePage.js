@@ -1,9 +1,9 @@
 import React from 'react'
 // import Banner from './presentation/Banner.js'
 import Banner from './presentation/Banner.js'
-import DebitCard from './presentation/DebitCard.js'
-import GlobalTrust from './presentation/GlobalTrust.js'
-import Services from './presentation/Services.js'
+// import DebitCard from './presentation/DebitCard.js'
+// import GlobalTrust from './presentation/GlobalTrust.js'
+// import Services from './presentation/Services.js'
 
 class HomePage extends React.PureComponent{
   constructor(props){
@@ -52,9 +52,9 @@ class HomePage extends React.PureComponent{
     return(
       <div>
         <Banner/>
-        <DebitCard/>
+        {/*<DebitCard/>
         <GlobalTrust/>
-        <Services/>
+        <Services/>*/}
       </div>
     )
   }

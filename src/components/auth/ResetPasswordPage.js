@@ -51,6 +51,7 @@ class ResetPasswordPage extends React.PureComponent{
           Data[camelCase(index)]=value
         })
         Data.email = sessionStorage.getItem("recovery")
+        console.log(Data)
         Auth(Data).recoveryReset()
         .then( res => {
           sessionStorage.removeItem('recovery');

@@ -18,24 +18,12 @@ class ProfilePage extends React.PureComponent{
     super(props)
     this.state = {
       buttonState: false,
-      countries: [],
-      sourceOfFunds: 0,
+      countries: []
     }
     this.onClickCompleteButton = this.onClickCompleteButton.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleSourceOfFunds = this.handleSourceOfFunds.bind(this)
     document.title="Complete Profile - Ecashpay"
-  }
-  handleSourceOfFunds(e){
-    if(e.target.value === "2"){
-      this.props.form.resetFields(['Business Name', 'Registration Date', 'Nature of Business', 'Years in Operation'])
-      this.props.form.setFieldsValue({'Occupation':'x','Company':'x', 'Position':'x'})
-    }else if(e.target.value === "1"){
-      this.props.form.resetFields(['Occupation', 'Company', 'Position'])
-      this.props.form.setFieldsValue({'Business Name':'x', 'Registration Date': 'x', 'Nature of Business': 'x', 'Years in Operation': 'x'})
-    }
-    this.setState({sourceOfFunds:e.target.value})
   }
   onClickCompleteButton(event){
     this.setState({buttonState:true})
@@ -45,8 +33,17 @@ class ProfilePage extends React.PureComponent{
       if (!err) {
         const Data = {}
         Object.entries(values).forEach(([index,value])=>{
-          if(index === 'Address line 1'){
-            index = 'Address1'
+          if(index === 'Business Name'){
+            index = 'Name'
+          }
+          if(index === 'Nature of Business'){
+            index = 'Nature'
+          }
+          if(index === 'Contact Number'){
+            index = 'Contact'
+          }
+          if(index === 'Business Registration No'){
+            index = 'Registration'
           }
           if(index === 'City / Municipality'){
             index = 'City'
@@ -54,34 +51,13 @@ class ProfilePage extends React.PureComponent{
           if(index === 'Region / State / Province'){
             index = 'Region'
           }
-          // if(index === 'Phone Number'){
-          //   index = 'Phone'
-          // }
-          if(index ==='Birth Date'){
-            value = value.format('YYYY-MM-DD')
-          }
-          if(index === 'Source of Funds'){
-            if(value === '1'){
-              Data['employed'] = {}
-            }else if(value === '2'){
-              Data['selfEmployed'] = {}
-            }else if(value === '3'){
-              Data['unemployed'] = {}
-            }
+          if(index === 'Zip Code'){
+            index = 'Zip'
           }
           Data[camelCase(index)]=value
         })
-        if(values['Source of Funds'] === "1"){
-          Data['employed']['occupation'] = Data['occupation'].toString()
-          Data['employed']['company'] = Data['company'].toString()
-          Data['employed']['position'] = Data['position'].toString()
-        }else if(values['Source of Funds'] === "2"){
-          Data['selfEmployed']['business'] = Data['businessName'].toString()
-          Data['selfEmployed']['registrationDate'] = Data['registrationDate'].toString()
-          Data['selfEmployed']['nature'] = Data['natureOfBusiness'].toString()
-          Data['selfEmployed']['yearsInOperation'] = Data['yearsInOperation'].toString()
-        }
-        Auth(Data, {'x-access-token':this.props.auth.token}).completeProfile()
+        console.log(Data)
+        Auth(Data, {'x-access-token':this.props.auth.token}).BusinessProfile()
         .then( res => {
           window.location.href = '/'
         })
@@ -117,15 +93,12 @@ class ProfilePage extends React.PureComponent{
     return(
       <div>
         <ProfileForm
-          firstName={this.props.profile.firstName}
-          lastName={this.props.profile.lastName}
+          businessName={this.props.profile.name}
           form={this.props.form}
           buttonState={this.state.buttonState}
-          onClickCompleteButton ={this.onClickCompleteButton}
+          onClickCompleteButton={this.onClickCompleteButton}
           countries={this.state.countries}
           onSubmit={this.handleSubmit}
-          sourceOfFunds={this.state.sourceOfFunds}
-          handleSourceOfFunds={this.handleSourceOfFunds}
         />
       </div>
     )

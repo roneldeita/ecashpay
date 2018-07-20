@@ -8,6 +8,7 @@ import Moment from 'react-moment';
 //import {isEmpty} from 'lodash'
 
 export default ({transactions, profile}) => {
+  console.log(transactions)
   const PopOverContent = (
     <div>
       <Badge status="success" text="Completed"/>
@@ -21,7 +22,7 @@ export default ({transactions, profile}) => {
   )
   const Title = (
     <div>
-      Transaction History
+      Recent activity
       <Popover placement="top" title="Trasaction Status Legend" content={PopOverContent} trigger="click">
         <Icon type="info-circle-o" style={{marginLeft:'5px'}}/>
       </Popover>
@@ -64,7 +65,7 @@ export default ({transactions, profile}) => {
     }
   }
   return(
-    <QueueAnim type={['bottom', 'top']} delay="400" ease={['easeOutBack', 'easeInOutCirc']}>
+    <QueueAnim type={['bottom', 'top']} delay="1000" ease={['easeOutBack', 'easeInOutCirc']}>
       <div key="0">
         <Card
           hoverable
@@ -83,17 +84,20 @@ export default ({transactions, profile}) => {
               pageSize: 10
             }}
             renderItem={ item => (
-              <List.Item actions={[<Link to={`/client/transactions/cashin/${item.no}`}>{Status(item.status)}</Link>]}>
+              <List.Item actions={[<Link to={`/cashin/transactions/${item.no}`}>{Status(item.status)}</Link>]}>
                 <div>
                   <Badge status={BadgeStatus(item.status)} /><Moment format="MMM D" date={item.createdAt} style={{fontSize:'20px'}}/>
                   <Divider type="vertical"/>
+
                   { item.type === 'cashIn' && item.entryType === 'debit' && <span>{startCase(item.type)} via {item.outletName}</span>}
-                  { item.type === 'transfer' && item.entryType === 'debit' &&
+                  { item.type === 'transfer' && item.entryType === 'debit' && <span>Recieved from {item.targetAccount}</span>}
+                  { item.type === 'transfer' && item.entryType === 'credit' && <span>Transfer to {item.sourceAccount}</span>}
+                  {/*{ item.type === 'transfer' && item.entryType === 'debit' &&
                     <span>
                       {item.targetAccount === profile.account ? 'Transfer to ' + item.sourceAccount : ''}
                       {item.sourceAccount === profile.account ? 'Recieved from ' + item.targetAccount : ''}
                     </span>
-                  }
+                  }*/}
                   (<span style={{color:'#999999'}}>{item.currency}{item.amount}
                       <span>
                         {item.type === 'cashIn' ? '+'+item.currency + item.fee: ''}

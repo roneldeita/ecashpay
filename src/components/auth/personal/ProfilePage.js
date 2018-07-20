@@ -19,7 +19,7 @@ class ProfilePage extends React.PureComponent{
     this.state = {
       buttonState: false,
       countries: [],
-      sourceOfFunds: 0,
+      sourceOfFunds: '',
     }
     this.onClickCompleteButton = this.onClickCompleteButton.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -28,13 +28,13 @@ class ProfilePage extends React.PureComponent{
     document.title="Complete Profile - Ecashpay"
   }
   handleSourceOfFunds(e){
-    if(e.target.value === "3"){
+    if(e.target.value === "unemployed"){
       this.props.form.setFieldsValue({'Business Name':'x', 'Registration Date': 'x', 'Nature of Business': 'x', 'Years in Operation': 'x'})
       this.props.form.setFieldsValue({'Occupation':'x','Company':'x', 'Position':'x'})
-    }else if(e.target.value === "2"){
+    }else if(e.target.value === "selfEmployed"){
       this.props.form.resetFields(['Business Name', 'Registration Date', 'Nature of Business', 'Years in Operation'])
       this.props.form.setFieldsValue({'Occupation':'x','Company':'x', 'Position':'x'})
-    }else if(e.target.value === "1"){
+    }else if(e.target.value === "employed"){
       this.props.form.resetFields(['Occupation', 'Company', 'Position'])
       this.props.form.setFieldsValue({'Business Name':'x', 'Registration Date': 'x', 'Nature of Business': 'x', 'Years in Operation': 'x'})
     }
@@ -48,42 +48,36 @@ class ProfilePage extends React.PureComponent{
       if (!err) {
         const Data = {}
         Object.entries(values).forEach(([index,value])=>{
-          // if(index === 'Street'){
-          //   index = 'Address1'
-          // }
           if(index === 'City / Municipality'){
             index = 'City'
           }
           if(index === 'Region / State / Province'){
             index = 'Region'
           }
-          // if(index === 'Phone Number'){
-          //   index = 'Phone'
-          // }
           if(index ==='Birth Date'){
             value = value.format('YYYY-MM-DD')
           }
           if(index === 'Source of Funds'){
-            if(value === '1'){
+            if(value === 'employed'){
               Data['employed'] = {}
-            }else if(value === '2'){
+            }else if(value === 'selfEmployed'){
               Data['selfEmployed'] = {}
-            }else if(value === '3'){
+            }else if(value === 'unemployed'){
               Data['unemployed'] = {}
             }
           }
           Data[camelCase(index)]=value
         })
-        if(values['Source of Funds'] === "1"){
+        if(values['Source of Funds'] === "employed"){
           Data['employed']['occupation'] = Data['occupation'].toString()
           Data['employed']['company'] = Data['company'].toString()
           Data['employed']['position'] = Data['position'].toString()
-        }else if(values['Source of Funds'] === "2"){
+        }else if(values['Source of Funds'] === "selfEmployed"){
           Data['selfEmployed']['business'] = Data['businessName'].toString()
           Data['selfEmployed']['registrationDate'] = Data['registrationDate'].toString()
           Data['selfEmployed']['nature'] = Data['natureOfBusiness'].toString()
           Data['selfEmployed']['yearsInOperation'] = Data['yearsInOperation'].toString()
-        }else if(values['Source of Funds'] === "3"){
+        }else if(values['Source of Funds'] === "unemployed"){
           Data['unemployed']['source'] = Data['source'].toString()
         }
         Auth(Data, {'x-access-token':this.props.auth.token}).completeProfile()

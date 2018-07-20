@@ -8,12 +8,12 @@ const DividerStyle = {
 }
 export default () => {
   return(
-    <QueueAnim type={['bottom', 'top']} delay="500" ease={['easeOutBack', 'easeInOutCirc']}>
+    <QueueAnim type={['bottom', 'top']} delay="900" ease={['easeOutBack', 'easeInOutCirc']}>
       <div key="0">
         <Card>
-          <Link to="/client/manage/currencies">Manage Currencies</Link>
-          <Divider style={DividerStyle}/>
-          <Link to="/client/manage/knownaccounts">Manage Known Accounts</Link>
+          {/*<Link to="/currencies">Manage Currencies</Link>
+          <Divider style={DividerStyle}/>*/}
+          <Link to="/knownaccounts">Manage Known Accounts</Link>
         </Card>
       </div>
     </QueueAnim>

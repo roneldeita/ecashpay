@@ -9,6 +9,7 @@ import Rejected from './presentation/Rejected'
 import { Form, Row, Col, Card, Icon, Modal } from 'antd'
 import QueueAnim from 'rc-queue-anim'
 import { Pob } from '../../../services/api'
+import { isEmpty } from 'lodash'
 
 const CardStyle = {
   margin: '0px',
@@ -117,7 +118,6 @@ class SubmitPobPage extends React.PureComponent{
     this.checkStatus()
   }
   render(){
-    console.log(this.props)
     return (
       <Row justify="center" type="flex" style={{marginTop:'50px'}}>
         <Col md={12} lg={8}>
@@ -127,9 +127,9 @@ class SubmitPobPage extends React.PureComponent{
                 hoverable
                 title="Upgrade Level 2"
                 style={CardStyle}
-                loading={this.state.identification === ''}
+                loading={isEmpty(this.state.identification)}
                 actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
-                  <div style={{display:this.state.identification.statusCode === 'none' ? 'block' : 'none'}}>
+                  <div style={{display:this.state.identification.status === 'none' ? 'block' : 'none'}}>
                     <UploadPobForm
                       form={this.props.form}
                       files={this.state.files}
@@ -152,7 +152,7 @@ class SubmitPobPage extends React.PureComponent{
                   <div style={{display:this.state.identification.status === 'rejected' ? 'block' : 'none'}}>
                     <Rejected resubmit={this.cancelRequest}/>
                   </div>
-                  <div style={{display:this.state.identification.status === 'done' ? 'block' : 'none'}}>
+                  <div style={{display:this.state.identification.status === 'accepted' ? 'block' : 'none'}}>
                     <Verified/>
                   </div>
               </Card>

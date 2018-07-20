@@ -13,8 +13,20 @@ export function Auth(data, header) {
     completeProfile: () => axios.patch(process.env.REACT_APP_API + '/api/v1/profiles', data, {headers:header}),
     recoveryRequest: () => axios.post(process.env.REACT_APP_API + '/recoveries/request', data),
     recoveryReset: () => axios.post(process.env.REACT_APP_API + '/recoveries/reset', data),
+    //business
+    BusinessRegister: () => axios.post(process.env.REACT_APP_API + '/register/businesses', data),
+    BusinessProfile: () => axios.patch(process.env.REACT_APP_API + '/api/v1/profiles/businesses', data, {headers:header}),
+    BusinessRequirementsProfile: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/businesses/requirements', data, {headers:header}),
+    //merchant
+    MerchantRegister: () => axios.post(process.env.REACT_APP_API + '/register/merchants', data),
+    MerchantProfile: () => axios.patch(process.env.REACT_APP_API + '/api/v1/profiles/merchants', data, {headers:header}),
+    MerchantsRequirementsProfile: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/merchants/requirements', data, {headers:header}),
     //admin
     AdminLogin: () => axios.post(process.env.REACT_APP_API + '/login?role=admin', data),
+    AdminBusinessNewAccounts: () => axios.get(process.env.REACT_APP_API + '/businesses?status=pending', data),
+    AdminAcceptNewBusinessAccount: () => axios.patch(process.env.REACT_APP_API + '/businesses/'+data.id, data),
+    AdminMerchantNewAccounts: () => axios.get(process.env.REACT_APP_API + '/merchants?status=pending', data),
+    AdminAcceptNewMerchantAccount: () => axios.patch(process.env.REACT_APP_API + '/merchants/'+data.id, data),
   }
 }
 

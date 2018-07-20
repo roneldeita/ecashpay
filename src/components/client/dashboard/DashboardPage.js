@@ -30,11 +30,14 @@ class DashboardPage extends React.PureComponent{
     document.title="Dashboard - Ecashpay"
     //SubscribeToTimer((timestamp) => this.setState({timestamp}))
   }
+  static getDerivedStateFromProps(props, state){
+    return props
+  }
   loadTransactions(){
     Transaction(null, {'x-access-token':this.props.auth.token}).All()
     .then(res => {
-      const DebitOnly = res.data.filter(transaction=> transaction.entryType === 'debit')
-      this.setState({transactions:DebitOnly})
+      //const DebitOnly = res.data.filter(transaction=> transaction.entryType === 'debit')
+      this.setState({transactions:res.data})
     })
     .catch(err => {
       console.log(err)
@@ -52,20 +55,8 @@ class DashboardPage extends React.PureComponent{
   redirectPhoneVerification(){
     window.location.href='/client/verify/phone'
   }
-  componentWillMount(){
-    this.props.profileActions.loadProfile()
-    // if(this.props.profile.phone === ''){
-    //   this.redirectPhoneVerification()
-    // }
-  }
-  componentWillReceiveProps(nextProps){
-    // if(nextProps.profile.phone === ''){
-    //   this.redirectPhoneVerification()
-    // }
-    this.setState({profile:nextProps.profile})
-  }
   componentDidMount(){
-    this.setState({profile:this.props.profile})
+    this.props.profileActions.loadProfile()
     this.delayProgressBar = setTimeout(()=>this.progress(), 1000)
     this.loadWallets()
     this.loadTransactions()
@@ -76,7 +67,7 @@ class DashboardPage extends React.PureComponent{
   progress(){
     let Levels = this.state.profile.levels;
     let Phone = this.state.profile.phone !=='' ? 25 : 0
-    let ProgressValue = ((Levels !== undefined ? Object.keys(Levels).length : 0) * 25) + Phone
+    let ProgressValue = ((Levels !== undefined ? Object.keys(Levels).length : 0) * 37.5) + Phone
     this.setState({progress:ProgressValue})
   }
   render(){

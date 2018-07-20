@@ -34,8 +34,9 @@ const Label = {
   wrapperCol: { xs:24, sm:24, md:24, lg:17 }
 }
 
-const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonState, onClickCompleteButton, sourceOfFunds, handleSourceOfFunds}) => {
+const ProfileForm = ({businessName, form, countries, onSubmit, buttonState, onClickCompleteButton}) => {
   const { getFieldDecorator, isFieldTouched, getFieldError } = form;
+  const BusinessNameError =  getFieldError('Business Name')
   const NatureOfBusinessError =  getFieldError('Nature of Business')
   const ContactNumberError = getFieldError('Contact Number')
   const StreetError = getFieldError('Street')
@@ -44,7 +45,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
   const CountryError = getFieldError('Country')
   const ZipCodeError = getFieldError('Zip Code')
   const WebsiteError =  getFieldError('Website')
-  const BusinessRegNoError =  getFieldError('Business Reg. No.')
+  const BusinessRegNoError =  getFieldError('Business Registration No')
   const DateStartedError =  getFieldError('Date Started')
 
   return(
@@ -59,7 +60,25 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
             <Col span={20} className="user">
               <Form onSubmit={onSubmit} style={AntForm}>
                 <FormItem
-                  label="Nature of business"
+                  label="Business Name"
+                  required={false}
+                  {...Label}
+                  className="name"
+                  hasFeedback={isFieldTouched('Business Name')}
+                  validateStatus={BusinessNameError ? 'error' : ''}
+                  help={BusinessNameError || ''}>
+                  {getFieldDecorator('Business Name', {
+                    initialValue: businessName,
+                    rules: [
+                      { required: true },
+                      { pattern: /^[a-zA-Z\s-'ñÑ_]+$/, message: 'Business Name should only contain letters' }
+                    ],
+                  })(
+                    <Input size="large"/>
+                  )}
+                </FormItem>
+                <FormItem
+                  label="Nature of Business"
                   required={false}
                   {...Label}
                   className="name"
@@ -67,7 +86,6 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   validateStatus={NatureOfBusinessError ? 'error' : 'success'}
                   help={NatureOfBusinessError || ''}>
                   {getFieldDecorator('Nature of Business', {
-                    initialValue: firstName,
                     rules: [
                       { required: true }
                     ],
@@ -119,27 +137,25 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   label="Website"
                   required={false}
                   {...Label}
-                  className="name"
                   hasFeedback={isFieldTouched('Website')}
                   validateStatus={WebsiteError ? 'error' : 'success'}
                   help={WebsiteError || ''}>
                   {getFieldDecorator('Website', {
                     rules: [
-                      { required: true }
+                      { required: false }
                     ],
                   })(
                     <Input size="large"/>
                   )}
                 </FormItem>
                 <FormItem
-                  label="Business Registration No"
+                  label="Business Registration No."
                   required={false}
                   {...Label}
-                  className="name"
-                  hasFeedback={isFieldTouched('Business Reg. No.')}
+                  hasFeedback={isFieldTouched('Business Registration No')}
                   validateStatus={BusinessRegNoError ? 'error' : 'success'}
                   help={BusinessRegNoError || ''}>
-                  {getFieldDecorator('Business Reg. No.', {
+                  {getFieldDecorator('Business Registration No', {
                     rules: [
                       { required: true }
                     ],
@@ -167,7 +183,6 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   label="Street"
                   required={false}
                   {...Label}
-                  className="name"
                   hasFeedback={isFieldTouched('Street')}
                   validateStatus={StreetError ? 'error' : 'success'}
                   help={StreetError || ''}>
@@ -183,7 +198,6 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   label="City / Municipality"
                   required={false}
                   {...Label}
-                  className="name"
                   hasFeedback={isFieldTouched('City / Municipality')}
                   validateStatus={CityError ? 'error' : 'success'}
                   help={CityError || ''}>
@@ -199,7 +213,6 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   label="Region / State / Province"
                   required={false}
                   {...Label}
-                  className="name"
                   hasFeedback={isFieldTouched('Region / State / Province')}
                   validateStatus={StateError ? 'error' : 'success'}
                   help={StateError || ''}>
@@ -236,7 +249,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   )}
                 </FormItem>
                 <FormItem
-                  label="Zip code"
+                  label="Zip Code"
                   required={false}
                   {...Label}
                   hasFeedback={isFieldTouched('Zip Code')}

@@ -7,7 +7,7 @@ export default () => {
     <div>
       <Alert
         message="Congratulations!"
-        description="Your Upgrade Level 1 was successfully approved!"
+        description="Your Upgrade Level 2 was successfully approved!"
         type="success"
         showIcon
       />

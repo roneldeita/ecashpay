@@ -35,6 +35,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                     <RadioGroup>
                       <Link to='/client/register'><Radio value="personal">Pesonal</Radio></Link>
                       <Radio value="business">Business</Radio>
+                      <Link to='/merchant/register'><Radio value="merchant">Merchant</Radio></Link>
                     </RadioGroup>
                   )}
                 </FormItem>

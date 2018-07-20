@@ -241,16 +241,16 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     ],
                   })(
                     <RadioGroup onChange={handleSourceOfFunds} style={{width:'100%'}}>
-                      <Radio value="1">Employed</Radio>
-                      <Radio value="2">Self-Employed</Radio>
-                      <Radio value="3">Unemployed</Radio>
+                      <Radio value="employed">Employed</Radio>
+                      <Radio value="selfEmployed">Self-Employed</Radio>
+                      <Radio value="unemployed">Unemployed</Radio>
                     </RadioGroup>
                   )}
                 </FormItem>
                 <FormItem
                   label="Occupation"
                   required={false}
-                  style={{display:sourceOfFunds === "1" ? 'block': 'none'}}
+                  style={{display:sourceOfFunds === "employed" ? 'block': 'none'}}
                   {...Label}
                   hasFeedback={isFieldTouched('Occupation')}
                   validateStatus={OccupationError ? 'error' : ''}
@@ -266,7 +266,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                 <FormItem
                   label="Company"
                   required={false}
-                  style={{display:sourceOfFunds === "1" ? 'block': 'none'}}
+                  style={{display:sourceOfFunds === "employed" ? 'block': 'none'}}
                   {...Label}
                   hasFeedback={isFieldTouched('Company')}
                   validateStatus={CompanyError ? 'error' : ''}
@@ -282,7 +282,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                 <FormItem
                   label="Position / Rank"
                   required={false}
-                  style={{display:sourceOfFunds === "1" ? 'block': 'none'}}
+                  style={{display:sourceOfFunds === "employed" ? 'block': 'none'}}
                   {...Label}
                   hasFeedback={isFieldTouched('Position')}
                   validateStatus={PositionError ? 'error' : ''}
@@ -298,7 +298,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                 <FormItem
                   label="Business Name"
                   required={false}
-                  style={{display:sourceOfFunds === "2" ? 'block': 'none'}}
+                  style={{display:sourceOfFunds === "selfEmployed" ? 'block': 'none'}}
                   {...Label}
                   hasFeedback={isFieldTouched('Business Name')}
                   validateStatus={BusinessNameError ? 'error' : ''}
@@ -314,7 +314,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                 <FormItem
                   label="Registration Date"
                   required={false}
-                  style={{display:sourceOfFunds === "2" ? 'block': 'none'}}
+                  style={{display:sourceOfFunds === "selfEmployed" ? 'block': 'none'}}
                   {...Label}
                   hasFeedback={isFieldTouched('Registration Date')}
                   validateStatus={RegistrationDateError ? 'error' : ''}
@@ -330,7 +330,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                 <FormItem
                   label="Nature of Business"
                   required={false}
-                  style={{display:sourceOfFunds === "2" ? 'block': 'none'}}
+                  style={{display:sourceOfFunds === "selfEmployed" ? 'block': 'none'}}
                   {...Label}
                   hasFeedback={isFieldTouched('Nature of Business')}
                   validateStatus={BusinessNatureError ? 'error' : ''}
@@ -346,7 +346,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                 <FormItem
                   label="Years in Operation"
                   required={false}
-                  style={{display:sourceOfFunds === "2" ? 'block': 'none'}}
+                  style={{display:sourceOfFunds === "selfEmployed" ? 'block': 'none'}}
                   {...Label}
                   hasFeedback={isFieldTouched('Years in Operation')}
                   validateStatus={OperationYearsError ? 'error' : ''}
@@ -362,7 +362,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                 <FormItem
                   label="Source"
                   required={false}
-                  style={{display:sourceOfFunds === "3" ? 'block': 'none'}}
+                  style={{display:sourceOfFunds === "unemployed" ? 'block': 'none'}}
                   {...Label}
                   hasFeedback={isFieldTouched('Source')}
                   validateStatus={SourceError ? 'error' : ''}

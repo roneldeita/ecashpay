@@ -34,7 +34,7 @@ class VerificationPage extends React.PureComponent {
           Auth({code:values.Code}, {'x-access-token':this.props.auth.token}).verifyEmail()
           .then(res => {
             this.props.profileAction.loadProfile(this.props.auth.token)
-            window.location.href = 'business/profile'
+            window.location.href = '/business/profile'
           })
           .catch(error => {
             Modal.error({

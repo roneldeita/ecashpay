@@ -59,7 +59,7 @@ class App extends Component {
     super(props)
     this.state = {
       timeOut: process.env.REACT_APP_TIMEOUT,
-      collapsed: false,
+      collapsed: true,
       notif:''
     }
     this.handleChangeLocale = this.handleChangeLocale.bind(this)
@@ -110,10 +110,12 @@ class App extends Component {
     const paths = [
       '/login', '/client/register', '/client/verify', '/redirecting',
       '/password/request', '/password/reset', '/login/tfa',
-      '/business/register',
+      '/business/register', '/business/verify',
+      '/merchant/register', '/merchant/verify',
       '/admin', '/admin/login', '/admin/transactions',
       '/admin/requirements/id', '/admin/requirements/pob',
-      '/admin/transactions/cashin']
+      '/admin/transactions/cashin', '/admin/business/accounts',
+      '/admin/merchant/accounts']
     if(paths.includes(this.props.location.pathname)){
       return 'none'
     }
@@ -123,7 +125,8 @@ class App extends Component {
     const paths = [
       '/admin', '/admin/transactions',
       '/admin/requirements/id', '/admin/requirements/pob',
-      '/admin/transactions/cashin']
+      '/admin/transactions/cashin', '/admin/business/accounts',
+      '/admin/merchant/accounts']
     if(paths.includes(this.props.location.pathname)){
       return 'block'
     }
@@ -149,6 +152,9 @@ class App extends Component {
             />
         </span>
       , 0);
+      if(this.props.profile.type === 'admin'){
+        this.props.history.push('/admin/login')
+      }
       this.props.history.push('/login')
     }
   }

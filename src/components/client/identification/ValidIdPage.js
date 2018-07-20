@@ -9,6 +9,7 @@ import Pending from './presentation/Pending'
 import Rejected from './presentation/Rejected'
 import Verified from './presentation/Verified'
 import { Id } from '../../../services/api'
+import { isEmpty } from 'lodash'
 
 const CardStyle = {
   margin: '0px',
@@ -130,7 +131,6 @@ class ValidIdPage extends React.PureComponent{
     this.checkStatus()
   }
   render(){
-    console.log(this.state.identification)
     return(
       <Row type="flex" justify="center" style={{marginTop:'50px'}}>
         <Col md={12} lg={8}>
@@ -140,9 +140,9 @@ class ValidIdPage extends React.PureComponent{
                 hoverable
                 title="Upgrade Level 1"
                 style={CardStyle}
-                loading={this.state.identification === ''}
+                loading={isEmpty(this.state.identification)}
                 actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
-                <div style={{display:this.state.identification.statusCode === 'none' ? 'block' : 'none'}}>
+                <div style={{display:this.state.identification.status === 'none' ? 'block' : 'none'}}>
                   <UploadIdForm
                     buttonState={this.state.buttonState}
                     form={this.props.form}
@@ -174,7 +174,7 @@ class ValidIdPage extends React.PureComponent{
                 <div style={{display:this.state.identification.status === 'rejected' ? 'block' : 'none'}}>
                   <Rejected resubmit={this.cancelRequest}/>
                 </div>
-                <div style={{display:this.state.identification.status === 'done' ? 'block' : 'none'}}>
+                <div style={{display:this.state.identification.status === 'accepted' ? 'block' : 'none'}}>
                   <Verified/>
                 </div>
               </Card>
