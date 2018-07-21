@@ -55,9 +55,9 @@ export default ({
   }
   return(
     <Row type="flex" justify="center">
-      <Col xs={24} sm={22} md={18}>
+      <Col xs={24} sm={22} md={20}>
         <p></p>
-        <Form onSubmit={submit} autocomplete="off">
+        <Form onSubmit={submit} autoComplete="off">
           <p>1. Choose valid ID</p>
           <Form.Item
             validateStatus={IdTypeError ? 'error' : ''}
@@ -127,9 +127,6 @@ export default ({
                 {UploadIdButton}
               </Upload.Dragger>
             )}
-          </Form.Item>
-          <Form.Item>
-            By clicking submit, you agree to our <a>Terms & Condition</a>
           </Form.Item>
           <Form.Item>
             <Button

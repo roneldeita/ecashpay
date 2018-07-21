@@ -16,7 +16,7 @@ const RequestPasswordForm = ({form, buttonState, onSubmit, buttonWasClicked}) =>
               <p style={css.Greet}>Forgot your password?</p>
               <p style={css.Small}>Enter your email and we will send a code to reset your password.</p>
               <br/><br/>
-                <Form onSubmit={onSubmit} autocomplete="off">
+                <Form onSubmit={onSubmit} autoComplete="off">
                   <Form.Item
                     hasFeedback={isFieldTouched('Email')}
                     validateStatus={EmailError ? 'error' : 'success'}

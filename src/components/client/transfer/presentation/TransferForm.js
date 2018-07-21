@@ -15,7 +15,7 @@ export default ({currencies, primary, form, submit, summaryVisible}) => {
       title="Transfer to other Ecash"
       actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
       <Card><Icon type="check-circle-o"/> Send money using Ecash account number.</Card>
-      <Form onSubmit={submit} autocomplete="off">
+      <Form onSubmit={submit} autoComplete="off">
         <Row gutter={20}>
           <Col span={12}>
             <Form.Item

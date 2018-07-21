@@ -47,7 +47,7 @@ export default ({form, currencies, addCurrency, makePrimary, deleteCurrency, but
       actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
       <p>Any payment received in new currency will be automatically credited to that balance. Primary currency will be used in sending or requesting payments.</p>
       <br/>
-      <Form layout="inline" onSubmit={addCurrency} style={{marginBottom:'15px'}}>
+      <Form layout="inline" onSubmit={addCurrency} style={{marginBottom:'15px'}} autoComplete="off">
         <FormItem
           hasFeedback={isFieldTouched('Currency')}
           validateStatus={CurrencyError ? 'error' : 'success'}

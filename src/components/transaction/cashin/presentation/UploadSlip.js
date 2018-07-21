@@ -93,7 +93,7 @@ class UploadSlip extends React.PureComponent{
                   style={{marginBottom:'10px'}}
                 />}
               <p style={Title}>Confirm your Cash in transaction by uploading a clear copy of your official receipt / deposit slip.</p>
-              <Form onSubmit={this.handleSubmit} autocomplete="off">
+              <Form onSubmit={this.handleSubmit} autoComplete="off">
                 <Form.Item
                   {...formItemLayout}
                   validateStatus={getFieldError('File') ? 'error' : ''}

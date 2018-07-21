@@ -16,7 +16,7 @@ class VerificationPage extends React.PureComponent {
     super(props)
     this.state = {
       buttonState: false,
-      resendState:true
+      resendState:false
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleResend = this.handleResend.bind(this)

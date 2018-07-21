@@ -18,7 +18,7 @@ class RequirementsPage extends React.PureComponent{
       soleProprietorship:[
         { required: true, id:1, name:'DTI Permit', description: ''},
         { required: true, id:2, name:"Mayor's Permit", description: ''},
-        { required: true, id:3, name:"BIR 2303", description: "Certificate of Registration"},
+        { required: true, id:3, name:"BIR 2303", description: "Certified True Copy of the BIR Certificate of Registration"},
         { required: true, id:4, name:"Government-issued ID 1", description: ""},
         { required: true, id:5, name:"Government-issued ID 2", description: ""},
         { required: true, id:6, name:"Passport Size Colored Photos", description: ""},
@@ -39,15 +39,17 @@ class RequirementsPage extends React.PureComponent{
         { required: false, id:18, name:"BSP License", description: "For BSP Regulated Companies Only (Optional)"}
       ],
       corporation:[
-        { required: true, id:19, name:'SEC Certificate of Registration', description: ''},
-        { required: true, id:20, name:'Articles of Incorporation and By Laws', description: ''},
-        { required: true, id:21, name:'Latest General Information Sheet', description: ''},
-        { required: true, id:22, name:'Notarized Board Resolution', description: 'For Authorized Signatories Only *Authorization to enter into Agreement'},
-        { required: true, id:23, name:'Notarized Secretry Certificate', description: 'For Authorized Signatories Only *Authorization to enter into Agreement'},
-        { required: true, id:24, name:"Government-issued ID 1", description: "Authorized Signatories Only *Duly authenticated by Corporate Secretary"},
-        { required: true, id:25, name:"Government-issued ID 2", description: "Authorized Signatories Only *Duly authenticated by Corporate Secretary"},
-        { required: true, id:26, name:"Bank Certificate", description: ""},
-        { required: false, id:27, name:"BSP License", description: "For BSP Regulated Companies Only (Optional)"}
+        { required: true, id:19, name:'BIR 2303', description: 'Certified True Copy of the BIR Certificate of Registration'},
+        { required: true, id:20, name:'Business Permit', description: ''},
+        { required: true, id:21, name:'SEC Certificate of Registration', description: ''},
+        { required: true, id:22, name:'Articles of Incorporation and By Laws', description: ''},
+        { required: true, id:23, name:'Latest General Information Sheet', description: ''},
+        { required: true, id:24, name:'Notarized Board Resolution', description: 'For Authorized Signatories Only *Authorization to enter into Agreement'},
+        { required: true, id:25, name:'Notarized Secretry Certificate', description: 'For Authorized Signatories Only *Authorization to enter into Agreement'},
+        { required: true, id:26, name:"Government-issued ID 1", description: "Authorized Signatories Only *Duly authenticated by Corporate Secretary"},
+        { required: true, id:27, name:"Government-issued ID 2", description: "Authorized Signatories Only *Duly authenticated by Corporate Secretary"},
+        { required: true, id:28, name:"Bank Certificate", description: ""},
+        { required: false, id:29, name:"BSP License", description: "For BSP Regulated Companies Only (Optional)"}
       ]
     }
     this.changeType = this.changeType.bind(this)
@@ -71,9 +73,9 @@ class RequirementsPage extends React.PureComponent{
       if(value.fileList.length > 1){
         callback('Only 1 file is allowed')
       }
-      if(value.fileList.length === 0){
-        callback('File is required')
-      }
+      // if(value.fileList.length === 0){
+      //   callback('File is required')
+      // }
     }
     callback()
   }
@@ -84,7 +86,9 @@ class RequirementsPage extends React.PureComponent{
         const formData = new FormData()
         Object.keys(values).map(function(objectKey, index) {
           let value = values[objectKey]
-          formData.append('files', value.file)
+          if(values[objectKey] !== undefined){
+            formData.append('files', value.file)
+          }
         })
         Auth(formData, {'x-access-token':this.props.auth.token, 'Content-type':'multipart/form-data'}).BusinessRequirementsProfile()
         .then(res => {

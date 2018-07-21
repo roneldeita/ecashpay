@@ -39,7 +39,7 @@ class ProfilePage extends React.PureComponent{
           if(index === 'Nature of Business'){
             index = 'Nature'
           }
-          if(index === 'Contact Number'){
+          if(index === 'Phone Number'){
             index = 'Contact'
           }
           if(index === 'Business Registration No'){

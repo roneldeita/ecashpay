@@ -1,5 +1,5 @@
 export const Container = {
-  marginTop: '100px',
+  marginTop: '40px',
 }
 export const FormColumn = {
   padding: '80px 60px 30px 60px'

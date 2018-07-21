@@ -46,7 +46,6 @@ class DashboardPage extends React.PureComponent{
   loadWallets(){
     Wallet(null, {'x-access-token':this.props.auth.token}).GetAll()
     .then(res => {
-      console.log(res.data)
       this.setState({wallets:res.data.currencies})
     })
     .catch(err => {

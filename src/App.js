@@ -59,7 +59,7 @@ class App extends Component {
     super(props)
     this.state = {
       timeOut: process.env.REACT_APP_TIMEOUT,
-      collapsed: true,
+      collapsed: false,
       notif:''
     }
     this.handleChangeLocale = this.handleChangeLocale.bind(this)
@@ -108,7 +108,7 @@ class App extends Component {
   }
   hideTopNavigation(){
     const paths = [
-      '/login', '/client/register', '/client/verify', '/redirecting',
+      '/login', '/termsandconditions', '/client/register', '/client/verify', '/redirecting',
       '/password/request', '/password/reset', '/login/tfa',
       '/business/register', '/business/verify',
       '/merchant/register', '/merchant/verify',
@@ -208,7 +208,7 @@ class App extends Component {
                   background-color: transparent
                 }
                 .ant-layout-content{
-                  min-height:90vh !important
+                  min-height:100vh !important
                 }
                 .ant-layout-footer{
                   padding:0px;

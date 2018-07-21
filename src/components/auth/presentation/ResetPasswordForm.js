@@ -18,7 +18,7 @@ const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSu
               <p style={css.Greet}>Reset your password?</p>
               <p style={css.Small}>Please enter the 4-digit code you just received and your new password.</p>
               <br/><br/>
-                <Form onSubmit={onSubmit} autocomplete="off">
+                <Form onSubmit={onSubmit} autoComplete="off">
                   <Form.Item
                     validateStatus={CodeError ? 'error' : ''}
                     help={CodeError || ''}>

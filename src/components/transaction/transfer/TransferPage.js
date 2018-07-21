@@ -87,7 +87,6 @@ class TransferPage extends React.PureComponent{
     this.loadWallets()
   }
   render(){
-    console.log(this.props)
     return(
       <Row type="flex" justify="center" style={{marginTop:'50px'}}>
         <Col sm={18} md={14} lg={12} xl={10} xxl={8}>

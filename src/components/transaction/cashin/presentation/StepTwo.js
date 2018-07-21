@@ -36,7 +36,7 @@ const StepTwo = ({visibility, next, changeAmount, data, prev, form}) => {
   return(
     <Card style={visibility ? Show : Hide}>
       <p style={Title}>How much would you like to Cash In?</p>
-      <Form onSubmit={validate} autocomplete="off">
+      <Form onSubmit={validate} autoComplete="off">
         <Row type="flex" justify="center">
           <Col span={14}>
             <FormItem
@@ -59,7 +59,7 @@ const StepTwo = ({visibility, next, changeAmount, data, prev, form}) => {
       <Row style={{marginTop:'50px'}} type="flex" justify="center">
         <Col span={24}>
           <Row>
-            <Col span={12}>Merchant</Col>
+            <Col span={12}>Channel</Col>
             <Col span={12} style={rightContent}>{data.merchant.name}</Col>
           </Row>
           <Divider dashed style={DividerStyle}/>
@@ -75,7 +75,7 @@ const StepTwo = ({visibility, next, changeAmount, data, prev, form}) => {
           <Divider dashed style={DividerStyle}/>
           <Row>
             <Col span={12}>Ecashpay fee{` `}
-              <Popover placement="right" content="This helps us run our platform ad offer services like live support." trigger="click">
+              <Popover placement="right" content="This helps us run our platform and offer services like live support." trigger="click">
                 <Icon type="info-circle" style={Info}/>
               </Popover>
             </Col>

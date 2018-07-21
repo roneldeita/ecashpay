@@ -25,7 +25,7 @@ export default ({form, accounts, addAccount, deleteAccount, buttonState}) => {
                 <Link to="/client/dashboard">
                   <Icon type="left-circle-o"/> Return to Dashboard
                 </Link>]}>
-              <Form layout="inline" onSubmit={addAccount} style={{marginBottom:'15px'}} autocomplete="off">
+              <Form layout="inline" onSubmit={addAccount} style={{marginBottom:'15px'}} autoComplete="off">
                 <Form.Item
                   hasFeedback={isFieldTouched('Account ID')}
                   validateStatus={AccountIdError ? 'error' : 'success'}

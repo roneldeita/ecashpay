@@ -50,6 +50,13 @@ class ValidIdPage extends React.PureComponent{
         IdList.forEach((file) => {
           formData.append('files', file.originFileObj)
         })
+        formData.set('type', values['ID Type'])
+        formData.set('no', values['ID Number'])
+
+
+        for (var value of formData.keys()) {
+           console.log(value);
+        }
         Id(formData, {'x-access-token':this.props.auth.token, 'Content-type':'multipart/form-data'}).SubmitId()
         .then(res => {
           this.checkStatus()
@@ -57,10 +64,11 @@ class ValidIdPage extends React.PureComponent{
             this.setState({buttonState:false})
           }, 800)
         }).catch(err => {
-          Modal.error({
-            title: 'Sumission Error',
-            content: err.response.data.message
-          })
+          console.log(err)
+          // Modal.error({
+          //   title: 'Sumission Error',
+          //   content: err.response.data.message
+          // })
           setTimeout(()=>{
             this.setState({buttonState:false})
           }, 800)
@@ -129,6 +137,7 @@ class ValidIdPage extends React.PureComponent{
   }
   componentDidMount(){
     this.checkStatus()
+    console.log(this.props.location.pathname)
   }
   render(){
     return(

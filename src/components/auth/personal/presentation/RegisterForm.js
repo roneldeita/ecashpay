@@ -27,7 +27,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
               <Row>
                 <Col className="form-column" xs={24} md={13}>
                   <p style={css.Greet}>Create your Ecashpay account</p>
-                  <Form onSubmit={onSubmit} autocomplete="off">
+                  <Form onSubmit={onSubmit} autoComplete="off">
                     <FormItem
                     hasFeedback={isFieldTouched('Type')}
                     validateStatus={AccTypeError ? 'error' : ''}
@@ -124,6 +124,9 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                         </FormItem>
                       </Col>
                     </Row>
+                    <Form.Item>
+                      By clicking submit, you agree to our <a href="/termsandconditions" target="_blank">Terms & Condition</a>
+                    </Form.Item>
                     <FormItem>
                       <Button id="submit" type="primary" htmlType="submit" loading={buttonState} onClick={onClickLoginButton}>{buttonState ? 'Signing up...' : 'Sign up'} </Button>
                     </FormItem>

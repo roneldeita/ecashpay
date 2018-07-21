@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import { Affix, Menu, Row, Col, Icon, Popover, List, Badge } from 'antd'
+import { Affix, Menu, Row, Col, Icon, Badge } from 'antd'
 import EpayLogo from '../../assets/images/Ecashpay_Logo_Orig.png'
 //components
-import Notifications from './Notifications'
+//import Notifications from './Notifications'
 
 const SubMenu = Menu.SubMenu;
 
@@ -27,21 +27,21 @@ const isLoggedIn = (loggedIn) => {
 }
 
 const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
-  const profileTitle = (
-    <Affix>
-      {/*<div style={{minWidth:'200px'}}>
-        <span style={{display:'block', float:'left', fontWeight:400}}>{profile.firstName} {profile.lastName}</span>
-        <span style={{display:'block', lineHeight:'26px' , float:'right'}}><Icon type="qrcode"/></span>
-      </div>*/}
-    </Affix>
-  )
-  const profileContent = (
-    <List size="small">
-      {/*<List.Item>Account Level</List.Item>*/}
-      <List.Item><Link to="/client/settings">Settings</Link></List.Item>
-      <List.Item><a to="" onClick={logout}>Logout</a></List.Item>
-    </List>
-  )
+  // const profileTitle = (
+  //   <Affix>
+  //     {/*<div style={{minWidth:'200px'}}>
+  //       <span style={{display:'block', float:'left', fontWeight:400}}>{profile.firstName} {profile.lastName}</span>
+  //       <span style={{display:'block', lineHeight:'26px' , float:'right'}}><Icon type="qrcode"/></span>
+  //     </div>*/}
+  //   </Affix>
+  // )
+  // const profileContent = (
+  //   <List size="small">
+  //     {/*<List.Item>Account Level</List.Item>*/}
+  //     <List.Item><Link to="/client/settings">Settings</Link></List.Item>
+  //     <List.Item><a to="" onClick={logout}>Logout</a></List.Item>
+  //   </List>
+  // )
   return(
     <Affix style={{width:'100%'}}>
       <div style={NavContainer}>
@@ -111,7 +111,6 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
         .ant-menu-submenu-title{
           padding: 0px
         }
-
         .ant-menu-horizontal > .ant-menu-item, .ant-menu-horizontal > .ant-menu-submenu {
           padding: 18px 15px;
         }

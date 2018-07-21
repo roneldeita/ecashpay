@@ -38,7 +38,7 @@ const ProfileForm = ({businessName, form, countries, onSubmit, buttonState, onCl
   const { getFieldDecorator, isFieldTouched, getFieldError } = form;
   const BusinessNameError =  getFieldError('Business Name')
   const NatureOfBusinessError =  getFieldError('Nature of Business')
-  const ContactNumberError = getFieldError('Contact Number')
+  const PhoneNumberError = getFieldError('Phone Number')
   const StreetError = getFieldError('Street')
   const CityError = getFieldError('City / Municipality')
   const StateError = getFieldError('Region / State / Province')
@@ -58,7 +58,7 @@ const ProfileForm = ({businessName, form, countries, onSubmit, buttonState, onCl
           </div>
           <Row type="flex" justify="center">
             <Col span={20} className="user">
-              <Form onSubmit={onSubmit} style={AntForm} autocomplete="off">
+              <Form onSubmit={onSubmit} style={AntForm} autoComplete="off">
                 <FormItem
                   label="Business Name"
                   required={false}
@@ -112,17 +112,18 @@ const ProfileForm = ({businessName, form, countries, onSubmit, buttonState, onCl
                       <Option value="Telecommunication">Telecommunication</Option>
                       <Option value="Transportation / Logistics">Transportation / Logistics</Option>
                       <Option value="Travel / Tourism">Travel / Tourism</Option>
+                      <Option value="Others">Others</Option>
                 </Select>
                   )}
                 </FormItem>
                 <FormItem
-                  label="Contact Number"
+                  label="Phone Number"
                   required={false}
                   {...Label}
-                  hasFeedback={isFieldTouched('Contact Number')}
-                  validateStatus={ContactNumberError ? 'error' : 'success'}
-                  help={ContactNumberError || ''}>
-                  {getFieldDecorator('Contact Number', {
+                  hasFeedback={isFieldTouched('Phone Number')}
+                  validateStatus={PhoneNumberError ? 'error' : 'success'}
+                  help={PhoneNumberError || ''}>
+                  {getFieldDecorator('Phone Number', {
                     rules: [
                       { required: true },
                       { max: 10, message: 'Phone Number must be at least 10 characters. '},
@@ -133,7 +134,7 @@ const ProfileForm = ({businessName, form, countries, onSubmit, buttonState, onCl
                   )}
                 </FormItem>
                 <FormItem
-                  label="Website"
+                  label="Website (Optional)"
                   required={false}
                   {...Label}
                   hasFeedback={isFieldTouched('Website')}

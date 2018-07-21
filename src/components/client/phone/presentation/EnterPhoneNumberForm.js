@@ -70,7 +70,7 @@ class StepOne extends React.PureComponent{
     return (
       <Form
         onSubmit={this.handleSubmit}
-        autocomplete="off">
+        autoComplete="off">
         <Form.Item
           label="Country"
           {...Label}

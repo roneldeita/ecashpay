@@ -1,5 +1,5 @@
 export const Container = {
-  marginTop: '100px',
+  marginTop: '40px',
 }
 export const Greet = {
   textAlign: 'center',

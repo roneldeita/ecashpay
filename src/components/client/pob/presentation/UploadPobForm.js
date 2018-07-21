@@ -8,7 +8,7 @@ const UploadButton = (
   </div>
 )
 const formItemLayout = {
-  wrapperCol: {md:{span:16, offset:4}},
+  wrapperCol: {md:{span:20, offset:2}},
 }
 export default ({form, files, change, validateFile, buttonState, submit}) => {
   const { getFieldDecorator, getFieldError } = form
@@ -21,7 +21,7 @@ export default ({form, files, change, validateFile, buttonState, submit}) => {
     },
   }
   return(
-    <Form onSubmit={submit} autocomplete="off">
+    <Form onSubmit={submit} autoComplete="off">
       <Form.Item
         {...formItemLayout}
         validateStatus={getFieldError('File') ? 'error' : ''}
@@ -32,15 +32,12 @@ export default ({form, files, change, validateFile, buttonState, submit}) => {
             { validator: validateFile }
           ],
         })(
-          <Upload.Dragger {...fileProps} disabled={files.length >= 2}>
+          <Upload.Dragger {...fileProps} disabled={files.length >= 3}>
             {UploadButton}
           </Upload.Dragger>
         )}
       </Form.Item>
-      <Form.Item {...formItemLayout}>
-        By clicking submit, you agree to our <a>Terms & Condition</a>
-      </Form.Item>
-      <Form.Item wrapperCol={{md:{span: 16, offset: 4}}}>
+      <Form.Item wrapperCol={{md:{span: 20, offset: 2}}}>
         <Button
           type="primary"
           htmlType="submit"

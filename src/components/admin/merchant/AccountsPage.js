@@ -36,7 +36,7 @@ class AccountsPage extends React.PureComponent{
     this.decline = this.decline.bind(this)
   }
   decline(e){
-    const RequestId = e.target.getAttribute('data-id')
+    //const RequestId = e.target.getAttribute('data-id')
     // Auth({id:RequestId}, {'x-access-token':this.props.auth.token}).AdminMerchantNewAccounts()
     // .then(res=>{
     //   this.getAllRecords()

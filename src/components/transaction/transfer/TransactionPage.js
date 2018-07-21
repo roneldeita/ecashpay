@@ -25,7 +25,6 @@ class TransactionPage extends React.PureComponent{
     this.loadTransaction()
   }
   render(){
-    console.log(this.state.transaction)
     const rightContent = {
       textAlign:'right'
     }

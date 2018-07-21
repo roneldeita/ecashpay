@@ -83,7 +83,7 @@ const StepThree = ({auth, transaction, cancel, cancelState, uploadState, toggleU
           <Divider dashed style={DividerStyle}/>
           <Row>
             <Col span={12}>Ecashpay fee{` `}
-              <Popover placement="right" content="This helps us run our platform ad offer services like live support." trigger="click">
+              <Popover placement="right" content="This helps us run our platform and offer services like live support." trigger="click">
                 <Icon type="info-circle" style={Info}/>
               </Popover>
             </Col>

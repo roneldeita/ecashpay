@@ -76,7 +76,7 @@ class ResetPasswordForm extends React.PureComponent{
       <div style={{display:this.props.displayForm?'block':'none', margin:'-1px 0px 25px 0px'}}>
         <Card title="Reset your password">
           <p>Please enter the 4-digit code you just received from your email and your new password.</p>
-          <Form onSubmit={this.handleSubmit} autocomplete="off">
+          <Form onSubmit={this.handleSubmit} autoComplete="off">
             <Form.Item
               wrapperCol={{span:12}}
               validateStatus={CodeError ? 'error' : ''}

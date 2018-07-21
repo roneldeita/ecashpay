@@ -118,11 +118,18 @@ class RedirectPage extends React.PureComponent {
       }
     }
   }
+  handleLogOut(){
+    localStorage.removeItem('auth')
+    sessionStorage.removeItem('profile')
+    sessionStorage.removeItem('tfa')
+    sessionStorage.removeItem('recover')
+    window.location.href = '/login'
+  }
   render(){
     return (
       <div style={{margin:'250px 0px', textAlign:'center'}}>
         <p style={{fontSize:'40px'}}>Redirecting...</p>
-        <p style={{fontSize:'16px', marginTop:'-50px'}}>Please click <a href="/">here</a> if you are not redirected within a few seconds</p>
+        <p style={{fontSize:'16px', marginTop:'-50px'}}>Please click <a onClick={this.handleLogOut}>here</a> if you are not redirected within a few seconds</p>
       </div>
     )
   }

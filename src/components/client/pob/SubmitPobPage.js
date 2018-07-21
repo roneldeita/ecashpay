@@ -6,7 +6,7 @@ import UploadPobForm from './presentation/UploadPobForm'
 import Pending from './presentation/Pending'
 import Verified from './presentation/Verified'
 import Rejected from './presentation/Rejected'
-import { Form, Row, Col, Card, Icon, Modal } from 'antd'
+import { Form, Row, Col, Card, Icon, Modal, Alert} from 'antd'
 import QueueAnim from 'rc-queue-anim'
 import { Pob } from '../../../services/api'
 import { isEmpty } from 'lodash'
@@ -43,8 +43,8 @@ class SubmitPobPage extends React.PureComponent{
       if(Invalid.includes(true)){
         callback('Invalid File')
       }
-      if(value.fileList.length > 2){
-        callback('Maximum of 2 files allowed')
+      if(value.fileList.length > 3){
+        callback('Maximum of 3 files allowed')
       }
       if(value.fileList.length === 0){
         callback('File is required')
@@ -102,6 +102,7 @@ class SubmitPobPage extends React.PureComponent{
   checkStatus(){
     Pob(null, {'x-access-token':this.props.auth.token}).Check()
     .then(res=>{
+      console.log(res.data)
       this.setState({identification:res.data})
     })
   }
@@ -130,6 +131,15 @@ class SubmitPobPage extends React.PureComponent{
                 loading={isEmpty(this.state.identification)}
                 actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
                   <div style={{display:this.state.identification.status === 'none' ? 'block' : 'none'}}>
+                    <Row type="flex" justify="center">
+                      <Col span={20}>
+                        <Alert
+                          message="Note:"
+                          description="If you don't have Proof of Billing under your name, please submit Proof of Billing under parent's name as long as you're residing at the same address and same family name. If you are renting, kindly upload Proof of Billing with an authorization letter signed by the owner of the billing statement and photocopy of IDs of the owner."
+                          type="info"/>
+                        <br/>
+                      </Col>
+                    </Row>
                     <UploadPobForm
                       form={this.props.form}
                       files={this.state.files}

@@ -1,12 +1,12 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import {Card, Row, Col, Progress, Tag} from 'antd'
+import {Card, Row, Col, Progress} from 'antd'
 import QueueAnim from 'rc-queue-anim'
 import {includes} from 'lodash'
 import VerifyPhoneNumber from '../../../../assets/images/Verify_Number.png'
 import VerifyID from '../../../../assets/images/Verify_ID.png'
 import BillsStatement from '../../../../assets/images/Bills_Statement.png'
-import LinkEcashCard from '../../../../assets/images/Link_EcashCard.png'
+//import LinkEcashCard from '../../../../assets/images/Link_EcashCard.png'
 import Check from '../../../../assets/images/check.png'
 const CardStyle = {
   margin: '0px 0px 15px 0px',
@@ -76,7 +76,7 @@ export default ({ready, levels, phone, progress}) => {
                   <p style={Desc}>Maximize features and access the easy-to-use tools in your account by uploading governement-issued I.D and Selfie.</p>
                 </div>
                 :
-                <Link to={phone !== '' ? `/client/upload/id` : '/client/verify/phone'}>
+                <Link to={phone !== '' ? {pathname:`/client/upload/id`} : {pathname:'/client/verify/phone',  search: '?require=true'}}>
                   <img src={VerifyID} style={Img} alt="submit ID"/>
                   <p style={RequirementTitle}>Upgrade Level 1</p>
                   <p style={Desc}>Maximize features and access the easy-to-use tools in your account by uploading governement-issued I.D and Selfie.</p>
@@ -92,7 +92,7 @@ export default ({ready, levels, phone, progress}) => {
                   <p style={Desc}>Increase your fund limits and access more tools by uploading your latest proof of billing.</p>
                 </div>
                 :
-                <Link to={phone !== '' ? `/client/upload/pob` : '/client/upload/id'}>
+                <Link to={(phone === '') ? `/client/verify/phone` : includes(levels, 1) ?  '/client/upload/pob' : '/client/upload/pob' }>
                   <img src={BillsStatement} style={Img} alt="add billing statement"/>
                   <p style={RequirementTitle}>Upgrade Level 2</p>
                   <p style={Desc}>Increase your fund limits and access more tools by uploading your latest proof of billing.</p>

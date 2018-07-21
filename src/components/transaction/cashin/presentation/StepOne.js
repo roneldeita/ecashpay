@@ -27,12 +27,22 @@ const renderFeatured = (merchants, next, select) => {
     )
   })
 }
-const renderMerchants = (merchants, next, select) => {
-  return merchants.map((merchant, index) => {
+const renderOTC = (merchants, next, select) => {
+  return merchants.filter(merchant => merchant.type === 2).map((merchant, index) => {
     return (
       <Card.Grid key={index} style={gridStyle} onClick={() => {next(); select(merchant)}}>
-        <img src={merchant.logo} alt={merchant.logo} style={{maxWidth:'100%', height:'50px'}}/>
-        <p>{merchant.name}</p>
+        <img src={merchant.logo} alt={merchant.logo} style={{height:'100px'}}/>
+        <p style={{marginBottom:0}}>{merchant.name}</p>
+      </Card.Grid>
+    )
+  })
+}
+const renderBanks = (merchants, next, select) => {
+  return merchants.filter(merchant => merchant.type === 1).map((merchant, index) => {
+    return (
+      <Card.Grid key={index} style={gridStyle} onClick={() => {next(); select(merchant)}}>
+        <img src={merchant.logo} alt={merchant.logo} style={{height:'100px'}}/>
+        <p style={{marginBottom:0}}>{merchant.name}</p>
       </Card.Grid>
     )
   })
@@ -46,9 +56,12 @@ const StepOne = ({visibility, next, merchants, featured, select}) => {
             {renderFeatured(featured, next, select)}
           </Card>
           <p>1. Over-the-counter (OTC)</p>
+          <Card>
+            {renderOTC(merchants, next, select)}
+          </Card>
           <p>2. Bank Deposit</p>
           <Card>
-            {renderMerchants(merchants, next, select)}
+            {renderBanks(merchants, next, select)}
           </Card>
           <p>3. Credit/Debit Card</p>
       </Card>

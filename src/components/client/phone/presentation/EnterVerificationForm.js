@@ -68,7 +68,7 @@ class StepOne extends React.PureComponent{
     const { getFieldDecorator, isFieldTouched, getFieldError } = this.props.form
     const VerificationError = getFieldError('Verification Code')
     return (
-      <Form onSubmit={this.handleSubmit} autocomplete="off">
+      <Form onSubmit={this.handleSubmit} autoComplete="off">
         <p>A verification code was sent to +{this.props.code}<b>{this.props.phone}</b>.</p>
         <Form.Item
           hasFeedback={isFieldTouched('Verification Code')}

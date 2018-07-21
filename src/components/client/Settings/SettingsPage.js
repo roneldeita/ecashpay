@@ -9,7 +9,7 @@ import ManagePhone from './ManagePhone'
 import ManagePassword from './ManagePassword'
 //import General from './presentation/General'
 //import Privacy from './presentation/Privacy'
-import TwoFactorAuthentication from './presentation/TwoFactorAuthentication'
+//import TwoFactorAuthentication from './presentation/TwoFactorAuthentication'
 import { Col, Row, Card, List } from 'antd'
 //lodash
 import { isEmpty } from 'lodash'

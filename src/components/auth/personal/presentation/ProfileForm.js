@@ -68,7 +68,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
           </div>
           <Row type="flex" justify="center">
             <Col span={20} className="user">
-              <Form onSubmit={onSubmit} style={AntForm} autocomplete="off">
+              <Form onSubmit={onSubmit} style={AntForm} autoComplete="off">
                 <FormItem
                   label="First Name"
                   required={false}

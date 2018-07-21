@@ -6,8 +6,8 @@ import Logo from '../../../assets/images/Ecashpay_Logo_White_2.png'
 import 'antd/lib/icon/style/css'
 
 const Statement = {
-  fontSize: '45px',
-  lineHeight: '15px',
+  fontSize: '30px',
+  lineHeight: '42px',
   fontWeight: 600
 }
 const LogoContainer = {
@@ -39,12 +39,11 @@ class RightSection extends React.Component{
         <Popconfirm placement="left" title="Are you sure you want to leave this page?" onConfirm={this.handleLogOut} okText="Yes" cancelText="No">
           <Icon type="close-circle-o" style={GoHome} id="close"/>
         </Popconfirm>
-        <p style={Statement}>Fastest</p>
-        <p style={Statement}>Convenient</p>
-        <p style={Statement}>and</p>
-        <p style={Statement}>Cheapest</p>
-        <p style={Statement}>Money</p>
-        <p style={Statement}>Transfers</p>
+        <p style={Statement}>Highly Secured</p>
+        <p style={Statement}>Real-time Transaction</p>
+        <p style={Statement}>Easy Integration</p>
+        <p style={Statement}>Anti-Fraud Solution</p>
+        <p style={Statement}>24/7 Chat Support</p>
         <br/>
         <br/>
         <br/>

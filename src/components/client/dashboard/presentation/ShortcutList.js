@@ -1,11 +1,11 @@
 import React from 'react'
-import { Card, Divider } from 'antd'
+import { Card } from 'antd'
 import { Link } from 'react-router-dom'
 import QueueAnim from 'rc-queue-anim'
 
-const DividerStyle = {
-  margin:'10px 0 5px 0'
-}
+// const DividerStyle = {
+//   margin:'10px 0 5px 0'
+// }
 export default () => {
   return(
     <QueueAnim type={['bottom', 'top']} delay="900" ease={['easeOutBack', 'easeInOutCirc']}>

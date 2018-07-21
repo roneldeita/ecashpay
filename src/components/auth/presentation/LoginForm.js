@@ -23,7 +23,7 @@ const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton}) => {
                 <Col className="form-column" xs={24} md={13}>
                   <p style={css.Greet}>Welcome to Ecashpay Asia!</p>
                   <p style={css.Small}>Log in to your account here</p>
-                  <Form onSubmit={onSubmit} autocomplete="off">
+                  <Form onSubmit={onSubmit} autoComplete="off">
                     <FormItem
                       hasFeedback={isFieldTouched('Email')}
                       validateStatus={EmailError ? 'error' : 'success'}
