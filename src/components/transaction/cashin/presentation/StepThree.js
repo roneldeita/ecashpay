@@ -81,27 +81,22 @@ const StepThree = ({auth, transaction, cancel, cancelState, uploadState, toggleU
             <Col span={12} style={rightContent}>{transaction.amount +' '+ transaction.currency}</Col>
           </Row>
           <Divider dashed style={DividerStyle}/>
-          {/*<Row>
+          <Row>
             <Col span={12}>Ecashpay fee{` `}
               <Popover placement="right" content="This helps us run our platform and offer services like live support." trigger="click">
                 <Icon type="info-circle" style={Info}/>
               </Popover>
             </Col>
-            <Col span={12} style={rightContent}>{'0 ' + transaction.currency}</Col>
+            <Col span={12} style={rightContent}>{parseFloat(transaction.ecashFee).toFixed(2) +' '+transaction.currency}</Col>
           </Row>
-          <Divider dashed style={DividerStyle}/>*/}
+          <Divider dashed style={DividerStyle}/>
           <Row>
             <Col span={12}>
-              <Popover placement="right" content="This helps us run our platform and offer services like live support." trigger="click">
-                Channel <Icon type="info-circle" style={Info}/>
-              </Popover>
-              {` `} + {` `}
               <Popover placement="right" content="This goes out to our channel partners as payment for their services" trigger="click">
-                Ecashpay fee{` `}
-                <Icon type="info-circle" style={Info}/>
+                Ecashpay fee <Icon type="info-circle" style={Info}/>
               </Popover>
             </Col>
-            <Col span={12} style={rightContent}>{parseFloat(transaction.fee).toFixed(2) +' '+ transaction.currency }</Col>
+            <Col span={12} style={rightContent}>{parseFloat(transaction.outletFee).toFixed(2) +' '+ transaction.currency }</Col>
           </Row>
           <Divider style={DividerStyle}/>
           <Row>
