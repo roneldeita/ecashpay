@@ -16,7 +16,7 @@ export default ({cancel, front, back, identification, handlePreview, preview, im
       <p>Youe Upgrade Level 1 request is currently being reviewed. Notification will be sent within 1-5 business days via email.</p>
       <Row gutter={24} justify="center" type="flex">
         {identification.files !== undefined &&
-          identification.files.map((file,index)=>(
+          identification.files.files.map((file,index)=>(
             <Col span={8} key={index}>
               <Card hoverable cover={<img alt="front" src={file.url}/>} onClick={()=> handlePreview({'url':file.url})}>
                 <Card.Meta title={file.name}/>

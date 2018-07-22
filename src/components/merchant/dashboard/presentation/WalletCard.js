@@ -53,8 +53,7 @@ export default ({ready, currencies}) => {
           loading={ready}
           style={CardStyle}
           actions={[
-            <Link to="/client/manage/currencies">Manage Currencies</Link>,
-            <Link to="/client/convert/currencies">Convert</Link>]}>
+            <Link to="/transfer">Transfer</Link>]}>
           {/*<Link style={{float: 'right'}} to='/client/manage/currencies'><span>Manage Currencies <Icon type="caret-right" style={{fontSize:'11px'}}/></span></Link>*/}
           {/*<p style={Title}>Ecash</p>*/}
           <p style={{marginBottom:'0px', fontWeight:200}}>Available</p>
@@ -64,7 +63,7 @@ export default ({ready, currencies}) => {
           <div style={CurrencyContainer}>
             {!isEmpty(currencies) &&  renderCurrencies(currencies)}
           </div>
-          <Button style={{marginTop:'15px'}}><Link to="/client/cashin">Cash In</Link></Button>
+          <Button style={{marginTop:'15px'}}><Link to="/cashin">Cash In</Link></Button>
         </Card>
       </div>
     </QueueAnim>

@@ -21,7 +21,7 @@ class RequirementsPage extends React.PureComponent{
         { required: true, id:3, name:"BIR 2303", description: "Certified True Copy of the BIR Certificate of Registration"},
         { required: true, id:4, name:"Government-issued ID 1", description: ""},
         { required: true, id:5, name:"Government-issued ID 2", description: ""},
-        { required: true, id:6, name:"Passport Size Colored Photos", description: ""},
+        { required: true, id:6, name:"Passport Size Colored Photo", description: ""},
         { required: true, id:7, name:"Proof of Billing 1", description: ""},
         { required: true, id:8, name:"Proof of Billing 2", description: ""},
         { required: true, id:9, name:"Bank Certificate", description: ""},
@@ -42,7 +42,7 @@ class RequirementsPage extends React.PureComponent{
         { required: true, id:19, name:'BIR 2303', description: 'Certified True Copy of the BIR Certificate of Registration'},
         { required: true, id:20, name:'Business Permit', description: ''},
         { required: true, id:21, name:'SEC Certificate of Registration', description: ''},
-        { required: true, id:22, name:'Articles of Incorporation and By Laws', description: ''},
+        { required: true, id:22, name:'Articles of Incorporation & By Laws', description: ''},
         { required: true, id:23, name:'Latest General Information Sheet', description: ''},
         { required: true, id:24, name:'Notarized Board Resolution', description: 'For Authorized Signatories Only *Authorization to enter into Agreement'},
         { required: true, id:25, name:'Notarized Secretry Certificate', description: 'For Authorized Signatories Only *Authorization to enter into Agreement'},
@@ -62,7 +62,7 @@ class RequirementsPage extends React.PureComponent{
   validateFile = (rule, value, callback) => {
     if(value !== undefined){
       const Invalid = value.fileList.map(file => {
-        if(file.type !== 'image/jpeg' && file.type !== 'application/pdf'){
+        if(file.type !== 'image/jpeg' && file.type !== 'application/pdf' && file.type !== 'image/png'){
           return true
         }
         return false
@@ -73,9 +73,9 @@ class RequirementsPage extends React.PureComponent{
       if(value.fileList.length > 1){
         callback('Only 1 file is allowed')
       }
-      if(value.fileList.length === 0){
-        callback('File is required')
-      }
+      // if(value.fileList.length === 0){
+      //   callback('File is required')
+      // }
     }
     callback()
   }

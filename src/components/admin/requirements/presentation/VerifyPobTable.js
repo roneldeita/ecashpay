@@ -29,7 +29,7 @@ export default ({record, accept, decline}) => {
       columns={columns}
       dataSource={record}
       expandedRowRender={record => {
-        let Photos = JSON.parse(record.payload)
+        let Photos = JSON.parse(record.files)
         return (
           <Row>
             <Col span={12}>

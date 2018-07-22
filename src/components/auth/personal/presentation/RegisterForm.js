@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {Card, Row, Col, Form, Input, Radio, Button, Icon } from 'antd'
-import QueueAnim from 'rc-queue-anim'
 import RightSection from '../../presentation/RightSection'
 import * as css from '../../../../assets/styles/RegisterForm'
 
@@ -19,127 +18,121 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
   return (
     <Row type="flex" justify="center" style={css.Container}>
       <Col md={22} lg={22} xl={18} xxl={13}>
-        <QueueAnim
-          type={['alpha']}
-          duration="1000">
-          <div key="0">
-            <Card hoverable style={css.CardStyle}>
-              <Row>
-                <Col className="form-column" xs={24} md={13}>
-                  <p style={css.Greet}>Create your Ecashpay account</p>
-                  <Form onSubmit={onSubmit} autoComplete="off">
+        <Card hoverable style={css.CardStyle}>
+          <Row>
+            <Col className="form-column" xs={24} md={13}>
+              <p style={css.Greet}>Create your Ecashpay account</p>
+              <Form onSubmit={onSubmit} autoComplete="off">
+                <FormItem
+                hasFeedback={isFieldTouched('Type')}
+                validateStatus={AccTypeError ? 'error' : ''}
+                help={AccTypeError || ''}>
+                  {getFieldDecorator('Account Type', {
+                    initialValue: 'personal',
+                    rules: [
+                      { required: true },
+                    ],
+                  })(
+                    <RadioGroup>
+                      <Radio value="personal">Pesonal</Radio>
+                      <Link to='/business/register'><Radio value="business">Business</Radio></Link>
+                      <Link to='/merchant/register'><Radio value="merchant">Merchant</Radio></Link>
+                    </RadioGroup>
+                  )}
+                </FormItem>
+                <FormItem
+                  hasFeedback={isFieldTouched('Email')}
+                  validateStatus={EmailError ? 'error' : 'success'}
+                  help={EmailError || ''}>
+                  {getFieldDecorator('Email', {
+                    rules: [
+                      { required: true },
+                      { type: 'email', message: 'Not a valid email' }
+                    ],
+                  })(
+                    <Input placeholder="Email" prefix={<Icon type="mail" style={css.PrefixIcon} /> }/>
+                  )}
+                </FormItem>
+                <Row gutter={12}>
+                  <Col xs={24} sm={12}>
                     <FormItem
-                    hasFeedback={isFieldTouched('Type')}
-                    validateStatus={AccTypeError ? 'error' : ''}
-                    help={AccTypeError || ''}>
-                      {getFieldDecorator('Account Type', {
-                        initialValue: 'personal',
+                      hasFeedback={isFieldTouched('Password')}
+                      validateStatus={PasswordError ? 'error' : 'success'}
+                      help={PasswordError || ''}>
+                      {getFieldDecorator('Password', {
                         rules: [
                           { required: true },
+                          { min: 8 , message:"Password must be at least 8 characters. "},
+                          { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/, message: "The password must contain atleast 1 lower and 1 uppercase letter, 1 number and 1 special character. " },
+                          { validator: checkPassword }
                         ],
                       })(
-                        <RadioGroup>
-                          <Radio value="personal">Pesonal</Radio>
-                          <Link to='/business/register'><Radio value="business">Business</Radio></Link>
-                          <Link to='/merchant/register'><Radio value="merchant">Merchant</Radio></Link>
-                        </RadioGroup>
+                        <Input placeholder="Password" type="password" size="large" prefix={<Icon type="key" style={css.PrefixIcon} /> }/>
                       )}
                     </FormItem>
+                  </Col>
+                  <Col xs={24} sm={12}>
                     <FormItem
-                      hasFeedback={isFieldTouched('Email')}
-                      validateStatus={EmailError ? 'error' : 'success'}
-                      help={EmailError || ''}>
-                      {getFieldDecorator('Email', {
+                      hasFeedback={isFieldTouched('Confirm Password')}
+                      validateStatus={ConfirmError ? 'error' : 'success'}
+                      help={ConfirmError || ''}>
+                      {getFieldDecorator('Confirm Password', {
                         rules: [
                           { required: true },
-                          { type: 'email', message: 'Not a valid email' }
+                          { validator: checkConfirm }
                         ],
                       })(
-                        <Input placeholder="Email" prefix={<Icon type="mail" style={css.PrefixIcon} /> }/>
+                        <Input placeholder="Confirm Password" type="password" size="large" prefix={<Icon type="key" style={css.PrefixIcon} /> }/>
                       )}
                     </FormItem>
-                    <Row gutter={12}>
-                      <Col xs={24} sm={12}>
-                        <FormItem
-                          hasFeedback={isFieldTouched('Password')}
-                          validateStatus={PasswordError ? 'error' : 'success'}
-                          help={PasswordError || ''}>
-                          {getFieldDecorator('Password', {
-                            rules: [
-                              { required: true },
-                              { min: 8 , message:"Password must be at least 8 characters. "},
-                              { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/, message: "The password must contain atleast 1 lower and 1 uppercase letter, 1 number and 1 special character. " },
-                              { validator: checkPassword }
-                            ],
-                          })(
-                            <Input placeholder="Password" type="password" size="large" prefix={<Icon type="key" style={css.PrefixIcon} /> }/>
-                          )}
-                        </FormItem>
-                      </Col>
-                      <Col xs={24} sm={12}>
-                        <FormItem
-                          hasFeedback={isFieldTouched('Confirm Password')}
-                          validateStatus={ConfirmError ? 'error' : 'success'}
-                          help={ConfirmError || ''}>
-                          {getFieldDecorator('Confirm Password', {
-                            rules: [
-                              { required: true },
-                              { validator: checkConfirm }
-                            ],
-                          })(
-                            <Input placeholder="Confirm Password" type="password" size="large" prefix={<Icon type="key" style={css.PrefixIcon} /> }/>
-                          )}
-                        </FormItem>
-                      </Col>
-                    </Row>
-                    <Row gutter={12}>
-                      <Col xs={24} sm={12}>
-                        <FormItem
-                          hasFeedback={isFieldTouched('First Name')}
-                          validateStatus={FirstNameError ? 'error' : 'success'}
-                          help={FirstNameError || ''}>
-                          {getFieldDecorator('First Name', {
-                            rules: [
-                              { required: true },
-                              { pattern: /^[a-zA-Z\s-'ñÑ_]+$/, message: 'First Name should only contain letters' }
-                            ],
-                          })(
-                            <Input placeholder="First Name" prefix={<Icon type="user" style={css.PrefixIcon} /> }/>
-                          )}
-                        </FormItem>
-                      </Col>
-                      <Col xs={24} sm={12}>
-                        <FormItem
-                          hasFeedback={isFieldTouched('Last Name')}
-                          validateStatus={LastNameError ? 'error' : 'success'}
-                          help={LastNameError || ''}>
-                          {getFieldDecorator('Last Name', {
-                            rules: [
-                              { required: true },
-                              { pattern: /^[a-zA-Z\s-'ñÑ_]+$/, message: 'Last Name should only contain letters' }
-                            ],
-                          })(
-                            <Input placeholder="Last Name" prefix={<Icon type="user" style={css.PrefixIcon} /> }/>
-                          )}
-                        </FormItem>
-                      </Col>
-                    </Row>
-                    <Form.Item>
-                      By clicking submit, you agree to our <a href="/termsandconditions" target="_blank">Terms & Condition</a>
-                    </Form.Item>
-                    <FormItem>
-                      <Button id="submit" type="primary" htmlType="submit" loading={buttonState} onClick={onClickLoginButton}>{buttonState ? 'Signing up...' : 'Sign up'} </Button>
+                  </Col>
+                </Row>
+                <Row gutter={12}>
+                  <Col xs={24} sm={12}>
+                    <FormItem
+                      hasFeedback={isFieldTouched('First Name')}
+                      validateStatus={FirstNameError ? 'error' : 'success'}
+                      help={FirstNameError || ''}>
+                      {getFieldDecorator('First Name', {
+                        rules: [
+                          { required: true },
+                          { pattern: /^[a-zA-Z\s-'ñÑ_]+$/, message: 'First Name should only contain letters' }
+                        ],
+                      })(
+                        <Input placeholder="First Name" prefix={<Icon type="user" style={css.PrefixIcon} /> }/>
+                      )}
                     </FormItem>
-                  </Form>
-                  <p>Already have an account?<Link to="/login"> Login now</Link></p>
-                </Col>
-                <Col key="2" style={css.Column} xs={0} md={11}>
-                  <RightSection />
-                </Col>
-              </Row>
-            </Card>
-          </div>
-        </QueueAnim>
+                  </Col>
+                  <Col xs={24} sm={12}>
+                    <FormItem
+                      hasFeedback={isFieldTouched('Last Name')}
+                      validateStatus={LastNameError ? 'error' : 'success'}
+                      help={LastNameError || ''}>
+                      {getFieldDecorator('Last Name', {
+                        rules: [
+                          { required: true },
+                          { pattern: /^[a-zA-Z\s-'ñÑ_]+$/, message: 'Last Name should only contain letters' }
+                        ],
+                      })(
+                        <Input placeholder="Last Name" prefix={<Icon type="user" style={css.PrefixIcon} /> }/>
+                      )}
+                    </FormItem>
+                  </Col>
+                </Row>
+                <Form.Item>
+                  By clicking submit, you agree to our <a href="/termsandconditions" target="_blank">Terms & Conditions</a>
+                </Form.Item>
+                <FormItem>
+                  <Button id="submit" type="primary" htmlType="submit" loading={buttonState} onClick={onClickLoginButton}>{buttonState ? 'Signing up...' : 'Sign up'} </Button>
+                </FormItem>
+              </Form>
+              <p>Already have an account?<Link to="/login"> Login now</Link></p>
+            </Col>
+            <Col key="2" style={css.Column} xs={0} md={11}>
+              <RightSection />
+            </Col>
+          </Row>
+        </Card>
       </Col>
       <style jsx="true">{`
         #submit.ant-btn-primary{

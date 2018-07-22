@@ -14,14 +14,19 @@ class LoginPage extends React.PureComponent {
   constructor(props, context){
     super(props, context)
     this.state = {
-      buttonState: false
+      buttonState: false,
+      passwordVisible: false,
     }
     this.onClickLoginButton = this.onClickLoginButton.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handlePasswordVisibility = this.handlePasswordVisibility.bind(this)
     document.title="Login - Ecashpay"
   }
   onClickLoginButton(event){
     this.setState({buttonState:true})
+  }
+  handlePasswordVisibility(){
+    this.setState({passwordVisible:!this.state.passwordVisible})
   }
   handleSubmit(event){
     this.props.form.validateFields((err, values) => {
@@ -69,6 +74,8 @@ class LoginPage extends React.PureComponent {
           buttonState={this.state.buttonState}
           onClickLoginButton ={this.onClickLoginButton}
           onSubmit={this.handleSubmit}
+          passwordVisible={this.state.passwordVisible}
+          passwordVisibility={this.handlePasswordVisibility}
         />
       </div>
     );

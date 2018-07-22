@@ -8,7 +8,7 @@ class StepOne extends React.PureComponent{
     this.state = {
       buttonState: false,
       countries: [],
-      country:'Phillipines',
+      country:'Philippines',
       callingCode: '63',
       phone: null,
     }
@@ -20,7 +20,7 @@ class StepOne extends React.PureComponent{
     this.props.form.validateFields((err, values) => {
       if(!err){
         let CallingCode = values.Country.split("-")
-        if(CallingCode[0] === 'Phillipines'){ CallingCode[1] = '63' }
+        if(CallingCode[0] === 'Philippines'){ CallingCode[1] = '63' }
         Phone({'areaCode':CallingCode[1], 'phone':values['Phone Number']}, {'x-access-token':this.props.auth.token}).Request()
         .then(res => {
           this.props.changeStep({step:1, phone:values['Phone Number'], code: CallingCode[1]})

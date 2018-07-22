@@ -3,6 +3,7 @@ import { Table, Card, Row, Col, Divider, Button, Tag } from 'antd'
 import Moment from 'react-moment'
 
 export default ({record, accept, decline}) => {
+  console.log(record)
   const columns = [
     { title: 'Client', dataIndex: 'individual.firstName', key: 'client' },
     { title: 'Birthdate', dataIndex: 'individual.birthDate', key: 'birthdate',  render:(text,record)=> <Moment format="MMMM D, Y" date={record.individual.birthDate}/>  },
@@ -30,7 +31,7 @@ export default ({record, accept, decline}) => {
       columns={columns}
       dataSource={record}
       expandedRowRender={record => {
-        let Photos = JSON.parse(record.payload)
+        let Photos = JSON.parse(record.files)
         return (
           <Row>
             <Col span={12}>

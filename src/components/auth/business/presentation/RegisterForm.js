@@ -100,7 +100,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                   </Col>
                 </Row>
                 <Form.Item>
-                  By clicking submit, you agree to our <a href="/termsandconditions" target="_blank">Terms & Condition</a>
+                  By clicking submit, you agree to our <a href="/termsandconditions" target="_blank">Terms & Conditions</a>
                 </Form.Item>
                 <FormItem>
                   <Button id="submit" type="primary" htmlType="submit" loading={buttonState} onClick={onClickLoginButton}>{buttonState ? 'Signing up...' : 'Sign up'} </Button>

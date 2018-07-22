@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Breadcrumb, Icon } from 'antd'
+import { Breadcrumb, Icon, Modal } from 'antd'
 import AccountsTable from './presentation/AccountsTable'
 import { Auth } from '../../../services/api'
 
@@ -46,14 +46,20 @@ class AccountsPage extends React.PureComponent{
     // })
   }
   accept(e){
+    const modal = Modal.info({
+      closable:false,
+      title: (<div><Icon type="loading"/> Accepting new business account</div>)
+    });
     const RequestId = e.target.getAttribute('data-id')
     Auth({id:RequestId, status:'completed'}, {'x-access-token':this.props.auth.token}).AdminAcceptNewMerchantAccount()
     .then(res=>{
       console.log(res)
       this.getAllRecords()
+      setTimeout(() => modal.destroy(), 1000);
     })
     .catch(err=>{
       console.log(err)
+      setTimeout(() => modal.destroy(), 1000);
     })
   }
   getAllRecords(){
@@ -79,6 +85,16 @@ class AccountsPage extends React.PureComponent{
             decline={this.decline}
             />
         </div>
+        <style jsx="true">{`
+            .ant-confirm-btns,
+            .anticon-info-circle{
+              display:none
+            }
+            .ant-confirm-title{
+              text-align:center
+            }
+          `}
+        </style>
       </div>
     )
   }

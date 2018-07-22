@@ -38,21 +38,10 @@ export default ({ready, profile}) => {
         </Col>
         <Col className="" xs={24} sm={24} lg={24} xl={16}>
           <Row id="menu" type="flex" justify="end" className="tab-container">
-            <Col className="" span={4}>
-              <QueueAnim type={['bottom', 'top']} delay="200" ease={['easeOutBack', 'easeInOutCirc']}>
-                <div key="0">
-                  <Link to="/client/cashin" >
-                    <span className="pe-7s-repeat" style={MenuICon}></span>
-                    {/*<img src={Addfunds} alt="send money" style={TabImg}/>*/}
-                    <p>Transfer</p>
-                  </Link>
-                </div>
-              </QueueAnim>
-            </Col>
             <Col key="2" className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/client/sendmoney" >
+                  <Link to="/merchant/history" >
                     <span className="pe-7s-note2" style={MenuICon}></span>
                     {/*<img src={SendMoney} alt="send money" style={TabImg}/>*/}
                     <p>History</p>
@@ -63,7 +52,7 @@ export default ({ready, profile}) => {
             <Col className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="400" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/client/buyload" >
+                  <Link to="/merchant/reports" >
                     <span className="pe-7s-news-paper" style={MenuICon}></span>
                     {/*<img src={BuyLoad} alt="buy money" style={TabImg}/>*/}
                     <p>Reports</p>
@@ -74,10 +63,10 @@ export default ({ready, profile}) => {
             <Col className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="500" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/client/buyload" >
+                  <Link to="/merchant/tools" >
                     <span className="pe-7s-tools" style={MenuICon}></span>
                     {/*<img src={BuyLoad} alt="buy money" style={TabImg}/>*/}
-                    <p>Settings</p>
+                    <p>Tools</p>
                   </Link>
                 </div>
               </QueueAnim>
@@ -85,7 +74,7 @@ export default ({ready, profile}) => {
             <Col className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="600" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/client/paybills" >
+                  <Link to="/merchant/card" >
                     <span className="pe-7s-credit" style={MenuICon}></span>
                     {/*<img src={PayBills} alt="pay bills" style={TabImg}/>*/}
                     <p>Ecashpay Card</p>

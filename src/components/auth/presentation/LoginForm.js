@@ -7,7 +7,7 @@ import * as css from '../../../assets/styles/LoginForm'
 
 const FormItem = Form.Item;
 
-const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton}) => {
+const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton, passwordVisible, passwordVisibility}) => {
   const { getFieldDecorator, isFieldTouched, getFieldError } = form
   const EmailError =  getFieldError('Email')
   const PasswordError =  getFieldError('Password')
@@ -49,9 +49,9 @@ const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton}) => {
                       })(
                         <Input
                           placeholder="Password"
-                          type="password"
+                          type={passwordVisible ? 'text' : 'password'}
                           prefix={<Icon type="lock"/>}
-                          suffix={PasswordError ? '' : <Icon type="eye-o"/> }
+                          suffix={PasswordError ? '' : <Icon onClick={passwordVisibility} type={passwordVisible ? 'eye': 'eye-o'}/> }
                           style={css.PrefixIcon}/>
                       )}
                     </FormItem>

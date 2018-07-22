@@ -46,6 +46,7 @@ class DashboardPage extends React.PureComponent{
     })
   }
   componentDidMount(){
+    window.scrollTo(0, 0)
     this.props.profileActions.loadProfile()
     this.loadWallets()
     this.loadTransactions()

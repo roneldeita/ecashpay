@@ -56,6 +56,7 @@ class DashboardPage extends React.PureComponent{
     window.location.href='/client/verify/phone'
   }
   componentDidMount(){
+    window.scrollTo(0, 0)
     this.props.profileActions.loadProfile()
     this.delayProgressBar = setTimeout(()=>this.progress(), 1000)
     this.loadWallets()

@@ -40,8 +40,8 @@ class TermsAndConditionsPage extends React.Component {
         </Document>
         <div>
           <p>Page {pageNumber} of {numPages}</p>
-          <a onClick={this.handlePrev} style={{marginRight:'10px'}}>Prev</a>
-          <a onClick={this.handleNext}>Next</a>
+          <a onClick={this.state.pageNumber !== 1 && this.handlePrev} style={{marginRight:'10px'}}>Prev</a>
+          <a onClick={this.state.pageNumber !== 16 && this.handleNext}>Next</a>
         </div>
         <style jsx="true">{`
             .doc{

@@ -26,6 +26,11 @@ import MerchantProfilePage from './components/auth/merchant/ProfilePage'
 import MerchantRequirementsPage from './components/auth/merchant/RequirementsPage'
 import MerchantPendingPage from './components/auth/merchant/PendingPage'
 import MerchantDashboard from './components/merchant/dashboard/DashboardPage'
+import MerchantHistory from './components/merchant/history/HistoryPage'
+import MerchantReports from './components/merchant/reports/ReportsPage'
+import MerchantTools from './components/merchant/tools/ToolsPage'
+import MerchantCard from './components/merchant/card/CardPage'
+
 //Personal Account
 import RegisterPage from './components/auth/personal/RegisterPage'
 import VerificationPage from './components/auth/personal/VerificationPage'
@@ -121,6 +126,10 @@ const Routes = ({ store }) => (
           <Route path="/merchant/requirements" render={ (props) => ( isMerchant('submissionOfRequirements') ? <MerchantRequirementsPage {...props}/> : <Redirect to="/redirecting"/> )} />
           <Route path="/merchant/pending" render={ (props) => ( isMerchant('pending') ? <MerchantPendingPage {...props}/> : <Redirect to="/redirecting"/> )} />
           <Route path="/merchant/dashboard" render={ props => ( isMerchant('completed') ? <MerchantDashboard {...props}/> : <Redirect to="/redirecting"/> )}/>
+          <Route path="/merchant/history" render={ props => ( isMerchant('completed') ? <MerchantHistory {...props}/> : <Redirect to="/redirecting"/> )}/>
+          <Route path="/merchant/reports" render={ props => ( isMerchant('completed') ? <MerchantReports {...props}/> : <Redirect to="/redirecting"/> )}/>
+          <Route path="/merchant/tools" render={ props => ( isMerchant('completed') ? <MerchantTools {...props}/> : <Redirect to="/redirecting"/> )}/>
+          <Route path="/merchant/card" render={ props => ( isMerchant('completed') ? <MerchantCard {...props}/> : <Redirect to="/redirecting"/> )}/>
 
           <Route path="/admin/login" render={ () => ( !isLoggedIn() ? <AdminLogin/> : <Redirect to="/redirecting"/> )}/>
           <Route path="/admin" exact render={ (props) => ( isAdmin() ? <AdminDashboard {...props}/> : <Redirect to="/redirecting"/> )}/>
