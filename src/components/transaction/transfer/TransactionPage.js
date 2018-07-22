@@ -47,8 +47,8 @@ class TransactionPage extends React.PureComponent{
               {this.state.transaction.entryType ==='debit' &&
                 <div>
                   <Row>
-                    <Col span={12}>Recipient Account ID</Col>
-                    <Col span={12} style={rightContent}>{this.state.transaction.targetAccount}</Col>
+                    <Col span={12}>Sender Account ID</Col>
+                    <Col span={12} style={rightContent}>{this.state.transaction.sourceAccount}</Col>
                   </Row>
                   <Divider dashed style={DividerStyle}/>
                   <Row>
@@ -70,8 +70,8 @@ class TransactionPage extends React.PureComponent{
               {this.state.transaction.entryType ==='credit' &&
                 <div>
                   <Row>
-                    <Col span={12}>Sender Account ID</Col>
-                    <Col span={12} style={rightContent}>{this.state.transaction.sourceAccount}</Col>
+                    <Col span={12}>Recipient Account ID</Col>
+                    <Col span={12} style={rightContent}>{this.state.transaction.targetAccount}</Col>
                   </Row>
                   <Divider dashed style={DividerStyle}/>
                   <Row>

@@ -58,7 +58,7 @@ export default ({
       <Col xs={24} sm={22} md={20}>
         <p></p>
         <Form onSubmit={submit} autoComplete="off">
-          <p>1. Choose valid ID</p>
+          {/*<p>1. Choose valid ID</p>
           <Form.Item
             validateStatus={IdTypeError ? 'error' : ''}
             help={IdTypeError || ''}>
@@ -86,19 +86,19 @@ export default ({
             )}
           </Form.Item>
           <p>2. ID Number</p>
-            <Form.Item
-              validateStatus={IdNumberError ? 'error' : ''}
-              help={IdNumberError || ''}>
-              {getFieldDecorator('ID Number', {
-                rules: [
-                  { required: true },
-                  { max: 50}
-                ],
-              })(
-                <Input/>
-              )}
-            </Form.Item>
-          <p>3. Please take a clear photo of yourself holding your government-issued ID next to your face.</p>
+          <Form.Item
+            validateStatus={IdNumberError ? 'error' : ''}
+            help={IdNumberError || ''}>
+            {getFieldDecorator('ID Number', {
+              rules: [
+                { required: true },
+                { max: 50}
+              ],
+            })(
+              <Input/>
+            )}
+          </Form.Item>*/}
+          <p>1. Please take a clear photo of yourself holding your government-issued ID next to your face.</p>
           <Form.Item
             validateStatus={SelfieError ? 'error' : ''}
             help={SelfieError || ''}>
@@ -113,7 +113,7 @@ export default ({
               </Upload.Dragger>
             )}
           </Form.Item>
-          <p>4. Upload government-issued ID.</p>
+          <p>2. Upload government-issued ID.</p>
           <Form.Item
             validateStatus={IdError ? 'error' : ''}
             help={IdError || ''}>

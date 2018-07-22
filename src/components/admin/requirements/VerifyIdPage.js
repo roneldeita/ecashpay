@@ -38,7 +38,7 @@ class VerifyIdPage extends React.PureComponent{
   decline(e){
     const modal = Modal.info({
       closable:false,
-      title: (<div><Icon type="loading"/> Accepting upgrade request</div>)
+      title: (<div><Icon type="loading"/> Rejecting upgrade request</div>)
     });
     const RequestId = e.target.getAttribute('data-id')
     Id({id:RequestId, 'status':'rejected'}, {'x-access-token':this.props.auth.token}).Verify()
@@ -54,7 +54,7 @@ class VerifyIdPage extends React.PureComponent{
   accept(e){
     const modal = Modal.info({
       closable:false,
-      title: (<div><Icon type="loading"/> Rejecting upgrade request</div>)
+      title: (<div><Icon type="loading"/> Accepting upgrade request</div>)
     });
     const RequestId = e.target.getAttribute('data-id')
     Id({id:RequestId, 'status':'accepted'}, {'x-access-token':this.props.auth.token}).Verify()

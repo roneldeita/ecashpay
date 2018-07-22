@@ -92,7 +92,7 @@ export default ({ready, levels, phone, progress}) => {
                   <p style={Desc}>Increase your fund limits and access more tools by uploading your latest proof of billing.</p>
                 </div>
                 :
-                <Link to={(phone === '') ? `/client/verify/phone` : includes(levels, 1) ?  '/client/upload/pob' : '/client/upload/pob' }>
+                <Link to={(phone === '') ? `/client/verify/phone` : includes(levels, 1) ?  '/client/upload/pob' : '/client/upload/id' }>
                   <img src={BillsStatement} style={Img} alt="add billing statement"/>
                   <p style={RequirementTitle}>Upgrade Level 2</p>
                   <p style={Desc}>Increase your fund limits and access more tools by uploading your latest proof of billing.</p>

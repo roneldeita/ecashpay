@@ -13,8 +13,8 @@ const NavContainer = {
   borderBottom: '2px solid #999999'
 }
 const IconStyle = {
-  margin:'0 auto',
-  fontSize:'18px'
+  margin:'0',
+  fontSize:'20px'
 }
 const Logo = {
   width: '180px'
@@ -56,7 +56,7 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
           <Col xs={18} sm={9} md={11}>
             <Row type="flex" justify="end">
               <Col>
-                <Menu mode="horizontal" onSelect={onChangeLocale}>
+                <Menu mode="horizontal" onSelect={onChangeLocale} selectedKeys={['/']}>
                   <SubMenu style={{display:isLoggedIn(loggedIn)}} title={<span>{locale.toUpperCase()} <Icon type="down" style={Caret}/></span>}>
                     <Menu.Item key="en">English</Menu.Item>
                     <Menu.Item key="zh">中文</Menu.Item>
@@ -76,7 +76,9 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
                     </Popover>
                   </Menu.Item>*/}
                   <Menu.Item key="setting" style={{display:isLoggedIn(!loggedIn)}}>
-                    <Link to="/client/settings" style={IconStyle}><Icon type="setting"/></Link>
+                    <Badge>
+                      <Icon type="setting" style={IconStyle}/>
+                    </Badge>
                     {/*<Popover placement="bottom" title={profileTitle} content={profileContent} trigger="click">
                       <Badge>
                         <Icon type="setting" style={IconStyle}/>

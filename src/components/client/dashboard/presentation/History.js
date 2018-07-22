@@ -99,7 +99,7 @@ export default ({transactions, profile}) => {
                   }*/}
                   (<span style={{color:'#999999'}}>{item.currency}{item.amount}
                       <span>
-                        {item.type === 'cashIn' ? '+'+item.currency + item.fee: ''}
+                        {item.type === 'cashIn' ? '+'+item.currency + parseFloat(item.fee).toFixed(2): ''}
                         {item.type === 'transfer' && item.targetAccount === profile.account ? '+'+item.currency +item.fee : ''}
                       </span>
                   </span>)

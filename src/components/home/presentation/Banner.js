@@ -26,8 +26,8 @@ const AntRow = {
 }
 const Slogan = {
   fontWeight: '600',
-  fontSize: '42px',
-  lineHeight: '48px'
+  fontSize: '36px',
+  lineHeight: '42px'
 }
 const Desct = {
   textAlign: 'justify',
@@ -88,13 +88,13 @@ const Banner = () => {
             <p style={Slogan}>
               <FormattedMessage
                 id="banner.slogan"
-                defaultMessage="Pay and Send money the fastest way with real exchange rate."
+                defaultMessage="Send and receive money with Ecashpay Asia."
               />
             </p>
             <p style={Desct}>
               <FormattedMessage
                 id="banner.desc"
-                defaultMessage="Ecashpay Asia offers a safe and secure way to send payment and remittance anytime and anywhere online. Make a payment to any bank account, payment gateway or any person around Asia today. You can count on us for the fastest, safest, and easiest way to remit money around Asia."
+                defaultMessage="Ecashpay Asia provides alternative payment solutions which allows enterprises, online businesses and individuals to send and receive money around the world."
               />
             </p><br/>
             <a href="/" className="anchor-watch">

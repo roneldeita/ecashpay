@@ -79,7 +79,7 @@ const StepTwo = ({visibility, next, changeAmount, data, prev, form}) => {
                 <Icon type="info-circle" style={Info}/>
               </Popover>
             </Col>
-            <Col span={12} style={rightContent}>{data.amount ? '0 PHP' : '' }</Col>
+            <Col span={12} style={rightContent}>{data.rate !== 0 ? parseFloat(data.rate) + ' PHP' : '0 PHP'}</Col>
           </Row>
           <Divider dashed style={DividerStyle}/>
           <Row>
@@ -93,7 +93,7 @@ const StepTwo = ({visibility, next, changeAmount, data, prev, form}) => {
           <Divider style={DividerStyle}/>
           <Row>
             <Col span={12}><b>Amount Due</b></Col>
-            <Col span={12} style={rightContent}><b>{data.amount ? (parseFloat(data.amount)+parseFloat(data.merchant.fee)) + ' PHP' : '' }</b></Col>
+            <Col span={12} style={rightContent}><b>{data.amount ? (parseFloat(data.amount)+parseFloat(data.merchant.fee)+parseFloat(data.rate)) + ' PHP' : '' }</b></Col>
           </Row>
         </Col>
       </Row>

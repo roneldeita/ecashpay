@@ -81,7 +81,7 @@ const StepThree = ({auth, transaction, cancel, cancelState, uploadState, toggleU
             <Col span={12} style={rightContent}>{transaction.amount +' '+ transaction.currency}</Col>
           </Row>
           <Divider dashed style={DividerStyle}/>
-          <Row>
+          {/*<Row>
             <Col span={12}>Ecashpay fee{` `}
               <Popover placement="right" content="This helps us run our platform and offer services like live support." trigger="click">
                 <Icon type="info-circle" style={Info}/>
@@ -89,19 +89,24 @@ const StepThree = ({auth, transaction, cancel, cancelState, uploadState, toggleU
             </Col>
             <Col span={12} style={rightContent}>{'0 ' + transaction.currency}</Col>
           </Row>
-          <Divider dashed style={DividerStyle}/>
+          <Divider dashed style={DividerStyle}/>*/}
           <Row>
-            <Col span={12}>Channel Service fee{` `}
+            <Col span={12}>
+              <Popover placement="right" content="This helps us run our platform and offer services like live support." trigger="click">
+                Channel <Icon type="info-circle" style={Info}/>
+              </Popover>
+              {` `} + {` `}
               <Popover placement="right" content="This goes out to our channel partners as payment for their services" trigger="click">
+                Ecashpay fee{` `}
                 <Icon type="info-circle" style={Info}/>
               </Popover>
             </Col>
-            <Col span={12} style={rightContent}>{transaction.fee +' '+ transaction.currency }</Col>
+            <Col span={12} style={rightContent}>{parseFloat(transaction.fee).toFixed(2) +' '+ transaction.currency }</Col>
           </Row>
           <Divider style={DividerStyle}/>
           <Row>
             <Col span={12}><b>{transaction.status === 1?'Total Amount' :'Amount Due'}</b></Col>
-            <Col span={12} style={rightContent}><b>{parseFloat(transaction.amount)+parseFloat(transaction.fee) +' '+ transaction.currency}</b></Col>
+            <Col span={12} style={rightContent}><b>{parseFloat(transaction.totalAmount)+' '+ transaction.currency}</b></Col>
           </Row>
           <Row style={{marginTop:'30px', marginBottom:'20px'}}>
             <Col span={24} style={{fontSize:'20px', fontWeight:200}}>

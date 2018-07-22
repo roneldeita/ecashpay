@@ -102,6 +102,9 @@ class App extends Component {
     if(acceptedKeys.includes(event.key)){
       this.props.localeActions.changeLocale(event.key)
     }
+    if(event.key === 'setting'){
+      this.props.history.push('/client/settings')
+    }
     if(event.key === 'logout'){
       this.handleLogOut()
     }

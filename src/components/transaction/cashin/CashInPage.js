@@ -21,7 +21,8 @@ class CashInPage extends React.PureComponent{
       merchants:[],
       data:{
         merchant:{},
-        amount:0
+        amount:0,
+        rate:0
       }
     }
     this.selectedMerchant = this.selectedMerchant.bind(this)
@@ -36,7 +37,15 @@ class CashInPage extends React.PureComponent{
   }
   amountChange(event){
     const theAmount = event.target.value
-    this.setState(prevState => ({ data:{...prevState.data, amount:theAmount}}))
+    let rate = 0
+    if(theAmount <= 1000){
+      rate = 10
+    }else if(theAmount >= 1001 && theAmount <= 4000){
+      rate = theAmount * 0.01
+    }else if(theAmount >= 4000){
+      rate = 40
+    }
+    this.setState(prevState => ({ data:{...prevState.data, amount:theAmount, rate: parseFloat(rate)}}))
   }
   handleNext(event){
     this.setState({step:this.state.step+1})
@@ -72,6 +81,7 @@ class CashInPage extends React.PureComponent{
     })
   }
   render(){
+    console.log(this.state)
     return(
       <div>
         <Navigation location={this.props.location}/>
