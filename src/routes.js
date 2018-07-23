@@ -18,6 +18,7 @@ import BusinessVerificationPage from './components/auth/business/VerificationPag
 import BusinessProfilePage from './components/auth/business/ProfilePage'
 import BusinessRequirementsPage from './components/auth/business/RequirementsPage'
 import BusinessPendingPage from './components/auth/business/PendingPage'
+import BusinessRejectedPage from './components/auth/business/RejectedPage'
 import BusinessDashboard from './components/business/dashboard/DashboardPage'
 //Merchant Account
 import MerchantRegisterPage from './components/auth/merchant/RegisterPage'
@@ -25,6 +26,7 @@ import MerchantVerificationPage from './components/auth/merchant/VerificationPag
 import MerchantProfilePage from './components/auth/merchant/ProfilePage'
 import MerchantRequirementsPage from './components/auth/merchant/RequirementsPage'
 import MerchantPendingPage from './components/auth/merchant/PendingPage'
+import MerchantRejectedPage from './components/auth/merchant/RejectedPage'
 import MerchantDashboard from './components/merchant/dashboard/DashboardPage'
 import MerchantHistory from './components/merchant/history/HistoryPage'
 import MerchantReports from './components/merchant/reports/ReportsPage'
@@ -50,6 +52,7 @@ import PayBills from './components/transaction/paybills/PayBillsPage'
 import BookTravel from './components/transaction/booktravel/BookTravelPage'
 import Transfer from './components/transaction/transfer/TransferPage'
 import TransferTransaction from './components/transaction/transfer/TransactionPage'
+import PaymentTransaction from './components/transaction/payment/TransactionPage'
 import Currencies from './components/transaction/currencies/CurrenciesPage'
 import KnownAccounts from './components/transaction/knownaccounts/KnownAccountsPage'
 
@@ -59,8 +62,9 @@ import AdminLogin from './components/admin/auth/LoginPage'
 import AdminRequirementsId from './components/admin/requirements/VerifyIdPage'
 import AdminRequirementsPob from './components/admin/requirements/VerifyPobPage'
 import AdminTransactionCashIn from './components/admin/transactions/CashInPage'
-import AdminBusinessAccounts from './components/admin/business/AccountsPage'
-import AdminMerchantAccounts from './components/admin/merchant/AccountsPage'
+import AdminBusinessAccounts from './components/admin/business/accounts/AccountsPage'
+import AdminMerchantAccounts from './components/admin/merchant/accounts/AccountsPage'
+import AdminMerchantPayments from './components/admin/merchant/payments/PaymentsPage'
 
 import { hasToken, getProfile } from './assets/utils/auth'
 
@@ -101,6 +105,7 @@ const Routes = ({ store }) => (
           <Route path="/booktravel" render={ props => ( isLoggedIn('completed') ? <BookTravel {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/transfer" exact render={ props => ( isLoggedIn('completed') ? <Transfer {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/transfer/transactions/:no" render={ props => ( isLoggedIn('completed') ? <TransferTransaction {...props}/> : <Redirect to="/redirecting"/>)} />
+          <Route path="/payment/transactions/:no" render={ props => ( isLoggedIn('completed') ? <PaymentTransaction {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/currencies" render={ props => ( isLoggedIn('completed') ? <Currencies {...props}/> : <Redirect to="/redirecting"/>)} />
           <Route path="/knownaccounts" render={ props => ( isLoggedIn('completed') ? <KnownAccounts {...props}/> : <Redirect to="/redirecting"/>)} />
 
@@ -118,6 +123,7 @@ const Routes = ({ store }) => (
           <Route path="/business/profile" render={ (props) => ( isBusiness('verified') ? <BusinessProfilePage {...props}/> : <Redirect to="/redirecting"/> )} />
           <Route path="/business/requirements" render={ (props) => ( isBusiness('submissionOfRequirements') ? <BusinessRequirementsPage {...props}/> : <Redirect to="/redirecting"/> )} />
           <Route path="/business/pending" render={ (props) => ( isBusiness('pending') ? <BusinessPendingPage {...props}/> : <Redirect to="/redirecting"/> )} />
+          <Route path="/business/rejected" render={ (props) => ( isBusiness('rejected') ? <BusinessRejectedPage {...props}/> : <Redirect to="/redirecting"/> )} />
           <Route path="/business/dashboard" render={ props => ( isBusiness('completed') ? <BusinessDashboard {...props}/> : <Redirect to="/redirecting"/> )}/>
 
           <Route path="/merchant/register" render={ () => ( !isLoggedIn() ? <MerchantRegisterPage/> : <Redirect to="/redirecting"/>)}/>
@@ -125,6 +131,7 @@ const Routes = ({ store }) => (
           <Route path="/merchant/profile" render={ (props) => ( isMerchant('verified') ? <MerchantProfilePage {...props}/> : <Redirect to="/redirecting"/> )} />
           <Route path="/merchant/requirements" render={ (props) => ( isMerchant('submissionOfRequirements') ? <MerchantRequirementsPage {...props}/> : <Redirect to="/redirecting"/> )} />
           <Route path="/merchant/pending" render={ (props) => ( isMerchant('pending') ? <MerchantPendingPage {...props}/> : <Redirect to="/redirecting"/> )} />
+          <Route path="/merchant/rejected" render={ (props) => ( isMerchant('rejected') ? <MerchantRejectedPage {...props}/> : <Redirect to="/redirecting"/> )} />
           <Route path="/merchant/dashboard" render={ props => ( isMerchant('completed') ? <MerchantDashboard {...props}/> : <Redirect to="/redirecting"/> )}/>
           <Route path="/merchant/history" render={ props => ( isMerchant('completed') ? <MerchantHistory {...props}/> : <Redirect to="/redirecting"/> )}/>
           <Route path="/merchant/reports" render={ props => ( isMerchant('completed') ? <MerchantReports {...props}/> : <Redirect to="/redirecting"/> )}/>
@@ -137,6 +144,7 @@ const Routes = ({ store }) => (
           <Route path="/admin/requirements/id" render={ () => ( isAdmin() ? <AdminRequirementsId/> : <Redirect to="/redirecting"/> )}/>
           <Route path="/admin/business/accounts" render={ () => ( isAdmin() ? <AdminBusinessAccounts/> : <Redirect to="/redirecting"/> )}/>
           <Route path="/admin/merchant/accounts" render={ () => ( isAdmin() ? <AdminMerchantAccounts/> : <Redirect to="/redirecting"/> )}/>
+          <Route path="/admin/merchant/payments" render={ () => ( isAdmin() ? <AdminMerchantPayments/> : <Redirect to="/redirecting"/> )}/>
           <Route path="/admin/requirements/pob" render={ () => ( isAdmin() ? <AdminRequirementsPob/> : <Redirect to="/redirecting"/> )}/>
           <Route path="*" component={NotFound} />
         </Switch>

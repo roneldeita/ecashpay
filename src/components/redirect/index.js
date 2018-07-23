@@ -43,6 +43,9 @@ class RedirectPage extends React.PureComponent {
         case 'pending':
           window.location.href = '/business/pending'
           break;
+        case 'rejected':
+          window.location.href = '/business/rejected'
+          break;
         case 'completed':
           window.location.href = '/business/dashboard'
           break;
@@ -67,6 +70,9 @@ class RedirectPage extends React.PureComponent {
           break;
         case 'pending':
           window.location.href = '/merchant/pending'
+          break;
+        case 'rejected':
+          window.location.href = '/merchant/rejected'
           break;
         case 'completed':
           window.location.href = '/merchant/dashboard'

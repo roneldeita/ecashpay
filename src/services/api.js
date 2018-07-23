@@ -24,9 +24,9 @@ export function Auth(data, header) {
     //admin
     AdminLogin: () => axios.post(process.env.REACT_APP_API + '/login?role=admin', data),
     AdminBusinessNewAccounts: () => axios.get(process.env.REACT_APP_API + '/businesses?status=pending', data),
-    AdminAcceptNewBusinessAccount: () => axios.patch(process.env.REACT_APP_API + '/businesses/'+data.id, data),
+    HandleBusinessAccount: () => axios.patch(process.env.REACT_APP_API + '/businesses/'+data.id, data),
     AdminMerchantNewAccounts: () => axios.get(process.env.REACT_APP_API + '/merchants?status=pending', data),
-    AdminAcceptNewMerchantAccount: () => axios.patch(process.env.REACT_APP_API + '/merchants/'+data.id, data),
+    HandleMerchantAccount: () => axios.patch(process.env.REACT_APP_API + '/merchants/'+data.id, data),
   }
 }
 

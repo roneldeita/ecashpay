@@ -45,6 +45,7 @@ class AdminSideNavigation extends React.PureComponent{
         </SubMenu>
         <SubMenu key="sub4" title={<span><Icon type="shop"/><span>Merchant</span></span>}>
           <Menu.Item key="/admin/merchant/accounts"><Link to="/admin/merchant/accounts">New Accounts</Link></Menu.Item>
+          <Menu.Item key="/admin/merchant/payments"><Link to="/admin/merchant/payments">Payments</Link></Menu.Item>
         </SubMenu>
         <Menu.Item key="6" onClick={this.handleLogOut}><Icon type="logout"/><span>Logout</span></Menu.Item>
         </Menu>

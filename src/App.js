@@ -118,7 +118,7 @@ class App extends Component {
       '/admin', '/admin/login', '/admin/transactions',
       '/admin/requirements/id', '/admin/requirements/pob',
       '/admin/transactions/cashin', '/admin/business/accounts',
-      '/admin/merchant/accounts']
+      '/admin/merchant/accounts', '/admin/merchant/payments']
     if(paths.includes(this.props.location.pathname)){
       return 'none'
     }
@@ -129,7 +129,7 @@ class App extends Component {
       '/admin', '/admin/transactions',
       '/admin/requirements/id', '/admin/requirements/pob',
       '/admin/transactions/cashin', '/admin/business/accounts',
-      '/admin/merchant/accounts']
+      '/admin/merchant/accounts', '/admin/merchant/payments']
     if(paths.includes(this.props.location.pathname)){
       return 'block'
     }

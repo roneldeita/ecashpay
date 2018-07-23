@@ -50,9 +50,9 @@ const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton, passwordVis
                         <Input
                           placeholder="Password"
                           type={passwordVisible ? 'text' : 'password'}
-                          prefix={<Icon type="lock"/>}
-                          suffix={PasswordError ? '' : <Icon onClick={passwordVisibility} type={passwordVisible ? 'eye': 'eye-o'}/> }
-                          style={css.PrefixIcon}/>
+                          prefix={<Icon type="lock" style={css.PrefixIcon}/>}
+                          suffix={PasswordError ? '' : <Icon style={css.PrefixIcon} onClick={passwordVisibility} type={passwordVisible ? 'eye': 'eye-o'}/> }
+                          />
                       )}
                     </FormItem>
                     <div style={{textAlign:'right'}}><Link to="/password/request">Forgot password?</Link></div>

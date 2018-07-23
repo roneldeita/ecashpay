@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Breadcrumb, Icon, Modal } from 'antd'
 import AccountsTable from './presentation/AccountsTable'
-import { Auth } from '../../../services/api'
+import { Auth } from '../../../../services/api'
 
 const AdminContentStyle = {
   backgroundColor:'#ffffff',
@@ -36,26 +36,33 @@ class AccountsPage extends React.PureComponent{
     this.decline = this.decline.bind(this)
   }
   decline(e){
+    const modal = Modal.info({
+      closable:false,
+      title: (<div><Icon type="loading"/> Rejecting merchant account</div>)
+    });
     const RequestId = e.target.getAttribute('data-id')
-    Auth({id:RequestId}, {'x-access-token':this.props.auth.token}).AdminBusinessNewAccounts()
+    Auth({id:RequestId, status:'submissionOfRequirements'}, {'x-access-token':this.props.auth.token}).HandleMerchantAccount()
     .then(res=>{
+      console.log(res)
       this.getAllRecords()
+      setTimeout(() => modal.destroy(), 1000);
     })
     .catch(err=>{
       console.log(err)
+      setTimeout(() => modal.destroy(), 1000);
     })
   }
   accept(e){
     const modal = Modal.info({
       closable:false,
-      title: (<div><Icon type="loading"/> Accepting new business account</div>)
+      title: (<div><Icon type="loading"/> Accepting new merchant account</div>)
     });
     const RequestId = e.target.getAttribute('data-id')
-    Auth({id:RequestId, status:'completed'}, {'x-access-token':this.props.auth.token}).AdminAcceptNewBusinessAccount()
+    Auth({id:RequestId, status:'completed'}, {'x-access-token':this.props.auth.token}).HandleMerchantAccount()
     .then(res=>{
       console.log(res)
-      setTimeout(() => modal.destroy(), 1000);
       this.getAllRecords()
+      setTimeout(() => modal.destroy(), 1000);
     })
     .catch(err=>{
       console.log(err)
@@ -63,7 +70,7 @@ class AccountsPage extends React.PureComponent{
     })
   }
   getAllRecords(){
-    Auth(null, {'x-access-token':this.props.auth.token}).AdminBusinessNewAccounts()
+    Auth(null, {'x-access-token':this.props.auth.token}).AdminMerchantNewAccounts()
     .then(res=>{
       this.setState({record:res.data})
     })

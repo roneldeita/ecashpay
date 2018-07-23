@@ -1,5 +1,6 @@
 import React from 'react'
 import {Card, Col, Row, Divider, Icon, Tag, Popover} from 'antd'
+import { Link } from 'react-router-dom'
 import {isEmpty} from 'lodash'
 import Pending from './Pending'
 import Canceled from './Canceled'
@@ -44,7 +45,12 @@ const StepThree = ({auth, transaction, cancel, cancelState, uploadState, toggleU
     </div>
   )
   return(
-    <Card loading={isEmpty(transaction)} hoverable  style={{cursor:'default '}} title={Title}>
+    <Card
+      loading={isEmpty(transaction)}
+      hoverable
+      style={{cursor:'default '}}
+      title={Title}
+      actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
       <Row style={{marginTop:'10px'}} type="flex" justify="center">
         <Col span={22}>
           {transaction.status === 0 && !uploadState && <Pending

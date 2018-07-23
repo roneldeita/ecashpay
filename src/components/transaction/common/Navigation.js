@@ -53,7 +53,6 @@ const TabNameActive = {
 
 export default ({location}) =>{
   const Path = location.pathname
-  console.log(Path)
   return(
     <div className="" style={Container}>
       <Row type="flex" justify="center">

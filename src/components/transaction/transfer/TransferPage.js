@@ -4,6 +4,7 @@ import TransferForm from './presentation/TransferForm'
 import TransferSummary from './presentation/TransferSummary'
 import { Row, Col, Form, Modal } from 'antd'
 import QueueAnim from 'rc-queue-anim'
+import { isEmpty } from 'lodash'
 //services
 import { Wallet, Transaction } from '../../../services/api'
 
@@ -83,10 +84,43 @@ class TransferPage extends React.PureComponent{
       console.log(err)
     })
   }
+  verifyPhone(){
+    Modal.info({
+      title: 'Phone verification required',
+      content: 'Please verifiy your phone number first',
+    });
+  }
+  requireLevelOne(){
+    Modal.info({
+      title: 'Upgrade required',
+      content: 'Upgrade to level 1 first',
+    });
+  }
   componentDidMount(){
     this.loadWallets()
+    if(!isEmpty(this.props.profile) && this.props.profile.type === 'individual'){
+      if(this.props.profile.phone === ''){
+        this.props.history.push('/client/verify/phone')
+        this.verifyPhone()
+      }else if(this.props.profile.levels.length === 0){
+        this.props.history.push('/client/upload/id')
+        this.requireLevelOne()
+      }
+    }
+  }
+  componentWillReceiveProps(nextProps){
+    if(!isEmpty(nextProps.profile) && nextProps.profile.type === 'individual'){
+      if(nextProps.profile.phone === ''){
+        nextProps.history.push('/client/verify/phone')
+        this.verifyPhone()
+      }else if(nextProps.profile.levels.length === 0){
+        nextProps.history.push('/client/upload/id')
+        this.requireLevelOne()
+      }
+    }
   }
   render(){
+    console.log(this.props)
     return(
       <Row type="flex" justify="center" style={{marginTop:'50px'}}>
         <Col sm={18} md={14} lg={12} xl={10} xxl={8}>

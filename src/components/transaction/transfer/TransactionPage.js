@@ -1,5 +1,7 @@
 import React from 'react'
 import {  Row, Col,  Card, Divider, Icon } from 'antd'
+import Moment from 'react-moment'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { Transaction } from '../../../services/api'
 import Navigation from '../common/Navigation'
@@ -34,6 +36,13 @@ class TransactionPage extends React.PureComponent{
     const Info ={
       color:'rgb(29, 161, 242)'
     }
+    const Title = (
+      <div>
+        <span style={{fontSize:'14px', color:'#999999'}}>Transaction ID : </span>
+        <span style={{fontSize:'18px'}}>{this.state.transaction.no}</span>
+      </div>
+    )
+    console.log(this.state.transaction)
     return(
       <div>
         <Navigation location={this.props.location}/>
@@ -43,7 +52,8 @@ class TransactionPage extends React.PureComponent{
             <Card
               loading={isEmpty(this.state.transaction)}
               hoverable  style={{cursor:'default '}}
-              title={`Transaction no: ${this.state.transaction.no}`}>
+              title={Title}
+              actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
               {this.state.transaction.entryType ==='debit' &&
                 <div>
                   <Row>
@@ -52,18 +62,23 @@ class TransactionPage extends React.PureComponent{
                   </Row>
                   <Divider dashed style={DividerStyle}/>
                   <Row>
+                    <Col span={12}>Date</Col>
+                    <Col span={12} style={rightContent}>{this.state.transaction.createdAt}</Col>
+                  </Row>
+                  <Divider dashed style={DividerStyle}/>
+                  <Row>
                     <Col span={12}>Transfer Amount</Col>
-                    <Col span={12} style={rightContent}>{this.state.transaction.amount}</Col>
+                    <Col span={12} style={rightContent}>{`${this.state.transaction.amount} ${this.state.transaction.currency}`}</Col>
                   </Row>
                   <Divider dashed style={DividerStyle}/>
                   <Row>
                     <Col span={12}>Transfer Fee <Icon type="info-circle" style={Info}/></Col>
-                    <Col span={12} style={rightContent}>{this.state.transaction.fee}</Col>
+                    <Col span={12} style={rightContent}>{`${this.state.transaction.ecashFee} ${this.state.transaction.currency}`}</Col>
                   </Row>
                   <Divider style={DividerStyle}/>
                   <Row>
                     <Col style={{fontWeight:500}} span={12}>Total Amount</Col>
-                    <Col style={{fontWeight:600, textAlign:'right'}} span={12}>{this.state.transaction.totalAmount}</Col>
+                    <Col style={{fontWeight:600, textAlign:'right'}} span={12}>{`${this.state.transaction.totalAmount} ${this.state.transaction.currency}`}</Col>
                   </Row>
                 </div>
               }
@@ -75,18 +90,23 @@ class TransactionPage extends React.PureComponent{
                   </Row>
                   <Divider dashed style={DividerStyle}/>
                   <Row>
+                    <Col span={12}>Date</Col>
+                    <Col span={12} style={rightContent}><Moment format="MMMM D, Y hh:mm:ss A" date={this.state.transaction.createdAt}/></Col>
+                  </Row>
+                  <Divider dashed style={DividerStyle}/>
+                  <Row>
                     <Col span={12}>Transfer Amount</Col>
-                    <Col span={12} style={rightContent}>{this.state.transaction.amount}</Col>
+                    <Col span={12} style={rightContent}>{`${this.state.transaction.amount} ${this.state.transaction.currency}`}</Col>
                   </Row>
                   <Divider dashed style={DividerStyle}/>
                   <Row>
                     <Col span={12}>Transfer Fee <Icon type="info-circle" style={Info}/></Col>
-                    <Col span={12} style={rightContent}>{this.state.transaction.fee}</Col>
+                    <Col span={12} style={rightContent}>{`${this.state.transaction.ecashFee} ${this.state.transaction.currency}`}</Col>
                   </Row>
                   <Divider style={DividerStyle}/>
                   <Row>
                     <Col style={{fontWeight:500}} span={12}>Total Amount</Col>
-                    <Col style={{fontWeight:600, textAlign:'right'}} span={12}>{this.state.transaction.totalAmount}</Col>
+                    <Col style={{fontWeight:600, textAlign:'right'}} span={12}>{`${this.state.transaction.totalAmount} ${this.state.transaction.currency}`}</Col>
                   </Row>
                 </div>
               }

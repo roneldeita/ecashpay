@@ -23,7 +23,8 @@ class CashInPage extends React.PureComponent{
         merchant:{},
         amount:0,
         rate:0
-      }
+      },
+      profile:{}
     }
     this.selectedMerchant = this.selectedMerchant.bind(this)
     this.amountChange = this.amountChange.bind(this)
@@ -79,12 +80,12 @@ class CashInPage extends React.PureComponent{
     .then(res=>{
       this.setState({merchants:res.data})
     })
+    console.log(this.props)
   }
   render(){
-    console.log(this.state)
     return(
       <div>
-        <Navigation location={this.props.location}/>
+        <Navigation location={this.props.location} style={{display:this.props.profile.type === 'merchant' ? 'none' : 'block'}}/>
         <Row type="flex" justify="center">
           <Col className="" xs={24} sm={24} md={24} lg={20} xl={18} xxl={14}>
             <Row type="flex" justify="center">
@@ -124,7 +125,8 @@ class CashInPage extends React.PureComponent{
 
 function mapStateToProps(state, ownProps){
   return {
-    auth: state.auth
+    auth: state.auth,
+    profile: state.profile
   }
 }
 

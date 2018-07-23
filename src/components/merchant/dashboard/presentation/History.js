@@ -8,6 +8,7 @@ import Moment from 'react-moment';
 //import {isEmpty} from 'lodash'
 
 export default ({transactions, profile}) => {
+  console.log(transactions)
   const PopOverContent = (
     <div>
       <Badge status="success" text="Completed"/>
@@ -27,10 +28,10 @@ export default ({transactions, profile}) => {
       </Popover>
     </div>
   )
-  const Status = (status) => {
+  const Status = (status, type) => {
     switch(status){
       case 0:
-        return <Tag color="blue">Payment pending</Tag>
+        return type === 'payment' ? <Tag color="blue">Upload proof of billing</Tag> : <Tag color="blue">Payment pending</Tag>
       case 1:
         return <Tag color="green">Completed</Tag>
       case 2:
@@ -83,20 +84,14 @@ export default ({transactions, profile}) => {
               pageSize: 10
             }}
             renderItem={ item => (
-              <List.Item actions={[<Link to={`/${item.type}/transactions/${item.no}`}>{Status(item.status)}</Link>]}>
+              <List.Item actions={[<Link to={`/${item.type}/transactions/${item.no}`}>{Status(item.status, item.type)}</Link>]}>
                 <div>
                   <Badge status={BadgeStatus(item.status)} /><Moment format="MMM D" date={item.createdAt} style={{fontSize:'20px'}}/>
                   <Divider type="vertical"/>
-
                   { item.type === 'cashIn' && item.entryType === 'debit' && <span>{startCase(item.type)} via {item.outletName}</span>}
-                  { item.type === 'transfer' && item.entryType === 'debit' && <span>Recieved from {item.targetAccount}</span>}
-                  { item.type === 'transfer' && item.entryType === 'credit' && <span>Transfer to {item.sourceAccount}</span>}
-                  {/*{ item.type === 'transfer' && item.entryType === 'debit' &&
-                    <span>
-                      {item.targetAccount === profile.account ? 'Transfer to ' + item.sourceAccount : ''}
-                      {item.sourceAccount === profile.account ? 'Recieved from ' + item.targetAccount : ''}
-                    </span>
-                  }*/}
+                  { item.type === 'transfer' && item.entryType === 'debit' && <span>Recieved from {item.sourceAccount}</span>}
+                  { item.type === 'transfer' && item.entryType === 'credit' && <span>Transfer to {item.targetAccount}</span>}
+                  {item.type === 'payment' && item.entryType === 'debit' && <span>Payment</span>}
                   (<span style={{color:'#999999'}}>{item.currency}{item.amount}
                       <span>
                         {item.type === 'cashIn' ? '+'+item.currency + parseFloat(item.totalFee).toFixed(2): ''}
