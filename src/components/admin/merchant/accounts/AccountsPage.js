@@ -21,7 +21,7 @@ const BreadCrumbs = (
     </Breadcrumb.Item>
     <Breadcrumb.Item>
       <Icon type="shop" />
-      <span>New Busniness Accounts</span>
+      <span>New Merchant Accounts</span>
     </Breadcrumb.Item>
   </Breadcrumb>
 )

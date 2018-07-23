@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Breadcrumb, Icon, Modal } from 'antd'
 import PaymentsTable from './presentation/PaymentsTable'
-import { Auth } from '../../../../services/api'
+import { Transaction } from '../../../../services/api'
 
 const AdminContentStyle = {
   backgroundColor:'#ffffff',
@@ -21,7 +21,11 @@ const BreadCrumbs = (
     </Breadcrumb.Item>
     <Breadcrumb.Item>
       <Icon type="shop" />
-      <span>New Busniness Accounts</span>
+      <span>Payments</span>
+    </Breadcrumb.Item>
+    <Breadcrumb.Item>
+      <Icon type="shop" />
+      <span>Verify Proof of delivery</span>
     </Breadcrumb.Item>
   </Breadcrumb>
 )
@@ -36,22 +40,29 @@ class PaymentsPage extends React.PureComponent{
     this.decline = this.decline.bind(this)
   }
   decline(e){
-    //const RequestId = e.target.getAttribute('data-id')
-    // Auth({id:RequestId}, {'x-access-token':this.props.auth.token}).AdminMerchantNewAccounts()
-    // .then(res=>{
-    //   this.getAllRecords()
-    // })
-    // .catch(err=>{
-    //   console.log(err)
-    // })
+    const modal = Modal.info({
+      closable:false,
+      title: (<div><Icon type="loading"/> Rejecting proof of delivery</div>)
+    });
+    const RequestId = e.target.getAttribute('data-id')
+    Transaction({id:RequestId}, {'x-access-token':this.props.auth.token}).RejectPayment()
+    .then(res=>{
+      console.log(res)
+      this.getAllRecords()
+      setTimeout(() => modal.destroy(), 1000);
+    })
+    .catch(err=>{
+      console.log(err)
+      setTimeout(() => modal.destroy(), 1000);
+    })
   }
   accept(e){
     const modal = Modal.info({
       closable:false,
-      title: (<div><Icon type="loading"/> Accepting new merchant account</div>)
+      title: (<div><Icon type="loading"/> Verifying proof of delivery</div>)
     });
     const RequestId = e.target.getAttribute('data-id')
-    Auth({id:RequestId, status:'completed'}, {'x-access-token':this.props.auth.token}).AdminAcceptNewMerchantAccount()
+    Transaction({id:RequestId}, {'x-access-token':this.props.auth.token}).AcceptPayment()
     .then(res=>{
       console.log(res)
       this.getAllRecords()
@@ -63,7 +74,7 @@ class PaymentsPage extends React.PureComponent{
     })
   }
   getAllRecords(){
-    Auth(null, {'x-access-token':this.props.auth.token}).AdminMerchantNewAccounts()
+    Transaction(null, {'x-access-token':this.props.auth.token}).GetAllPayments()
     .then(res=>{
       this.setState({record:res.data})
     })
@@ -75,6 +86,7 @@ class PaymentsPage extends React.PureComponent{
     this.getAllRecords()
   }
   render(){
+    console.log(this.state)
     return(
       <div>
         {BreadCrumbs}

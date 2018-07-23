@@ -5,7 +5,7 @@ import Moment from 'react-moment'
 export default ({record, accept, decline}) => {
   console.log(record)
   const columns = [
-    { title: 'Merchant Name', dataIndex: 'name', key: 'name' },
+    { title: 'Transaction Number', dataIndex: 'transaction.no', key: 'transaction_no' },
     { title: 'Created at', dataIndex: 'createdAt', key: 'createdat', render:(text,record)=> <Moment format="MMMM D, Y h:mm A" date={record.createdAt}/> },
     { title: '', dataIndex: '', width: 100, key: 'accept', render: (text, record) =>
       { return record.status === 'completed'
@@ -24,7 +24,7 @@ export default ({record, accept, decline}) => {
     <Table
       title={() => (
       <div>
-        <h1>Payments <span style={{fontSize:'14px'}}>verification</span></h1>
+        <h1>Payments <span style={{fontSize:'14px'}}>Proof of posting/delivery verification</span></h1>
       </div>)}
       rowKey="id"
       columns={columns}
@@ -46,23 +46,14 @@ export default ({record, accept, decline}) => {
               </Row>
             </Col>
             <Col span={12}>
-              <Card>
-                <p>Contact: {record.contact}</p>
-                <p>Website: {record.website}</p>
-                <Divider/>
-                <p>Street: {record.completeAddress.street}</p>
-                <p>City: {record.completeAddress.city}</p>
-                <p>Region / Province / State: {record.completeAddress.region}</p>
-                <p>Country: {record.completeAddress.country}</p>
-                <p>Zip Code: {record.completeAddress.zip}</p>
-                {/*<p>Transaction No: {record.transaction.no}</p>
-                <p>Category: {record.transaction.outletCategory}</p>
-                <p>Via: {record.transaction.outletName}</p>
-                <p>Transaction Date: {record.transaction.createdAt}</p>
-                <Divider/>
-                <p>Currency: {record.transaction.currency}</p>
-                <p>Amount: {record.transaction.amount}</p>*/}
-              </Card>
+            <Card>
+              <p>Transaction No: {record.transaction.no}</p>
+              <p>Category: {record.transaction.outletCategory}</p>
+              <p>Transaction Date: {record.transaction.createdAt}</p>
+              <Divider/>
+              <p>Currency: {record.transaction.currency}</p>
+              <p>Amount: {record.transaction.amount}</p>
+            </Card>
             </Col>
           </Row>
         )

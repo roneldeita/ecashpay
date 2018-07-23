@@ -5,7 +5,7 @@ import QueueAnim from 'rc-queue-anim'
 import { startCase } from 'lodash'
 import Moment from 'react-moment';
 //import 'moment-timezone';
-//import {isEmpty} from 'lodash'
+import {isEmpty} from 'lodash'
 
 export default ({transactions, profile}) => {
   console.log(transactions)
@@ -91,11 +91,11 @@ export default ({transactions, profile}) => {
                   {item.type === 'cashIn' && item.entryType === 'debit' && <span>{startCase(item.type)} via {item.outletName}</span>}
                   {item.type === 'transfer' && item.entryType === 'debit' && <span>Recieved from {item.sourceAccount}</span>}
                   {item.type === 'transfer' && item.entryType === 'credit' && <span>Transfer to {item.targetAccount}</span>}
-                  {item.type === 'payment' && item.entryType === 'credit' && <span>Payment to {item.metadata.store.name}</span>}
+                  {item.type === 'payment' && item.entryType === 'credit' && <span>Payment to {!isEmpty(item.metadata) ? item.metadata.store.name : 'Merchant'}</span>}
                   (<span style={{color:'#999999'}}>{item.currency}{item.amount}
                       <span>
                         {item.type === 'cashIn' ? '+'+item.currency + parseFloat(item.totalFee).toFixed(2): ''}
-                        {item.type === 'transfer' && item.targetAccount === profile.account ? '+'+item.currency +item.fee : ''}
+                        {item.type === 'transfer' && item.targetAccount === profile.account ? '+'+item.currency +item.totalFee : ''}
                       </span>
                   </span>)
                 </div>

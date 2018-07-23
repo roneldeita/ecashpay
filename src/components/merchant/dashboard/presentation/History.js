@@ -31,7 +31,7 @@ export default ({transactions, profile}) => {
   const Status = (status, type) => {
     switch(status){
       case 0:
-        return type === 'payment' ? <Tag color="blue">Upload proof of billing</Tag> : <Tag color="blue">Payment pending</Tag>
+        return type === 'payment' ? <Tag color="blue">Upload proof of delivery</Tag> : <Tag color="blue">Payment pending</Tag>
       case 1:
         return <Tag color="green">Completed</Tag>
       case 2:
@@ -39,9 +39,9 @@ export default ({transactions, profile}) => {
       case 3:
         return <Tag>Expired</Tag>
       case 4:
-        return <Tag color="blue">Verifying your payment</Tag>
+        return type === 'payment' ? <Tag color="blue">Verifying proof of delivery</Tag> : <Tag color="blue">Payment pending</Tag>
       case 5:
-        return <Tag color="orange">Payment Rejected</Tag>
+        return type === 'payment' ? <Tag color="orange">Reupload proof of delivery</Tag> : <Tag color="orange">Payment Rejected</Tag>
       default:
         //
     }
@@ -95,7 +95,7 @@ export default ({transactions, profile}) => {
                   (<span style={{color:'#999999'}}>{item.currency}{item.amount}
                       <span>
                         {item.type === 'cashIn' ? '+'+item.currency + parseFloat(item.totalFee).toFixed(2): ''}
-                        {item.type === 'transfer' && item.targetAccount === profile.account ? '+'+item.currency +item.fee : ''}
+                        {item.type === 'transfer' && item.targetAccount === profile.account ? '+'+item.currency +item.totalFee : ''}
                       </span>
                   </span>)
                 </div>

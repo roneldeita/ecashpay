@@ -94,10 +94,15 @@ export function Transaction(data, header){
     Get: () => axios.get(process.env.REACT_APP_API + '/api/v1/transactions/'+data.transaction, {headers:header}),
     Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/transactions/'+data.transaction, {headers:header}),
     Upload: () => axios.patch(process.env.REACT_APP_API + '/api/v1/transactions/'+data.get('transaction'), data, {headers:header}),
+    //merchant
+    UploadPOD: () => axios.patch(process.env.REACT_APP_API + '/payments/'+data.get('transaction'), data, {headers:header}),
     //Admin
     GetAllCashIn: () => axios.get(process.env.REACT_APP_API + '/api/v1/payments', {headers:header}),
     AcceptCashIn: () => axios.patch(process.env.REACT_APP_API + '/api/v1/payments/'+data.id, {headers:header}),
-    RejectCashIn: () => axios.delete(process.env.REACT_APP_API + '/api/v1/payments/'+data.id, {headers:header})
+    RejectCashIn: () => axios.delete(process.env.REACT_APP_API + '/api/v1/payments/'+data.id, {headers:header}),
+    GetAllPayments: () => axios.get(process.env.REACT_APP_API + '/payments/transactions', {headers:header}),
+    AcceptPayment: () => axios.patch(process.env.REACT_APP_API + '/payments/transactions/'+data.id, {headers:header}),
+    RejectPayment: () => axios.delete(process.env.REACT_APP_API + '/payments/transactions/'+data.id, {headers:header}),
   }
 }
 
