@@ -84,9 +84,10 @@ class RequirementsPage extends React.PureComponent{
     this.props.form.validateFields((err, values) => {
       if(!err){
         const formData = new FormData()
-        Object.keys(values).map(function(objectKey, index) {
+        Object.keys(values).forEach(function(objectKey, index) {
           let value = values[objectKey]
           if(values[objectKey] !== undefined){
+            //
             formData.append('files', value.file)
           }
         })

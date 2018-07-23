@@ -13,12 +13,12 @@ export default ({record, accept, decline}) => {
         : <Button data-id={record.id} onClick={ accept } size="small" type="primary" disabled={record.status === 'rejected'}>Accept</Button>
       }
     },
-    // { title: '', dataIndex: '', width: 100, key: 'decline', render: (text, record) =>
-    //   { return record.status === 'rejected'
-    //     ? <Tag color="red">For Reupload</Tag>
-    //     : <Button data-id={record.id} onClick={ decline } size="small" disabled={record.status === 'completed'}>Reject</Button>
-    //   }
-    // }
+    { title: '', dataIndex: '', width: 100, key: 'decline', render: (text, record) =>
+      { return record.status === 'rejected'
+        ? <Tag color="red">For Reupload</Tag>
+        : <Button data-id={record.id} onClick={ decline } size="small" disabled={record.status === 'completed'}>Reject</Button>
+      }
+    }
   ];
   return(
     <Table

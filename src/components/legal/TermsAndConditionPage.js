@@ -1,5 +1,4 @@
 import React from 'react'
-import { Row, Col} from 'antd'
 import { Document, Page } from 'react-pdf';
 import Terms from '../../assets/pdf/EcashpayTermsAndConditions.pdf'
 import Logo from '../../assets/images/Ecashpay_Logo_Orig.png'
@@ -27,7 +26,7 @@ class TermsAndConditionsPage extends React.Component {
     const { pageNumber, numPages } = this.state;
     return (
       <div style={{textAlign:'center'}}>
-        <img src={Logo} style={{width:'200px', padding:'20px 0 20px 0'}}/>
+        <img src={Logo} style={{width:'200px', padding:'20px 0 20px 0'}} alt="logo"/>
           <div>
             <a onClick={this.handlePrev} style={{marginRight:'10px'}}>Prev</a>
             <a onClick={this.handleNext}>Next</a>

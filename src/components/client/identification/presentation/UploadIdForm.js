@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Upload, Modal, Button, Row, Col, Select, Input } from 'antd'
+import { Form, Upload, Modal, Button, Row, Col } from 'antd'
 import SelfieWithId from '../../../../assets/images/selfie_with_id.png'
 import Id from '../../../../assets/images/id.png'
 
@@ -30,8 +30,6 @@ export default ({
   submit,
   }) => {
   const { getFieldDecorator, getFieldError } = form
-  const IdTypeError = getFieldError('ID Type')
-  const IdNumberError = getFieldError('ID Number')
   const SelfieError = getFieldError('Selfie')
   const IdError = getFieldError('Id')
 

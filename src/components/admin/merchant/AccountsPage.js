@@ -48,7 +48,7 @@ class AccountsPage extends React.PureComponent{
   accept(e){
     const modal = Modal.info({
       closable:false,
-      title: (<div><Icon type="loading"/> Accepting new business account</div>)
+      title: (<div><Icon type="loading"/> Accepting new merchant account</div>)
     });
     const RequestId = e.target.getAttribute('data-id')
     Auth({id:RequestId, status:'completed'}, {'x-access-token':this.props.auth.token}).AdminAcceptNewMerchantAccount()
