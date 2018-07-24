@@ -33,7 +33,7 @@ class TransferPage extends React.PureComponent{
     Transaction(this.state.transfer, {'x-access-token':this.props.auth.token}).Transfer()
     .then(res=>{
       this.props.form.resetFields()
-      const path = this.props.profile.type === 'individual' ? '/client/dashboard' : '/business/dashboard'
+      const path = this.props.profile.type+'/dashboard'
       Modal.success({
         title: 'Transfer Success',
         content: 'You have successfully sent '+ this.state.transfer.currency + this.state.transfer.amount + ' to ' + this.state.transfer.targetAccount

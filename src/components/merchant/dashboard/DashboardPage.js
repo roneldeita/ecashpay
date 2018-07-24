@@ -29,8 +29,8 @@ class DashboardPage extends React.PureComponent{
   loadTransactions(){
     Transaction(null, {'x-access-token':this.props.auth.token}).All()
     .then(res => {
-      const DebitOnly = res.data.filter(transaction=> transaction.entryType === 'debit')
-      this.setState({transactions:DebitOnly})
+      //const DebitOnly = res.data.filter(transaction=> transaction.entryType === 'debit')
+      this.setState({transactions:res.data})
     })
     .catch(err => {
       console.log(err)
