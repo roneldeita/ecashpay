@@ -43,7 +43,7 @@ class AccountsPage extends React.PureComponent{
       title: (<div><Icon type="loading"/> Rejecting business account</div>)
     });
     const RequestId = e.target.getAttribute('data-id')
-    Auth({id:RequestId, status:'submissionOfRequirements'}, {'x-access-token':this.props.auth.token}).HandleBusinessAccount()
+    Auth({id:RequestId, status:'rejected'}, {'x-access-token':this.props.auth.token}).HandleBusinessAccount()
     .then(res=>{
       console.log(res)
       setTimeout(() => modal.destroy(), 1000);

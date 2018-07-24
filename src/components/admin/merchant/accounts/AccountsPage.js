@@ -43,7 +43,7 @@ class AccountsPage extends React.PureComponent{
       title: (<div><Icon type="loading"/> Rejecting merchant account</div>)
     });
     const RequestId = e.target.getAttribute('data-id')
-    Auth({id:RequestId, status:'submissionOfRequirements'}, {'x-access-token':this.props.auth.token}).HandleMerchantAccount()
+    Auth({id:RequestId, status:'rejected'}, {'x-access-token':this.props.auth.token}).HandleMerchantAccount()
     .then(res=>{
       console.log(res)
       this.getAllRecords()
