@@ -23,6 +23,7 @@ export function Auth(data, header) {
     MerchantsRequirementsProfile: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/merchants/requirements', data, {headers:header}),
     //admin
     AdminLogin: () => axios.post(process.env.REACT_APP_API + '/login?role=admin', data),
+    GetAccount: () => axios.get(process.env.REACT_APP_API + '/users/'+data.id),
     AdminBusinessNewAccounts: () => axios.get(process.env.REACT_APP_API + '/businesses?status=pending', data),
     HandleBusinessAccount: () => axios.patch(process.env.REACT_APP_API + '/businesses/'+data.id, data),
     AdminMerchantNewAccounts: () => axios.get(process.env.REACT_APP_API + '/merchants?status=pending', data),

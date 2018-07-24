@@ -30,10 +30,12 @@ class AccountsPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state={
-      record:[]
+      record:[],
+      selected:{}
     }
     this.accept = this.accept.bind(this)
     this.decline = this.decline.bind(this)
+    this.handleSelected = this.handleSelected.bind(this)
   }
   decline(e){
     const modal = Modal.info({
@@ -69,6 +71,15 @@ class AccountsPage extends React.PureComponent{
       setTimeout(() => modal.destroy(), 1000);
     })
   }
+  handleSelected(userId){
+    Auth({id:userId}).GetAccount()
+    .then(res=>{
+      this.setState({selected:res.data})
+      console.log(res)
+    }).catch(err=>{
+      console.log(err)
+    })
+  }
   getAllRecords(){
     Auth(null, {'x-access-token':this.props.auth.token}).AdminMerchantNewAccounts()
     .then(res=>{
@@ -90,7 +101,8 @@ class AccountsPage extends React.PureComponent{
             record={this.state.record}
             accept={this.accept}
             decline={this.decline}
-            />
+            selected={this.state.selected}
+            handleSelected={this.handleSelected}/>
         </div>
         <style jsx="true">{`
             .ant-confirm-btns,

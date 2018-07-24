@@ -2,8 +2,7 @@ import React from 'react'
 import { Table, Card, Row, Col, Divider, Button, Tag } from 'antd'
 import Moment from 'react-moment'
 
-export default ({record, accept, decline}) => {
-  console.log(record)
+export default ({record, accept, decline, selected, handleSelected}) => {
   const columns = [
     { title: 'Merchant Name', dataIndex: 'name', key: 'name' },
     { title: 'Created at', dataIndex: 'createdAt', key: 'createdat', render:(text,record)=> <Moment format="MMMM D, Y h:mm A" date={record.createdAt}/> },
@@ -29,10 +28,11 @@ export default ({record, accept, decline}) => {
       rowKey="id"
       columns={columns}
       dataSource={record}
+      onExpand={(expanded, record) => handleSelected(record.user)}
       expandedRowRender={record => {
         let Photos = JSON.parse(record.payload)
         return (
-          <Row>
+          <Row gutter={10}>
             <Col span={12}>
               <Row>
                 {Photos.files.map((file, index)=>(
@@ -46,22 +46,17 @@ export default ({record, accept, decline}) => {
               </Row>
             </Col>
             <Col span={12}>
-              <Card>
+              <Card title={record.name}>
+                <Divider orientation="left">Contact Details</Divider>
+                <p>Email: {selected.email}</p>
                 <p>Contact: {record.contact}</p>
                 <p>Website: {record.website}</p>
-                <Divider/>
+                <Divider orientation="left">Address</Divider>
                 <p>Street: {record.completeAddress.street}</p>
                 <p>City: {record.completeAddress.city}</p>
                 <p>Region / Province / State: {record.completeAddress.region}</p>
                 <p>Country: {record.completeAddress.country}</p>
                 <p>Zip Code: {record.completeAddress.zip}</p>
-                {/*<p>Transaction No: {record.transaction.no}</p>
-                <p>Category: {record.transaction.outletCategory}</p>
-                <p>Via: {record.transaction.outletName}</p>
-                <p>Transaction Date: {record.transaction.createdAt}</p>
-                <Divider/>
-                <p>Currency: {record.transaction.currency}</p>
-                <p>Amount: {record.transaction.amount}</p>*/}
               </Card>
             </Col>
           </Row>
