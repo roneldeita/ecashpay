@@ -1,6 +1,3 @@
-export const Container = {
-  marginTop: '40px',
-}
 export const Greet = {
   textAlign: 'center',
   color:'#000000',

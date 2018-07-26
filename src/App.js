@@ -162,6 +162,7 @@ class App extends Component {
     }
   }
   componentDidMount(){
+
   }
   render() {
     //console.log()
@@ -182,7 +183,7 @@ class App extends Component {
                   logout={this.handleLogOut}
                   />
                 </Layout.Header>
-                <Layout>
+                <Layout style={{ width:'100%', maxWidth: '1920px', margin: '0 auto'}}>
                   <Layout.Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} style={{display:this.showAdminNavigation()}}>
                     <div style={LogoContainer}>
                       <img src={this.state.collapsed ? EpayLogoMini : EpayLogo  } alt="logo" style={this.state.collapsed ? LogoMini : Logo}/>

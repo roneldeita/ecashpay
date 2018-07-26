@@ -121,7 +121,7 @@ class SubmitPobPage extends React.PureComponent{
   render(){
     return (
       <Row justify="center" type="flex" style={{marginTop:'50px'}}>
-        <Col md={12} lg={8}>
+        <Col xs={23} sm={23} md={12} lg={8}>
           <QueueAnim type={['top', 'bottom']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
             <div key="0">
               <Card

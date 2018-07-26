@@ -27,6 +27,7 @@ class TransactionPage extends React.PureComponent{
     })
   }
   componentDidMount(){
+    window.scrollTo(0, 0)
     this.loadTransaction()
   }
   render(){
@@ -69,7 +70,6 @@ class TransactionPage extends React.PureComponent{
                   loadTransaction={this.loadTransaction}
                   auth={this.props.auth}
                   transaction={this.state.transaction}/>}
-                <Divider dashed style={DividerStyle}/>
                 <Row>
                   <Col span={12}>Date</Col>
                   <Col span={12} style={rightContent}><Moment format="MMMM D, Y hh:mm:ss A" date={this.state.transaction.createdAt}/></Col>

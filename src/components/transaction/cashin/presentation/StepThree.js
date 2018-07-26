@@ -19,7 +19,6 @@ const Info ={
 }
 
 const StepThree = ({auth, transaction, cancel, cancelState, uploadState, toggleUpload, loadTransaction}) => {
-  console.log(transaction)
   const Status = (status) => {
     switch(status){
       case 0:

@@ -97,6 +97,7 @@ class TransferPage extends React.PureComponent{
     });
   }
   componentDidMount(){
+    window.scrollTo(0, 0)
     this.loadWallets()
     if(!isEmpty(this.props.profile) && this.props.profile.type === 'individual'){
       if(this.props.profile.phone === ''){

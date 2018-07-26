@@ -23,7 +23,7 @@ export default ({record, accept, decline}) => {
     <Table
       title={() => (
       <div>
-        <h1>Verify Proof of billing</h1>
+        <h1>Verify Address <span style={{fontSize:'14px'}}>(through billing statement)</span></h1>
       </div>)}
       rowKey="id"
       columns={columns}

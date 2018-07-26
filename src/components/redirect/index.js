@@ -9,7 +9,7 @@ class RedirectPage extends React.PureComponent {
   }
   redirectPersonal(status, phone){
     if(phone === ''){
-      window.location.href = '/client/verify/phone'
+      this.props.history.push('/client/verify/phone')
     }else{
       switch(status){
         case 'unverified':
@@ -22,7 +22,7 @@ class RedirectPage extends React.PureComponent {
           window.location.href = '/client/dashboard'
           break;
         default:
-          window.location.href = '/'
+          this.props.history.push('/')
       }
     }
   }
@@ -50,11 +50,12 @@ class RedirectPage extends React.PureComponent {
           window.location.href = '/business/dashboard'
           break;
         default:
-          window.location.href = '/'
+          this.props.history.push('/')
       }
     }
   }
   redirectMerchant(status, phone){
+
     if(phone === ''){
       window.location.href = '/merchant/verify/phone'
     }else{
@@ -78,7 +79,7 @@ class RedirectPage extends React.PureComponent {
           window.location.href = '/merchant/dashboard'
           break;
         default:
-          window.location.href = '/'
+          this.props.history.push('/')
       }
     }
   }

@@ -45,7 +45,7 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
   return(
     <Affix style={{width:'100%'}}>
       <div style={NavContainer}>
-        <Row className="" type="flex" justify="center">
+        <Row className="" type="flex" justify="center" style={{ width:'100%', maxWidth: '1920px', margin: '0 auto'}}>
           <Col xs={0} sm={9} md={7}>
             <Row type="flex" justify="start">
               <Col>

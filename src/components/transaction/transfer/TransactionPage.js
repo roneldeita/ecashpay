@@ -24,6 +24,7 @@ class TransactionPage extends React.PureComponent{
     })
   }
   componentDidMount(){
+    window.scrollTo(0, 0)
     this.loadTransaction()
   }
   render(){

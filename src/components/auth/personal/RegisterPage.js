@@ -53,7 +53,8 @@ class RegisterPage extends React.PureComponent {
         Auth(Data).register()
         .then( res => {
           this.props.authActions.saveAuth(res.data.token)
-          window.location.href = '/client/verify'
+          //this.props.history.push('/client/verify')
+          window.location.href = '/'
         })
         .catch( err => {
           Modal.error({

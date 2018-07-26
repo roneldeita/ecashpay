@@ -82,6 +82,9 @@ class CashInPage extends React.PureComponent{
     })
     console.log(this.props)
   }
+  componentDidMount(){
+    window.scrollTo(0, 0)
+  }
   render(){
     return(
       <div>

@@ -21,7 +21,7 @@ const BreadCrumbs = (
     </Breadcrumb.Item>
     <Breadcrumb.Item>
       <Icon type="paper-clip" />
-      <span>Verify ID</span>
+      <span>Verify Proof of billing</span>
     </Breadcrumb.Item>
   </Breadcrumb>
 )

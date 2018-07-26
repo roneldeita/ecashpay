@@ -82,7 +82,7 @@ class ProfilePage extends React.PureComponent{
         }
         Auth(Data, {'x-access-token':this.props.auth.token}).completeProfile()
         .then( res => {
-          window.location.href = '/'
+          window.location.href = '/client/profile'
         })
         .catch(err => {
           Modal.error({

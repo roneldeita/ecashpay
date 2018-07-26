@@ -68,15 +68,17 @@ class LoginPage extends React.PureComponent {
   }
   render() {
     return (
-      <div>
-        <LoginForm
-          form={this.props.form}
-          buttonState={this.state.buttonState}
-          onClickLoginButton ={this.onClickLoginButton}
-          onSubmit={this.handleSubmit}
-          passwordVisible={this.state.passwordVisible}
-          passwordVisibility={this.handlePasswordVisibility}
-        />
+      <div className="" style={{display:'table', position:'fixed', width:'100%', height:'100%'}}>
+        <div className="" style={{display:'table-cell', verticalAlign: 'middle'}}>
+          <LoginForm
+            form={this.props.form}
+            buttonState={this.state.buttonState}
+            onClickLoginButton ={this.onClickLoginButton}
+            onSubmit={this.handleSubmit}
+            passwordVisible={this.state.passwordVisible}
+            passwordVisibility={this.handlePasswordVisibility}
+          />
+        </div>
       </div>
     );
   }

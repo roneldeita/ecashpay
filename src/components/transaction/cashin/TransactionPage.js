@@ -51,10 +51,10 @@ class TransactionPage extends React.PureComponent{
     this.setState({uploadState:!this.state.uploadState})
   }
   componentDidMount(){
+    window.scrollTo(0, 0)
     this.loadTransaction()
   }
   render(){
-    console.log(this.props)
     return(
       <div>
         <Navigation location={this.props.location}/>

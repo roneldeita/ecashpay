@@ -10,7 +10,7 @@ const VerificationForm = ({email, form, buttonState, onSubmit, autoCheck, onRese
   const CodeError =  getFieldError('Code')
   return (
     <Row type="flex" justify="center" style={css.Container}>
-      <Col xs={24} sm={22} md={22} lg={22} xl={13}>
+      <Col xs={24} sm={22} md={22} lg={22} xl={15}>
         <Card hoverable style={css.CardStyle}>
           <Row>
             <Col className="form-column" xs={24} sm={24} md={13}>

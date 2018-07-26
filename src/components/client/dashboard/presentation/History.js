@@ -8,7 +8,6 @@ import Moment from 'react-moment';
 import {isEmpty} from 'lodash'
 
 export default ({transactions, profile}) => {
-  console.log(transactions)
   const PopOverContent = (
     <div>
       <Badge status="success" text="Completed"/>

@@ -43,7 +43,7 @@ const AntIcon = {
 
 const BottomNavigation = () => {
   return(
-      <div>
+      <div style={{ width:'100%', maxWidth: '1920px', margin: '0 auto'}}>
         <Row style={BottomRow}>
           <Col span={24}>
             <p style={Title}>Get Ecashpay Asia App Now</p>

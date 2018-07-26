@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import {Card, Row, Col, Form, Input, Button, Icon } from 'antd'
-import QueueAnim from 'rc-queue-anim'
+//import QueueAnim from 'rc-queue-anim'
 import RightSection from './RightSection'
 import * as css from '../../../assets/styles/LoginForm'
 
@@ -12,12 +12,8 @@ const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton, passwordVis
   const EmailError =  getFieldError('Email')
   const PasswordError =  getFieldError('Password')
   return (
-    <Row type="flex" justify="center" style={css.Container}>
+    <Row type="flex" justify="center">
       <Col xs={23} sm={22} md={22} lg={22} xl={17} xxl={12}>
-        <QueueAnim
-          type={['bottom', 'top']}
-          ease={['easeOutBack', 'easeInOutCirc']}>
-          <div key="0">
             <Card hoverable style={css.CardStyle}>
               <Row>
                 <Col className="form-column" xs={24} md={13}>
@@ -67,8 +63,6 @@ const LoginForm = ({form, buttonState, onSubmit, onClickLoginButton, passwordVis
                 </Col>
               </Row>
             </Card>
-          </div>
-        </QueueAnim>
       </Col>
       <style jsx="true">{`
         #submit.ant-btn-primary{

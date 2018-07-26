@@ -58,7 +58,7 @@ class DashboardPage extends React.PureComponent{
           <Menu ready={isEmpty(this.state.profile)} profile={this.state.profile} />
         </Col>
         <Col className="" xs={24} sm={24} md={22} lg={20} xl={18}>
-          <Row gutter={20}>
+          <Row gutter={15}>
             <Col className="" md={24} lg={8} style={{marginBottom:'10px'}}>
               <WalletCard ready={isEmpty(this.state.wallets)} currencies={this.state.wallets}/>
             </Col>
