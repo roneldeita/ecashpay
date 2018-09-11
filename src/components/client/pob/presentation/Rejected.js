@@ -10,7 +10,7 @@ const IconStyle = {
 export default ({resubmit}) => {
   const Desc = (
     <div>
-      <h3>We're sorry</h3>
+      <h3>We{`'`}re sorry</h3>
       <br/>
       <p>We are unable to verify your identity. To proceed, please re-submit valid requirements.</p>
     <Button onClick={resubmit}>Try Again</Button>

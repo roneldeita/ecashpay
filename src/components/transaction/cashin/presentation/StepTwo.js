@@ -70,7 +70,7 @@ const StepTwo = ({visibility, next, changeAmount, data, prev, form}) => {
           <Divider dashed style={DividerStyle}/>
           <Row>
             <Col span={12}>You will receive</Col>
-            <Col span={12} style={rightContent}>{data.amount ? data.amount + ' PHP' : '' }</Col>
+            <Col span={12} style={rightContent}>{data.amount ? data.amount + ' PHP' : '0 PHP' }</Col>
           </Row>
           <Divider dashed style={DividerStyle}/>
           <Row>

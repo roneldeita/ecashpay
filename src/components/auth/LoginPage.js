@@ -17,30 +17,28 @@ class LoginPage extends React.PureComponent {
       buttonState: false,
       passwordVisible: false,
     }
-    this.onClickLoginButton = this.onClickLoginButton.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handlePasswordVisibility = this.handlePasswordVisibility.bind(this)
-    document.title="Login - Ecashpay"
-  }
-  onClickLoginButton(event){
-    this.setState({buttonState:true})
+    document.title=this.props.title
   }
   handlePasswordVisibility(){
     this.setState({passwordVisible:!this.state.passwordVisible})
   }
   handleSubmit(event){
+    this.setState({buttonState:true})
     this.props.form.validateFields((err, values) => {
       if (!err) {
         Auth({email: values.Email, password: values.Password}).login()
         .then( res =>{
-          sessionStorage.removeItem('tfa')
-          if(res.data.tfa){
-            let TfaInfo = {
+          //console.log(res)
+          sessionStorage.removeItem('tsv')
+          if(res.data.authType === '2SV'){
+            let TwoStepVerification = {
               ...res.data,
               email:values.Email
             }
-            sessionStorage.setItem("tfa", JSON.stringify(TfaInfo))
-            window.location.href = '/login/tfa'
+            sessionStorage.setItem("tsv", JSON.stringify(TwoStepVerification))
+            window.location.href = '/login/tsv'
           }else{
             this.props.authActions.saveAuth(res.data.token)
             window.location.href = '/'
@@ -50,7 +48,7 @@ class LoginPage extends React.PureComponent {
           setTimeout(() => {
             this.setState({buttonState:false})
           }, 800)
-          Modal.error({
+          Modal.warning({
             title: 'Login Error',
             content: err.response.data.message,
           })
@@ -68,12 +66,11 @@ class LoginPage extends React.PureComponent {
   }
   render() {
     return (
-      <div className="" style={{display:'table', position:'fixed', width:'100%', height:'100%'}}>
-        <div className="" style={{display:'table-cell', verticalAlign: 'middle'}}>
+      <div className="center-wrapper">
+        <div className="center-container">
           <LoginForm
             form={this.props.form}
             buttonState={this.state.buttonState}
-            onClickLoginButton ={this.onClickLoginButton}
             onSubmit={this.handleSubmit}
             passwordVisible={this.state.passwordVisible}
             passwordVisibility={this.handlePasswordVisibility}
@@ -84,6 +81,9 @@ class LoginPage extends React.PureComponent {
   }
 }
 
+LoginPage.defaultProps = {
+  title: 'Login - Ecashpay'
+}
 
 function mapStateToProps(state, ownProps){
   return {

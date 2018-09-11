@@ -82,27 +82,36 @@ export default ({transactions, profile}) => {
               },
               pageSize: 10
             }}
-            renderItem={ item => (
-              <List.Item actions={[<Link to={`/${item.type}/transactions/${item.no}`}>{Status(item.status)}</Link>]}>
-                <div>
-                  <Badge status={BadgeStatus(item.status)} /><Moment format="MMM D" date={item.createdAt} style={{fontSize:'20px'}}/>
-                  <Divider type="vertical"/>
-                  {item.type === 'cashIn' && item.entryType === 'debit' && <span>{startCase(item.type)} via {item.outletName}</span>}
-                  {item.type === 'transfer' && item.entryType === 'debit' && <span>Recieved from {item.sourceAccount}</span>}
-                  {item.type === 'transfer' && item.entryType === 'credit' && <span>Transfer to {item.targetAccount}</span>}
-                  {item.type === 'payment' && item.entryType === 'credit' && <span>Payment to {!isEmpty(item.metadata) ? item.metadata.store.name : 'Merchant'}</span>}
-                  (<span style={{color:'#999999'}}>{item.currency}{item.amount}
-                      <span>
-                        {item.type === 'cashIn' ? '+'+item.currency + parseFloat(item.totalFee).toFixed(2): ''}
-                        {item.type === 'transfer' && item.targetAccount === profile.account ? '+'+item.currency +item.totalFee : ''}
-                      </span>
-                  </span>)
-                </div>
-              </List.Item>
-            )}/>
+            renderItem={ item => {
+              const PageRoute = () => {
+                if(item.type === 'cashIn'){
+                  return 'cash-in'
+                }else{
+                 return item.type 
+                }
+              }
+              return(<Link to={`/${PageRoute()}/transactions/${item.no}`}>
+                <List.Item style={{color:'rgba(0,0,0,.65)'}} actions={[Status(item.status)]}>
+                  <div>
+                    <Badge status={BadgeStatus(item.status)} /><Moment format="MMM D" date={item.createdAt} style={{fontSize:'20px'}}/>
+                    <Divider type="vertical"/>
+                    {item.type === 'cashIn' && item.entryType === 'debit' && <span>{startCase(item.type)} via {item.outletName}</span>}
+                    {item.type === 'transfer' && item.entryType === 'debit' && <span>Recieved from {item.sourceAccount}</span>}
+                    {item.type === 'transfer' && item.entryType === 'credit' && <span>Transfer to {item.targetAccount}</span>}
+                    {item.type === 'payment' && item.entryType === 'credit' && <span>Payment to {!isEmpty(item.metadata) ? item.metadata.store.name : 'Merchant'}</span>}
+                    (<span style={{color:'#999999'}}>{item.currency}{item.amount}
+                        <span>
+                          {item.type === 'cashIn' ? '+'+item.currency + parseFloat(item.totalFee).toFixed(2): ''}
+                          {item.type === 'transfer' && item.targetAccount === profile.account ? '+'+item.currency +item.totalFee : ''}
+                        </span>
+                    </span>)
+                  </div>
+                </List.Item>
+              </Link>)
+            }}/>
         </Card>
       </div>
     </QueueAnim>
   )
 }
-//
+

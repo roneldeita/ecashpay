@@ -29,6 +29,7 @@ export default ({transactions, profile}) => {
     </div>
   )
   const Status = (status, type) => {
+    console.log(status)
     switch(status){
       case 0:
         return type === 'payment' ? <Tag color="blue">Upload proof of delivery</Tag> : <Tag color="blue">Payment pending</Tag>
@@ -39,7 +40,7 @@ export default ({transactions, profile}) => {
       case 3:
         return <Tag>Expired</Tag>
       case 4:
-        return type === 'payment' ? <Tag color="blue">Verifying proof of delivery</Tag> : <Tag color="blue">Payment pending</Tag>
+        return type === 'payment' ? <Tag color="blue">Verifying proof of delivery</Tag> : <Tag color="blue">Verifying your payment</Tag>
       case 5:
         return type === 'payment' ? <Tag color="orange">Reupload proof of delivery</Tag> : <Tag color="orange">Payment Rejected</Tag>
       default:
@@ -83,9 +84,17 @@ export default ({transactions, profile}) => {
               },
               pageSize: 10
             }}
-            renderItem={ item => (
-              <List.Item actions={[<Link to={`/${item.type}/transactions/${item.no}`}>{Status(item.status, item.type)}</Link>]}>
-                <div>
+            renderItem={ item => {
+              const PageRoute = () => {
+                if(item.type === 'cashIn'){
+                  return 'cash-in'
+                }else{
+                 return item.type 
+                }
+              }
+              return(<Link to={`/${PageRoute()}/transactions/${item.no}`}>
+                <List.Item style={{color:'rgba(0,0,0,.65)'}} actions={[Status(item.status)]}>
+                  <div>
                   <Badge status={BadgeStatus(item.status)} /><Moment format="MMM D" date={item.createdAt} style={{fontSize:'20px'}}/>
                   <Divider type="vertical"/>
                   { item.type === 'cashIn' && item.entryType === 'debit' && <span>{startCase(item.type)} via {item.outletName}</span>}
@@ -100,7 +109,8 @@ export default ({transactions, profile}) => {
                   </span>)
                 </div>
               </List.Item>
-            )}/>
+              </Link>)
+            }}/>
         </Card>
       </div>
     </QueueAnim>

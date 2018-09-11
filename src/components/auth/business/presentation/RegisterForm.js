@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import {Card, Row, Col, Form, Input, Radio, Button, Icon } from 'antd'
 import RightSection from '../../presentation/RightSection'
-import * as css from '../../../../assets/styles/RegisterForm'
 
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
@@ -15,12 +14,12 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
   const BusinessNameError =  getFieldError('Business Name');
   const AccTypeError =  getFieldError('Account Type');
   return (
-    <Row type="flex" justify="center" style={css.Container}>
-      <Col xs={24} sm={22} md={22} lg={22} xl={15}>
-        <Card hoverable style={css.CardStyle}>
+    <Row type="flex" justify="center">
+      <Col xs={23} sm={22} md={24} lg={24} xl={20} xxl={14}>
+        <Card hoverable className="auth card-style">
           <Row>
             <Col className="form-column" xs={24} md={13}>
-              <p style={css.Greet}>Create your Ecashpay account</p>
+              <p className="reg-greet">Create your Ecashpay account</p>
               <Form onSubmit={onSubmit} autoComplete="off">
                 <FormItem
                 hasFeedback={isFieldTouched('Type')}
@@ -33,7 +32,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                     ],
                   })(
                     <RadioGroup>
-                      <Link to='/client/register'><Radio value="personal">Pesonal</Radio></Link>
+                      <Link to='/client/register'><Radio value="individual">Pesonal</Radio></Link>
                       <Radio value="business">Business</Radio>
                       <Link to='/merchant/register'><Radio value="merchant">Merchant</Radio></Link>
                     </RadioGroup>
@@ -49,7 +48,10 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                       { type: 'email', message: 'Not a valid email' }
                     ],
                   })(
-                    <Input placeholder="Email" prefix={<Icon type="mail" style={css.PrefixIcon} /> }/>
+                    <Input
+                      size="large"
+                      placeholder="Email"
+                      prefix={<Icon type="mail" className="prefix-icon" /> }/>
                   )}
                 </FormItem>
                 <FormItem
@@ -62,7 +64,11 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                       { pattern: /^[a-zA-Z\s-'ñÑ_]+$/, message: 'First Name should only contain letters' }
                     ],
                   })(
-                    <Input placeholder="Business Name" prefix={<Icon type="shop" style={css.PrefixIcon} /> }/>
+                    <Input
+                      size="large"
+                      placeholder="Business Name"
+                      prefix={<Icon type="shop"
+                      className="prefix-icon" /> }/>
                   )}
                 </FormItem>
                 <Row gutter={12}>
@@ -74,12 +80,14 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                       {getFieldDecorator('Password', {
                         rules: [
                           { required: true },
-                          { min: 8 , message:"Password must be at least 8 characters. "},
-                          { pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/, message: "The password must contain atleast 1 lower and 1 uppercase letter, 1 number and 1 special character. " },
                           { validator: checkPassword }
                         ],
                       })(
-                        <Input placeholder="Password" type="password" size="large" prefix={<Icon type="key" style={css.PrefixIcon} /> }/>
+                        <Input 
+                          placeholder="Password" 
+                          type="password" 
+                          size="large" 
+                          prefix={<Icon type="key" className="prefix-icon" /> }/>
                       )}
                     </FormItem>
                   </Col>
@@ -94,60 +102,33 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm,
                           { validator: checkConfirm }
                         ],
                       })(
-                        <Input placeholder="Confirm Password" type="password" size="large" prefix={<Icon type="key" style={css.PrefixIcon} /> }/>
+                        <Input 
+                          placeholder="Confirm Password" 
+                          type="password" size="large" 
+                          prefix={<Icon type="key" className="prefix-icon" /> }/>
                       )}
                     </FormItem>
                   </Col>
                 </Row>
-                <Form.Item>
-                  By clicking submit, you agree to our <a href="/termsandconditions" target="_blank">Terms & Conditions</a>
-                </Form.Item>
+                <p>By clicking submit, you agree to our <a href="/termsandconditions" target="_blank">Terms & Conditions</a></p>
                 <FormItem>
-                  <Button id="submit" type="primary" htmlType="submit" loading={buttonState} onClick={onClickLoginButton}>{buttonState ? 'Signing up...' : 'Sign up'} </Button>
+                  <Button
+                    block
+                    size="large" 
+                    className="submit"
+                    type="primary"
+                    htmlType="submit"
+                    loading={buttonState} onClick={onClickLoginButton}>{buttonState ? 'Signing up...' : 'Sign up'} </Button>
                 </FormItem>
               </Form>
               <p>Already have an account?<Link to="/login"> Login now</Link></p>
             </Col>
-            <Col style={css.Column} xs={0} md={11}>
+            <Col className="column" xs={0} md={11}>
               <RightSection />
             </Col>
           </Row>
         </Card>
       </Col>
-      <style jsx="true">{`
-        #submit.ant-btn-primary{
-          height: auto;
-          width: 100%;
-          font-size: 18px;
-          padding-top: 6px;
-          padding-bottom: 6px;
-          margin-top:10px
-        }
-        .ant-input{
-          height: auto;
-          font-size:16px;
-          padding-top:8px;
-          padding-bottom:8px;
-        }
-        .ant-input-affix-wrapper .ant-input:not(:first-child){
-          padding-left:45px
-        }
-        .ant-card,
-        .ant-card-wider-padding .ant-card-body,
-        .ant-card-body{
-          font-family: 'Work Sans', sans-serif !important;
-          padding:0px
-        }
-        .form-column{
-          padding: 80px 60px 30px 60px
-        }
-        @media only screen and (max-width: 600px) {
-          .form-column{
-            padding: 80px 20px 30px 20px
-          }
-        }
-      `}
-      </style>
     </Row>
   )
 }

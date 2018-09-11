@@ -1,9 +1,5 @@
 export function getToken() {
   return localStorage.getItem('auth')
-  //const auth = localStorage.getItem('auth')
-  // if(!auth){
-  //   return false
-  // }
 }
 
 export function hasToken(){

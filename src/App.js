@@ -31,7 +31,8 @@ import AdminTopNavigation from './components/template/AdminTopNavigation'
 import EpayLogo from './assets/images/Ecashpay_Logo_White.png'
 import EpayLogoMini from './assets/images/Ecashpay_Logo_White_Mini.png'
 //Idle
-import Idle from 'react-idle'
+//import Idle from 'react-idle'
+import IdleTimer from 'react-idle-timer'
 //api services
 //import { Auth } from './services/api'
 import { hasToken } from './assets/utils/auth'
@@ -60,7 +61,8 @@ class App extends Component {
     this.state = {
       timeOut: process.env.REACT_APP_TIMEOUT,
       collapsed: false,
-      notif:''
+      notif:'',
+      ready:document.readyState
     }
     this.handleChangeLocale = this.handleChangeLocale.bind(this)
     this.translateContent = this.translateContent.bind(this)
@@ -68,6 +70,7 @@ class App extends Component {
     //SubscribeToKyc((data) => this.setState({notif:data}));
   }
   toggleCollapse = () => {
+    //console.log(this.state.collapsed)
     this.setState({collapsed:!this.state.collapsed})
   }
   onCollapse = (collapsed) => {
@@ -84,13 +87,22 @@ class App extends Component {
         }
         break;
       case 'es':
-        message = { 'locale': 'es', 'banner.slogan': 'Pagar y enviar dinero de la manera más rápida con la tasa de cambio real.'}
+        message = { 
+          'locale': 'es', 
+          'banner.slogan': 'Pagar y enviar dinero de la manera más rápida con la tasa de cambio real.'
+        }
         break;
       case 'ru':
-        message = { 'locale': 'ru', 'banner.slogan': 'Платите и отправляйте деньги самым быстрым способом с реальным обменным курсом.' }
+        message = { 
+          'locale': 'ru', 
+          'banner.slogan': 'Платите и отправляйте деньги самым быстрым способом с реальным обменным курсом.' 
+        }
         break;
       case 'my':
-        message = { 'locale': 'my', 'banner.slogan': 'Bayar dan Hantar wang cara terpantas dengan kadar pertukaran sebenar.'}
+        message = { 
+          'locale': 'my', 
+          'banner.slogan': 'Bayar dan Hantar wang cara terpantas dengan kadar pertukaran sebenar.'
+        }
         break;
       default:
         //
@@ -111,12 +123,15 @@ class App extends Component {
   }
   hideTopNavigation(){
     const paths = [
-      '/login', '/termsandconditions', '/client/register', '/client/verify', '/redirecting',
-      '/password/request', '/password/reset', '/login/tfa',
+      '/login', '/termsandconditions', 
+      '/client/register', '/client/verify', 
+      '/redirecting', '/password/request', 
+      '/password/reset', '/login/tsv',
       '/business/register', '/business/verify',
       '/merchant/register', '/merchant/verify',
       '/admin', '/admin/login', '/admin/transactions',
       '/admin/requirements/id', '/admin/requirements/pob',
+      '/admin/manage/f2f',
       '/admin/transactions/cashin', '/admin/business/accounts',
       '/admin/merchant/accounts', '/admin/merchant/payments']
     if(paths.includes(this.props.location.pathname)){
@@ -128,6 +143,7 @@ class App extends Component {
     const paths = [
       '/admin', '/admin/transactions',
       '/admin/requirements/id', '/admin/requirements/pob',
+      '/admin/manage/f2f',
       '/admin/transactions/cashin', '/admin/business/accounts',
       '/admin/merchant/accounts', '/admin/merchant/payments']
     if(paths.includes(this.props.location.pathname)){
@@ -138,12 +154,12 @@ class App extends Component {
   handleLogOut(){
     localStorage.removeItem('auth')
     sessionStorage.removeItem('profile')
-    sessionStorage.removeItem('tfa')
+    sessionStorage.removeItem('tsv')
     sessionStorage.removeItem('recover')
     window.location.href = '/login'
   }
-  handleIdle(idle){
-    if(hasToken() && idle){
+  handleIdle = () =>{
+    if(hasToken()){
       localStorage.removeItem('auth')
       sessionStorage.removeItem('profile')
       message.warn(
@@ -155,22 +171,18 @@ class App extends Component {
             />
         </span>
       , 0);
-      if(this.props.profile.type === 'admin'){
+      if(this.props.profile.role === 'admin'){
         this.props.history.push('/admin/login')
       }
       this.props.history.push('/login')
     }
   }
-  componentDidMount(){
-
-  }
-  render() {
-    //console.log()
+  render(){
     return (
-      <Idle
-        timeout={this.state.timeOut}
-        onChange={({ idle }) =>  this.handleIdle(idle)}
-        render={({ idle }) =>
+      <IdleTimer
+        ref={ref => { this.idleTimer = ref }}
+        timeout={Number(this.state.timeOut)}
+        onIdle={this.handleIdle}>
           <IntlProvider locale={this.props.locale} messages={this.translateContent(this.props.locale)}>
             <div className="App">
               <Layout>
@@ -183,12 +195,12 @@ class App extends Component {
                   logout={this.handleLogOut}
                   />
                 </Layout.Header>
-                <Layout style={{ width:'100%', maxWidth: '1920px', margin: '0 auto'}}>
+                <Layout className="ecpa-layout">
                   <Layout.Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} style={{display:this.showAdminNavigation()}}>
                     <div style={LogoContainer}>
                       <img src={this.state.collapsed ? EpayLogoMini : EpayLogo  } alt="logo" style={this.state.collapsed ? LogoMini : Logo}/>
                     </div>
-                    <AdminSideNavigation location={this.props.location} />
+                    <AdminSideNavigation location={this.props.location} collapsed={this.state.collapsed} />
                   </Layout.Sider>
                   <Layout>
                     <Layout.Header style={{display:this.showAdminNavigation(), maxHeight:'auto', lineHeight:'40px'}}>
@@ -221,8 +233,7 @@ class App extends Component {
               </style>
             </div>
           </IntlProvider>
-        }
-      />
+        </IdleTimer>
     )
   }
 }
@@ -241,11 +252,14 @@ function mapDispatchToProps(dispatch){
 }
 
 App.propTypes = {
-  children: PropTypes.object.isRequired,
-  locale: PropTypes.string.isRequired,
   auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
-  localeActions: PropTypes.objectOf(PropTypes.func).isRequired
+  authActions: PropTypes.objectOf(PropTypes.func).isRequired,
+  children: PropTypes.objectOf(PropTypes.any).isRequired,
+  history: PropTypes.objectOf(PropTypes.any).isRequired,
+  locale: PropTypes.string.isRequired,
+  localeActions: PropTypes.objectOf(PropTypes.func).isRequired,
+  match: PropTypes.objectOf(PropTypes.any).isRequired,
+  profile: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
 export default  withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

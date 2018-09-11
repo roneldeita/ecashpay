@@ -1,12 +1,12 @@
 import React from 'react'
-import { Card } from 'antd'
+import { Card, Icon } from 'antd'
 import QueueAnim from 'rc-queue-anim'
+import { Link } from 'react-router-dom'
 
 const StepStyle = {
   textAlign:'center',
-  height:'500px',
-  margin: '70px 0px 0px 0px',
-  paddingTop:'120px',
+  margin: '50px 0px 0px 0px',
+  paddingTop:'50px',
   color:'#a0a0a0'
 }
 const Clock = {
@@ -23,7 +23,8 @@ export default () => {
   return(
     <QueueAnim type={['bottom', 'top']} ease={['easeOutBack', 'easeInOutCirc']}>
       <div key="0">
-        <Card style={StepStyle}>
+        <Card style={StepStyle}
+          actions={[<Link to="/"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
           <div>
             <span style={Clock} className="pe-7s-clock"/>
             <p style={Text}>Available Soon</p>

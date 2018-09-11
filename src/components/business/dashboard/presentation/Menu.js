@@ -76,7 +76,7 @@ export default ({ready, profile}) => {
             <Col className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="200" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/cashin" >
+                  <Link to="/cash-in" >
                     <span className="pe-7s-wallet" style={MenuICon}></span>
                     <p>Cash In</p>
                   </Link>
@@ -86,7 +86,7 @@ export default ({ready, profile}) => {
             <Col key="2" className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/sendmoney" >
+                  <Link to="/send-money" >
                     <span className="pe-7s-cash" style={MenuICon}></span>
                     <p>Send Money</p>
                   </Link>
@@ -96,7 +96,7 @@ export default ({ready, profile}) => {
             <Col className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="400" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/buyload" >
+                  <Link to="/buy-load" >
                     <span className="pe-7s-phone" style={MenuICon}></span>
                     <p>Buy Load</p>
                   </Link>
@@ -106,7 +106,7 @@ export default ({ready, profile}) => {
             <Col className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="500" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/paybills" >
+                  <Link to="/pay-bills" >
                     <span className="pe-7s-credit" style={MenuICon}></span>
                     <p>Pay Bills</p>
                   </Link>
@@ -116,7 +116,7 @@ export default ({ready, profile}) => {
             <Col className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="600" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/booktravel" >
+                  <Link to="/book-travel" >
                     <span className="pe-7s-compass" style={MenuICon}></span>
                     <p>Book Travel</p>
                   </Link>

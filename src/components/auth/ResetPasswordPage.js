@@ -99,17 +99,18 @@ class ResetPasswordPage extends React.PureComponent{
   }
   render(){
     return(
-      <div>
-        <ResetPasswordForm
-          form={this.props.form}
-          onSubmit={this.handleSubmit}
-          buttonState={this.state.buttonState}
-          checkPassword = {this.checkPassword}
-          checkConfirm = {this.checkConfirm}
-          buttonWasClicked={this.onClickSubmitButton}
-          resendState={this.state.resendState}
-          resend={this.handleResend}
-          />
+      <div className="center-wrapper">
+        <div className="center-container">
+          <ResetPasswordForm
+            form={this.props.form}
+            onSubmit={this.handleSubmit}
+            buttonState={this.state.buttonState}
+            checkPassword = {this.checkPassword}
+            checkConfirm = {this.checkConfirm}
+            buttonWasClicked={this.onClickSubmitButton}
+            resendState={this.state.resendState}
+            resend={this.handleResend}/>
+        </div>
       </div>
     )
   }

@@ -5,31 +5,31 @@ import { bindActionCreators } from 'redux'
 import * as authActions from '../../actions/authAction'
 import {Form, Modal} from 'antd'
 //components
-import TfaForm from './presentation/TfaForm'
+import TsvForm from './presentation/TsvForm'
 //services
 import { Auth } from '../../services/api'
 
-class TfaPage extends React.PureComponent{
+class TsvPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state={
       buttonState:false,
       resendState:false,
-      tfa:{}
+      tsv:{}
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleResend = this.handleResend.bind(this)
   }
   componentDidMount(){
-    const TfaInfo = sessionStorage.getItem('tfa')
-    this.setState({tfa:JSON.parse(TfaInfo)})
+    const TsvInfo = sessionStorage.getItem('tsv')
+    this.setState({tsv:JSON.parse(TsvInfo)})
   }
   handleSubmit(event){
     this.props.form.validateFields((err, values) => {
       if (!err) {
         if(values.Code.length === 4){
           this.setState({buttonState:true})
-          Auth({code:values.Code}, {'x-access-token':this.state.tfa.token}).verifyTFA()
+          Auth({code:values.Code}, {'x-access-token':this.state.tsv.token}).verifyTSV()
           .then(res=>{
             this.props.authActions.saveAuth(res.data.token)
             window.location.href = '/'
@@ -53,7 +53,7 @@ class TfaPage extends React.PureComponent{
   }
   handleResend(event){
     this.setState({resendState:true})
-    Auth(null, {'x-access-token': this.state.tfa.token}).resendTFA()
+    Auth(null, {'x-access-token': this.state.tsv.token}).resendTSV()
     .then(res => {
       Modal.success({
         title: 'Resend Verification Success',
@@ -76,14 +76,16 @@ class TfaPage extends React.PureComponent{
   }
   render(){
     return(
-      <div>
-        <TfaForm
-          buttonState={this.state.buttonState}
-          submit={this.handleSubmit}
-          form={this.props.form}
-          tfa={this.state.tfa}
-          onResend={this.handleResend}
-          resendState={this.state.resendState}/>
+      <div className="center-wrapper">
+        <div className="center-container">
+          <TsvForm
+            buttonState={this.state.buttonState}
+            submit={this.handleSubmit}
+            form={this.props.form}
+            tsv={this.state.tsv}
+            onResend={this.handleResend}
+            resendState={this.state.resendState}/>
+        </div>
       </div>
     )
   }
@@ -95,4 +97,4 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-export default Form.create()(connect(null, mapDispatchToProps)(TfaPage))
+export default Form.create()(connect(null, mapDispatchToProps)(TsvPage))

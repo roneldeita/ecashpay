@@ -22,8 +22,8 @@ const Logo = {
 const Caret = {
   fontSize: '11px'
 }
-const isLoggedIn = (loggedIn) => {
-  return loggedIn ? 'none' : 'block'
+const Display = (loggedIn) => {
+  return loggedIn ? 'none' : ''
 }
 
 const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
@@ -42,42 +42,48 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
   //     <List.Item><a to="" onClick={logout}>Logout</a></List.Item>
   //   </List>
   // )
+  const Redirect = loggedIn ? profile.role === `individual` ? `/client/dashboard` : `/${profile.role}/dashboard` : `/`
   return(
     <Affix style={{width:'100%'}}>
       <div style={NavContainer}>
-        <Row className="" type="flex" justify="center" style={{ width:'100%', maxWidth: '1920px', margin: '0 auto'}}>
+        <Row className="ecpa-layout" type="flex" justify="center">
           <Col xs={0} sm={9} md={7}>
             <Row type="flex" justify="start">
               <Col>
-                <Link to={loggedIn ? '/client/dashboard' : '/'}><img src={EpayLogo} alt="logo" style={Logo} /></Link>
+                <Link to={Redirect}><img src={EpayLogo} alt="logo" style={Logo} /></Link>
               </Col>
             </Row>
           </Col>
           <Col xs={18} sm={9} md={11}>
             <Row type="flex" justify="end">
               <Col>
-                <Menu mode="horizontal" onSelect={onChangeLocale} selectedKeys={['/']}>
-                  <SubMenu style={{display:isLoggedIn(loggedIn)}} title={<span>{locale.toUpperCase()} <Icon type="down" style={Caret}/></span>}>
+                <Menu
+                  mode="horizontal" 
+                  onSelect={onChangeLocale} 
+                  selectedKeys={['/']}>
+                  <SubMenu
+                    style={{display:Display(loggedIn)}} 
+                    title={<span>{locale.toUpperCase()} <Icon type="down" style={Caret}/></span>}>
                     <Menu.Item key="en">English</Menu.Item>
                     <Menu.Item key="zh">中文</Menu.Item>
                     <Menu.Item key="es">Español</Menu.Item>
                     <Menu.Item key="my">Malay</Menu.Item>
                     <Menu.Item key="ru">русский</Menu.Item>
                   </SubMenu>
-                  {/*<Menu.Item key="app" style={{display:isLoggedIn(loggedIn)}}>Ecashpay Card</Menu.Item>
-                <Menu.Item key="hepl" style={{display:isLoggedIn(loggedIn)}}>Help</Menu.Item>*/}
-                  <Menu.Item key="login" style={{display:isLoggedIn(loggedIn)}}><Link to="/login">Login</Link></Menu.Item>
-                  <Menu.Item key="signup" style={{display:isLoggedIn(loggedIn)}}><Link to="/client/register">Sign up</Link></Menu.Item>
-                  {/*<Menu.Item key="bell" style={{display:isLoggedIn(!loggedIn)}}>
+                  {/*<Menu.Item key="app" style={{display:Display(loggedIn)}}>Ecashpay Card</Menu.Item>
+                <Menu.Item key="hepl" style={{display:Display(loggedIn)}}>Help</Menu.Item>*/}
+                  <Menu.Item key="login" style={{display:Display(loggedIn)}}><Link to="/login">Login</Link></Menu.Item>
+                  <Menu.Item key="signup" style={{display:Display(loggedIn)}}><Link to="/client/register">Sign up</Link></Menu.Item>
+                  {/*<Menu.Item key="bell" style={{display:Display(!loggedIn)}}>
                     <Popover placement="bottom" content={<Notifications/>} trigger="click">
                       <Badge>
                         <Icon type="bell" style={IconStyle}/>
                       </Badge>
                     </Popover>
                   </Menu.Item>*/}
-                  <Menu.Item key="setting" style={{display:isLoggedIn(!loggedIn)}}>
+                  <Menu.Item key="setting" style={{display:Display(!loggedIn)}}>
                     <Badge>
-                      <Icon type="setting" style={IconStyle}/>
+                      <Icon type="setting" theme="twoTone" style={IconStyle}/>
                     </Badge>
                     {/*<Popover placement="bottom" title={profileTitle} content={profileContent} trigger="click">
                       <Badge>
@@ -85,7 +91,7 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
                       </Badge>
                     </Popover>*/}
                   </Menu.Item>
-                  <Menu.Item key="logout" style={{display:isLoggedIn(!loggedIn)}}>
+                  <Menu.Item key="logout" style={{display:Display(!loggedIn)}}>
                     <Badge>
                       <Icon type="logout" style={IconStyle}/>
                     </Badge>
@@ -98,7 +104,7 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
       </div>
       <style jsx="true" global="true">{`
         .ant-menu-horizontal{
-          line-height:26px
+          line-height:62px
         }
         /*.ant-popover-arrow,
         .ant-popover-title{
@@ -109,13 +115,14 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
         }
         .ant-popover-inner-content{
           padding:0px
-        }*/
+        }
         .ant-menu-submenu-title{
           padding: 0px
         }
         .ant-menu-horizontal > .ant-menu-item, .ant-menu-horizontal > .ant-menu-submenu {
+          width:100%;
           padding: 18px 15px;
-        }
+        }*/
       `}
       </style>
     </Affix>

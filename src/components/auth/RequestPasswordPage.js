@@ -48,13 +48,14 @@ class RequestPasswordPage extends React.PureComponent{
   render(){
     //console.log(this.state)
     return(
-      <div>
-        <RequestPasswordForm
-          form={this.props.form}
-          onSubmit={this.handleSubmit}
-          buttonState={this.state.buttonState}
-          buttonWasClicked={this.onClickSubmitButton}
-          />
+      <div className="center-wrapper">
+        <div className="center-container">
+          <RequestPasswordForm
+            form={this.props.form}
+            onSubmit={this.handleSubmit}
+            buttonState={this.state.buttonState}
+            buttonWasClicked={this.onClickSubmitButton}/>
+        </div>
       </div>
     )
   }

@@ -40,23 +40,19 @@ class ValidIdPage extends React.PureComponent{
   handleSubmit = (event) => {
     this.setState({buttonState:true})
     this.props.form.validateFields((err, values) => {
+      //console.log(values)
       if (!err) {
         const SelfieList = values.Selfie.fileList
         const IdList  = values.Id.fileList
         const formData = new FormData()
         SelfieList.forEach((file) => {
-          formData.append('files', file.originFileObj)
+          formData.append('files', file.originFileObj, 'Selfie')
         })
         IdList.forEach((file) => {
-          formData.append('files', file.originFileObj)
+          formData.append('files', file.originFileObj, 'ID')
         })
         formData.set('type', values['ID Type'])
         formData.set('no', values['ID Number'])
-
-
-        for (var value of formData.keys()) {
-           console.log(value);
-        }
         Id(formData, {'x-access-token':this.props.auth.token, 'Content-type':'multipart/form-data'}).SubmitId()
         .then(res => {
           this.checkStatus()
@@ -72,7 +68,7 @@ class ValidIdPage extends React.PureComponent{
           setTimeout(()=>{
             this.setState({buttonState:false})
           }, 800)
-        })
+         })
       }else{
         setTimeout(()=>{
           this.setState({buttonState:false})
@@ -96,7 +92,7 @@ class ValidIdPage extends React.PureComponent{
         callback('Maximum of one (1) file allowed')
       }
       if(value.fileList.length === 0){
-        callback('File is required')
+        callback('Selfie is required')
       }
     }
     callback()
@@ -135,14 +131,35 @@ class ValidIdPage extends React.PureComponent{
       this.setState({identification:res.data})
     })
   }
+  verifyPhone(){
+    Modal.info({
+      title: 'Phone verification required',
+      content: 'Please verifiy your phone number first',
+    });
+  }
   componentDidMount(){
     this.checkStatus()
-    console.log(this.props.location.pathname)
+    console.log(this.props.profile)
+    if(!isEmpty(this.props.profile) && this.props.profile.role === 'individual'){
+      if(this.props.profile.phone === ''){
+        this.props.history.push('/client/verify/phone')
+        this.verifyPhone()
+      }
+    }
+  }
+  componentWillReceiveProps(nextProps){
+    if(!isEmpty(nextProps.profile) && nextProps.profile.role === 'individual'){
+      if(nextProps.profile.phone === ''){
+        nextProps.history.push('/client/verify/phone')
+        this.verifyPhone()
+      }
+    }
   }
   render(){
+    console.log(this.state)
     return(
       <Row type="flex" justify="center" style={{marginTop:'50px'}}>
-        <Col xs={23} sm={23} md={12} lg={8}>
+        <Col xs={23} sm={23} md={14} lg={12} xl={10} xxl={8}>
           <QueueAnim type={['top', 'bottom']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
             <div key="0">
               <Card
@@ -198,6 +215,7 @@ class ValidIdPage extends React.PureComponent{
 function mapStateToProps(state, ownProps){
   return {
     auth: state.auth,
+    profile: state.profile
   }
 }
 

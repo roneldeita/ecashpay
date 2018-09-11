@@ -18,7 +18,7 @@ const Info ={
   color:'rgb(29, 161, 242)'
 }
 
-const StepThree = ({auth, transaction, cancel, cancelState, uploadState, toggleUpload, loadTransaction}) => {
+const StepThree = ({auth, profile, transaction, cancel, cancelState, uploadState, toggleUpload, loadTransaction}) => {
   const Status = (status) => {
     switch(status){
       case 0:
@@ -49,7 +49,7 @@ const StepThree = ({auth, transaction, cancel, cancelState, uploadState, toggleU
       hoverable
       style={{cursor:'default '}}
       title={Title}
-      actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
+      actions={[<Link to={profile.type === 'individual' ? `/client/dashboard` : `/${profile.type}/dashboard`}><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
       <Row style={{marginTop:'10px'}} type="flex" justify="center">
         <Col span={22}>
           {transaction.status === 0 && !uploadState && <Pending

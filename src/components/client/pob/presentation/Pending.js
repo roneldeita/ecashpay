@@ -8,7 +8,6 @@ const IconStyle = {
 }
 
 export default ({identification, cancel, location, type, handlePreview, preview, image, closePreview}) => {
-  console.log(identification)
   const Desc = (
     <div>
       <br/>
@@ -26,7 +25,7 @@ export default ({identification, cancel, location, type, handlePreview, preview,
                 }>
                 <Card.Meta title={file.name}/>
               </Card>
-              <Modal visible={preview} footer={null} onCancel={closePreview}>
+              <Modal visible={preview} footer={null} onCancel={closePreview} mask={false}>
                 <img alt="example" style={{ width: '100%' }} src={image} />
               </Modal>
             </Col>

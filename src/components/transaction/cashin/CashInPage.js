@@ -6,6 +6,7 @@ import Navigation from '../common/Navigation'
 import StepOne from './presentation/StepOne'
 import StepTwo from './presentation/StepTwo'
 import { Outlets, Transaction } from '../../../services/api'
+import {isEmpty} from 'lodash'
 
 const Step = Steps.Step
 const StepStyle = {
@@ -71,7 +72,26 @@ class CashInPage extends React.PureComponent{
       })
     })
   }
-  componentWillMount(){
+  verifyPhone(){
+    Modal.info({
+      title: 'Phone verification required',
+      content: 'Please verifiy your phone number first',
+    });
+  }
+  requireLevelOne(){
+    Modal.info({
+      title: 'Upgrade required',
+      content: 'Upgrade to level 1 first',
+    });
+  }
+  requireLevelTwo(){
+    Modal.info({
+      title: 'Upgrade required',
+      content: 'Upgrade to level 2 first',
+    });
+  }
+  componentDidMount(){
+    window.scrollTo(0, 0)
     Outlets().Featured()
     .then(res=>{
       this.setState({featured:res.data})
@@ -80,10 +100,32 @@ class CashInPage extends React.PureComponent{
     .then(res=>{
       this.setState({merchants:res.data})
     })
-    console.log(this.props)
+    if(!isEmpty(this.props.profile) && this.props.profile.role === 'individual'){
+      if(this.props.profile.phone === ''){
+        this.props.history.push('/client/verify/phone')
+        this.verifyPhone()
+      } else if(this.props.profile.levels.length === 0){
+        this.props.history.push('/client/upload/id')
+        this.requireLevelOne()
+      } else if(!this.props.profile.levels.includes(2)){
+        this.props.history.push('/client/schedule/f2f')
+        this.requireLevelTwo()
+      }
+    }
   }
-  componentDidMount(){
-    window.scrollTo(0, 0)
+  componentWillReceiveProps(nextProps){
+    if(!isEmpty(nextProps.profile) && nextProps.profile.role === 'individual'){
+      if(nextProps.profile.phone === ''){
+        nextProps.history.push('/client/verify/phone')
+        this.verifyPhone()
+      } else if(nextProps.profile.levels.length === 0){
+        nextProps.history.push('/client/upload/id')
+        this.requireLevelOne()
+      } else if(!nextProps.profile.levels.includes(2)){
+        nextProps.history.push('/client/schedule/f2f')
+        this.requireLevelTwo()
+      }
+    }
   }
   render(){
     return(
@@ -94,9 +136,9 @@ class CashInPage extends React.PureComponent{
             <Row type="flex" justify="center">
               <Col span={12}>
                 <Steps current={this.state.step} style={StepStyle}>
-                  <Step title="Choose" icon={<Icon type="shop" />}/>
-                  <Step title="Amount" icon={<Icon type="wallet" />}/>
-                  <Step title="Pay" icon={<Icon type="check-circle-o" />}/>
+                  <Step title="Choose" icon={<Icon type="shop" theme="twoTone" />}/>
+                  <Step title="Amount" icon={<Icon type="wallet" theme="twoTone" />}/>
+                  <Step title="Pay" icon={<Icon type="check-circle-o" theme="twoTone" />}/>
                 </Steps>
               </Col>
               <Col span={19}>

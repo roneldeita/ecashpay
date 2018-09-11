@@ -1,6 +1,6 @@
 import React from 'react'
 import {Row, Col} from 'antd'
-import ComingSoon from '../../transaction/common/ComingSoon'
+import ComingSoon from '../../general/ComingSoon'
 
 class HistoryPage extends React.PureComponent{
   render(){

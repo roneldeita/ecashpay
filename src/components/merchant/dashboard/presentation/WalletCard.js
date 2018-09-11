@@ -63,7 +63,7 @@ export default ({ready, currencies}) => {
           <div style={CurrencyContainer}>
             {!isEmpty(currencies) &&  renderCurrencies(currencies)}
           </div>
-          <Button style={{marginTop:'15px'}}><Link to="/cashin">Cash In</Link></Button>
+          <Button style={{marginTop:'15px'}}><Link to="/cash-in">Cash In</Link></Button>
         </Card>
       </div>
     </QueueAnim>

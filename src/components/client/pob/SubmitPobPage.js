@@ -115,13 +115,45 @@ class SubmitPobPage extends React.PureComponent{
       preview: true,
     });
   }
+  verifyPhone(){
+    Modal.info({
+      title: 'Phone verification required',
+      content: 'Please verifiy your phone number first',
+    });
+  }
+  requireLevelOne(){
+    Modal.info({
+      title: 'Upgrade required',
+      content: 'Upgrade to level 1 first',
+    });
+  }
   componentDidMount(){
     this.checkStatus()
+    if(!isEmpty(this.props.profile) && this.props.profile.type === 'individual'){
+      if(this.props.profile.phone === ''){
+        this.props.history.push('/client/verify/phone')
+        this.verifyPhone()
+      }else if(this.props.profile.levels.length === 0){
+        this.props.history.push('/client/upload/id')
+        this.requireLevelOne()
+      }
+    }
+  }
+  componentWillReceiveProps(nextProps){
+    if(!isEmpty(nextProps.profile) && nextProps.profile.type === 'individual'){
+      if(nextProps.profile.phone === ''){
+        nextProps.history.push('/client/verify/phone')
+        this.verifyPhone()
+      }else if(nextProps.profile.levels.length === 0){
+        nextProps.history.push('/client/upload/id')
+        this.requireLevelOne()
+      }
+    }
   }
   render(){
     return (
       <Row justify="center" type="flex" style={{marginTop:'50px'}}>
-        <Col xs={23} sm={23} md={12} lg={8}>
+        <Col xs={23} sm={23} md={12} lg={10} xl={10} xxl={8}>
           <QueueAnim type={['top', 'bottom']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
             <div key="0">
               <Card
@@ -177,6 +209,7 @@ class SubmitPobPage extends React.PureComponent{
 function mapStateToProps(state, ownProps){
   return {
     auth: state.auth,
+    profile: state.profile
   }
 }
 

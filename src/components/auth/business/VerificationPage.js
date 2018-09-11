@@ -79,15 +79,17 @@ class VerificationPage extends React.PureComponent {
   }
   render() {
     return (
-      <div>
-        <VerificationForm
-          email={this.props.profile.email}
-          form={this.props.form}
-          buttonState={this.state.buttonState}
-          onSubmit={this.handleSubmit}
-          onResend={this.handleResend}
-          autoCheck={this.autoCheck}
-          resendState={this.state.resendState}/>
+      <div className="center-wrapper">
+        <div className="center-container">
+          <VerificationForm
+            email={this.props.profile.email}
+            form={this.props.form}
+            buttonState={this.state.buttonState}
+            onSubmit={this.handleSubmit}
+            onResend={this.handleResend}
+            autoCheck={this.autoCheck}
+            resendState={this.state.resendState}/>
+        </div>
       </div>
     );
   }

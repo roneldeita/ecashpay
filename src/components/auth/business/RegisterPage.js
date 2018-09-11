@@ -29,6 +29,31 @@ class RegisterPage extends React.PureComponent {
   checkPassword = (rule, value, callback) => {
     const form = this.props.form
     const confirm = form.getFieldValue('Confirm Password')
+    const containSmallLetter = new RegExp('(?=.*[a-z])')
+    const containUpperLetter = new RegExp('(?=.*[A-Z])')
+    const containNumber = new RegExp('(?=.*[0-9])')
+    const containSymbol = new RegExp('(?=.*[#$@!%&*?])')
+    if(value !== undefined && value.length > 0){
+      if(value.length < 8){
+        callback('Password must be at least 8 characters')
+      }else{
+        if(!containSmallLetter.test(value)){
+          callback('The password must contain atleast 1 lower case')
+        }else{
+          if(!containUpperLetter.test(value)){
+            callback('The password must contain atleast 1 upper case')
+          }else{
+            if(!containNumber.test(value)){
+              callback('The password must contain atleast 1 number')
+            }else{
+              if(!containSymbol.test(value)){
+                callback('The password must contain atleast 1 special character')
+              }
+            }
+          }
+        }
+      }
+    }
     if (confirm !== undefined && confirm !== '' && value !== confirm && value.length >= 6) {
       form.setFieldsValue({'Confirm Password':''})
     }
@@ -37,8 +62,10 @@ class RegisterPage extends React.PureComponent {
   checkConfirm = (rule, value, callback) => {
     const form = this.props.form
     const password = form.getFieldValue('Password')
-    if (value !=='' && value !== password) {
-      callback('Password does not match the confirm password')
+    if(value !== undefined && value.length > 0){
+      if (value !== password) {
+        callback('Password does not match the confirm password')
+      }
     }
     callback();
   }
@@ -79,15 +106,16 @@ class RegisterPage extends React.PureComponent {
   }
   render(){
     return (
-      <div className="font">
-        <RegisterForm
-          form={this.props.form}
-          buttonState={this.state.buttonState}
-          onClickLoginButton ={this.onClickLoginButton}
-          checkPassword = {this.checkPassword}
-          checkConfirm = {this.checkConfirm}
-          onSubmit={this.handleSubmit}
-        />
+      <div className="center-wrapper">
+        <div className="center-container">
+          <RegisterForm
+            form={this.props.form}
+            buttonState={this.state.buttonState}
+            onClickLoginButton ={this.onClickLoginButton}
+            checkPassword = {this.checkPassword}
+            checkConfirm = {this.checkConfirm}
+            onSubmit={this.handleSubmit}/>
+        </div>
       </div>
     )
   }

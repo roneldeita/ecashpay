@@ -3,8 +3,6 @@ import { Icon, Popconfirm } from 'antd'
 import { Link } from 'react-router-dom'
 import Logo from '../../../assets/images/Ecashpay_Logo_White_2.png'
 
-import 'antd/lib/icon/style/css'
-
 const Statement = {
   fontSize: '30px',
   lineHeight: '42px',

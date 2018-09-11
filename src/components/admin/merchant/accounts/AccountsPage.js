@@ -93,6 +93,7 @@ class AccountsPage extends React.PureComponent{
     this.getAllRecords()
   }
   render(){
+    console.log(this.state)
     return(
       <div>
         {BreadCrumbs}

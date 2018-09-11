@@ -23,7 +23,7 @@ if(Token !== null){
 }
 
 ReactDOM.render(
-  <Routes store={StoreInstance} />,
+  <Routes store={StoreInstance}/>,
   document.getElementById('root')
 )
 

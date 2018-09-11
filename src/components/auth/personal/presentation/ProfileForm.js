@@ -1,6 +1,6 @@
 import React from 'react'
-// import moment from 'moment';
-import {Row, Col, Card, Icon, Button, Form, Input, DatePicker, Select, Radio, Divider} from 'antd'
+import moment from 'moment'
+import {Row, Col, Card, Icon, Button, Form, Input, Select, Radio, Divider} from 'antd'
 
 const FormItem = Form.Item
 const Option = Select.Option
@@ -34,13 +34,9 @@ const Label = {
   wrapperCol: { xs:24, sm:24, md:24, lg:17 }
 }
 
-const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonState, onClickCompleteButton, sourceOfFunds, handleSourceOfFunds}) => {
+const ProfileForm = ({name, birthDate, form, countries, onSubmit, buttonState, onClickCompleteButton, sourceOfFunds, handleSourceOfFunds}) => {
   const { getFieldDecorator, isFieldTouched, getFieldError } = form;
-  const FirstNameError =  getFieldError('First Name')
-  const LastNameError =  getFieldError('Last Name')
   const GenderError = getFieldError('Gender')
-  const BirthDateError =  getFieldError('Birth Date')
-  //const PhoneNumberError = getFieldError('Phone Number')
   const StreetError = getFieldError('Street')
   const CityMunicipalityError = getFieldError('City / Municipality')
   const RegionStateProvinceError = getFieldError('Region / State / Province')
@@ -69,7 +65,13 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
           <Row type="flex" justify="center">
             <Col span={20} className="user">
               <Form onSubmit={onSubmit} style={AntForm} autoComplete="off">
-                <FormItem
+                <FormItem label="Name" {...Label} className="name">
+                  <Input disabled={true} size="large" value={name}/>
+                </FormItem>
+                <FormItem label="Birthdate" {...Label} className="name">
+                  <Input disabled={true} size="large" value={moment(birthDate).format('MMMM DD, YYYY')}/>
+                </FormItem>
+                {/*<FormItem
                   label="First Name"
                   required={false}
                   {...Label}
@@ -104,7 +106,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   })(
                     <Input size="large"/>
                   )}
-                </FormItem>
+                </FormItem>*/}
                 <FormItem
                   label="Gender"
                   required={false}
@@ -123,7 +125,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                     </RadioGroup>
                   )}
                 </FormItem>
-                <FormItem
+                {/*<FormItem
                   label="Birthdate"
                   required={false}
                   {...Label}
@@ -137,10 +139,10 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                   })(
                     <DatePicker size="large" placeholder="YYYY-DD-MM" format="YYYY-DD-MM" style={{width:'100%'}} showToday={false} />
                   )}
-                </FormItem>
+                </FormItem>*/}
                 <Divider>Complete Address</Divider>
                 <FormItem
-                  label="Street"
+                  label="Unit/Bldg/Street/Village"
                   required={false}
                   {...Label}
                   hasFeedback={isFieldTouched('Street')}
@@ -382,7 +384,13 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
                 </FormItem>
                 <br/>
                 <FormItem wrapperCol={{lg:{span:17, offset:7}}}>
-                  <Button type="primary" htmlType="submit" size="large" style={{width:'100%'}} loading={buttonState} onClick={onClickCompleteButton}>{buttonState ? 'Completing...' : 'Complete Profile'}</Button>
+                  <Button 
+                    block
+                    type="primary" 
+                    htmlType="submit" 
+                    size="large"
+                    loading={buttonState} 
+                    onClick={onClickCompleteButton}>{buttonState ? 'Completing...' : 'Complete Profile'}</Button>
                 </FormItem>
               </Form>
             </Col>
@@ -395,6 +403,7 @@ const ProfileForm = ({firstName, lastName, form, countries, onSubmit, buttonStat
         }
         .name .ant-input{
           color: #1890ff !important;
+          background-color: white;
         }
         #user.anticon-user{
           border-radius: 100px;

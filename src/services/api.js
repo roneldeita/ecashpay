@@ -4,8 +4,8 @@ export function Auth(data, header) {
   return {
     //client
     login: () => axios.post(process.env.REACT_APP_API + '/login', data),
-    verifyTFA: () => axios.post(process.env.REACT_APP_API + '/api/v1/tfas/verify', data, {headers:header}),
-    resendTFA: () => axios.post(process.env.REACT_APP_API + '/api/v1/tfas/resend', data, {headers:header}),
+    verifyTSV: () => axios.post(process.env.REACT_APP_API + '/api/v1/tsvs/verify', data, {headers:header}),
+    resendTSV: () => axios.post(process.env.REACT_APP_API + '/api/v1/tsvs/resend', data, {headers:header}),
     register: () => axios.post(process.env.REACT_APP_API + '/register', data),
     verifyEmail: () => axios.post(process.env.REACT_APP_API + '/registrations/verify', data, {headers:header}),
     verificationResend: () => axios.post(process.env.REACT_APP_API + '/registrations/resend', data, {headers:header}),
@@ -40,8 +40,8 @@ export function Email(data, header){
 
 export function Phone(data, header){
   return {
-    Request: () => axios.patch(process.env.REACT_APP_API + '/api/v1/profiles/phones/verifications', data, {headers:header}),
-    Verify: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/phones/verifications', data, {headers:header})
+    Request: () => axios.patch(process.env.REACT_APP_API + '/api/v1/profiles/individuals/phone', data, {headers:header}),
+    Verify: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/individuals/phone', data, {headers:header})
   }
 }
 
@@ -54,9 +54,10 @@ export function Password(data, header){
 
 export function Id(data, header){
   return {
-    SubmitId: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/kyc?level=1', data, {headers:header}),
-    Check: () => axios.get(process.env.REACT_APP_API + '/api/v1/profiles/kyc?level=1', {headers:header}),
-    Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/profiles/kyc?level=1', {headers:header}),
+    //api/v1/profiles/individuals/kyc/level-1
+    SubmitId: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-one', data, {headers:header}),
+    Check: () => axios.get(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-one', {headers:header}),
+    Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-one', {headers:header}),
     //admin
     GetAllIdRequest: () => axios.get(process.env.REACT_APP_API + '/api/v1/requirements?level=1', {headers:header}),
     GetAllPobRequest: () => axios.get(process.env.REACT_APP_API + '/api/v1/requirements?level=2', {headers:header}),

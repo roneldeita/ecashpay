@@ -3,7 +3,7 @@ import { Table, Card, Row, Col, Divider, Button, Tag } from 'antd'
 import Moment from 'react-moment'
 
 export default ({record, accept, decline}) => {
-  console.log(record)
+  //console.log(record)
   const columns = [
     { title: 'Transaction Number', dataIndex: 'transaction.no', key: 'transaction_no' },
     { title: 'Payment via', dataIndex: 'transaction.outletName', key: 'payment' },

@@ -4,12 +4,12 @@ import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import App from './App'
 import HomePage from './components/home/HomePage'
-import TermsAndCondition from './components/legal/TermsAndConditionPage'
-import NotFound from './components/notFound'
+import TermsAndCondition from './components/general/legal/TermsAndConditionPage'
+import NotFound from './components/general/notFound'
 import Redirecting from './components/redirect'
 //auth
 import LoginPage from './components/auth/LoginPage'
-import TfaPage from './components/auth/TfaPage'
+import TsvPage from './components/auth/TsvPage'
 import RequestPasswordPage from './components/auth/RequestPasswordPage'
 import ResetPasswordPage from './components/auth/ResetPasswordPage'
 //Business Account
@@ -41,6 +41,7 @@ import ClientDashboard from './components/client/dashboard/DashboardPage'
 import Settings from './components/client/settings/SettingsPage'
 import ClientVerifyPhone from './components/client/phone/VerifyPhonePage'
 import ClientUploadValidId from './components/client/identification/ValidIdPage'
+import Schedulef2f from './components/client/f2f/Schedulef2fPage'
 import ClientSubmitPob from './components/client/pob/SubmitPobPage'
 
 //common and transactions
@@ -61,6 +62,7 @@ import AdminDashboard from './components/admin/dashboard/DashboardPage'
 import AdminLogin from './components/admin/auth/LoginPage'
 import AdminRequirementsId from './components/admin/requirements/VerifyIdPage'
 import AdminRequirementsPob from './components/admin/requirements/VerifyPobPage'
+import AdminRequirementsF2f from './components/admin/requirements/FaceToFacePage'
 import AdminTransactionCashIn from './components/admin/transactions/CashInPage'
 import AdminBusinessAccounts from './components/admin/business/accounts/AccountsPage'
 import AdminMerchantAccounts from './components/admin/merchant/accounts/AccountsPage'
@@ -82,16 +84,16 @@ const Routes = ({ store }) => (
           <Route path="/redirecting" component={Redirecting}/>
           <PublicRoutes path="/termsandconditions" exact component={TermsAndCondition}/>
           <PublicRoutes path="/login" exact component={LoginPage}/>
-          <PublicRoutes path="/login/tfa" component={TfaPage}/>
+          <PublicRoutes path="/login/tsv" component={TsvPage}/>
           <PublicRoutes path="/password/request" component={RequestPasswordPage}/>
           <PublicRoutes path="/password/reset" component={ResetPasswordPage}/>
 
-          <PrivateRoutes path="/cashin" exact component={CashIn} client={{status:'completed', type:AllTypes}}/>
-          <PrivateRoutes path="/cashin/transactions/:no" component={CashInTransaction} client={{status:'completed', type:AllTypes}}/>
-          <PrivateRoutes path="/sendmoney" component={SendMoney} client={{status:'completed', type:AllTypes}}/>
-          <PrivateRoutes path="/buyload" component={BuyLoad} client={{status:'completed', type:AllTypes}}/>
-          <PrivateRoutes path="/paybills" component={PayBills} client={{status:'completed', type:AllTypes}}/>
-          <PrivateRoutes path="/booktravel" component={BookTravel} client={{status:'completed', type:AllTypes}}/>
+          <PrivateRoutes path="/cash-in" exact component={CashIn} client={{status:'completed', type:AllTypes}}/>
+          <PrivateRoutes path="/cash-in/transactions/:no" component={CashInTransaction} client={{status:'completed', type:AllTypes}}/>
+          <PrivateRoutes path="/send-money" component={SendMoney} client={{status:'completed', type:AllTypes}}/>
+          <PrivateRoutes path="/buy-load" component={BuyLoad} client={{status:'completed', type:AllTypes}}/>
+          <PrivateRoutes path="/pay-bills" component={PayBills} client={{status:'completed', type:AllTypes}}/>
+          <PrivateRoutes path="/book-travel" component={BookTravel} client={{status:'completed', type:AllTypes}}/>
           <PrivateRoutes path="/transfer" exact component={Transfer} client={{status:'completed', type:AllTypes}}/>
           <PrivateRoutes path="/transfer/transactions/:no" component={ TransferTransaction} client={{status:'completed', type:AllTypes}}/>
           <PrivateRoutes path="/payment/transactions/:no" component={PaymentTransaction} client={{status:'completed', type:AllTypes}}/>
@@ -105,6 +107,7 @@ const Routes = ({ store }) => (
           <PrivateRoutes path="/client/settings" component={Settings} client={{status:'completed', type:AllTypes}}/>
           <PrivateRoutes path="/client/verify/phone" component={ClientVerifyPhone} client={{status:'completed', type:Individual}}/>
           <PrivateRoutes path="/client/upload/id" component={ClientUploadValidId} client={{status:'completed', type:Individual}}/>
+          <PrivateRoutes path="/client/schedule/f2f" component={Schedulef2f} client={{status:'completed', type:Individual}}/>
           <PrivateRoutes path="/client/upload/pob" component={ClientSubmitPob} client={{status:'completed', type:Individual}}/>
 
           <PublicRoutes path="/business/register" component={BusinessRegisterPage}/>
@@ -131,17 +134,17 @@ const Routes = ({ store }) => (
           <PrivateRoutes path="/admin" exact component={AdminDashboard} client={{type:['admin']}}/>
           <PrivateRoutes path="/admin/transactions/cashin" component={AdminTransactionCashIn} client={{type:['admin']}}/>
           <PrivateRoutes path="/admin/requirements/id" component={AdminRequirementsId} client={{type:['admin']}}/>
+          <PrivateRoutes path="/admin/requirements/pob" component={AdminRequirementsPob} client={{type:['admin']}}/>
+          <PrivateRoutes path="/admin/manage/f2f" component={AdminRequirementsF2f} client={{type:['admin']}}/>
           <PrivateRoutes path="/admin/business/accounts" component={AdminBusinessAccounts} client={{type:['admin']}}/>
           <PrivateRoutes path="/admin/merchant/accounts" component={AdminMerchantAccounts} client={{type:['admin']}}/>
           <PrivateRoutes path="/admin/merchant/payments" component={AdminMerchantPayments} client={{type:['admin']}}/>
-          <PrivateRoutes path="/admin/requirements/pob" component={AdminRequirementsPob} client={{type:['admin']}}/>
           <Route path="*" component={NotFound} />
         </Switch>
       </App>
     </Router>
   </Provider>
 )
-
 const PublicRoutes = ({ component: Component, ...rest}) => {
   return(
     <Route
@@ -162,7 +165,7 @@ const PrivateRoutes = ({ component: Component, ...rest}) => {
       render = { props =>{
           if(hasToken()){
             let ReturnComponent = null
-            switch(Profile.type){
+            switch(Profile.role){
               case 'admin':
                 ReturnComponent = <Component {...props}/>
               break;
@@ -182,7 +185,8 @@ const PrivateRoutes = ({ component: Component, ...rest}) => {
               //
             }
             return ReturnComponent
-
+          }else{
+            window.location.href = '/'
           }
         }
       }

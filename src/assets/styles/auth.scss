@@ -1,0 +1,60 @@
+.auth{
+  .form-column{
+    padding: 80px 60px 30px 60px
+  }
+  @media only screen and (max-width: 600px) {
+    .form-column{
+      padding: 80px 20px 30px 20px
+    }
+  }
+  %greet{
+    text-align: center;
+    color: black;
+  }
+  .greet{
+    @extend %greet;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 0;
+  }
+  .reg-greet{
+    @extend %greet;
+    font-size: 24px;
+    font-weight: 600;
+  }
+  .small{
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 50px;
+  }
+  .prefix-icon{
+    color: rgba(0,0,0,.2);
+    font-size: 18px;
+  }
+  .column{
+    background-color:#1dA1f2;
+    color: #ffffff;
+    padding: 100px 60px 30px 60px;
+  }
+  .submit.ant-btn-primary{
+    margin-top:10px
+  }
+  .tfa.ant-input,
+  .verification.ant-input{
+    text-align: center;
+    height: auto;
+    font-size:26px;
+    letter-spacing:15px;
+    padding-top:8px;
+    padding-bottom:8px;
+  }
+  .ant-input-affix-wrapper .ant-input:not(:first-child){
+    padding-left:35px
+  }
+  .ant-card,
+  .ant-card-wider-padding .ant-card-body,
+  .ant-card-body{
+    font-family: 'Work Sans', sans-serif !important;
+    padding:0px !important; 
+  }
+}

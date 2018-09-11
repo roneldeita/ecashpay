@@ -1,9 +1,12 @@
 import React from 'react'
 import {Row, Col} from 'antd'
 import Navigation from '../common/Navigation'
-import ComingSoon from '../common/ComingSoon'
+import ComingSoon from '../../../components/general/ComingSoon'
 
 class SendMoneyPage extends React.PureComponent{
+  componentDidMount(){
+    window.scrollTo(0, 0)
+  }
   render(){
     //console.log(this.props)
     return(

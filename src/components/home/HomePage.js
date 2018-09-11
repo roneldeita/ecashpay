@@ -1,5 +1,4 @@
 import React from 'react'
-// import Banner from './presentation/Banner.js'
 import Banner from './presentation/Banner.js'
 // import DebitCard from './presentation/DebitCard.js'
 // import GlobalTrust from './presentation/GlobalTrust.js'
@@ -8,47 +7,12 @@ import Banner from './presentation/Banner.js'
 class HomePage extends React.PureComponent{
   constructor(props){
     super(props)
-    this.state= {
-      selectOption:[{}],
-      selectedSenderVal:{},
-      selectedRecepientVal:{}
-    }
-    this.handleSenderValue = this.handleSenderValue.bind(this)
-    this.handleRecepientValue = this.handleRecepientValue.bind(this)
-    document.title="Ecashpay Asia"
-  }
-  handleSenderValue(value) {
-		this.setState({selectedSenderVal:value });
-	}
-  handleRecepientValue(value) {
-		this.setState({selectedRecepientVal:value });
-	}
-  componentWillMount(){
-    fetch('https://restcountries.eu/rest/v2/all')
-    .then(response => response.json())
-    .then(data => {
-        const currencyAlterations = data.map( val => {
-          val.value=val.currencies.map(currency => currency)[0]['code']
-          val.currencySymbol=val.currencies.map(currency => currency)[0]['symbol']
-          val.currencyName=val.currencies.map(currency => currency)[0]['name']
-          val.label=val.currencies.map(currency => currency)[0]['name']+ ' ' + val.name
-          if(val.value === 'PHP'){
-            this.setState({selectedSenderVal:val})
-          }
-          if(val.value === 'USD'){
-            this.setState({selectedRecepientVal:val})
-          }
-          return val
-        })
-        this.setState({selectOption:currencyAlterations})
-      }
-    )
+    document.title=this.props.title
   }
   componentDidMount() {
     window.scrollTo(0, 0)
   }
   render(){
-    //console.log(this.props)
     return(
       <div>
         <Banner/>
@@ -58,6 +22,10 @@ class HomePage extends React.PureComponent{
       </div>
     )
   }
+}
+
+HomePage.defaultProps = {
+  title:'Ecashpay Asia'
 }
 
 export default HomePage

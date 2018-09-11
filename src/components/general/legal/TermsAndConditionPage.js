@@ -1,7 +1,7 @@
 import React from 'react'
 import { Document, Page } from 'react-pdf';
-import Terms from '../../assets/pdf/EcashpayTermsAndConditions.pdf'
-import Logo from '../../assets/images/Ecashpay_Logo_Orig.png'
+import Terms from '../../../assets/pdf/EcashpayTermsAndConditions.pdf'
+import Logo from '../../../assets/images/Ecashpay_Logo_Orig.png'
 
 class TermsAndConditionsPage extends React.Component {
   constructor(props){

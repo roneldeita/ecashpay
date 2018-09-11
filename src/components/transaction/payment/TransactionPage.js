@@ -57,7 +57,7 @@ class TransactionPage extends React.PureComponent{
                 hoverable
                 style={{cursor:'default '}}
                 title={Title}
-                actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
+                actions={[<Link to={this.props.profile.type === 'individual' ? `/client/dashboard` : `/${this.props.profile.type}/dashboard`}><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
                 {this.state.transaction.status === 0 &&
                   <UploadSlip
                   loadTransaction={this.loadTransaction}
@@ -91,7 +91,7 @@ class TransactionPage extends React.PureComponent{
                 hoverable
                 style={{cursor:'default '}}
                 title={Title}
-                actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
+                actions={[<Link to={this.props.profile.type === 'individual' ? `/client/dashboard` : `/${this.props.profile.type}/dashboard`}><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
                 <Row>
                   <Col span={12}>Status</Col>
                   <Col span={12} style={rightContent}>Paid</Col>

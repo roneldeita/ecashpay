@@ -71,6 +71,9 @@ class DashboardPage extends React.PureComponent{
     let ProgressValue = ((Levels !== undefined ? Object.keys(Levels).length : 0) * 37.5) + Phone
     this.setState({progress:ProgressValue})
   }
+  componentDidCatch(error, info){
+    console.log(error)
+  }
   render(){
     return(
       <Row type="flex" justify="center">

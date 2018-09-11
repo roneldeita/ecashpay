@@ -2,7 +2,6 @@ import React from 'react'
 import RightSection from './RightSection'
 import { Link } from 'react-router-dom'
 import { Row, Col, Card, Form, Input, Icon, Button } from 'antd'
-import * as css from '../../../assets/styles/ResetPasswordForm'
 
 const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSubmit, buttonWasClicked, resendState, resend}) => {
   const { getFieldDecorator, isFieldTouched, getFieldError } = form
@@ -10,14 +9,13 @@ const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSu
   const PasswordError =  getFieldError('Password');
   const ConfirmError =  getFieldError('Confirm Password');
   return(
-    <Row type="flex" justify="center" style={css.Container}>
+    <Row type="flex" justify="center">
       <Col md={22} lg={22} xl={18} xxl={13}>
-        <Card hoverable style={css.CardStyle}>
+        <Card hoverable className="auth card-style">
           <Row>
             <Col className="form-column" xs={24} md={13}>
-              <p style={css.Greet}>Reset your password?</p>
-              <p style={css.Small}>Please enter the 4-digit code you just received and your new password.</p>
-              <br/><br/>
+              <p className="greet">Reset your password?</p>
+              <p className="small">Please enter the 4-digit code you just received and your new password.</p>
                 <Form onSubmit={onSubmit} autoComplete="off">
                   <Form.Item
                     validateStatus={CodeError ? 'error' : ''}
@@ -30,7 +28,7 @@ const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSu
                         { pattern: /^[0-9]+$/, message: 'Code should only contain digits.' }
                       ],
                     })(
-                      <Input placeholder="Verification code" prefix={<Icon type="lock" style={css.PrefixIcon} /> }/>
+                      <Input placeholder="Verification code" prefix={<Icon type="lock" className="prefix-icon" /> }/>
                     )}
                   </Form.Item>
                   <Form.Item
@@ -48,7 +46,7 @@ const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSu
                       <Input
                         placeholder="New Password"
                         type="password" size="large"
-                        prefix={<Icon type="key" style={css.PrefixIcon} /> }
+                        prefix={<Icon type="key" className="prefix-icon" /> }
                         uffix={PasswordError ? '' : <Icon type="eye-o"/> }
                         />
                     )}
@@ -63,7 +61,7 @@ const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSu
                         { validator: checkConfirm }
                       ],
                     })(
-                      <Input placeholder="Confirm New Password" type="password" size="large" prefix={<Icon type="key" style={css.PrefixIcon} /> }/>
+                      <Input placeholder="Confirm New Password" type="password" size="large" prefix={<Icon type="key" className="prefix-icon" /> }/>
                     )}
                   </Form.Item>
                   <p>Haven't received a verification?
@@ -72,51 +70,17 @@ const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSu
                       <a onClick={resend}> Resend</a>}
                   </p>
                   <Form.Item>
-                    <Button id="submit" type="primary" htmlType="submit" loading={buttonState} onClick={buttonWasClicked}>{buttonState ? 'Resetting...' : 'Reset'}</Button>
+                    <Button className="submit" type="primary" htmlType="submit" loading={buttonState} onClick={buttonWasClicked}>{buttonState ? 'Resetting...' : 'Reset'}</Button>
                   </Form.Item>
-                  <div style={{textAlign:'center'}}>Don't have a Ecashpay Account? <Link to="/register">Sign Up</Link></div>
+                  <div style={{textAlign:'center'}}>Don't have a Ecashpay Account? <Link to="/client/register">Sign Up</Link></div>
                 </Form>
             </Col>
-            <Col style={css.Column} xs={0} md={11}>
+            <Col className="column" xs={0} md={11}>
               <RightSection />
             </Col>
           </Row>
         </Card>
       </Col>
-      <style jsx="true">{`
-        #submit.ant-btn-primary{
-          height: auto;
-          width: 100%;
-          font-size: 18px;
-          padding-top: 6px;
-          padding-bottom: 6px;
-          margin-top:10px
-        }
-        .ant-input{
-          height: auto;
-          font-size:16px;
-          padding-top:8px;
-          padding-bottom:8px;
-        }
-        .ant-input-affix-wrapper .ant-input:not(:first-child){
-          padding-left:45px
-        }
-        .ant-card,
-        .ant-card-wider-padding .ant-card-body,
-        .ant-card-body{
-          font-family: 'Work Sans', sans-serif !important;
-          padding:0px
-        }
-        .form-column{
-          padding: 80px 60px 30px 60px
-        }
-        @media only screen and (max-width: 600px) {
-          .form-column{
-            padding: 80px 20px 30px 20px
-          }
-        }
-      `}
-      </style>
     </Row>
   )
 }

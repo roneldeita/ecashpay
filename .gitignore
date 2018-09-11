@@ -3,6 +3,9 @@
 # dependencies
 /node_modules
 
+# ignore all css 
+src/**/*.css
+
 # testing
 /coverage
 

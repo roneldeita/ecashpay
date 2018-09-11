@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Breadcrumb, Icon, Modal } from 'antd'
 import VerifyPobTable from './presentation/VerifyPobTable'
-import { Id } from '../../../services/api'
+import { Auth, Id } from '../../../services/api'
 
 const AdminContentStyle = {
   backgroundColor:'#ffffff',
@@ -19,6 +19,10 @@ const BreadCrumbs = (
       <Icon type="dashboard" />
       <span>Dashboard</span>
     </Breadcrumb.Item>
+    <Breadcrumb.Item href="/KYC">
+      <Icon type="idcard" />
+      <span>KYC</span>
+    </Breadcrumb.Item>
     <Breadcrumb.Item>
       <Icon type="paper-clip" />
       <span>Verify Proof of billing</span>
@@ -30,10 +34,12 @@ class VerifyIdPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state={
-      record:[]
+      record:[],
+      selected:{}
     }
     this.accept = this.accept.bind(this)
     this.decline = this.decline.bind(this)
+    this.handleSelected = this.handleSelected.bind(this)
   }
   decline(e){
     const modal = Modal.info({
@@ -67,6 +73,16 @@ class VerifyIdPage extends React.PureComponent{
       setTimeout(() => modal.destroy(), 1000);
     })
   }
+  handleSelected(userId){
+    this.setState({selected:{}})
+    Auth({id:userId}).GetAccount()
+    .then(res=>{
+      this.setState({selected:res.data})
+      console.log(res)
+    }).catch(err=>{
+      console.log(err)
+    })
+  }
   getAllRecords(){
     Id(null, {'x-access-token':this.props.auth.token}).GetAllPobRequest()
     .then(res=>{
@@ -89,7 +105,8 @@ class VerifyIdPage extends React.PureComponent{
             record={this.state.record}
             accept={this.accept}
             decline={this.decline}
-            />
+            selected={this.state.selected}
+            handleSelected={this.handleSelected}/>
         </div>
         <style jsx="true">{`
             .ant-confirm-btns,

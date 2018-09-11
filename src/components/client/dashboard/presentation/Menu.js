@@ -1,12 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import {Row, Col, Card, Tag} from 'antd'
+import {Row, Col, Card, Tag, Menu, Dropdown, Button, Icon} from 'antd'
 import QueueAnim from 'rc-queue-anim'
-// import Addfunds from '../../../../assets/svg/ecommerce/ecommerce_wallet.svg'
-// import SendMoney from '../../../../assets/svg/ecommerce/ecommerce_banknote.svg'
-// import BuyLoad from '../../../../assets/svg/basic/basic_smartphone.svg'
-// import PayBills from '../../../../assets/svg/ecommerce/ecommerce_creditcard.svg'
-// import BookTravel from '../../../../assets/svg/basic/basic_compass.svg'
+import QRCode from 'qrcode.react'
 
 const CardStyle = {
   cursor:'default',
@@ -37,6 +33,25 @@ const UserName = {
 //   letterSpacing: '-1px'
 // }
 export default ({ready, profile}) => {
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <Link to="/cash-in">Cash In</Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to="/send-money">Send Money</Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to="/buy-load">Buy Load</Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to="/pay-bills">Pay Bills</Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to="/book-travel">Book Travel</Link>
+      </Menu.Item>
+    </Menu>
+  );  
 
   // const Directlink = () => {
   //   if(!isEmpty(profile)){
@@ -56,29 +71,36 @@ export default ({ready, profile}) => {
   // }
   //console.log(profile)
   return(
-    <Card loading={ready} style={CardStyle}>
+    <Card className="menu-card" loading={ready} style={CardStyle}>
       <Row>
         <Col className="" md={24} lg={8}>
           <div className="user-icon">
             <QueueAnim type={['left', 'right']} delay="100" ease={['easeOutBack', 'easeInOutCirc']}>
               <div key="0">
                 {/*<span className="fa fa-user-circle" name="user-circle" style={UserIcon} />*/}
-                <span className="" style={{display:'inline-block'}}>
+                <QRCode value={profile.account} size={50}/>
+                <span className="" style={{display:'inline-block', marginLeft:'10px'}}>
                   <br/>
                   <p className="" style={UserName}>{profile.firstName} {profile.lastName}</p><br/>
                   <Tag style={{color:'#1890ff', fontSize:'14px', border:'none', paddingTop:'1px'}}>{profile.account}</Tag>
-                  {/*{Directlink()}*/}
                 </span>
               </div>
             </QueueAnim>
           </div>
         </Col>
-        <Col className="" xs={24} sm={24} lg={24} xl={16}>
+        <Col className="" xs={24} sm={24} md={0} lg={0} xl={0}>
+          <div className="dropdown-menu">
+            <Dropdown overlay={menu}  trigger={['click']}>
+              <Button>Dashboard <Icon type="down" style={{float:'right', marginTop:'5px'}}/></Button>
+            </Dropdown>
+          </div>
+        </Col>
+        <Col className="" xs={0} sm={0} md={24} lg={24} xl={16}>
           <Row id="menu" type="flex" justify="end" className="tab-container">
             <Col className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="200" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/cashin" >
+                  <Link to="/cash-in" >
                     <span className="pe-7s-wallet" style={MenuICon}></span>
                     {/*<img src={Addfunds} alt="send money" style={TabImg}/>*/}
                     <p>Cash In</p>
@@ -89,7 +111,7 @@ export default ({ready, profile}) => {
             <Col key="2" className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="300" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/sendmoney" >
+                  <Link to="/send-money" >
                     <span className="pe-7s-cash" style={MenuICon}></span>
                     {/*<img src={SendMoney} alt="send money" style={TabImg}/>*/}
                     <p>Send Money</p>
@@ -100,7 +122,7 @@ export default ({ready, profile}) => {
             <Col className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="400" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/buyload" >
+                  <Link to="/buy-load" >
                     <span className="pe-7s-phone" style={MenuICon}></span>
                     {/*<img src={BuyLoad} alt="buy money" style={TabImg}/>*/}
                     <p>Buy Load</p>
@@ -111,7 +133,7 @@ export default ({ready, profile}) => {
             <Col className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="500" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/paybills" >
+                  <Link to="/pay-bills" >
                     <span className="pe-7s-credit" style={MenuICon}></span>
                     {/*<img src={PayBills} alt="pay bills" style={TabImg}/>*/}
                     <p>Pay Bills</p>
@@ -122,7 +144,7 @@ export default ({ready, profile}) => {
             <Col className="" span={4}>
               <QueueAnim type={['bottom', 'top']} delay="600" ease={['easeOutBack', 'easeInOutCirc']}>
                 <div key="0">
-                  <Link to="/booktravel" >
+                  <Link to="/book-travel" >
                     <span className="pe-7s-compass" style={MenuICon}></span>
                     {/*<img src={BookTravel} alt="book travel" style={TabImg}/>*/}
                     <p>Book Travel</p>
@@ -134,7 +156,12 @@ export default ({ready, profile}) => {
         </Col>
       </Row>
       <style jsx="true">{`
-          @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+          .dropdown-menu .ant-btn{
+            text-align: left;
+            width: 100%;
+            height:42px;
+            font-weight:500;
+          }
           .tab-container{
             text-align:center
           }
@@ -155,6 +182,9 @@ export default ({ready, profile}) => {
             }
           }
           @media (max-width: 1200px) {
+            .menu-card .ant-card-body{
+              padding: 15px 0px 15px 0px;
+            }
             .user-icon{
               display:none !important
             }

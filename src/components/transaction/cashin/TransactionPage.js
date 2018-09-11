@@ -71,6 +71,7 @@ class TransactionPage extends React.PureComponent{
                 <Col span={19}>
                   <StepThree
                     auth={this.props.auth}
+                    profile={this.props.profile}
                     transaction={this.state.transaction}
                     cancel={this.handleCancel}
                     cancelState={this.state.cancelState}
@@ -88,7 +89,8 @@ class TransactionPage extends React.PureComponent{
 
 function mapStateToProps(state, ownProps){
   return {
-    auth: state.auth
+    auth: state.auth,
+    profile: state.profile
   }
 }
 

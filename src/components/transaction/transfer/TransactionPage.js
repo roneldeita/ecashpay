@@ -54,7 +54,7 @@ class TransactionPage extends React.PureComponent{
               loading={isEmpty(this.state.transaction)}
               hoverable  style={{cursor:'default '}}
               title={Title}
-              actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
+              actions={[<Link to={this.props.profile.type === 'individual' ? `/client/dashboard` : `/${this.props.profile.type}/dashboard`}><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
               {this.state.transaction.entryType ==='debit' &&
                 <div>
                   <Row>
@@ -121,7 +121,8 @@ class TransactionPage extends React.PureComponent{
 
 function mapStateToProps(state, ownProps){
   return {
-    auth: state.auth
+    auth: state.auth,
+    profile: state.profile
   }
 }
 

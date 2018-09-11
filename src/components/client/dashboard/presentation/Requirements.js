@@ -6,7 +6,7 @@ import {includes} from 'lodash'
 import VerifyPhoneNumber from '../../../../assets/images/Verify_Number.png'
 import VerifyID from '../../../../assets/images/Verify_ID.png'
 import BillsStatement from '../../../../assets/images/Bills_Statement.png'
-//import LinkEcashCard from '../../../../assets/images/Link_EcashCard.png'
+import FaceToFace from '../../../../assets/images/chat-2-icon.png'
 import Check from '../../../../assets/images/check.png'
 const CardStyle = {
   margin: '0px 0px 15px 0px',
@@ -23,7 +23,7 @@ const RowStyle ={
 // }
 const Img = {
   width:'100%',
-  maxWidth:'120px',
+  maxWidth:'100px',
   marginBottom:'8px'
 }
 const ProgressStyle = {
@@ -49,8 +49,6 @@ export default ({ready, levels, phone, progress}) => {
           loading={ready}
           style={CardStyle}>
           <Row type="flex" justify="space-between" style={RowStyle}>
-            <Col className="" xs={0} sm={0} lg={0} xl={1}>
-            </Col>
             <Col className="" xs={24} sm={11} lg={7} xl={6}>
               { (phone !== '')
                 ?
@@ -76,10 +74,26 @@ export default ({ready, levels, phone, progress}) => {
                   <p style={Desc}>Maximize features and access the easy-to-use tools in your account by uploading governement-issued I.D and Selfie.</p>
                 </div>
                 :
-                <Link to={phone !== '' ? {pathname:`/client/upload/id`} : {pathname:'/client/verify/phone',  search: '?require=true'}}>
+                <Link to="/client/upload/id">
                   <img src={VerifyID} style={Img} alt="submit ID"/>
                   <p style={RequirementTitle}>Upgrade Level 1</p>
+                  <p style={Desc}>Maximize features and access the easy-to-use tools in your account by uploading governement-issued ID and Selfie.</p>
+                </Link>
+              }
+            </Col>
+            <Col className="" xs={24} sm={11} lg={7} xl={6}>
+              { includes(levels, 3)
+                ?
+                <div>
+                  <img src={FaceToFace} style={Img} alt="check" />
+                  <p style={RequirementTitle}>Upgrade Level 2</p>
                   <p style={Desc}>Maximize features and access the easy-to-use tools in your account by uploading governement-issued I.D and Selfie.</p>
+                </div>
+                :
+                <Link to="/client/schedule/f2f">
+                  <img src={FaceToFace} style={Img} alt="submit ID"/>
+                  <p style={RequirementTitle}>Upgrade Level 2</p>
+                  <p style={Desc}>Maximize features and access the easy-to-use tools in your account by uploading governement-issued ID and Selfie.</p>
                 </Link>
               }
             </Col>
@@ -88,23 +102,23 @@ export default ({ready, levels, phone, progress}) => {
                 ?
                 <div>
                   <img src={Check} style={Img} alt="check" />
-                  <p style={RequirementTitle}>Upgrade Level 2</p>
+                  <p style={RequirementTitle}>Upgrade Level 3</p>
                   <p style={Desc}>Increase your fund limits and access more tools by uploading your latest proof of billing.</p>
                 </div>
                 :
-                <Link to={(phone === '') ? `/client/verify/phone` : includes(levels, 1) ?  '/client/upload/pob' : '/client/upload/id' }>
+                <Link to="/client/upload/pob">
                   <img src={BillsStatement} style={Img} alt="add billing statement"/>
-                  <p style={RequirementTitle}>Upgrade Level 2</p>
+                  <p style={RequirementTitle}>Upgrade Level 3</p>
                   <p style={Desc}>Increase your fund limits and access more tools by uploading your latest proof of billing.</p>
                 </Link>
               }
             </Col>
-            <Col className="" xs={0} sm={0} lg={0} xl={1}>
-              {/*<img src={LinkEcashCard} style={Img} alt="link Ecashpay card"/>
+            {/*<Col className="" xs={0} sm={0} lg={0} xl={1}>
+              <img src={LinkEcashCard} style={Img} alt="link Ecashpay card"/>
               <p style={RequirementTitle}>Link Your Ecash Card</p>
               <p style={Desc}>Transfer and get your cash instantly through our accredited banks nationwide.</p>
-              <Tag>Available soon</Tag>*/}
-            </Col>
+              <Tag>Available soon</Tag>
+            </Col>*/}
           </Row>
           <Progress percent={progress} status="active" style={ProgressStyle} />
         </Card>

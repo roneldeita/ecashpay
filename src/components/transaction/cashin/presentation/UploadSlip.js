@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Button, Form, Upload, Icon, Modal, Alert } from 'antd'
+import { Row, Col, Button, Form, Input,  Upload, Icon, Modal, Alert } from 'antd'
 import QueueAnim from 'rc-queue-anim'
 import { Transaction } from '../../../../services/api'
 
@@ -9,7 +9,7 @@ const Title = {
   textAlign: 'center'
 }
 const formItemLayout = {
-  wrapperCol: {md:{span:16, offset:4}},
+  wrapperCol: {md:{span:18, offset:3}, lg:{span:20, offset:2}},
 }
 const UploadButton = (
   <div>
@@ -42,6 +42,7 @@ class UploadSlip extends React.PureComponent{
         fileList.forEach((file) => {
           formData.append('files', file.originFileObj);
         });
+        formData.set('reference', values['Reference'])
         Transaction(formData, {'x-access-token':this.props.auth.token, 'Content-type':'multipart/form-data'}).Upload()
         .then(res => {
           this.props.loadTransaction()
@@ -106,6 +107,16 @@ class UploadSlip extends React.PureComponent{
                     <Upload.Dragger {...fileProps} disabled={this.state.files.length >= 1}>
                       {UploadButton}
                     </Upload.Dragger>
+                  )}
+                </Form.Item>
+                <Form.Item
+                  {...formItemLayout}>
+                  {getFieldDecorator('Reference', {
+                    rules:[
+                      { required: true}
+                    ]
+                  })(
+                    <Input placeholder="Reference code"/>
                   )}
                 </Form.Item>
                 <div style={{textAlign:'center'}}>

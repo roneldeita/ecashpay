@@ -1,0 +1,36 @@
+@import './assets/styles/_vars.scss';
+@import './assets/styles/auth.scss';
+
+.border{
+  border: $border;
+}
+.card-style{
+  margin: 0px !important;
+  padding: 0px !important;
+  cursor: auto !important;
+}
+.center-wrapper{
+  display:flex;
+  align-items:center;
+  min-height:100vh;
+}
+.center-container{
+  width: 100%
+}
+.ecpa-layout{
+  width:100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+.txt-dark-blue{
+  color: #000080;
+}
+.ant-back-top{
+  right: 40px !important;
+  bottom: 30px !important;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

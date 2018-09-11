@@ -82,7 +82,7 @@ class ProfilePage extends React.PureComponent{
         }
         Auth(Data, {'x-access-token':this.props.auth.token}).completeProfile()
         .then( res => {
-          window.location.href = '/client/profile'
+          window.location.href = '/'
         })
         .catch(err => {
           Modal.error({
@@ -119,8 +119,8 @@ class ProfilePage extends React.PureComponent{
     return(
       <div>
         <ProfileForm
-          firstName={this.props.profile.firstName}
-          lastName={this.props.profile.lastName}
+          name={this.props.profile.firstName+' '+this.props.profile.lastName+' '+this.props.profile.middleName}
+          birthDate={this.props.profile.birthDate}
           form={this.props.form}
           buttonState={this.state.buttonState}
           onClickCompleteButton ={this.onClickCompleteButton}

@@ -1,7 +1,8 @@
 import React from 'react'
 import { Table, Card, Row, Col, Divider, Button, Tag } from 'antd'
+import { isEmpty } from 'lodash'
 
-export default ({record, accept, decline}) => {
+export default ({record, accept, decline, selected, handleSelected}) => {
   const columns = [
     { title: 'Client', dataIndex: 'individual.firstName', key: 'client' },
     { title: 'Birthdate', dataIndex: 'individual.birthDate', key: 'birthdate' },
@@ -28,6 +29,7 @@ export default ({record, accept, decline}) => {
       rowKey="id"
       columns={columns}
       dataSource={record}
+      onExpand={(expanded, record) => handleSelected(record.individual.user)}
       expandedRowRender={record => {
         let Photos = JSON.parse(record.files)
         return (
@@ -45,10 +47,11 @@ export default ({record, accept, decline}) => {
               </Row>
             </Col>
             <Col span={12}>
-              <Card>
+              <Card loading={isEmpty(selected)}>
                 <p>First Name: {record.individual.firstName}</p>
                 <p>Last Name: {record.individual.lastName}</p>
                 <p>Birthdate: {record.individual.birthDate}</p>
+                <p>Email: {selected.email}</p>
                 <p>Phone: +{record.individual.phone}</p>
                 <Divider/>
                 {record.individual.completeAddress !== null ?

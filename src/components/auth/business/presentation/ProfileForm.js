@@ -242,7 +242,7 @@ const ProfileForm = ({businessName, form, countries, onSubmit, buttonState, onCl
                     optionFilterProp="children"
                     size="large">
                       {countries.map((country, index) =>{
-                        return <Option value={country.name+'-'+ country.code} key={index}>
+                        return <Option value={country.name} key={index}>
                                 <img src={country.flag} style={Flag} alt="flag" /> {country.name}
                               </Option>
                       })}

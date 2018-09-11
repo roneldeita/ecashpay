@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Row, Col, Select, Input, Card, Form, Tag, Icon, Button} from 'antd'
 import { isEmpty } from 'lodash'
 
-export default ({currencies, primary, form, submit, summaryVisible}) => {
+export default ({profile, currencies, primary, form, submit, summaryVisible}) => {
   const { getFieldDecorator, isFieldTouched, getFieldError } = form
   const CurrencyError =  getFieldError('Currency')
   const AmountError =  getFieldError('Amount')
@@ -13,7 +13,7 @@ export default ({currencies, primary, form, submit, summaryVisible}) => {
     <Card
       loading={isEmpty(currencies) && primary === ''}
       title="Transfer to other Ecash"
-      actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
+      actions={[<Link to={profile.type === 'individual' ? `/client/dashboard` : `/${profile.type}/dashboard`}><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
       {/*<Card><Icon type="check-circle-o"/> Transfer money using Ecashpay account number.</Card>*/}
       <Form onSubmit={submit} autoComplete="off">
         <Row gutter={20}>
