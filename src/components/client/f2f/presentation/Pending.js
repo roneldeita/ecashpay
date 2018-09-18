@@ -1,5 +1,6 @@
 import React from 'react'
-import { Avatar, Button, Alert, Card, Row, Col, Popconfirm, Modal } from 'antd'
+import { Avatar, Button, Alert, Popconfirm } from 'antd'
+import moment from 'moment'
 
 const IconStyle = {
   backgroundColor:'#91d5ff',
@@ -7,34 +8,18 @@ const IconStyle = {
   marginBottom:'10px'
 }
 
-export default ({cancel, identification, handlePreview, preview, image, closePreview}) => {
+export default ({ftfStatus, cancel}) => {
+  console.log(ftfStatus)
   const Desc = (
     <div>
       <br/>
-      <h3>Status: Pending Approval</h3>
+      <h3>Status: Pending</h3>
+      <p>Your face-to-face verification will be on {moment(ftfStatus.date).format('LL')} via {ftfStatus.application} from {ftfStatus.timeStart} to {ftfStatus.timeEnd}</p>
       <br/>
-      <p>Youe Upgrade Level 1 request is currently being reviewed. Notification will be sent within 1-5 business days via email.</p>
-      <p>Type of your ID: <b>{identification.type}</b></p>
-      <p>ID Number: <b>{identification.no}</b></p>
-      <Row gutter={24} justify="center" type="flex">
-        {identification.files !== undefined &&
-          identification.files.files.map((file,index)=>(
-            <Col span={8} key={index}>
-              <Card hoverable cover={<img alt="front" src={file.url}/>} onClick={()=> handlePreview({'url':file.url})}>
-                <Card.Meta title={file.name}/>
-              </Card>
-              <Modal visible={preview} footer={null} onCancel={closePreview} mask={false}>
-                <img alt="example" style={{ width: '100%' }} src={image} />
-              </Modal>
-            </Col>
-          ))
-        }
-      </Row>
-      <br/>
-      <Popconfirm title="Are you sure to cancel your request?" placement="bottom" onConfirm={cancel} onCancel="" okText="Yes" cancelText="No">
-        <Button>Cancel Request</Button>
+      <Popconfirm title="Are you sure to reschedule?" placement="bottom" onConfirm={cancel} onCancel="" okText="Yes" cancelText="No">
+        <Button>Reschedule</Button>
       </Popconfirm>
-  </div>
+    </div>
   )
   //console.log(files)
   return(

@@ -15,8 +15,8 @@ const CardStyle = {
 // }
 const MenuICon={
   color:'#0C0C0C',
-  fontSize:50,
-  margin: '20px 0px 5px 0px'
+  fontSize:40,
+  margin: '5px 0px'
 }
 // const UserIcon = {
 //   fontSize:'75px',
@@ -25,7 +25,7 @@ const MenuICon={
 // }
 const UserName = {
   display:'inline',
-  fontSize:'30px',
+  fontSize:'25px',
 }
 // const EcashStatusDesc = {
 //   fontSize:'16px',
@@ -78,7 +78,7 @@ export default ({ready, profile}) => {
             <QueueAnim type={['left', 'right']} delay="100" ease={['easeOutBack', 'easeInOutCirc']}>
               <div key="0">
                 {/*<span className="fa fa-user-circle" name="user-circle" style={UserIcon} />*/}
-                <QRCode value={profile.account} size={50}/>
+                <QRCode value={profile.account} size={45}/>
                 <span className="" style={{display:'inline-block', marginLeft:'10px'}}>
                   <br/>
                   <p className="" style={UserName}>{profile.firstName} {profile.lastName}</p><br/>
@@ -181,9 +181,12 @@ export default ({ready, profile}) => {
               display:none !important
             }
           }
+          .user-icon{
+            margin-top:-15px;
+          }
           @media (max-width: 1200px) {
             .menu-card .ant-card-body{
-              padding: 15px 0px 15px 0px;
+              padding: 10px 0px 5px 0px;
             }
             .user-icon{
               display:none !important

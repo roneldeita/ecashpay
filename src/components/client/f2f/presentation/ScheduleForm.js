@@ -5,7 +5,7 @@ const StepStyle = {
   backgroundColor:'#a5cfe3',
   marginTop:'-5px'
 }
-export default ({form, submit, buttonState}) => {
+export default ({form, submit, buttonState, disabledDates, dateSelected, availableTime}) => {
   const { getFieldDecorator } = form
   const AccountTypeSelector = getFieldDecorator('Account Type', {
     initialValue: 'email',
@@ -13,9 +13,9 @@ export default ({form, submit, buttonState}) => {
       { required: true }
     ],
   })(
-    <Select style={{ width: 110 }}>
+    <Select style={{ minWidth: 110 }}>
       <Select.Option value="email">Email</Select.Option>
-      <Select.Option value="esername">Username</Select.Option>
+      <Select.Option value="username">Username</Select.Option>
       <Select.Option value="mobile">Mobile</Select.Option>
     </Select>
   );
@@ -47,7 +47,20 @@ export default ({form, submit, buttonState}) => {
         {getFieldDecorator('Date', {
           rules: [{ required: true}],
         })(
-          <DatePicker style={{width:'100%'}}/>
+          <DatePicker
+            disabledDate={disabledDates}
+            onChange={dateSelected}
+            style={{width:'100%'}}/>
+        )}
+      </Form.Item>
+      <p><Avatar size={22} style={StepStyle}>4</Avatar> Choose a time</p>
+      <Form.Item>
+        {getFieldDecorator('Time', {
+          rules: [{ required: true}],
+        })(
+          <Select>
+            {availableTime.map((time, index) => <Select.Option key={index} value={time}>{time}</Select.Option>)}
+          </Select>
         )}
       </Form.Item>
       <Form.Item>

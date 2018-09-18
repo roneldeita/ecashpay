@@ -82,10 +82,10 @@ export default ({ready, levels, phone, progress}) => {
               }
             </Col>
             <Col className="" xs={24} sm={11} lg={7} xl={6}>
-              { includes(levels, 3)
+              { includes(levels, 2)
                 ?
                 <div>
-                  <img src={FaceToFace} style={Img} alt="check" />
+                  <img src={Check} style={Img} alt="check" />
                   <p style={RequirementTitle}>Upgrade Level 2</p>
                   <p style={Desc}>Maximize features and access the easy-to-use tools in your account by uploading governement-issued I.D and Selfie.</p>
                 </div>
@@ -98,7 +98,7 @@ export default ({ready, levels, phone, progress}) => {
               }
             </Col>
             <Col className="" xs={24} sm={11} lg={7} xl={6}>
-              { includes(levels, 2)
+              { includes(levels, 3)
                 ?
                 <div>
                   <img src={Check} style={Img} alt="check" />

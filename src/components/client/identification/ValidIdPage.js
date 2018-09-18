@@ -156,7 +156,7 @@ class ValidIdPage extends React.PureComponent{
     }
   }
   render(){
-    console.log(this.state)
+    //console.log(this.state)
     return(
       <Row type="flex" justify="center" style={{marginTop:'50px'}}>
         <Col xs={23} sm={23} md={14} lg={12} xl={10} xxl={8}>

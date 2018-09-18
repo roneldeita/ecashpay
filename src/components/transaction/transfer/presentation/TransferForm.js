@@ -13,7 +13,7 @@ export default ({profile, currencies, primary, form, submit, summaryVisible}) =>
     <Card
       loading={isEmpty(currencies) && primary === ''}
       title="Transfer to other Ecash"
-      actions={[<Link to={profile.type === 'individual' ? `/client/dashboard` : `/${profile.type}/dashboard`}><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
+      actions={[<Link to={profile.role === 'individual' ? `/client/dashboard` : `/${profile.type}/dashboard`}><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
       {/*<Card><Icon type="check-circle-o"/> Transfer money using Ecashpay account number.</Card>*/}
       <Form onSubmit={submit} autoComplete="off">
         <Row gutter={20}>

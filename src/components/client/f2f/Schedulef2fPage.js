@@ -1,14 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 // import ReactS3 from 'react-s3'
-import { Form, Row, Col, Card, Icon } from 'antd'
+import { Form, Row, Col, Card, Icon, Modal } from 'antd'
 import QueueAnim from 'rc-queue-anim'
 import { Link } from 'react-router-dom'
 import ScheduleForm from './presentation/ScheduleForm'
 import Pending from './presentation/Pending'
 import Rejected from './presentation/Rejected'
 import Verified from './presentation/Verified'
-import { isEmpty } from 'lodash'
+import { isEmpty, camelCase } from 'lodash'
+import moment from 'moment'
+import { Ftf } from '../../../services/api'
 
 const CardStyle = {
   margin: '0px',
@@ -20,16 +22,135 @@ class Schedulef2fPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
-      buttonState:false,
-      identification:{status:'none'}
+      buttonState: false,
+      ftfStatus: {status:'none'},
+      disabledDates: [],
+      availableTime:[]
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
-  handleSubmit(event){
+  handleSubmit = (event) =>{
+    this.setState({buttonState:true})
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        const Data = {}
+        Object.entries(values).forEach(([index,value])=>{
+          if(index === 'Date'){
+            value = moment(value).format('YYYY-MM-DD')
+          }
+          if(index === 'Account Type'){
+            index = 'Access Type'
+          }
+          if(index === 'Account Detail'){
+            index = 'Access Details'
+          }
+          Data[camelCase(index)]=value
+        })
+        Ftf(Data, {'x-access-token':this.props.auth.token}).SubmitFtf()
+        .then(res=>{
+          this.checkStatus()
+          setTimeout(()=>{
+            this.setState({buttonState:false})
+          }, 800)
+        }).catch(err=>{
+          Modal.error({
+            title: 'Face-to-face verification error',
+            content: err.response.data.message
+          })
+        })
+        setTimeout(()=>{
+          this.setState({buttonState:false})
+        }, 800)
+      }else{
+        setTimeout(()=>{
+          this.setState({buttonState:false})
+        }, 800)
+      }
+    })
     event.preventDefault()
   }
+  verifyPhone(){
+    Modal.info({
+      title: 'Phone verification required',
+      content: 'Please verifiy your phone number first',
+    });
+  }
+  requireLevelOne(){
+    Modal.info({
+      title: 'Upgrade required',
+      content: 'Upgrade to level 1 first',
+    });
+  }
+  getDisabledDates(){
+    Ftf().GetDisabledDates()
+    .then(res => {
+      this.setState({disabledDates:res.data})
+    }).catch(err => {
+      Modal.info({
+        title: 'Error Fetching Dates',
+        content: 'Try to reload your browser',
+      })
+    })
+  }
+  getAvailableTime = (selectedDate) => {
+    this.props.form.setFields({'Time': ''})
+    let date = moment(selectedDate).format('YYYY-MM-DD')
+    Ftf({date}).GetAvailableTime()
+    .then(res => {
+      this.setState({availableTime:res.data})
+    }).catch(err =>{
+      Modal.info({
+        title: 'Error Fetching Available time',
+        content: 'Try to pick another date',
+      })
+    })
+    //console.log(selectedDate)
+  }
+  disabledDates = (current) => {
+    return moment(current) < moment().endOf('day') || this.state.disabledDates.includes(moment(current).format('YYYY-MM-DD'))
+  }
+  checkStatus(){
+    Ftf(null, {'x-access-token':this.props.auth.token}).Check()
+    .then(res=>{
+      this.setState({ftfStatus:res.data})
+    })
+  }
+  cancelRequest = () => {
+    Ftf(null, {'x-access-token':this.props.auth.token}).Cancel()
+    .then(res=>{
+      this.checkStatus()
+    }).catch(err=>{
+      Modal.error({
+        title: 'Rescedule error',
+        content: err.response.data.message
+      })
+    })
+  }
+  componentDidMount(){
+    this.checkStatus()
+    this.getDisabledDates()
+    if(!isEmpty(this.props.profile) && this.props.profile.role === 'individual'){
+      if(this.props.profile.phone === ''){
+        this.props.history.push('/client/verify/phone')
+        this.verifyPhone()
+      }else if(!this.props.profile.levels.includes(1)){
+        this.props.history.push('/client/upload/id')
+        this.requireLevelOne()
+      }
+    }
+  }
+  componentWillReceiveProps(nextProps){
+    if(!isEmpty(nextProps.profile) && nextProps.profile.role === 'individual'){
+      if(nextProps.profile.phone === ''){
+        nextProps.history.push('/client/verify/phone')
+        this.verifyPhone()
+      }else if(!nextProps.profile.levels.includes(1)){
+        nextProps.history.push('/client/upload/id')
+        this.requireLevelOne()
+      }
+    }
+  }
   render(){
-    console.log(this.state)
+    console.log(this.state.ftfStatus.status)
     return(
       <Row type="flex" justify="center" style={{marginTop:'50px'}}>
         <Col xs={23} sm={23} md={14} lg={12} xl={10} xxl={8}>
@@ -37,32 +158,26 @@ class Schedulef2fPage extends React.PureComponent{
             <div key="0">
               <Card
                 hoverable
-                title="Upgrade Level 1"
+                title="Upgrade Level 2"
                 style={CardStyle}
-                loading={isEmpty(this.state.identification)}
+                loading={isEmpty(this.state.ftfStatus)}
                 actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
-                <div style={{display:this.state.identification.status === 'none' ? 'block' : 'none'}}>
+                <div style={{display:this.state.ftfStatus.status === 'none' ? 'block' : 'none'}}>
                   <ScheduleForm
                     buttonState={this.state.buttonState}
                     form={this.props.form}
-                    submit={this.handleSubmit}/>
+                    submit={this.handleSubmit}
+                    disabledDates={this.disabledDates}
+                    dateSelected={this.getAvailableTime}
+                    availableTime={this.state.availableTime}/>
                 </div>
-                <div style={{display:this.state.identification.status === 'pending' ? 'block' : 'none'}}>
-                  <Pending
-                    identification={this.state.identification}
-                    cancel={this.cancelRequest}
-                    front={this.state.identification.frontLocation}
-                    selfie={this.state.identification.selfie}
-                    back={this.state.identification.backLocation}
-                    handlePreview={this.handlePreview}
-                    preview={this.state.preview}
-                    image={this.state.image}
-                    closePreview={this.closePreview}/>
+                <div style={{display:this.state.ftfStatus.status === 'pending' ? 'block' : 'none'}}>
+                  <Pending ftfStatus={this.state.ftfStatus} cancel={this.cancelRequest}/>
                 </div>
-                <div style={{display:this.state.identification.status === 'rejected' ? 'block' : 'none'}}>
+                <div style={{display:this.state.ftfStatus.status === 'rejected' ? 'block' : 'none'}}>
                   <Rejected resubmit={this.cancelRequest}/>
                 </div>
-                <div style={{display:this.state.identification.status === 'accepted' ? 'block' : 'none'}}>
+                <div style={{display:this.state.ftfStatus.status === 'accepted' ? 'block' : 'none'}}>
                   <Verified/>
                 </div>
               </Card>

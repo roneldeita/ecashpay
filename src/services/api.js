@@ -54,7 +54,6 @@ export function Password(data, header){
 
 export function Id(data, header){
   return {
-    //api/v1/profiles/individuals/kyc/level-1
     SubmitId: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-one', data, {headers:header}),
     Check: () => axios.get(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-one', {headers:header}),
     Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-one', {headers:header}),
@@ -65,11 +64,21 @@ export function Id(data, header){
   }
 }
 
+export function Ftf(data, header){
+  return {
+    GetDisabledDates: () => axios.get(process.env.REACT_APP_API + '/api/v1/schedules-date', {headers:header}),
+    GetAvailableTime: () => axios.get(process.env.REACT_APP_API + '/api/v1/schedules-date/'+data.date, {headers:header}),
+    SubmitFtf: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-two', data, {headers:header}),
+    Check: () => axios.get(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-two', {headers:header}),
+    Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-two', {headers:header}),
+  }
+}
+
 export function Pob(data, header){
   return {
-    SubmitPob: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/kyc?level=2', data, {headers:header}),
-    Check: () => axios.get(process.env.REACT_APP_API + '/api/v1/profiles/kyc?level=2', {headers:header}),
-    Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/profiles/kyc?level=2', {headers:header})
+    SubmitPob: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-three', data, {headers:header}),
+    Check: () => axios.get(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-three', {headers:header}),
+    Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-three', {headers:header})
   }
 }
 

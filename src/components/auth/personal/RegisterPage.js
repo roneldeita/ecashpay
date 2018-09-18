@@ -11,6 +11,8 @@ import { Auth } from '../../../services/api'
 import RegisterForm from './presentation/RegisterForm'
 //ant design
 import { Form, Modal } from 'antd'
+//moment
+import moment from 'moment'
 
 class RegisterPage extends React.PureComponent {
   constructor(props){
@@ -69,10 +71,12 @@ class RegisterPage extends React.PureComponent {
   handleSubmit(event){
     this.setState({buttonState:true})
     this.props.form.validateFields((err, values) => {
-      console.log(values)
       if (!err) {
         const Data = {}
         Object.entries(values).forEach(([index,value])=>{
+          if(index === 'Birth Date'){
+            value = moment(value).format('YYYY-MM-DD')
+          }
           Data[camelCase(index)]=value
         })
         Auth(Data).register()

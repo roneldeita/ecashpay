@@ -17,7 +17,7 @@ export default ({identification, cancel, location, type, handlePreview, preview,
       <br/>
       <Row gutter={24} justify="center" type="flex">
         {identification.files !== undefined &&
-          identification.files.files.map((file,index)=>(
+          identification.files.map((file,index)=>(
             <Col span={8} key={index}>
               <Card hoverable onClick={()=> (file.mimeType === 'image/jpeg' || file.mimeType === 'image/png') && handlePreview({'url':file.url}) } cover={
                   (file.mimeType === 'image/jpeg' || file.mimeType === 'image/png') &&

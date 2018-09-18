@@ -127,26 +127,38 @@ class SubmitPobPage extends React.PureComponent{
       content: 'Upgrade to level 1 first',
     });
   }
+  requireLevelTwo(){
+    Modal.info({
+      title: 'Upgrade required',
+      content: 'Upgrade to level 2 first',
+    });
+  }
   componentDidMount(){
     this.checkStatus()
-    if(!isEmpty(this.props.profile) && this.props.profile.type === 'individual'){
+    if(!isEmpty(this.props.profile) && this.props.profile.role === 'individual'){
       if(this.props.profile.phone === ''){
         this.props.history.push('/client/verify/phone')
         this.verifyPhone()
-      }else if(this.props.profile.levels.length === 0){
+      } else if(!this.props.profile.levels.includes(1)){
         this.props.history.push('/client/upload/id')
         this.requireLevelOne()
+      } else if(!this.props.profile.levels.includes(2)){
+        this.props.history.push('/client/schedule/f2f')
+        this.requireLevelTwo()
       }
     }
   }
   componentWillReceiveProps(nextProps){
-    if(!isEmpty(nextProps.profile) && nextProps.profile.type === 'individual'){
+    if(!isEmpty(nextProps.profile) && nextProps.profile.role === 'individual'){
       if(nextProps.profile.phone === ''){
         nextProps.history.push('/client/verify/phone')
         this.verifyPhone()
-      }else if(nextProps.profile.levels.length === 0){
+      } else if(!nextProps.profile.levels.includes(1)){
         nextProps.history.push('/client/upload/id')
         this.requireLevelOne()
+      } else if(!nextProps.profile.levels.includes(2)){
+        nextProps.history.push('/client/schedule/f2f')
+        this.requireLevelTwo()
       }
     }
   }

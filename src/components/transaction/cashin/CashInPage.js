@@ -104,7 +104,7 @@ class CashInPage extends React.PureComponent{
       if(this.props.profile.phone === ''){
         this.props.history.push('/client/verify/phone')
         this.verifyPhone()
-      } else if(this.props.profile.levels.length === 0){
+      } else if(!this.props.profile.levels.includes(1)){
         this.props.history.push('/client/upload/id')
         this.requireLevelOne()
       } else if(!this.props.profile.levels.includes(2)){
@@ -118,7 +118,7 @@ class CashInPage extends React.PureComponent{
       if(nextProps.profile.phone === ''){
         nextProps.history.push('/client/verify/phone')
         this.verifyPhone()
-      } else if(nextProps.profile.levels.length === 0){
+      } else if(!nextProps.profile.levels.includes(1)){
         nextProps.history.push('/client/upload/id')
         this.requireLevelOne()
       } else if(!nextProps.profile.levels.includes(2)){

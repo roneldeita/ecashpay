@@ -68,7 +68,7 @@ class DashboardPage extends React.PureComponent{
   progress(){
     let Levels = this.state.profile.levels;
     let Phone = this.state.profile.phone !=='' ? 25 : 0
-    let ProgressValue = ((Levels !== undefined ? Object.keys(Levels).length : 0) * 37.5) + Phone
+    let ProgressValue = ((Levels !== undefined ? Object.keys(Levels).length : 0) * 25) + Phone
     this.setState({progress:ProgressValue})
   }
   componentDidCatch(error, info){
