@@ -12,19 +12,25 @@ import { Form, Modal } from 'antd'
 import { Auth, Country } from '../../../services/api'
 //child component
 import ProfileForm from './presentation/ProfileForm'
+//import
+import Provinces from  '../../../assets/json/provinces.json'
+import Cities from  '../../../assets/json/cities.json'
 
 class ProfilePage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
       buttonState: false,
+      provinces: [],
       countries: [],
+      cities: [],
       sourceOfFunds: '',
     }
     this.onClickCompleteButton = this.onClickCompleteButton.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSourceOfFunds = this.handleSourceOfFunds.bind(this)
+    this.handleCities = this.handleCities.bind(this)
     document.title="Complete Profile - Ecashpay"
   }
   handleSourceOfFunds(e){
@@ -48,12 +54,6 @@ class ProfilePage extends React.PureComponent{
       if (!err) {
         const Data = {}
         Object.entries(values).forEach(([index,value])=>{
-          if(index === 'City / Municipality'){
-            index = 'City'
-          }
-          if(index === 'Region / State / Province'){
-            index = 'Region'
-          }
           if(index ==='Birth Date'){
             value = value.format('YYYY-MM-DD')
           }
@@ -102,6 +102,12 @@ class ProfilePage extends React.PureComponent{
     });
     event.preventDefault()
   }
+  handleCities(data, option){
+    let SelectedProvince = option.props['province-key']
+    let SelectedCities = Cities.filter( city => city.province === SelectedProvince)
+    this.props.form.setFieldsValue({'City':''})
+    this.setState({cities: SelectedCities})
+  }
   componentDidMount(){
     Country().All()
     .then(res => {
@@ -114,8 +120,10 @@ class ProfilePage extends React.PureComponent{
     .catch(error => {
       console.log(error)
     })
+    this.setState({provinces:Provinces})
   }
   render(){
+    console.log(this.state)
     return(
       <div>
         <ProfileForm
@@ -125,6 +133,9 @@ class ProfilePage extends React.PureComponent{
           buttonState={this.state.buttonState}
           onClickCompleteButton ={this.onClickCompleteButton}
           countries={this.state.countries}
+          provinces={this.state.provinces}
+          cities={this.state.cities}
+          onProvinceChange={() => this.handleCities}
           onSubmit={this.handleSubmit}
           sourceOfFunds={this.state.sourceOfFunds}
           handleSourceOfFunds={this.handleSourceOfFunds}

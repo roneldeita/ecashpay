@@ -7,12 +7,13 @@ const IconStyle = {
   marginBottom:'10px'
 }
 
-export default ({resubmit}) => {
+export default ({resubmit, remarks}) => {
   const Desc = (
     <div>
       <h3>We're sorry</h3>
       <br/>
-      <p>We are unable to verify your identity. To proceed, please re-submit valid requirements.</p>
+      <p>We are unable to verify your identity. <b>{remarks}</b></p>
+      <p>To proceed, please re-submit valid requirements.</p>
     <Button onClick={resubmit}>Try Again</Button>
     </div>
   )

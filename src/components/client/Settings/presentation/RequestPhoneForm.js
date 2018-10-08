@@ -66,18 +66,12 @@ class RequestEmailForm extends React.PureComponent{
   }
   render(){
     //console.log(this.props)
-    const { getFieldDecorator, isFieldTouched, getFieldError } = this.props.form
-    const CountryError = getFieldError('Country')
-    const PhoneNumberError = getFieldError('Phone Number')
+    const { getFieldDecorator } = this.props.form
     return(
       <div style={{display:this.props.displayForm?'block':'none', margin:'-1px 0px 25px 0px'}}>
         <Card title="Enter New Phone Number">
           <Form onSubmit={this.handleSubmit} autoComplete="off">
-            <Form.Item
-              wrapperCol={{span:12}}
-              hasFeedback={isFieldTouched('Country')}
-              validateStatus={CountryError ? 'error' : ''}
-              help={CountryError || ''}>
+            <Form.Item wrapperCol={{span:12}}>
               {getFieldDecorator('Country', {
                 initialValue:this.state.country,
                 rules: [
@@ -98,11 +92,7 @@ class RequestEmailForm extends React.PureComponent{
                 </Select>
               )}
             </Form.Item>
-            <Form.Item
-              wrapperCol={{span:12}}
-              hasFeedback={isFieldTouched('Phone Number')}
-              validateStatus={PhoneNumberError ? 'error' : ''}
-              help={PhoneNumberError || ''}>
+            <Form.Item wrapperCol={{span:12}}>
               {getFieldDecorator('Phone Number', {
                 initialValue:this.props.phone,
                 rules: [

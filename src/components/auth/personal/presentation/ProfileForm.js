@@ -34,12 +34,13 @@ const Label = {
   wrapperCol: { xs:24, sm:24, md:24, lg:17 }
 }
 
-const ProfileForm = ({name, birthDate, form, countries, onSubmit, buttonState, onClickCompleteButton, sourceOfFunds, handleSourceOfFunds}) => {
+const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onProvinceChange, onSubmit, buttonState, onClickCompleteButton, sourceOfFunds, handleSourceOfFunds}) => {
+  const SupportedCountries = countries.filter(country => country.name === "Philippines")
   const { getFieldDecorator, isFieldTouched, getFieldError } = form;
   const GenderError = getFieldError('Gender')
   const StreetError = getFieldError('Street')
-  const CityMunicipalityError = getFieldError('City / Municipality')
-  const RegionStateProvinceError = getFieldError('Region / State / Province')
+  const CityMunicipalityError = getFieldError('City')
+  const RegionStateProvinceError = getFieldError('Province')
   const CountryError = getFieldError('Country')
   const CurrencyError = getFieldError('Currency')
   const SourceOfFundsError = getFieldError('Source of Funds')
@@ -65,10 +66,10 @@ const ProfileForm = ({name, birthDate, form, countries, onSubmit, buttonState, o
           <Row type="flex" justify="center">
             <Col span={20} className="user">
               <Form onSubmit={onSubmit} style={AntForm} autoComplete="off">
-                <FormItem label="Name" {...Label} className="name">
+                <FormItem colon={false} label="Name" {...Label} className="name">
                   <Input disabled={true} size="large" value={name}/>
                 </FormItem>
-                <FormItem label="Birthdate" {...Label} className="name">
+                <FormItem colon={false} label="Birthdate" {...Label} className="name">
                   <Input disabled={true} size="large" value={moment(birthDate).format('MMMM DD, YYYY')}/>
                 </FormItem>
                 {/*<FormItem
@@ -108,6 +109,7 @@ const ProfileForm = ({name, birthDate, form, countries, onSubmit, buttonState, o
                   )}
                 </FormItem>*/}
                 <FormItem
+                  colon={false}
                   label="Gender"
                   required={false}
                   {...Label}
@@ -142,6 +144,80 @@ const ProfileForm = ({name, birthDate, form, countries, onSubmit, buttonState, o
                 </FormItem>*/}
                 <Divider>Complete Address</Divider>
                 <FormItem
+                  colon={false}
+                  label="Country"
+                  required={false}
+                  {...Label}
+                  hasFeedback={isFieldTouched('Country')}
+                  validateStatus={CountryError ? 'error' : ''}
+                  help={CountryError || ''}>
+                  {getFieldDecorator('Country', {
+                    initialValue: 'Philippines',
+                    rules: [
+                      { required: true }
+                    ],
+                  })(
+                    <Select placeholder="Please select a country"
+                      showSearch
+                      optionFilterProp="children"
+                      size="large">
+                      {SupportedCountries.map((country, index) =>{
+                        return <Option value={country.name} key={index}><img src={country.flag} style={Flag} alt="flag" /> {country.name}</Option>
+                      })}
+                    </Select>
+                  )}
+                </FormItem>
+                <FormItem
+                  colon={false}
+                  label="Province"
+                  required={false}
+                  {...Label}
+                  hasFeedback={isFieldTouched('Province')}
+                  validateStatus={RegionStateProvinceError ? 'error' : ''}
+                  help={RegionStateProvinceError || ''}>
+                  {getFieldDecorator('Province', {
+                    rules: [
+                      {required: true}
+                    ],
+                  })(
+                    <Select 
+                      placeholder="Please select your province"
+                      showSearch
+                      onChange={onProvinceChange()}
+                      optionFilterProp="children"
+                      size="large">
+                      {provinces.map((province, index) =>{
+                        return <Option province-key={province.key} value={province.name} key={index}> {province.name}</Option>
+                      })}
+                    </Select>
+                  )}
+                </FormItem>
+                <FormItem
+                  colon={false}
+                  label="City"
+                  required={false}
+                  {...Label}
+                  hasFeedback={isFieldTouched('City')}
+                  validateStatus={CityMunicipalityError ? 'error' : ''}
+                  help={CityMunicipalityError || ''}>
+                  {getFieldDecorator('City', {
+                    rules: [
+                      {required: true}
+                    ],
+                  })(
+                    <Select 
+                      placeholder="Please select your city"
+                      showSearch
+                      optionFilterProp="children"
+                      size="large">
+                      {cities.map((city, index) =>{
+                        return <Option value={city.name} key={index}> {city.name}</Option>
+                      })}
+                    </Select>
+                  )}
+                </FormItem>
+                <FormItem
+                  colon={false}
                   label="Unit/Bldg/Street/Village"
                   required={false}
                   {...Label}
@@ -157,58 +233,7 @@ const ProfileForm = ({name, birthDate, form, countries, onSubmit, buttonState, o
                   )}
                 </FormItem>
                 <FormItem
-                  label="City/Municipality"
-                  required={false}
-                  {...Label}
-                  hasFeedback={isFieldTouched('City / Municipality')}
-                  validateStatus={CityMunicipalityError ? 'error' : ''}
-                  help={CityMunicipalityError || ''}>
-                  {getFieldDecorator('City / Municipality', {
-                    rules: [
-                      {required: true}
-                    ],
-                  })(
-                    <Input size="large"/>
-                  )}
-                </FormItem>
-                <FormItem
-                  label="Region/State/Province"
-                  required={false}
-                  {...Label}
-                  hasFeedback={isFieldTouched('Region / State / Province')}
-                  validateStatus={RegionStateProvinceError ? 'error' : ''}
-                  help={RegionStateProvinceError || ''}>
-                  {getFieldDecorator('Region / State / Province', {
-                    rules: [
-                      {required: true}
-                    ],
-                  })(
-                    <Input size="large"/>
-                  )}
-                </FormItem>
-                <FormItem
-                  label="Country"
-                  required={false}
-                  {...Label}
-                  hasFeedback={isFieldTouched('Country')}
-                  validateStatus={CountryError ? 'error' : ''}
-                  help={CountryError || ''}>
-                  {getFieldDecorator('Country', {
-                    rules: [
-                      { required: true }
-                    ],
-                  })(
-                    <Select placeholder="Please select a country"
-                    showSearch
-                    optionFilterProp="children"
-                    size="large">
-                      {countries.map((country, index) =>{
-                        return <Option value={country.name} key={index}><img src={country.flag} style={Flag} alt="flag" /> {country.name}</Option>
-                      })}
-                    </Select>
-                  )}
-                </FormItem>
-                <FormItem
+                  colon={false}
                   label="Primary Currency"
                   required={false}
                   {...Label}
@@ -231,7 +256,7 @@ const ProfileForm = ({name, birthDate, form, countries, onSubmit, buttonState, o
                 </FormItem>
                 <Divider>Source of funds</Divider>
                 <FormItem
-                  label=""
+                  colon={false}
                   required={false}
                   wrapperCol={{lg:{span:17, offset:7}}}
                   hasFeedback={isFieldTouched('Source of Funds')}
@@ -250,6 +275,7 @@ const ProfileForm = ({name, birthDate, form, countries, onSubmit, buttonState, o
                   )}
                 </FormItem>
                 <FormItem
+                  colon={false}
                   label="Occupation"
                   required={false}
                   style={{display:sourceOfFunds === "employed" ? 'block': 'none'}}
@@ -266,6 +292,7 @@ const ProfileForm = ({name, birthDate, form, countries, onSubmit, buttonState, o
                   )}
                 </FormItem>
                 <FormItem
+                  colon={false}
                   label="Company"
                   required={false}
                   style={{display:sourceOfFunds === "employed" ? 'block': 'none'}}
@@ -282,6 +309,7 @@ const ProfileForm = ({name, birthDate, form, countries, onSubmit, buttonState, o
                   )}
                 </FormItem>
                 <FormItem
+                  colon={false}
                   label="Position / Rank"
                   required={false}
                   style={{display:sourceOfFunds === "employed" ? 'block': 'none'}}
@@ -298,6 +326,7 @@ const ProfileForm = ({name, birthDate, form, countries, onSubmit, buttonState, o
                   )}
                 </FormItem>
                 <FormItem
+                  colon={false}
                   label="Business Name"
                   required={false}
                   style={{display:sourceOfFunds === "selfEmployed" ? 'block': 'none'}}
@@ -314,6 +343,7 @@ const ProfileForm = ({name, birthDate, form, countries, onSubmit, buttonState, o
                   )}
                 </FormItem>
                 <FormItem
+                  colon={false}
                   label="Registration Date"
                   required={false}
                   style={{display:sourceOfFunds === "selfEmployed" ? 'block': 'none'}}
@@ -330,6 +360,7 @@ const ProfileForm = ({name, birthDate, form, countries, onSubmit, buttonState, o
                   )}
                 </FormItem>
                 <FormItem
+                  colon={false}
                   label="Nature of Business"
                   required={false}
                   style={{display:sourceOfFunds === "selfEmployed" ? 'block': 'none'}}
@@ -346,6 +377,7 @@ const ProfileForm = ({name, birthDate, form, countries, onSubmit, buttonState, o
                   )}
                 </FormItem>
                 <FormItem
+                  colon={false}
                   label="Years in Operation"
                   required={false}
                   style={{display:sourceOfFunds === "selfEmployed" ? 'block': 'none'}}
@@ -362,6 +394,7 @@ const ProfileForm = ({name, birthDate, form, countries, onSubmit, buttonState, o
                   )}
                 </FormItem>
                 <FormItem
+                  colon={false}
                   label="Source"
                   required={false}
                   style={{display:sourceOfFunds === "unemployed" ? 'block': 'none'}}

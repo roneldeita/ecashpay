@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Breadcrumb, Icon, Modal } from 'antd'
 import VerifyIdTable from './presentation/VerifyIdTable'
-import { Auth, Id } from '../../../services/api'
+import { Id } from '../../../services/api'
+import RejectIdForm from './presentation/RejectIdForm';
 
 const AdminContentStyle = {
   backgroundColor:'#ffffff',
@@ -35,22 +36,34 @@ class VerifyIdPage extends React.PureComponent{
     super(props)
     this.state={
       record:[],
-      selected:{}
+      rejectFormVisible: false,
+      RequestId:''
     }
     this.accept = this.accept.bind(this)
     this.decline = this.decline.bind(this)
-    this.handleSelected = this.handleSelected.bind(this)
+    this.showRejectForm = this.showRejectForm.bind(this)
+    this.hideRejectForm = this.hideRejectForm.bind(this)
   }
-  decline(e){
+  showRejectForm(e){
+    const RequestId = e.target.getAttribute('data-id')
+    this.setState({rejectFormVisible:true, RequestId})
+  }
+  hideRejectForm(){
+    this.setState({rejectFormVisible:false, RequestId:''})
+  }
+  decline(remarks){
     const modal = Modal.info({
       closable:false,
       title: (<div><Icon type="loading"/> Rejecting upgrade request</div>)
     });
-    const RequestId = e.target.getAttribute('data-id')
-    Id({id:RequestId, 'status':'rejected'}, {'x-access-token':this.props.auth.token}).Verify()
+    Id({id:this.state.RequestId, remarks, 'status':'rejected'}, {'x-access-token':this.props.auth.token}).Verify()
     .then(res=>{
       this.getAllRecords()
-      setTimeout(() => modal.destroy(), 1000);
+      setTimeout(() => {
+          modal.destroy()
+          setTimeout(() => this.hideRejectForm(), 500);
+        }, 1000);
+      
     })
     .catch(err=>{
       console.log(err)
@@ -73,16 +86,16 @@ class VerifyIdPage extends React.PureComponent{
       setTimeout(() => modal.destroy(), 1000);
     })
   }
-  handleSelected(userId){
-    this.setState({selected:{}})
-    Auth({id:userId}).GetAccount()
-    .then(res=>{
-      this.setState({selected:res.data})
-      console.log(res)
-    }).catch(err=>{
-      console.log(err)
-    })
-  }
+  // handleSelected(userId){
+  //   this.setState({selected:{}})
+  //   Auth({id:userId}).GetAccount()
+  //   .then(res=>{
+  //     this.setState({selected:res.data})
+  //     console.log(res)
+  //   }).catch(err=>{
+  //     console.log(err)
+  //   })
+  // }
   getAllRecords(){
     Id(null, {'x-access-token':this.props.auth.token}).GetAllIdRequest()
     .then(res=>{
@@ -104,11 +117,13 @@ class VerifyIdPage extends React.PureComponent{
           <VerifyIdTable
             record={this.state.record}
             accept={this.accept}
+            showRejectForm={this.showRejectForm}/>
+          <RejectIdForm
             decline={this.decline}
-            selected={this.state.selected}
-            handleSelected={this.handleSelected}/>
+            visible={this.state.rejectFormVisible}
+            close={this.hideRejectForm}/>
         </div>
-        <style jsx="true">{`
+        {/*<style jsx="true">{`
             .ant-confirm-btns,
             .anticon-info-circle{
               display:none
@@ -117,7 +132,7 @@ class VerifyIdPage extends React.PureComponent{
               text-align:center
             }
           `}
-        </style>
+        </style>*/}
       </div>
     )
   }

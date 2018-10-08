@@ -22,7 +22,7 @@ export function Auth(data, header) {
     MerchantProfile: () => axios.patch(process.env.REACT_APP_API + '/api/v1/profiles/merchants', data, {headers:header}),
     MerchantsRequirementsProfile: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/merchants/requirements', data, {headers:header}),
     //admin
-    AdminLogin: () => axios.post(process.env.REACT_APP_API + '/login?role=admin', data),
+    AdminLogin: () => axios.post(process.env.REACT_APP_API + '/admins/login', data),
     GetAccount: () => axios.get(process.env.REACT_APP_API + '/users/'+data.id),
     AdminBusinessNewAccounts: () => axios.get(process.env.REACT_APP_API + '/businesses?status=pending', data),
     HandleBusinessAccount: () => axios.patch(process.env.REACT_APP_API + '/businesses/'+data.id, data),
@@ -52,14 +52,21 @@ export function Password(data, header){
   }
 }
 
+export function Tfa(data, header){
+  return {
+    Request: () => axios.get(process.env.REACT_APP_API + '/api/v1/tfas', {headers:header}),
+    Enable: () => axios.post(process.env.REACT_APP_API + '/api/v1/tfas', data, {headers:header}),
+    Disable: () => axios.delete(process.env.REACT_APP_API + '/api/v1/tfas', {headers:header})
+  }
+}
+
 export function Id(data, header){
   return {
     SubmitId: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-one', data, {headers:header}),
     Check: () => axios.get(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-one', {headers:header}),
     Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-one', {headers:header}),
     //admin
-    GetAllIdRequest: () => axios.get(process.env.REACT_APP_API + '/api/v1/requirements?level=1', {headers:header}),
-    GetAllPobRequest: () => axios.get(process.env.REACT_APP_API + '/api/v1/requirements?level=2', {headers:header}),
+    GetAllIdRequest: () => axios.get(process.env.REACT_APP_API + '/api/v1/requirements?type=ids&sort=-createdAt', {headers:header}),
     Verify: () => axios.patch(process.env.REACT_APP_API + '/api/v1/requirements/'+data.id, data, {headers:header}),
   }
 }
@@ -71,6 +78,11 @@ export function Ftf(data, header){
     SubmitFtf: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-two', data, {headers:header}),
     Check: () => axios.get(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-two', {headers:header}),
     Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-two', {headers:header}),
+    //admin
+    GetAllIdRequest: () => axios.get(process.env.REACT_APP_API + '/api/v1/requirements?type=faceToface&sort=-createdAt', {headers:header}),
+    ManageSchedule: () =>axios.post(process.env.REACT_APP_API + '/api/v1/schedules', data, {headers:header}),
+    GetAllSchedule: () =>axios.get(process.env.REACT_APP_API + '/api/v1/schedules', {headers:header}),
+    Verify: () => axios.patch(process.env.REACT_APP_API + '/api/v1/requirements/'+data.id, data, {headers:header}),
   }
 }
 
@@ -78,7 +90,10 @@ export function Pob(data, header){
   return {
     SubmitPob: () => axios.post(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-three', data, {headers:header}),
     Check: () => axios.get(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-three', {headers:header}),
-    Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-three', {headers:header})
+    Cancel: () => axios.delete(process.env.REACT_APP_API + '/api/v1/profiles/individuals/kycs/level-three', {headers:header}),
+    //admin
+    GetAllPobRequest: () => axios.get(process.env.REACT_APP_API + '/api/v1/requirements?type=proofOfBilling', {headers:header}),
+    Verify: () => axios.patch(process.env.REACT_APP_API + '/api/v1/requirements/'+data.id, data, {headers:header}),
   }
 }
 

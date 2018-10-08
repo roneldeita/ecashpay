@@ -53,7 +53,8 @@ class StepOne extends React.PureComponent{
       Object.entries(res.data).forEach(([index,value])=>{
         Countries[index]={name:value.name, code:value.callingCodes[0]}
       })
-      this.setState({countries:Countries})
+      const SupportedCountries = Countries.filter(country => country.name === "Philippines")
+      this.setState({countries:SupportedCountries})
     })
     .catch(error => {
       console.log(error)
@@ -72,6 +73,8 @@ class StepOne extends React.PureComponent{
         onSubmit={this.handleSubmit}
         autoComplete="off">
         <Form.Item
+          colon={false}
+          required={false}
           label="Country"
           {...Label}
           hasFeedback={isFieldTouched('Country')}
@@ -99,6 +102,8 @@ class StepOne extends React.PureComponent{
           )}
         </Form.Item>
         <Form.Item
+          required={false}
+          colon={false}
           label="Phone Number"
           {...Label}
           hasFeedback={isFieldTouched('Phone Number')}

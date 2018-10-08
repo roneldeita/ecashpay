@@ -131,7 +131,7 @@ class App extends Component {
       '/merchant/register', '/merchant/verify',
       '/admin', '/admin/login', '/admin/transactions',
       '/admin/requirements/id', '/admin/requirements/pob',
-      '/admin/manage/f2f',
+      '/admin/requirements/f2f', '/admin/manage/f2f',
       '/admin/transactions/cashin', '/admin/business/accounts',
       '/admin/merchant/accounts', '/admin/merchant/payments']
     if(paths.includes(this.props.location.pathname)){
@@ -143,7 +143,7 @@ class App extends Component {
     const paths = [
       '/admin', '/admin/transactions',
       '/admin/requirements/id', '/admin/requirements/pob',
-      '/admin/manage/f2f',
+      '/admin/requirements/f2f', '/admin/manage/f2f',
       '/admin/transactions/cashin', '/admin/business/accounts',
       '/admin/merchant/accounts', '/admin/merchant/payments']
     if(paths.includes(this.props.location.pathname)){

@@ -1,10 +1,9 @@
 import React from 'react'
-import { Table, Card, Row, Col, Divider, Button, Tag } from 'antd'
+import { Table, Card, Row, Col, Collapse, Button, Tag } from 'antd'
 import Moment from 'react-moment'
-import { isEmpty } from 'lodash'
+//import { isEmpty } from 'lodash'
 
-export default ({record, accept, decline, selected, handleSelected}) => {
-  console.log(record)
+export default ({record, accept, showRejectForm}) => {
   const columns = [
     { title: 'Client', dataIndex: 'individual.firstName', key: 'client' },
     { title: 'Birthdate', dataIndex: 'individual.birthDate', key: 'birthdate',  render:(text,record)=> <Moment format="MMMM D, Y" date={record.individual.birthDate}/>  },
@@ -18,7 +17,7 @@ export default ({record, accept, decline, selected, handleSelected}) => {
     { title: '', dataIndex: '', width: 100, key: 'decline', render: (text, record) =>
       { return record.status === 'rejected'
         ? <Tag color="red">Rejected</Tag>
-        : <Button data-id={record.id} onClick={ decline } size="small" disabled={record.status ==='accepted'}>Reject</Button>
+        : <Button data-id={record.id} onClick={ showRejectForm } size="small" disabled={record.status ==='accepted'}>Reject</Button>
       }
     }
   ];
@@ -26,18 +25,22 @@ export default ({record, accept, decline, selected, handleSelected}) => {
     <Table
       title={() => (
       <div>
-        <h1>Verify Photo <span style={{fontSize:'14px'}}>(Selfie while holding valid ID)</span></h1>
+        <h1>Verify Photo <span style={{fontSize:'14px'}}>Selfie while holding valid ID</span></h1>
       </div>)}
       rowKey="id"
       columns={columns}
       dataSource={record}
-      onExpand={(expanded, record) => handleSelected(record.individual.user)}
+      //onExpand={(expanded, record) => handleSelected(record.individual.user)}
       expandedRowRender={record => {
-        let Photos = JSON.parse(record.files)
+        console.log(record)
+        let Photos = record.content
+        let User = record.metadata
+        let Address = record.individual.completeAddress
+       
         return (
-          <Row gutter={10}>
+          <Row gutter={5}>
             <Col span={12}>
-              <Row>
+              <Row gutter={5}>
                 {Photos.files.map((photo, index)=>(
                   <Col key={index} span={12}>
                     <Card hoverable>
@@ -46,20 +49,30 @@ export default ({record, accept, decline, selected, handleSelected}) => {
                     </Card>
                   </Col>
                 ))}
-              </Row>
+                </Row>
             </Col>
             <Col span={12}>
-              <Card loading={isEmpty(selected)}>
-                <p>First Name: {record.individual.firstName}</p>
-                <p>Last Name: {record.individual.lastName}</p>
-                <p>Birthdate: {record.individual.birthDate}</p>
-                <p>Email: {selected.email}</p>
-                <p>Phone: +{record.individual.phone}</p>
-                <Divider/>
-                <p>Street: {record.individual.completeAddress.street}</p>
-                <p>City: {record.individual.completeAddress.city}</p>
-                <p>Country: {record.individual.completeAddress.country}</p>
-                <p>Region: {record.individual.completeAddress.region}</p>
+              <Card>
+                <Collapse bordered={false} defaultActiveKey={['1', '2']}>
+                  <Collapse.Panel header="ID Information" key="1">
+                    <p>ID Type: {Photos.idType}</p>
+                    <p>ID Number: {Photos.idNo}</p>
+                  </Collapse.Panel>
+                  <Collapse.Panel header="User Information" key="2">
+                    <p>First Name: {User.firstName}</p>
+                    <p>Last Name: {User.lastName}</p>
+                    <p>Middle Name: {User.middleName}</p>
+                    <p>Birthdate: {User.birthDate}</p>
+                    <p>Email: {User.email}</p>
+                    <p>Phone: +{User.phone}</p>
+                  </Collapse.Panel>
+                  <Collapse.Panel header="User Address" key="3">
+                    <p>Country: {Address.country}</p>
+                    <p>Province: {Address.province}</p>
+                    <p>City: {Address.city}</p>
+                    <p>Street: {Address.street}</p>
+                  </Collapse.Panel>
+                </Collapse>
               </Card>
             </Col>
           </Row>

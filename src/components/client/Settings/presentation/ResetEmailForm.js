@@ -16,7 +16,7 @@ class ResetEmailForm extends React.PureComponent{
     this.props.form.validateFields((err, values) => {
       if (!err) {
         const Verification = {
-          'code': values['Verification Code'],
+          'code': values['Email Verification Code'],
           'email':this.props.email
         }
         Email(Verification, {'x-access-token':this.props.auth.token}).Verify()
@@ -46,19 +46,14 @@ class ResetEmailForm extends React.PureComponent{
     this.props.cancel()
   }
   render(){
-    const { getFieldDecorator, isFieldTouched, getFieldError } = this.props.form
-    const EmailError = getFieldError('Verification Code')
+    const { getFieldDecorator } = this.props.form
     return(
-      <div style={{display:this.props.displayForm?'block':'none', margin:'15px 0px 25px 0px'}}>
+      <div style={{display:this.props.displayForm?'block':'none', margin:'-5px 0px 25px 0px'}}>
         <Card title="Verify Email Address">
           <p>A verification code has been sent to <span style={{fontWeight:500}}>{this.props.email}</span>, Please input verification code to verify.</p>
           <Form onSubmit={this.handleSubmit} autoComplete="off">
-            <Form.Item
-              wrapperCol={{span:12}}
-              hasFeedback={isFieldTouched('Verification Code')}
-              validateStatus={EmailError ? 'error' : ''}
-              help={EmailError || ''}>
-              {getFieldDecorator('Verification Code', {
+            <Form.Item wrapperCol={{span:12}}>
+              {getFieldDecorator('Email Verification Code', {
                 rules: [
                   { required: true },
                   { max: 4, message: 'Verification Code cannot be longer than 4 characters. ' },

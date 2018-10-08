@@ -62,7 +62,8 @@ import AdminDashboard from './components/admin/dashboard/DashboardPage'
 import AdminLogin from './components/admin/auth/LoginPage'
 import AdminRequirementsId from './components/admin/requirements/VerifyIdPage'
 import AdminRequirementsPob from './components/admin/requirements/VerifyPobPage'
-import AdminRequirementsF2f from './components/admin/requirements/FaceToFacePage'
+import AdminRequirementsF2f from './components/admin/requirements/VerifyF2fPage'
+import AdminManageF2f from './components/admin/requirements/FaceToFacePage'
 import AdminTransactionCashIn from './components/admin/transactions/CashInPage'
 import AdminBusinessAccounts from './components/admin/business/accounts/AccountsPage'
 import AdminMerchantAccounts from './components/admin/merchant/accounts/AccountsPage'
@@ -134,8 +135,9 @@ const Routes = ({ store }) => (
           <PrivateRoutes path="/admin" exact component={AdminDashboard} client={{type:['admin']}}/>
           <PrivateRoutes path="/admin/transactions/cashin" component={AdminTransactionCashIn} client={{type:['admin']}}/>
           <PrivateRoutes path="/admin/requirements/id" component={AdminRequirementsId} client={{type:['admin']}}/>
+          <PrivateRoutes path="/admin/requirements/f2f" component={AdminRequirementsF2f} client={{type:['admin']}}/>
           <PrivateRoutes path="/admin/requirements/pob" component={AdminRequirementsPob} client={{type:['admin']}}/>
-          <PrivateRoutes path="/admin/manage/f2f" component={AdminRequirementsF2f} client={{type:['admin']}}/>
+          <PrivateRoutes path="/admin/manage/f2f" component={AdminManageF2f} client={{type:['admin']}}/>
           <PrivateRoutes path="/admin/business/accounts" component={AdminBusinessAccounts} client={{type:['admin']}}/>
           <PrivateRoutes path="/admin/merchant/accounts" component={AdminMerchantAccounts} client={{type:['admin']}}/>
           <PrivateRoutes path="/admin/merchant/payments" component={AdminMerchantPayments} client={{type:['admin']}}/>

@@ -123,6 +123,9 @@ class ValidIdPage extends React.PureComponent{
         title: 'Cancellation error',
         content: err.response.data.message
       })
+      if(err.response.data.data.status === 'accepted'){
+        this.props.history.push('/client/dashboard')
+      }
     })
   }
   checkStatus(){
@@ -139,10 +142,9 @@ class ValidIdPage extends React.PureComponent{
   }
   componentDidMount(){
     this.checkStatus()
-    console.log(this.props.profile)
     if(!isEmpty(this.props.profile) && this.props.profile.role === 'individual'){
       if(this.props.profile.phone === ''){
-        this.props.history.push('/client/verify/phone')
+        this.props.history.replace('/client/verify/phone')
         this.verifyPhone()
       }
     }
@@ -156,7 +158,7 @@ class ValidIdPage extends React.PureComponent{
     }
   }
   render(){
-    //console.log(this.state)
+    console.log(this.state)
     return(
       <Row type="flex" justify="center" style={{marginTop:'50px'}}>
         <Col xs={23} sm={23} md={14} lg={12} xl={10} xxl={8}>
@@ -198,7 +200,10 @@ class ValidIdPage extends React.PureComponent{
                     />
                 </div>
                 <div style={{display:this.state.identification.status === 'rejected' ? 'block' : 'none'}}>
-                  <Rejected resubmit={this.cancelRequest}/>
+                  <Rejected 
+                    resubmit={this.cancelRequest}
+                    remarks={this.state.identification.remarks}
+                    />
                 </div>
                 <div style={{display:this.state.identification.status === 'accepted' ? 'block' : 'none'}}>
                   <Verified/>

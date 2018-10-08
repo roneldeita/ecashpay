@@ -1,8 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Breadcrumb, Form,  Icon, Row, Col } from 'antd'
-import FaceToFaceForm from './presentation/FaceToFaceForm'
+import { Breadcrumb,  Icon, Row, Col, Radio, Modal } from 'antd'
+import AddScheduleForm from './presentation/AddScheduleForm'
+import BlockDateForm from './presentation/BlockDateForm'
 import FaceToFaceCalendar from './presentation/FaceToFaceCalendar'
+import moment from 'moment'
+import {Ftf} from '../../../services/api'
 
 const AdminContentStyle = {
   backgroundColor:'#ffffff',
@@ -33,7 +36,46 @@ const BreadCrumbs = (
 class FaceToFacePage extends React.PureComponent{
   constructor(props){
     super(props)
-    this.state={}
+    this.state = {
+      addSchedule:true,
+      schedules:[]
+    }
+  }
+  handleSchedule = () =>{
+    this.setState({addSchedule:!this.state.addSchedule})
+  }
+  getAllSchedules = () =>{
+    Ftf().GetAllSchedule()
+    .then(res => {
+      console.log(res.data)
+      //this.setState({schedules:res.data})
+      let Data = []
+      Object.entries(res.data).forEach(([index,value])=>{
+        if(value.active === true){
+          Data.push({
+            title: moment(value.date +' '+ value.timeStart).format('h:mm a') +'-'+ moment(value.date +' '+ value.timeEnd).format('h:mm:ss a') +' ('+value.slot+')',
+            start: moment(value.date +' '+ value.timeStart).toDate(),
+            end: moment(value.date +' '+ value.timeEnd).toDate()
+          })
+        }else{
+          Data.push({
+            title:value.reasonToBeBlocked,
+            allDay: true, 
+            start: moment(value.date).toDate(),
+            end: moment(value.date).toDate()
+          })
+        }
+      })
+      this.setState({schedules:Data})
+    }).catch(err => {
+      Modal.error({
+        title: 'Face-to-face verification error',
+        content: 'Error Fetching Schedules'
+      })
+    })
+  }
+  componentDidMount(){
+    this.getAllSchedules()
   }
   render(){
     console.log(this.state)
@@ -42,18 +84,31 @@ class FaceToFacePage extends React.PureComponent{
         {BreadCrumbs}
         <div style={AdminContentStyle}>
           <br/>
-          <h1>Face-to-face validation <span style={{fontSize:'14px'}}>Video call via Facebook Messenger or Skype</span></h1>
+          <h1>Manage Face-to-face validation <span style={{fontSize:'14px'}}>Set Schedule</span></h1>
           <br/>
           <Row gutter={50}>
             <Col span={8} className="">
-              <FaceToFaceForm form={this.props.form}/>
+              <Radio.Group defaultValue="add" buttonStyle="solid" onChange={this.handleSchedule}>
+                <Radio.Button value="add">Add Schedule</Radio.Button>
+                <Radio.Button value="block">Block Date</Radio.Button>
+              </Radio.Group>
+              <div style={{display:this.state.addSchedule ? 'block' : 'none'}}>
+                <AddScheduleForm 
+                  auth={this.props.auth}
+                  getAllSchedules={this.getAllSchedules}/>
+              </div>
+              <div style={{display:!this.state.addSchedule ? 'block' : 'none'}}>
+                <BlockDateForm
+                  auth={this.props.auth}
+                  getAllSchedules={this.getAllSchedules}/>
+              </div>
             </Col>
             <Col span={16}>
-              <FaceToFaceCalendar/>
+              <FaceToFaceCalendar schedules={this.state.schedules}/>
             </Col>
           </Row>
         </div>
-        <style jsx="true">{`
+        {/*<style jsx="true">{`
             .ant-confirm-btns,
             .anticon-info-circle{
               display:none
@@ -62,7 +117,7 @@ class FaceToFacePage extends React.PureComponent{
               text-align:center
             }
           `}
-        </style>
+        </style>*/}
       </div>
     )
   }
@@ -74,4 +129,4 @@ function mapStateToProps(state, ownProps){
   }
 }
 
-export default Form.create()(connect(mapStateToProps)(FaceToFacePage))
+export default connect(mapStateToProps)(FaceToFacePage)

@@ -16,8 +16,9 @@ export default ({location}) => {
       </Menu.Item>
       <SubMenu key="sub1" title={<span><Icon type="idcard"/><span>KYC</span></span>}>
         <Menu.Item key="/admin/requirements/id"><Link to="/admin/requirements/id">Verify ID</Link></Menu.Item>
+        <Menu.Item key="/admin/requirements/f2f"><Link to="/admin/requirements/f2f">Verify F2F</Link></Menu.Item>
         <Menu.Item key="/admin/requirements/pob"><Link to="/admin/requirements/pob">Verify POB</Link></Menu.Item>
-        <Menu.Item key="/admin/manage/f2f"><Link to="/admin/manage/f2f">Manage F2F</Link></Menu.Item>
+        <Menu.Item key="/admin/manage/f2f"><Link to="/admin/manage/f2f">Manage F2F Schedule</Link></Menu.Item>
       </SubMenu>
       <SubMenu key="sub2" title={<span><Icon type="swap"/><span>Transactions</span></span>}>
         <Menu.Item key="/admin/transactions/cashin"><Link to="/admin/transactions/cashin">Cash In</Link></Menu.Item>

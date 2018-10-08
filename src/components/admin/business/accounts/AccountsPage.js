@@ -104,7 +104,7 @@ class AccountsPage extends React.PureComponent{
             selected={this.state.selected}
             handleSelected={this.handleSelected}/>
         </div>
-        <style jsx="true">{`
+        {/*<style jsx="true">{`
             .ant-confirm-btns,
             .anticon-info-circle{
               display:none
@@ -113,7 +113,7 @@ class AccountsPage extends React.PureComponent{
               text-align:center
             }
           `}
-        </style>
+        </style>*/}
       </div>
     )
   }

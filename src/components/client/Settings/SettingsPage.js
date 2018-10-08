@@ -9,7 +9,7 @@ import ManagePhone from './ManagePhone'
 import ManagePassword from './ManagePassword'
 //import General from './presentation/General'
 //import Privacy from './presentation/Privacy'
-//import TwoFactorAuthentication from './presentation/TwoFactorAuthentication'
+import ManageTfa from './ManageTfa'
 import { Col, Row, Card, List } from 'antd'
 //lodash
 import { isEmpty } from 'lodash'
@@ -41,14 +41,22 @@ class SettingsPage extends React.PureComponent{
                   <ManagePassword
                     auth={this.props.auth}
                     profile={this.props.profile}
-                    profileAction={this.props.profileAction}
-                    />
+                    profileAction={this.props.profileAction}/>
                 </List>
               </Card>
-              {/*<TwoFactorAuthentication/>*/}
+              <Card 
+                title="Two-Factor Authentication"
+                loading={isEmpty(this.props.profile)}
+                style={{marginTop:'15px'}}>
+                <List size="small">
+                  <ManageTfa
+                    auth={this.props.auth}
+                    profile={this.props.profile}
+                    profileAction={this.props.profileAction}/>
+                </List>
+              </Card>
             </div>
           </QueueAnim>
-          {/*<Privacy/>*/}
         </Col>
       </Row>
     )

@@ -97,7 +97,7 @@ class PaymentsPage extends React.PureComponent{
             decline={this.decline}
             />
         </div>
-        <style jsx="true">{`
+        {/*<style jsx="true">{`
             .ant-confirm-btns,
             .anticon-info-circle{
               display:none
@@ -106,7 +106,7 @@ class PaymentsPage extends React.PureComponent{
               text-align:center
             }
           `}
-        </style>
+        </style>*/}>
       </div>
     )
   }

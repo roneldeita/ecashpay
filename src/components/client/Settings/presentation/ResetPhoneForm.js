@@ -48,18 +48,13 @@ class ResetEmailForm extends React.PureComponent{
     this.props.cancel()
   }
   render(){
-    const { getFieldDecorator, isFieldTouched, getFieldError } = this.props.form
-    const CodeError = getFieldError('Phone Verification Code')
+    const { getFieldDecorator } = this.props.form
     return(
-      <div style={{display:this.props.displayForm?'block':'none', margin:'15px 0px 25px 0px'}}>
+      <div style={{display:this.props.displayForm?'block':'none', margin:'-5px 0px 25px 0px'}}>
         <Card title="Verify Phone Number">
           <p>A verification code has been sent to your new phone number <span style={{fontWeight:500}}>+{this.props.code}{this.props.phone}</span>, Please input verification code to verify.</p>
           <Form onSubmit={this.handleSubmit} autoComplete="off">
-            <Form.Item
-              wrapperCol={{span:12}}
-              hasFeedback={isFieldTouched('Phone Verification Code')}
-              validateStatus={CodeError ? 'error' : ''}
-              help={CodeError || ''}>
+            <Form.Item wrapperCol={{span:12}}>
               {getFieldDecorator('Phone Verification Code', {
                 rules: [
                   { required: true },

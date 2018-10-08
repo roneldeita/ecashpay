@@ -1,6 +1,5 @@
 import React from 'react'
 import { Table, Card, Row, Col, Divider, Button, Tag } from 'antd'
-import { isEmpty } from 'lodash'
 
 export default ({record, accept, decline, selected, handleSelected}) => {
   const columns = [
@@ -24,19 +23,20 @@ export default ({record, accept, decline, selected, handleSelected}) => {
     <Table
       title={() => (
       <div>
-        <h1>Verify Address <span style={{fontSize:'14px'}}>(through billing statement)</span></h1>
+        <h1>Verify Address <span style={{fontSize:'14px'}}>through billing statement</span></h1>
       </div>)}
       rowKey="id"
       columns={columns}
       dataSource={record}
-      onExpand={(expanded, record) => handleSelected(record.individual.user)}
+      //onExpand={(expanded, record) => handleSelected(record.individual.user)}
       expandedRowRender={record => {
-        let Photos = JSON.parse(record.files)
+        let Photos = record.content.files
+        let User = record.metadata
         return (
           <Row>
             <Col span={12}>
               <Row>
-                {Photos.files.map((photo, index)=>(
+                {Photos.map((photo, index)=>(
                   <Col key={index} span={12}>
                     <Card hoverable>
                       <img alt={photo.url} src={photo.url} style={{width:'100%'}}/>
@@ -47,20 +47,20 @@ export default ({record, accept, decline, selected, handleSelected}) => {
               </Row>
             </Col>
             <Col span={12}>
-              <Card loading={isEmpty(selected)}>
-                <p>First Name: {record.individual.firstName}</p>
-                <p>Last Name: {record.individual.lastName}</p>
-                <p>Birthdate: {record.individual.birthDate}</p>
-                <p>Email: {selected.email}</p>
-                <p>Phone: +{record.individual.phone}</p>
+              <Card>
+                <p>First Name: {User.firstName}</p>
+                <p>Last Name: {User.lastName}</p>
+                <p>Birthdate: {User.birthDate}</p>
+                <p>Email: {User.email}</p>
+                <p>Phone: +{User.phone}</p>
                 <Divider/>
-                {record.individual.completeAddress !== null ?
+                {/*record.individual.completeAddress !== null ?
                   <div>
                     <p>Street: {record.individual.completeAddress.street}</p>
                     <p>City: {record.individual.completeAddress.city}</p>
                     <p>Country: {record.individual.completeAddress.country}</p>
                     <p>Region: {record.individual.completeAddress.region}</p>
-                  </div> : ''}
+                </div> : ''*/}
               </Card>
             </Col>
           </Row>

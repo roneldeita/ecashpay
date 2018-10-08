@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Breadcrumb, Icon, Modal } from 'antd'
-import CashInTable from './presentation/CashInTable'
-import { Transaction } from '../../../services/api'
+import VerifyF2fTable from './presentation/VerifyF2fTable'
+import { Ftf } from '../../../services/api'
+import RejectF2fForm from './presentation/RejectF2fForm';
 
 const AdminContentStyle = {
   backgroundColor:'#ffffff',
@@ -19,48 +20,44 @@ const BreadCrumbs = (
       <Icon type="dashboard" />
       <span>Dashboard</span>
     </Breadcrumb.Item>
+    <Breadcrumb.Item href="/KYC">
+      <Icon type="idcard" />
+      <span>KYC</span>
+    </Breadcrumb.Item>
     <Breadcrumb.Item>
-      <Icon type="picture" />
-      <span>Verify ID</span>
+      <Icon type="mobile" />
+      <span>Verify F2F</span>
     </Breadcrumb.Item>
   </Breadcrumb>
 )
 
-class CashInPage extends React.PureComponent{
+class VerifyF2fPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state={
-      record:[]
+      record:[],
+      rejectFormVisible: false,
+      RequestId:''
     }
-    this.accept = this.accept.bind(this)
-    this.decline = this.decline.bind(this)
+    this.handleAction = this.handleAction.bind(this)
   }
-  decline(e){
+  showRejectForm(e){
+    const RequestId = e.target.getAttribute('data-id')
+    this.setState({rejectFormVisible:true, RequestId})
+  }
+  hideRejectForm(){
+    this.setState({rejectFormVisible:false, RequestId:''})
+  }
+  handleAction = (e) =>{
+    const RequestId = e.item.props['data-id']
+    const Status = e.item.props['data-status']
+
     const modal = Modal.info({
       closable:false,
-      title: (<div><Icon type="loading"/> Rejecting payment</div>)
+      title: (<div><Icon type="loading"/> Performing action</div>)
     });
-    const RequestId = e.target.getAttribute('data-id')
-    Transaction({id:RequestId}, {'x-access-token':this.props.auth.token}).RejectCashIn()
+    Ftf({id:RequestId, status:Status}, {'x-access-token':this.props.auth.token}).Verify()
     .then(res=>{
-      console.log(res)
-      this.getAllRecords()
-      setTimeout(() => modal.destroy(), 1000);
-    })
-    .catch(err=>{
-      console.log(err)
-      setTimeout(() => modal.destroy(), 1000);
-    })
-  }
-  accept(e){
-    const modal = Modal.info({
-      closable:false,
-      title: (<div><Icon type="loading"/> Accepting payment</div>)
-    });
-    const RequestId = e.target.getAttribute('data-id')
-    Transaction({id:RequestId}, {'x-access-token':this.props.auth.token}).AcceptCashIn()
-    .then(res=>{
-      console.log(res)
       this.getAllRecords()
       setTimeout(() => modal.destroy(), 1000);
     })
@@ -70,7 +67,7 @@ class CashInPage extends React.PureComponent{
     })
   }
   getAllRecords(){
-    Transaction(null, {'x-access-token':this.props.auth.token}).GetAllCashIn()
+    Ftf(null, {'x-access-token':this.props.auth.token}).GetAllIdRequest()
     .then(res=>{
       this.setState({record:res.data})
     })
@@ -82,15 +79,18 @@ class CashInPage extends React.PureComponent{
     this.getAllRecords()
   }
   render(){
+    console.log(this.state)
     return(
       <div>
         {BreadCrumbs}
         <div style={AdminContentStyle}>
-          <CashInTable
+          <VerifyF2fTable
             record={this.state.record}
-            accept={this.accept}
+            handleAction={this.handleAction}/>
+          <RejectF2fForm
             decline={this.decline}
-            />
+            visible={this.state.rejectFormVisible}
+            close={this.hideRejectForm}/>
         </div>
         {/*<style jsx="true">{`
             .ant-confirm-btns,
@@ -101,7 +101,7 @@ class CashInPage extends React.PureComponent{
               text-align:center
             }
           `}
-          </style>*/}
+        </style>*/}
       </div>
     )
   }
@@ -113,4 +113,4 @@ function mapStateToProps(state, ownProps){
   }
 }
 
-export default connect(mapStateToProps)(CashInPage)
+export default connect(mapStateToProps)(VerifyF2fPage)

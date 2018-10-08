@@ -68,19 +68,13 @@ class ResetPasswordForm extends React.PureComponent{
   }
   render(){
   //  console.log(this.props)
-    const { getFieldDecorator, isFieldTouched, getFieldError } = this.props.form
-    const CodeError =  getFieldError('Code')
-    const PasswordError =  getFieldError('Password');
-    const ConfirmError =  getFieldError('Confirm Password');
+    const { getFieldDecorator } = this.props.form
     return(
       <div style={{display:this.props.displayForm?'block':'none', margin:'-1px 0px 25px 0px'}}>
         <Card title="Reset your password">
           <p>Please enter the 4-digit code you just received from your email and your new password.</p>
           <Form onSubmit={this.handleSubmit} autoComplete="off">
-            <Form.Item
-              wrapperCol={{span:12}}
-              validateStatus={CodeError ? 'error' : ''}
-              help={CodeError || ''}>
+            <Form.Item wrapperCol={{span:12}}>
               {getFieldDecorator('Code', {
                 rules: [
                   { required: true },
@@ -92,11 +86,7 @@ class ResetPasswordForm extends React.PureComponent{
                 <Input placeholder="Verification code"/>
               )}
             </Form.Item>
-            <Form.Item
-              wrapperCol={{span:12}}
-              hasFeedback={isFieldTouched('Password')}
-              validateStatus={PasswordError ? 'error' : 'success'}
-              help={PasswordError || ''}>
+            <Form.Item wrapperCol={{span:12}} >
               {getFieldDecorator('Password', {
                 rules: [
                   { required: true },
@@ -107,11 +97,7 @@ class ResetPasswordForm extends React.PureComponent{
                 <Input placeholder="New Password" type="password" onChange={this.handleChangePassword}/>
               )}
             </Form.Item>
-            <Form.Item
-              wrapperCol={{span:12}}
-              hasFeedback={isFieldTouched('Confirm Password')}
-              validateStatus={ConfirmError ? 'error' : 'success'}
-              help={ConfirmError || ''}>
+            <Form.Item wrapperCol={{span:12}}>
               {getFieldDecorator('Confirm Password', {
                 rules: [
                   { required: true },

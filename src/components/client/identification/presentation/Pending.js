@@ -1,21 +1,21 @@
 import React from 'react'
-import { Avatar, Button, Alert, Card, Row, Col, Popconfirm, Modal } from 'antd'
+import { Avatar, Button, Alert, Card, Row, Col, Popconfirm, Modal, Divider } from 'antd'
 
 const IconStyle = {
   backgroundColor:'#91d5ff',
-  fontSize:'34px',
+  fontSize:'30px',
   marginBottom:'10px'
 }
 
 export default ({cancel, identification, handlePreview, preview, image, closePreview}) => {
   const Desc = (
     <div>
-      <br/>
       <h3>Status: Pending Approval</h3>
       <br/>
       <p>Youe Upgrade Level 1 request is currently being reviewed. Notification will be sent within 1-5 business days via email.</p>
-      <p>Type of your ID: <b>{identification['id-type']}</b></p>
-      <p>ID Number: <b>{identification['id-no']}</b></p>
+      <p>Type of your ID: <b>{identification['idType']}</b></p>
+      <p>ID Number: <b>{identification['idNo']}</b></p>
+      <Divider dashed={true}/>
       <Row gutter={24} justify="center" type="flex">
         {identification.files !== undefined &&
           identification.files.map((file,index)=>(

@@ -6,7 +6,7 @@ import QueueAnim from 'rc-queue-anim'
 import { Link } from 'react-router-dom'
 import ScheduleForm from './presentation/ScheduleForm'
 import Pending from './presentation/Pending'
-import Rejected from './presentation/Rejected'
+import Expired from './presentation/Expired'
 import Verified from './presentation/Verified'
 import { isEmpty, camelCase } from 'lodash'
 import moment from 'moment'
@@ -150,7 +150,8 @@ class Schedulef2fPage extends React.PureComponent{
     }
   }
   render(){
-    console.log(this.state.ftfStatus.status)
+    const Status = this.state.ftfStatus.status
+    const FtfStatus = this.state.ftfStatus.f2fScheduleStatus
     return(
       <Row type="flex" justify="center" style={{marginTop:'50px'}}>
         <Col xs={23} sm={23} md={14} lg={12} xl={10} xxl={8}>
@@ -162,7 +163,7 @@ class Schedulef2fPage extends React.PureComponent{
                 style={CardStyle}
                 loading={isEmpty(this.state.ftfStatus)}
                 actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
-                <div style={{display:this.state.ftfStatus.status === 'none' ? 'block' : 'none'}}>
+                <div style={{display:Status === 'none' ? 'block' : 'none'}}>
                   <ScheduleForm
                     buttonState={this.state.buttonState}
                     form={this.props.form}
@@ -171,13 +172,13 @@ class Schedulef2fPage extends React.PureComponent{
                     dateSelected={this.getAvailableTime}
                     availableTime={this.state.availableTime}/>
                 </div>
-                <div style={{display:this.state.ftfStatus.status === 'pending' ? 'block' : 'none'}}>
+                <div style={{display:Status === 'pending' && FtfStatus === 'pending' ? 'block' : 'none'}}>
                   <Pending ftfStatus={this.state.ftfStatus} cancel={this.cancelRequest}/>
                 </div>
-                <div style={{display:this.state.ftfStatus.status === 'rejected' ? 'block' : 'none'}}>
-                  <Rejected resubmit={this.cancelRequest}/>
+                <div style={{display:Status === 'pending' && FtfStatus === 'expired' ? 'block' : 'none'}}>
+                  <Expired resubmit={this.cancelRequest}/>
                 </div>
-                <div style={{display:this.state.ftfStatus.status === 'accepted' ? 'block' : 'none'}}>
+                <div style={{display:Status === 'accepted' ? 'block' : 'none'}}>
                   <Verified/>
                 </div>
               </Card>

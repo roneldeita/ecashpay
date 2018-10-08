@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Button, Select, Input, Avatar, Radio, Icon, DatePicker  } from 'antd'
+//import {isEmpty} from 'lodash'
 
 const StepStyle = {
   backgroundColor:'#a5cfe3',
@@ -29,8 +30,8 @@ export default ({form, submit, buttonState, disabledDates, dateSelected, availab
           ],
         })(
           <Radio.Group buttonStyle="solid">
-            <Radio.Button value="facebook"><Icon type="facebook" theme="filled"  /> Facebook</Radio.Button>
-            <Radio.Button value="Skype"><Icon type="skype" theme="filled" /> Skype</Radio.Button>
+            <Radio.Button value="facebook"><Icon type="facebook" theme="filled"/> Facebook</Radio.Button>
+            <Radio.Button value="Skype"><Icon type="skype" theme="filled"/> Skype</Radio.Button>
           </Radio.Group>
         )}
       </Form.Item>
@@ -39,7 +40,7 @@ export default ({form, submit, buttonState, disabledDates, dateSelected, availab
         {getFieldDecorator('Account Detail', {
           rules: [{ required: true }],
         })(
-          <Input addonBefore={AccountTypeSelector} style={{ width: '100%' }} />
+          <Input addonBefore={AccountTypeSelector} style={{ width: '100%' }}/>
         )}
       </Form.Item>
       <p><Avatar size={22} style={StepStyle}>3</Avatar> Choose a date</p>
@@ -59,7 +60,7 @@ export default ({form, submit, buttonState, disabledDates, dateSelected, availab
           rules: [{ required: true}],
         })(
           <Select>
-            {availableTime.map((time, index) => <Select.Option key={index} value={time}>{time}</Select.Option>)}
+           {availableTime.map((time, index) => <Select.Option key={index} value={time}>{time}</Select.Option>)}
           </Select>
         )}
       </Form.Item>
