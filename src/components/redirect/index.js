@@ -125,7 +125,7 @@ class RedirectPage extends React.PureComponent {
       <div className="" style={{display:'flex', alignItems:'center', minHeight:'100vh'}}>
         <div className="" style={{width:'100%', textAlign:'center'}}>
           <p style={{fontSize:'32px'}}>Redirecting...</p>
-          <p style={{fontSize:'16px', marginTop:'-35px'}}>Please click <a onClick={this.handleLogOut}>here</a> if you are not redirected within a few seconds</p>
+          <p style={{fontSize:'16px', marginTop:'-35px'}}>Please click <span style={{color:'#1890ff'}} onClick={this.handleLogOut}>here</span> if you are not redirected within a few seconds</p>
         </div>
       </div>
     )

@@ -110,7 +110,7 @@ const StepThree = ({auth, profile, transaction, cancel, cancelState, uploadState
           </Row>
           <Row style={{marginTop:'30px', marginBottom:'20px'}}>
             <Col span={24} style={{fontSize:'20px', fontWeight:200}}>
-              Having a problem with this transaction? <a>Contact us.</a>
+              Having a problem with this transaction? <span style={{color:'#1890ff'}} >Contact us.</span>
             </Col>
           </Row>
         </Col>

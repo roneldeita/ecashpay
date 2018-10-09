@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import App from './App'
 import HomePage from './components/home/HomePage'
-import TermsAndCondition from './components/general/legal/TermsAndConditionPage'
+//import TermsAndCondition from './components/general/legal/TermsAndConditionPage'
 import NotFound from './components/general/notFound'
 import Redirecting from './components/redirect'
 //auth
@@ -83,7 +83,7 @@ const Routes = ({ store }) => (
         <Switch>
           <PublicRoutes path="/" exact component={HomePage}/>
           <Route path="/redirecting" component={Redirecting}/>
-          <PublicRoutes path="/termsandconditions" exact component={TermsAndCondition}/>
+          {/*<PublicRoutes path="/termsandconditions" exact component={TermsAndCondition}/>*/}
           <PublicRoutes path="/login" exact component={LoginPage}/>
           <PublicRoutes path="/login/tsv" component={TsvPage}/>
           <PublicRoutes path="/password/request" component={RequestPasswordPage}/>

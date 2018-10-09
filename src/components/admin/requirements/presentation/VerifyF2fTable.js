@@ -12,13 +12,13 @@ export default ({record, handleAction}) => {
         const menu = (
           <Menu onClick={handleAction}>
             <Menu.Item data-status='accepted' data-id={record.id}>
-              <a>Accept</a>
+              <span style={{color:'#1890ff'}}>Accept</span>
             </Menu.Item>
             <Menu.Item data-status='expired' data-id={record.id}>
-              <a>Set as expired</a>
+              <span style={{color:'#1890ff'}}>Set as expired</span>
             </Menu.Item>
             <Menu.Item data-status='forVerification' data-id={record.id}>
-              <a>For further verification</a>
+              <span style={{color:'#1890ff'}}>For further verification</span>
             </Menu.Item>
           </Menu>
         );

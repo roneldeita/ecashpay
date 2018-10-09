@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Form, Input, Button, Modal } from 'antd'
 import { Phone } from '../../../../services/api'
 
@@ -87,7 +88,7 @@ class StepOne extends React.PureComponent{
         <p>Didn't receive the code?
           {this.state.resendState ?
             <span style={{color:'#999999'}}> Resending...</span> :
-            <a onClick={this.handleResend}> Resend</a>}
+            <Link onClick={this.handleResend}> Resend</Link>}
         </p>
         <Form.Item style={{textAlign:'center'}}>
           <Button size="large" style={{marginRight:'10px'}} onClick={()=>{this.props.changeStep({step:0})}}>Change Number</Button>

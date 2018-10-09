@@ -39,8 +39,8 @@ class ManagePhone extends React.PureComponent{
     //console.log(this.props)
     return(
       <div style={{display:this.props.profile.phone==='' ? 'none' : 'block'}}>
-        <List.Item actions={[<a onClick={this.toggleAll}>
-          { !(this.state.requestDisplay || this.state.resetDisplay) && 'Change Phone Number'}</a>]}>
+        <List.Item actions={[<span style={{color:'#1890ff'}} onClick={this.toggleAll}>
+          { !(this.state.requestDisplay || this.state.resetDisplay) && 'Change Phone Number'}</span>]}>
           <List.Item.Meta
             title="Phone Number"
             description={`+${this.props.profile.phone}`}/>

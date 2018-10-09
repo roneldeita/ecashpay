@@ -48,7 +48,7 @@ class RejectedPage extends React.PureComponent{
               <p style={Title}>{`We're sorry.`}</p>
             </div>
             <div style={{margin:50, fontSize: 20, fontWeight: 300, textAlign:'center'}}>
-                Please try to <a onClick={this.handleRevert}>upload</a> valid requirements.
+                Please try to <span onClick={this.handleRevert} style={{color:'#1890ff'}}>upload</span> valid requirements.
             </div>
           </Card>
         </Col>

@@ -64,9 +64,9 @@ class ManageTfa extends React.PureComponent{
       <div>
         <List.Item actions={[
           <div>
-            <a onClick={this.enableTfa} style={{display:this.props.profile.tfa ? 'none' : ''}}>{!(this.state.qrDisplay || this.state.verifyDisplay) && 'Enable 2FA'} </a>
+            <span onClick={this.enableTfa} style={{display:this.props.profile.tfa ? 'none' : '', color:'#1890ff'}}>{!(this.state.qrDisplay || this.state.verifyDisplay) && 'Enable 2FA'} </span>
             <Popconfirm placement="left" title="Are you sure disable Two-Factor Authentication?" onConfirm={this.disableTfa} okText="Yes" cancelText="No">
-              <a style={{color:'#EE334B',display:!this.props.profile.tfa ? 'none' : ''}}>Disable 2FA</a>
+              <span style={{color:'#EE334B',display:!this.props.profile.tfa ? 'none' : ''}}>Disable 2FA</span>
             </Popconfirm>
             {this.state.requestStatus && <Icon type="loading"/>}
           </div>]}>

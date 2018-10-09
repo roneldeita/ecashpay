@@ -67,7 +67,7 @@ const ResetPasswordForm = ({form, buttonState, checkPassword, checkConfirm, onSu
                   <p>Haven't received a verification?
                     {resendState ?
                       <span style={{color:'#999999'}}> Resending...</span> :
-                      <a onClick={resend}> Resend</a>}
+                      <span style={{color:'#1890ff'}} onClick={resend}> Resend</span>}
                   </p>
                   <Form.Item>
                     <Button className="submit" type="primary" htmlType="submit" loading={buttonState} onClick={buttonWasClicked}>{buttonState ? 'Resetting...' : 'Reset'}</Button>

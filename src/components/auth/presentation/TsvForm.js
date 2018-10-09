@@ -38,7 +38,7 @@ const TsvForm = ({tsv, form, submit, buttonState, onResend, resendState}) => {
               <p>Haven't received a verification?
                 {resendState ?
                   <span style={{color:'#999999'}}> Resending...</span> :
-                  <a onClick={onResend}> Resend</a>}
+                  <span style={{color:'#1890ff'}} onClick={onResend}> Resend</span>}
               </p>
             </Col>
             <Col className="column" xs={0} md={11}>

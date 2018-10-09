@@ -36,8 +36,8 @@ class ManageEmail extends React.PureComponent{
   render(){
     return(
       <div>
-        <List.Item actions={[<a onClick={this.toggleAll}>
-          {!(this.state.requestDisplay || this.state.resetDisplay) && 'Change Email Address'}</a>]}>
+        <List.Item actions={[<span style={{color:'#1890ff'}} onClick={this.toggleAll}>
+          {!(this.state.requestDisplay || this.state.resetDisplay) && 'Change Email Address'}</span>]}>
           <List.Item.Meta
             title="Email"
             description={this.props.profile.email}/>

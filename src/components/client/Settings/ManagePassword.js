@@ -31,7 +31,7 @@ class ManagePassword extends React.PureComponent{
   render(){
     return(
       <div>
-        <List.Item  actions={[<a onClick={this.toggleReset}>{(!this.state.resetDisplay && !this.state.requestStatus ) && 'Change Password '}{this.state.requestStatus && <Icon type="loading"/>}</a>]}>
+        <List.Item  actions={[<span style={{color:'#1890ff'}} onClick={this.toggleReset}>{(!this.state.resetDisplay && !this.state.requestStatus ) && 'Change Password '}{this.state.requestStatus && <Icon type="loading"/>}</span>]}>
           <List.Item.Meta
             title="Password"
             description={<span style={{fontWeight:600, fontSize:'24px', lineHeight:'12px'}}>........</span>}/>

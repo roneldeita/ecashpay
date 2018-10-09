@@ -41,7 +41,7 @@ const VerificationForm = ({email, form, buttonState, onSubmit, autoCheck, onRese
               <p>Haven{`'`}t received a verification?
                 {resendState ?
                   <span style={{color:'#999999'}}> Resending...</span> :
-                  <a onClick={onResend}> Resend</a>}
+                  <span onClick={onResend} style={{color:'#1890ff'}}> Resend</span>}
               </p>
             </Col>
             <Col className="column" xs={0} md={11}>

@@ -28,8 +28,8 @@ class TermsAndConditionsPage extends React.Component {
       <div style={{textAlign:'center'}}>
         <img src={Logo} style={{width:'200px', padding:'20px 0 20px 0'}} alt="logo"/>
           <div>
-            <a onClick={this.handlePrev} style={{marginRight:'10px'}}>Prev</a>
-            <a onClick={this.handleNext}>Next</a>
+            <span style={{color:'#1890ff', marginRight:'10px'}} onClick={this.handlePrev}>Prev</span>
+            <span style={{color:'#1890ff'}} onClick={this.handleNext}>Next</span>
           </div>
         <Document
           className="doc"
@@ -39,8 +39,8 @@ class TermsAndConditionsPage extends React.Component {
         </Document>
         <div>
           <p>Page {pageNumber} of {numPages}</p>
-          <a onClick={this.state.pageNumber !== 1 && this.handlePrev} style={{marginRight:'10px'}}>Prev</a>
-          <a onClick={this.state.pageNumber !== 16 && this.handleNext}>Next</a>
+          <span style={{color:'#1890ff', marginRight:'10px'}} onClick={this.state.pageNumber !== 1 && this.handlePrev}>Prev</span>
+          <span style={{color:'#1890ff'}} onClick={this.state.pageNumber !== 16 && this.handleNext}>Next</span>
         </div>
         <style jsx="true">{`
             .doc{
