@@ -4,7 +4,7 @@ import { Avatar, Button, Alert, Card, Row, Col, Popconfirm, Modal, Divider } fro
 const IconStyle = {
   backgroundColor:'#91d5ff',
   fontSize:'30px',
-  marginBottom:'10px'
+  marginBottom:'5px'
 }
 
 export default ({cancel, identification, handlePreview, preview, image, closePreview}) => {
@@ -40,9 +40,9 @@ export default ({cancel, identification, handlePreview, preview, image, closePre
   return(
     <div style={{textAlign:'center'}}>
       <Alert
-        message={<Avatar size="large" icon="ellipsis" style={IconStyle}/>}
+        message={<Avatar size={64} icon="hourglass" style={IconStyle}/>}
         description={Desc}
-        type="info"
+        type="none"
       />
     </div>
   )

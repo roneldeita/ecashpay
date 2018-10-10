@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import ScheduleForm from './presentation/ScheduleForm'
 import Pending from './presentation/Pending'
 import Expired from './presentation/Expired'
+import ForFurtherVerification from './presentation/ForFurtherVerification'
 import Verified from './presentation/Verified'
 import { isEmpty, camelCase } from 'lodash'
 import moment from 'moment'
@@ -22,6 +23,7 @@ class Schedulef2fPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
+      accountTypes:['Select'],
       buttonState: false,
       ftfStatus: {status:'none'},
       disabledDates: [],
@@ -125,6 +127,15 @@ class Schedulef2fPage extends React.PureComponent{
       })
     })
   }
+  handleAppSelect = (e) =>{
+    const Selected = e.target.value
+    this.props.form.resetFields(['Account Type'])
+    if(Selected === 'Skype'){
+      this.setState({accountTypes:['Skype Name', 'Email ']})
+    }else{
+      this.setState({accountTypes:['Username']})
+    }
+  }
   componentDidMount(){
     this.checkStatus()
     this.getDisabledDates()
@@ -170,13 +181,18 @@ class Schedulef2fPage extends React.PureComponent{
                     submit={this.handleSubmit}
                     disabledDates={this.disabledDates}
                     dateSelected={this.getAvailableTime}
-                    availableTime={this.state.availableTime}/>
+                    availableTime={this.state.availableTime}
+                    onAppSelect={this.handleAppSelect}
+                    accountTypes={this.state.accountTypes}/>
                 </div>
                 <div style={{display:Status === 'pending' && FtfStatus === 'pending' ? 'block' : 'none'}}>
                   <Pending ftfStatus={this.state.ftfStatus} cancel={this.cancelRequest}/>
                 </div>
                 <div style={{display:Status === 'pending' && FtfStatus === 'expired' ? 'block' : 'none'}}>
                   <Expired resubmit={this.cancelRequest}/>
+                </div>
+                <div style={{display:Status === 'pending' && FtfStatus === 'forVerification' ? 'block' : 'none'}}>
+                  <ForFurtherVerification resubmit={this.cancelRequest}/>
                 </div>
                 <div style={{display:Status === 'accepted' ? 'block' : 'none'}}>
                   <Verified/>

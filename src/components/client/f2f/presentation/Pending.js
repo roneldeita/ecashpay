@@ -5,11 +5,11 @@ import moment from 'moment'
 const IconStyle = {
   backgroundColor:'#91d5ff',
   fontSize:'34px',
-  marginBottom:'10px'
+  marginBottom:'5px'
 }
 
 export default ({ftfStatus, cancel}) => {
-  console.log(ftfStatus)
+  //console.log(ftfStatus)
   const Desc = (
     <div>
       <br/>
@@ -25,9 +25,9 @@ export default ({ftfStatus, cancel}) => {
   return(
     <div style={{textAlign:'center'}}>
       <Alert
-        message={<Avatar size="large" icon="ellipsis" style={IconStyle}/>}
+        message={<Avatar size={64} icon="ellipsis" style={IconStyle}/>}
         description={Desc}
-        type="info"
+        type="none"
       />
     </div>
   )

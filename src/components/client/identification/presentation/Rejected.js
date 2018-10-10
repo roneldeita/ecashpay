@@ -4,7 +4,7 @@ import { Avatar, Button, Alert } from 'antd'
 const IconStyle = {
   backgroundColor:'#ffe58f',
   fontSize:'34px',
-  marginBottom:'10px'
+  marginBottom:'5px'
 }
 
 export default ({resubmit, remarks}) => {
@@ -20,9 +20,9 @@ export default ({resubmit, remarks}) => {
   return(
     <div style={{textAlign:'center'}}>
       <Alert
-        message={<Avatar size="large" icon="exclamation" style={IconStyle}/>}
+        message={<Avatar size={64} icon="exclamation" style={IconStyle}/>}
         description={Desc}
-        type="warning"
+        type="none"
       />
     </div>
   )

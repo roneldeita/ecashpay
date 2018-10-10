@@ -4,7 +4,7 @@ import { Row, Col, Card, Avatar, Button, Alert, Popconfirm, Modal } from 'antd'
 const IconStyle = {
   backgroundColor:'#91d5ff',
   fontSize:'34px',
-  marginBottom:'10px'
+  marginBottom:'5px'
 }
 
 export default ({identification, cancel, location, type, handlePreview, preview, image, closePreview}) => {
@@ -41,9 +41,9 @@ export default ({identification, cancel, location, type, handlePreview, preview,
   return(
     <div style={{textAlign:'center'}}>
       <Alert
-        message={<Avatar size="large" icon="ellipsis" style={IconStyle}/>}
+        message={<Avatar size={64} icon="ellipsis" style={IconStyle}/>}
         description={Desc}
-        type="info"
+        type="none"
       />
     </div>
   )

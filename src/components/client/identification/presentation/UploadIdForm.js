@@ -87,7 +87,7 @@ export default ({
             { max: 50}
           ],
         })(
-          <Input addonBefore={AccountTypeSelector}/>
+          <Input addonBefore={AccountTypeSelector} placeholder="ID Number"/>
         )}
       </Form.Item>
       <p><Avatar size={22} style={StepStyle}>2</Avatar> Please take a clear photo of yourself holding your government-issued ID next to your face.</p>

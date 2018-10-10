@@ -10,16 +10,16 @@ const IconStyle = {
 export default ({resubmit}) => {
   const Desc = (
     <div>
-      <h3>Expired</h3>
+      <h3>Pending : For further verification</h3>
       <br/>
-      <p>We are unable to reach and perform Face-to-face verification. To proceed, please re-submit valid requirements.</p>
+      <p>We are unable to recognize your identity. To proceed, please pick another schedule.</p>
     <Button onClick={resubmit}>Reschedule</Button>
     </div>
   )
   return(
     <div style={{textAlign:'center'}}>
       <Alert
-        message={<Avatar size={64} icon="clock-circle" style={IconStyle}/>}
+        message={<Avatar size={64} icon="solution" style={IconStyle}/>}
         description={Desc}
         type="none"
       />

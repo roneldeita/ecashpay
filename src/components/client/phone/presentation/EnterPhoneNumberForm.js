@@ -65,9 +65,7 @@ class StepOne extends React.PureComponent{
       labelCol: { span:8 },
       wrapperCol: { span:16 }
     }
-    const { getFieldDecorator, isFieldTouched, getFieldError } = this.props.form
-    const CountryError = getFieldError('Country')
-    const PhoneNumberError = getFieldError('Phone Number')
+    const { getFieldDecorator} = this.props.form
     return (
       <Form
         onSubmit={this.handleSubmit}
@@ -76,10 +74,7 @@ class StepOne extends React.PureComponent{
           colon={false}
           required={false}
           label="Country"
-          {...Label}
-          hasFeedback={isFieldTouched('Country')}
-          validateStatus={CountryError ? 'error' : ''}
-          help={CountryError || ''}>
+          {...Label}>
           {getFieldDecorator('Country', {
             initialValue:this.state.country,
             rules: [
@@ -105,10 +100,7 @@ class StepOne extends React.PureComponent{
           required={false}
           colon={false}
           label="Phone Number"
-          {...Label}
-          hasFeedback={isFieldTouched('Phone Number')}
-          validateStatus={PhoneNumberError ? 'error' : ''}
-          help={PhoneNumberError || ''}>
+          {...Label}>
           {getFieldDecorator('Phone Number', {
             initialValue:this.props.phone,
             rules: [
