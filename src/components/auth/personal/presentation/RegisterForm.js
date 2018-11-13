@@ -6,7 +6,7 @@ import RightSection from '../../presentation/RightSection'
 const FormItem = Form.Item;
 const RadioGroup = Radio.Group;
 
-const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm}) => {
+const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm, placeholder, changePlaceholder, checkName}) => {
   const { getFieldDecorator } = form;
   return (
     <Row type="flex" justify="center">
@@ -49,12 +49,12 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm}
                       {getFieldDecorator('First Name', {
                         rules: [
                           { required: true },
-                          { pattern: /^[a-zA-Z\s-'ñÑ_]+$/, message: 'First Name should only contain letters' }
+                          { validator: checkName }
                         ],
                       })(
                         <Input 
                           placeholder="First Name"
-                          size="large"  
+                          size="large"
                           prefix={<Icon type="user" className="prefix-icon" /> }/>
                       )}
                     </FormItem>
@@ -64,7 +64,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm}
                       {getFieldDecorator('Last Name', {
                         rules: [
                           { required: true },
-                          { pattern: /^[a-zA-Z\s-'ñÑ_]+$/, message: 'Last Name should only contain letters' }
+                          { validator: checkName }
                         ],
                       })(
                         <Input 
@@ -81,7 +81,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm}
                       {getFieldDecorator('Middle Name', {
                         rules: [
                           { required: true },
-                          { pattern: /^[a-zA-Z\s-'ñÑ_]+$/, message: 'Middle Name should only contain letters' }
+                          { validator: checkName }
                         ],
                       })(
                         <Input 
@@ -93,12 +93,12 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm}
                   </Col>
                   <Col xs={24} sm={12}>
                     <FormItem>
-                      {getFieldDecorator('Birth Date', {
+                      {getFieldDecorator('Birthdate', {
                         rules: [
                           { required: true }
                         ],
                       })(
-                        <DatePicker size="large"  style={{width:'100%'}}/>
+                        <DatePicker size="large"  style={{width:'100%'}} placeholder={placeholder} onOpenChange={changePlaceholder}/>
                       )}
                     </FormItem>
                   </Col>
@@ -137,7 +137,7 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm}
                     </FormItem>
                   </Col>
                 </Row>
-                <p>By clicking submit, you agree to our <a href="/termsandconditions" target="_blank">Terms & Conditions</a></p>
+                <p>By clicking Sign up, you agree to our <a href="/termsandconditions" target="_blank">Terms & Conditions</a></p>
                 <FormItem>
                   <Button size="large" className="submit" type="primary" htmlType="submit" loading={buttonState} block>{buttonState ? 'Signing up' : 'Sign up'} </Button>
                 </FormItem>
@@ -153,5 +153,4 @@ const RegisterForm = ({form, buttonState, onSubmit, checkPassword, checkConfirm}
     </Row>
   )
 }
-
 export default RegisterForm

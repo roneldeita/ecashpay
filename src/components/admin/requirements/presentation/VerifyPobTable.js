@@ -1,7 +1,7 @@
 import React from 'react'
 import { Table, Card, Row, Col, Divider, Button, Tag } from 'antd'
 
-export default ({record, accept, decline, selected, handleSelected}) => {
+export default ({record, accept, showRejectForm}) => {
   const columns = [
     { title: 'Client', dataIndex: 'individual.firstName', key: 'client' },
     { title: 'Birthdate', dataIndex: 'individual.birthDate', key: 'birthdate' },
@@ -15,7 +15,7 @@ export default ({record, accept, decline, selected, handleSelected}) => {
     { title: '', dataIndex: '', width: 100, key: 'decline', render: (text, record) =>
       { return record.status === 'rejected'
         ? <Tag color="red">Rejected</Tag>
-        : <Button data-id={record.id} onClick={ decline } size="small" disabled={record.status ==='accepted'}>reject</Button>
+        : <Button data-id={record.id} onClick={ showRejectForm } size="small" disabled={record.status ==='accepted'}>reject</Button>
       }
     }
   ];

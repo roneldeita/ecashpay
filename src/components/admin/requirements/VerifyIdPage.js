@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Breadcrumb, Icon, Modal } from 'antd'
 import VerifyIdTable from './presentation/VerifyIdTable'
 import { Id } from '../../../services/api'
-import RejectIdForm from './presentation/RejectIdForm';
+import RejectForm from './presentation/RejectForm'
 
 const AdminContentStyle = {
   backgroundColor:'#ffffff',
@@ -35,9 +35,16 @@ class VerifyIdPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state={
-      record:[],
       rejectFormVisible: false,
-      RequestId:''
+      record:[],
+      RequestId:'',
+      remarks: [
+        'Your documents do not match.',
+        'Your selfie is unclear and blurry.',
+        'Your ID is not valid at the moment you submitted your KYC application. ',
+        'Your ID is not legible and/or it appeared to be modified by a photo editing software. ',
+        'Other'
+      ],
     }
     this.accept = this.accept.bind(this)
     this.decline = this.decline.bind(this)
@@ -118,10 +125,12 @@ class VerifyIdPage extends React.PureComponent{
             record={this.state.record}
             accept={this.accept}
             showRejectForm={this.showRejectForm}/>
-          <RejectIdForm
+          <RejectForm
+            title="Reject KYC 1"
             decline={this.decline}
             visible={this.state.rejectFormVisible}
-            close={this.hideRejectForm}/>
+            close={this.hideRejectForm}
+            remarks={this.state.remarks}/>
         </div>
         {/*<style jsx="true">{`
             .ant-confirm-btns,

@@ -43,7 +43,6 @@ class TransactionPage extends React.PureComponent{
         <span style={{fontSize:'18px'}}>{this.state.transaction.no}</span>
       </div>
     )
-    console.log(this.state.transaction)
     return(
       <div>
         <Navigation location={this.props.location}/>
@@ -54,7 +53,7 @@ class TransactionPage extends React.PureComponent{
               loading={isEmpty(this.state.transaction)}
               hoverable  style={{cursor:'default '}}
               title={Title}
-              actions={[<Link to={this.props.profile.type === 'individual' ? `/client/dashboard` : `/${this.props.profile.type}/dashboard`}><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
+              actions={[<Link to={this.props.profile.role === 'individual' ? `/client/dashboard` : `/${this.props.profile.type}/dashboard`}><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
               {this.state.transaction.entryType ==='debit' &&
                 <div>
                   <Row>

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Card, List, Divider, Tag, Badge, Icon,Popover } from 'antd'
 import QueueAnim from 'rc-queue-anim'
 import { startCase } from 'lodash'
-import Moment from 'react-moment';
+import moment from 'moment'
 //import 'moment-timezone';
 import {isEmpty} from 'lodash'
 
@@ -22,24 +22,24 @@ export default ({transactions, profile}) => {
   const Title = (
     <div>
       Recent activity
-      <Popover placement="top" title="Trasaction Status Legend" content={PopOverContent} trigger="click">
+      <Popover placement="right" title="Trasaction Status Legend" content={PopOverContent} trigger="click">
         <Icon type="info-circle-o" style={{marginLeft:'5px'}}/>
       </Popover>
     </div>
   )
   const Status = (status) => {
     switch(status){
-      case 0:
+      case 'pending'://0
         return <Tag color="blue">Payment pending</Tag>
-      case 1:
+      case 'completed'://1
         return <Tag color="green">Completed</Tag>
-      case 2:
-        return <Tag>Canceled</Tag>
-      case 3:
+      case 'cancelled'://2
+        return <Tag>Cancelled</Tag>
+      case 'expired'://3
         return <Tag>Expired</Tag>
-      case 4:
+      case 'processing'://4
         return <Tag color="blue">Verifying your payment</Tag>
-      case 5:
+      case 'rejected'://5
         return <Tag color="orange">Payment Rejected</Tag>
       default:
         //
@@ -47,17 +47,17 @@ export default ({transactions, profile}) => {
   }
   const BadgeStatus = (status) => {
     switch(status){
-      case 0:
+      case 'pending':
         return 'processing'
-      case 1:
+      case 'completed':
         return 'success'
-      case 2:
+      case 'cancelled':
         return 'default'
-      case 3:
+      case 'expired':
         return 'default'
-      case 4:
+      case 'processing':
         return 'processing'
-      case 5:
+      case 'rejected':
         return 'warning'
       default:
         //
@@ -68,6 +68,7 @@ export default ({transactions, profile}) => {
       <div key="0">
         <Card
           hoverable
+          extra={<Link to='/client/history' >View History</Link>}
           style={{cursor:'default '}}
           title={Title}>
           <List
@@ -93,8 +94,9 @@ export default ({transactions, profile}) => {
               return(<Link to={`/${PageRoute()}/transactions/${item.no}`}>
                 <List.Item style={{color:'rgba(0,0,0,.65)'}} actions={[Status(item.status)]}>
                   <div>
-                    <Badge status={BadgeStatus(item.status)} /><Moment format="MMM D" date={item.createdAt} style={{fontSize:'20px'}}/>
-                    <Divider type="vertical"/>
+                    <Badge status={BadgeStatus(item.status)} />
+                    {moment(item.createdAt).format('MMM D')}<Divider type="vertical"/>
+                    {moment(item.createdAt).format('h:mma')}<Divider type="vertical"/>
                     {item.type === 'cashIn' && item.entryType === 'debit' && <span>{startCase(item.type)} via {item.outletName}</span>}
                     {item.type === 'transfer' && item.entryType === 'debit' && <span>Recieved from {item.sourceAccount}</span>}
                     {item.type === 'transfer' && item.entryType === 'credit' && <span>Transfer to {item.targetAccount}</span>}
@@ -102,7 +104,7 @@ export default ({transactions, profile}) => {
                     (<span style={{color:'#999999'}}>{item.currency}{item.amount}
                         <span>
                           {item.type === 'cashIn' ? '+'+item.currency + parseFloat(item.totalFee).toFixed(2): ''}
-                          {item.type === 'transfer' && item.targetAccount === profile.account ? '+'+item.currency +item.totalFee : ''}
+                          {item.type === 'transfer' && item.sourceAccount === profile.account ? '+'+item.currency +item.totalFee : ''}
                         </span>
                     </span>)
                   </div>

@@ -9,49 +9,31 @@ import VerificationForm from './presentation/VerificationForm'
 //services
 import { Auth } from '../../../services/api'
 //ant design
-import { Modal, Form } from 'antd'
+import { Modal } from 'antd'
 
 class VerificationPage extends React.PureComponent {
   constructor(props){
     super(props)
     this.state = {
-      buttonState: false,
       resendState:false
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.handleResend = this.handleResend.bind(this)
-    this.autoCheck = this.autoCheck.bind(this)
     document.title="Verify Email - Ecashpay"
   }
-  autoCheck(event){
-    console.log(event.target)
-  }
-  handleSubmit(event){
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        if(values.Code.length === 4){
-          this.setState({buttonState:true})
-          Auth({code:values.Code}, {'x-access-token':this.props.auth.token}).verifyEmail()
-          .then(res => {
-            window.location.href = '/'
-          })
-          .catch(error => {
-            Modal.error({
-              title: 'Email Verification Error',
-              content: error.response.data.message,
-            });
-            setTimeout(() => {
-              this.setState({buttonState:false})
-            }, 800)
-          })
-        }
-      }else{
-        setTimeout(() => {
-          this.setState({buttonState:false})
-        }, 800)
-      }
-    });
-    event.preventDefault()
+  handleChange(event){
+    if(event.length === 4){
+      Auth({code:event}, {'x-access-token':this.props.auth.token}).verifyEmail()
+      .then(res => {
+        window.location.href = '/'
+      })
+      .catch(error => {
+        Modal.error({
+          title: 'Email Verification Error',
+          content: error.response.data.message,
+        });
+      })
+    }
   }
   handleResend(event){
     this.setState({resendState:true})
@@ -82,11 +64,8 @@ class VerificationPage extends React.PureComponent {
         <div className="center-container">
           <VerificationForm
             email={this.props.profile.email}
-            form={this.props.form}
-            buttonState={this.state.buttonState}
-            onSubmit={this.handleSubmit}
+            onChange={this.handleChange}
             onResend={this.handleResend}
-            autoCheck={this.autoCheck}
             resendState={this.state.resendState}/>
         </div>
       </div>
@@ -107,4 +86,4 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-export default Form.create()(connect(mapStateToProps, mapDispatchToProps)(VerificationPage))
+export default connect(mapStateToProps, mapDispatchToProps)(VerificationPage)

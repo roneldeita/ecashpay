@@ -21,17 +21,17 @@ const Info ={
 const StepThree = ({auth, profile, transaction, cancel, cancelState, uploadState, toggleUpload, loadTransaction}) => {
   const Status = (status) => {
     switch(status){
-      case 0:
+      case 'pending'://0
         return <Tag color="blue">Payment pending</Tag>
-      case 1:
+      case 'completed'://1
         return <Tag color="green">Completed</Tag>
-      case 2:
-        return <Tag>Canceled</Tag>
-      case 3:
+      case 'cancelled'://2
+        return <Tag>Cancelled</Tag>
+      case 'expired'://3
         return <Tag>Expired</Tag>
-      case 4:
+      case 'processing'://4
         return <Tag color="blue">Verifying your payment</Tag>
-      case 5:
+      case 'rejected'://5
         return <Tag color="orange">Payment Rejected</Tag>
       default:
         //
@@ -49,23 +49,23 @@ const StepThree = ({auth, profile, transaction, cancel, cancelState, uploadState
       hoverable
       style={{cursor:'default '}}
       title={Title}
-      actions={[<Link to={profile.type === 'individual' ? `/client/dashboard` : `/${profile.type}/dashboard`}><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
+      actions={[<Link to={profile.role === 'individual' ? `/client/dashboard` : `/${profile.role}/dashboard`}><Icon type="left-circle-o"/> Return to Dashboard</Link>]}>
       <Row style={{marginTop:'10px'}} type="flex" justify="center">
         <Col span={22}>
-          {transaction.status === 0 && !uploadState && <Pending
+          {transaction.status === 'pending' && !uploadState && <Pending
             transaction={transaction}
             cancel={cancel}
             cancelState={cancelState}
             toggleUpload={toggleUpload}/>}
-          {transaction.status === 1 && <Completed/>}
-          {transaction.status === 2 && !uploadState && <Canceled transaction={transaction}/>}
-          {uploadState && transaction.status === 0 && <UploadSlip
+          {transaction.status === 'completed' && <Completed/>}
+          {transaction.status === 'cancelled' && !uploadState && <Canceled transaction={transaction}/>}
+          {uploadState && transaction.status === 'pending' && <UploadSlip
             auth={auth}
             transaction={transaction}
             toggleUpload={toggleUpload}
             loadTransaction={loadTransaction}/>}
-          {transaction.status === 4 && <Processing uploadState={uploadState}/>}
-          {transaction.status === 5 && <UploadSlip
+          {transaction.status === 'processing' && <Processing uploadState={uploadState}/>}
+          {transaction.status === 'rejected' && <UploadSlip
             auth={auth}
             transaction={transaction}
             toggleUpload={toggleUpload}
@@ -98,14 +98,14 @@ const StepThree = ({auth, profile, transaction, cancel, cancelState, uploadState
           <Row>
             <Col span={12}>
               <Popover placement="right" content="This goes out to our channel partners as payment for their services" trigger="click">
-                Ecashpay fee <Icon type="info-circle" style={Info}/>
+                Channel fee <Icon type="info-circle" style={Info}/>
               </Popover>
             </Col>
             <Col span={12} style={rightContent}>{parseFloat(transaction.outletFee).toFixed(2) +' '+ transaction.currency }</Col>
           </Row>
           <Divider style={DividerStyle}/>
           <Row>
-            <Col span={12}><b>{transaction.status === 1?'Total Amount' :'Amount Due'}</b></Col>
+            <Col span={12}><b>{transaction.status === 'completed'?'Total Amount' :'Amount Due'}</b></Col>
             <Col span={12} style={rightContent}><b>{parseFloat(transaction.totalAmount)+' '+ transaction.currency}</b></Col>
           </Row>
           <Row style={{marginTop:'30px', marginBottom:'20px'}}>

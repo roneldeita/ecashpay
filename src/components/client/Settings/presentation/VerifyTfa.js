@@ -69,7 +69,7 @@ class VerifyTfa extends React.PureComponent{
                 htmlType="submit"
                 loading={this.state.ButtonStatus}
                 style={{marginRight:8}}>
-                Verify Email Address
+                Submit
               </Button>
               <Button onClick={this.handleCancel}>Cancel</Button>
             </Form.Item>

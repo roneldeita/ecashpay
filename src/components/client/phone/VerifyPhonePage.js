@@ -26,6 +26,23 @@ class VerifyPhonePage extends React.PureComponent{
     }
     this.handleStep = this.handleStep.bind(this)
   }
+  checkNumber = (rule, value, callback) => {
+    const numbersOnly = new RegExp('^[0-9]+$')
+
+    if(value !== undefined && value.length > 0){
+      if(!numbersOnly.test(value)){
+        callback(rule.field+'  must only contains numbers')
+      }else{
+        if(value.length !== 10 ){
+          callback(rule.field+' length should be 10 digits')
+        }else{
+          callback()
+        }
+      }
+    }else{
+      callback()
+    }
+  }
   handleStep(data){
     this.setState({step:data.step, phone: data.phone, code:data.code})
   }
@@ -40,9 +57,10 @@ class VerifyPhonePage extends React.PureComponent{
                 title={ <span>Mobile Number Verification</span> }
                 style={CardStyle}
                 loading={isEmpty(this.props.profile)}
-                actions={[<Link to="/client/dashboard"><Icon type="left-circle-o"/> {this.state.step===2?'Return to Dashboard':'Skip'}</Link>]}>
+                actions={[<Link to="/client/dashboard" replace ><Icon type="left-circle-o"/> {this.state.step===2?'Return to Dashboard':'Skip'}</Link>]}>
                 <div style={{display:this.state.step === 0 && this.props.profile.phone === '' ? 'block' : 'none'}}>
                   <StepOne
+                    checkNumber={this.checkNumber}
                     changeStep={this.handleStep}
                     auth={this.props.auth}/>
                 </div>

@@ -68,6 +68,7 @@ class StepOne extends React.PureComponent{
     const { getFieldDecorator} = this.props.form
     return (
       <Form
+        id="verify-number-form"
         onSubmit={this.handleSubmit}
         autoComplete="off">
         <Form.Item
@@ -105,8 +106,7 @@ class StepOne extends React.PureComponent{
             initialValue:this.props.phone,
             rules: [
               { required: true },
-              { min: 10 },
-              { max: 10 }
+              { validator: this.props.checkNumber }
             ],
           })(
             <Input
@@ -121,13 +121,13 @@ class StepOne extends React.PureComponent{
             htmlType="submit"
             size="large"
             loading={this.state.buttonState}
-            style={{width:'100%'}}>
+            style={{width:'100%', marginTop:'10px'}}>
             {this.state.buttonState ? 'Sending...' : 'Send Code'}
           </Button>
         </Form.Item>
         <style jsx="true">{`
-          .ant-input-group{
-            display:inline-table !important;
+          #verify-number-form .ant-form-item-control{
+            line-height: 39.9999px !important
           }
         `}
         </style>

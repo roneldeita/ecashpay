@@ -3,7 +3,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as authActions from '../../actions/authAction'
-import {Form, Modal} from 'antd'
+import { Modal} from 'antd'
 //components
 import TsvForm from './presentation/TsvForm'
 //services
@@ -13,43 +13,30 @@ class TsvPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state={
-      buttonState:false,
       resendState:false,
       tsv:{}
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.handleResend = this.handleResend.bind(this)
+    document.title="2-Step verification - Ecashpay"
   }
   componentDidMount(){
     const TsvInfo = sessionStorage.getItem('tsv')
     this.setState({tsv:JSON.parse(TsvInfo)})
   }
-  handleSubmit(event){
-    this.props.form.validateFields((err, values) => {
-      if (!err) {
-        if(values.Code.length === 4){
-          this.setState({buttonState:true})
-          Auth({code:values.Code}, {'x-access-token':this.state.tsv.token}).verifyTSV()
-          .then(res=>{
-            this.props.authActions.saveAuth(res.data.token)
-            window.location.href = '/'
-          }).catch(err=>{
-            setTimeout(() => {
-              this.setState({buttonState:false})
-            }, 800)
-            Modal.error({
-              title: 'Login Error',
-              content: err.response.data.message,
-            })
-          })
-        }
-      }else{
-        setTimeout(() => {
-          this.setState({buttonState:false})
-        }, 800)
-      }
-    })
-    event.preventDefault()
+  handleChange(event){
+    if(event.length === 4){
+      Auth({code:event}, {'x-access-token':this.state.tsv.token}).verifyTSV()
+      .then(res=>{
+        this.props.authActions.saveAuth(res.data.token)
+        window.location.href = '/'
+      }).catch(err=>{
+        Modal.error({
+          title: 'Login Error',
+          content: err.response.data.message,
+        })
+      })
+    }
   }
   handleResend(event){
     this.setState({resendState:true})
@@ -79,9 +66,7 @@ class TsvPage extends React.PureComponent{
       <div className="center-wrapper">
         <div className="center-container">
           <TsvForm
-            buttonState={this.state.buttonState}
-            submit={this.handleSubmit}
-            form={this.props.form}
+            onChange={this.handleChange}
             tsv={this.state.tsv}
             onResend={this.handleResend}
             resendState={this.state.resendState}/>
@@ -97,4 +82,4 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-export default Form.create()(connect(null, mapDispatchToProps)(TsvPage))
+export default connect(null, mapDispatchToProps)(TsvPage)

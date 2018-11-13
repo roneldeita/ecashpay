@@ -10,7 +10,7 @@ import Menu from './presentation/Menu'
 import WalletCard from './presentation/WalletCard'
 import Requirements from './presentation/Requirements'
 import ShortcutList from './presentation/ShortcutList'
-import History from './presentation/History'
+import Recent from './presentation/Recent'
 //services
 import { Wallet, Transaction } from '../../../services/api'
 //import { SubscribeToTimer } from '../../../services/socket'
@@ -23,6 +23,7 @@ class DashboardPage extends React.PureComponent{
     this.state = {
       wallets:[],
       profile:{},
+      cashflow:{},
       transactions:[],
       timestamp: 'no timestamp yet',
       progress: 0,
@@ -34,7 +35,7 @@ class DashboardPage extends React.PureComponent{
     return props
   }
   loadTransactions(){
-    Transaction(null, {'x-access-token':this.props.auth.token}).All()
+    Transaction(null, {'x-access-token':this.props.auth.token}).Recent()
     .then(res => {
       //const DebitOnly = res.data.filter(transaction=> transaction.entryType === 'debit')
       this.setState({transactions:res.data})
@@ -52,6 +53,15 @@ class DashboardPage extends React.PureComponent{
       console.log(err)
     })
   }
+  loadCashFlow(){
+    Wallet(null, {'x-access-token':this.props.auth.token}).CashFlow()
+    .then(res => {
+      this.setState({cashflow:res.data})
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
   redirectPhoneVerification(){
     window.location.href='/client/verify/phone'
   }
@@ -61,6 +71,7 @@ class DashboardPage extends React.PureComponent{
     this.delayProgressBar = setTimeout(()=>this.progress(), 1000)
     this.loadWallets()
     this.loadTransactions()
+    this.loadCashFlow()
   }
   componentWillUnmount(){
     clearTimeout(this.delayProgressBar)
@@ -71,9 +82,6 @@ class DashboardPage extends React.PureComponent{
     let ProgressValue = ((Levels !== undefined ? Object.keys(Levels).length : 0) * 25) + Phone
     this.setState({progress:ProgressValue})
   }
-  componentDidCatch(error, info){
-    console.log(error)
-  }
   render(){
     return(
       <Row type="flex" justify="center">
@@ -83,16 +91,19 @@ class DashboardPage extends React.PureComponent{
         <Col className="" xs={23} sm={23} md={22} lg={20} xl={18}>
           <Row gutter={15}>
             <Col className="" md={24} lg={8} style={{marginBottom:'10px'}}>
-              <WalletCard ready={isEmpty(this.state.wallets)} currencies={this.state.wallets}/>
+              <WalletCard ready={isEmpty(this.state.wallets)} currencies={this.state.wallets} cashflow={this.state.cashflow}/>
               <ShortcutList/>
             </Col>
-            <Col className="" xs={24} sm={24} md={24} lg={16}>
+            <Col className="" xs={24} sm={24} md={24} lg={16} 
+              style={{display: (this.state.profile.levels !== undefined && this.state.profile.levels.length === 3) ? 'none' : ''}}>
               <Requirements
                 ready={isEmpty(this.state.profile)}
                 levels={this.state.profile.levels}
                 phone={this.state.profile.phone}
                 progress={this.state.progress}/>
-              <History transactions={this.state.transactions} profile={this.props.profile}/>
+            </Col>
+            <Col className="" xs={24} sm={24} md={24} lg={16}>
+              <Recent transactions={this.state.transactions} profile={this.props.profile}/>
             </Col>
           </Row>
         </Col>

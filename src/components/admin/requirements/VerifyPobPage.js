@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Breadcrumb, Icon, Modal } from 'antd'
 import VerifyPobTable from './presentation/VerifyPobTable'
 import { Id, Pob } from '../../../services/api'
+import RejectForm from './presentation/RejectForm';
 
 const AdminContentStyle = {
   backgroundColor:'#ffffff',
@@ -34,28 +35,64 @@ class VerifyIdPage extends React.PureComponent{
   constructor(props){
     super(props)
     this.state={
-      record:[]
+      rejectFormVisible: false,
+      record:[],
+      RequestId:'',
+      remarks: [
+        'Your documents do not match.',
+        'Your selfie is unclear and blurry.',
+        'Your ID is not valid at the moment you submitted your KYC application. ',
+        'Your ID is not legible and/or it appeared to be modified by a photo editing software. ',
+        'Other'
+      ],
     }
     this.accept = this.accept.bind(this)
     this.decline = this.decline.bind(this)
-    //this.handleSelected = this.handleSelected.bind(this)
+    this.showRejectForm = this.showRejectForm.bind(this)
+    this.hideRejectForm = this.hideRejectForm.bind(this)
   }
-  decline(e){
+  showRejectForm(e){
+    const RequestId = e.target.getAttribute('data-id')
+    this.setState({rejectFormVisible:true, RequestId})
+  }
+  hideRejectForm(){
+    this.setState({rejectFormVisible:false, RequestId:''})
+  }
+  decline(remarks){
     const modal = Modal.info({
       closable:false,
       title: (<div><Icon type="loading"/> Rejecting upgrade request</div>)
     });
-    const RequestId = e.target.getAttribute('data-id')
-    Id({id:RequestId, 'status':'rejected'}, {'x-access-token':this.props.auth.token}).Verify()
+    Id({id:this.state.RequestId, remarks, 'status':'rejected'}, {'x-access-token':this.props.auth.token}).Verify()
     .then(res=>{
       this.getAllRecords()
-      setTimeout(() => modal.destroy(), 1000);
+      setTimeout(() => {
+          modal.destroy()
+          setTimeout(() => this.hideRejectForm(), 500);
+        }, 1000);
+      
     })
     .catch(err=>{
       console.log(err)
       setTimeout(() => modal.destroy(), 1000);
     })
   }
+  // decline(e){
+  //   const modal = Modal.info({
+  //     closable:false,
+  //     title: (<div><Icon type="loading"/> Rejecting upgrade request</div>)
+  //   });
+  //   const RequestId = e.target.getAttribute('data-id')
+  //   Id({id:RequestId, 'status':'rejected'}, {'x-access-token':this.props.auth.token}).Verify()
+  //   .then(res=>{
+  //     this.getAllRecords()
+  //     setTimeout(() => modal.destroy(), 1000);
+  //   })
+  //   .catch(err=>{
+  //     console.log(err)
+  //     setTimeout(() => modal.destroy(), 1000);
+  //   })
+  // }
   accept(e){
     const modal = Modal.info({
       closable:false,
@@ -103,7 +140,13 @@ class VerifyIdPage extends React.PureComponent{
           <VerifyPobTable
             record={this.state.record}
             accept={this.accept}
-            decline={this.decline}/>
+            showRejectForm={this.showRejectForm}/>
+          <RejectForm
+            title="Reject KYC 3"
+            decline={this.decline}
+            visible={this.state.rejectFormVisible}
+            close={this.hideRejectForm}
+            remarks={this.state.remarks}/>
         </div>
         {/*<style jsx="true">{`
             .ant-confirm-btns,

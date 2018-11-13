@@ -55,6 +55,7 @@ class TransactionPage extends React.PureComponent{
     this.loadTransaction()
   }
   render(){
+    console.log(this.props.profile)
     return(
       <div>
         <Navigation location={this.props.location}/>

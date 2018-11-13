@@ -1,18 +1,11 @@
 import React from 'react'
 import { Modal, Form, Select, Input } from 'antd'
 
-class RejectIdForm extends React.PureComponent{
+class RejectForm extends React.PureComponent{
   constructor(props){
     super(props)
     this.state = {
       buttonState:false,
-      remarks: [
-        'Your documents do not match.',
-        'Your selfie is unclear and blurry.',
-        'Your ID is not valid at the moment you submitted your KYC application. ',
-        'Your ID is not legible and/or it appeared to be modified by a photo editing software. ',
-        'Other'
-      ],
       requireOther:false
     }
   }
@@ -46,7 +39,7 @@ class RejectIdForm extends React.PureComponent{
     const { getFieldDecorator } = this.props.form
     return(
       <Modal
-        title="Reject KYC 1"
+        title={this.props.title}
         okText={this.state.buttonState ? 'Rejecting' : 'Reject'}
         onCancel={this.props.close}
         onOk={this.onSubmit}
@@ -66,7 +59,7 @@ class RejectIdForm extends React.PureComponent{
                 showSearch
                 optionFilterProp="children"
                 onSelect={this.handleSelect}>
-                {this.state.remarks.map((remark, index) =>{
+                {this.props.remarks.map((remark, index) =>{
                   return (<Select.Option
                     value={remark}
                     key={index}>{remark}
@@ -90,4 +83,4 @@ class RejectIdForm extends React.PureComponent{
   }
 }
 
-export default Form.create()(RejectIdForm)
+export default Form.create()(RejectForm)

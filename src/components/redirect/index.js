@@ -71,7 +71,7 @@ class RedirectPage extends React.PureComponent {
         //this.props.history.push('/')
     }
   }
-  componentDidMount(){
+  navigate(){
     window.scrollTo(0, 0)
     if(!isEmpty(this.props.profile)){
       switch(this.props.profile.role){
@@ -92,27 +92,33 @@ class RedirectPage extends React.PureComponent {
       }
     }
   }
-  componentWillReceiveProps(nextProps){
-    if(!isEmpty(nextProps.profile)){
-      switch(nextProps.profile.role){
-        case "admin":
-          window.location.href = '/admin'
-          break;
-        case "business":
-          //window.location.href = '/business'
-          this.redirectBusiness(nextProps.profile.role)
-          break;
-        case "individual":
-          this.redirectIndividual(nextProps.profile.status, nextProps.profile.phone)
-          break;
-        case "merchant":
-          this.redirectMerchant(nextProps.profile.status)
-          break;
-        default:
-         // this.props.history.push('/')
-      }
-    }
+  componentDidMount(){
+    this.navigate()
   }
+  componentDidUpdate(){
+    this.navigate()
+  }
+  // componentWillReceiveProps(nextProps){
+  //   if(!isEmpty(nextProps.profile)){
+  //     switch(nextProps.profile.role){
+  //       case "admin":
+  //         window.location.href = '/admin'
+  //         break;
+  //       case "business":
+  //         //window.location.href = '/business'
+  //         this.redirectBusiness(nextProps.profile.role)
+  //         break;
+  //       case "individual":
+  //         this.redirectIndividual(nextProps.profile.status, nextProps.profile.phone)
+  //         break;
+  //       case "merchant":
+  //         this.redirectMerchant(nextProps.profile.status)
+  //         break;
+  //       default:
+  //        // this.props.history.push('/')
+  //     }
+  //   }
+  // }
   handleLogOut(){
     localStorage.removeItem('auth')
     sessionStorage.removeItem('profile')

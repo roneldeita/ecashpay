@@ -23,7 +23,7 @@ export default ({record, handleAction}) => {
           </Menu>
         );
         return record.status === 'pending' && record.content.status === 'pending' &&
-        <Dropdown.Button overlay={menu}>Pending</Dropdown.Button>
+        <Dropdown.Button overlay={menu}>Action</Dropdown.Button>
       }
     },
     { title: 'Status', dataIndex: '', width: 100, key: 'reschedule', render: (text, record) =>

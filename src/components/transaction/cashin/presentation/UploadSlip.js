@@ -84,7 +84,7 @@ class UploadSlip extends React.PureComponent{
         <div key="0">
           <Row type="flex" justify="center">
             <Col xs={24} md={18}>
-              {this.props.transaction.status === 5 &&
+              {this.props.transaction.status === 'rejected' &&
                 <Alert
                   message="Upload again"
                   description="We were unable to match your payment with the details of your Cash In. Please send us a copy of your deposit slip and/or screenshot of the transaction."
@@ -120,7 +120,7 @@ class UploadSlip extends React.PureComponent{
                   )}
                 </Form.Item>
                 <div style={{textAlign:'center'}}>
-                  {this.props.transaction.status === 0 &&
+                  {this.props.transaction.status === 'pending' &&
                   <Button onClick={this.props.toggleUpload} style={{marginRight:'10px'}}>Cancel</Button>}
                   <Button htmlType="submit" type="primary" loading={this.state.uploadState}>{this.state.uploadState ? 'Uploading' : 'Upload'}</Button>
                 </div>

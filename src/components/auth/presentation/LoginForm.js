@@ -34,7 +34,7 @@ const LoginForm = ({form, buttonState, onSubmit, passwordVisible, passwordVisibi
                       {getFieldDecorator('Password', {
                         rules: [
                           { required: true },
-                          { min:6 }
+                          { min:8 }
                         ],
                       })(
                         <Input

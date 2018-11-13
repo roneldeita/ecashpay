@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import {Row, Col, Card, Icon, Button, Form, Input, Select, Radio, Divider} from 'antd'
+import {Row, Col, Card, Icon, Button, Form, Input, Select, Radio, Divider, DatePicker} from 'antd'
 
 const FormItem = Form.Item
 const Option = Select.Option
@@ -36,25 +36,7 @@ const Label = {
 
 const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onProvinceChange, onSubmit, buttonState, onClickCompleteButton, sourceOfFunds, handleSourceOfFunds}) => {
   const SupportedCountries = countries.filter(country => country.name === "Philippines")
-  const { getFieldDecorator, isFieldTouched, getFieldError } = form;
-  const GenderError = getFieldError('Gender')
-  const StreetError = getFieldError('Street')
-  const CityMunicipalityError = getFieldError('City')
-  const RegionStateProvinceError = getFieldError('Province')
-  const CountryError = getFieldError('Country')
-  const CurrencyError = getFieldError('Currency')
-  const SourceOfFundsError = getFieldError('Source of Funds')
-  //employed
-  const OccupationError = getFieldError('Occupation')
-  const CompanyError = getFieldError('Company')
-  const PositionError = getFieldError('Position')
-  //self-employed
-  const BusinessNameError = getFieldError('Business Name')
-  const RegistrationDateError = getFieldError('Registration Date')
-  const BusinessNatureError = getFieldError('Nature of Business')
-  const OperationYearsError = getFieldError('Years in Operation')
-  //Unemployed
-  const SourceError = getFieldError('Source')
+  const { getFieldDecorator } = form;
   return(
     <Row type="flex" justify="center" style={AntContainer}>
       <Col sm={24} md={22} lg={22} xl={13} className="">
@@ -112,10 +94,7 @@ const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onPro
                   colon={false}
                   label="Gender"
                   required={false}
-                  {...Label}
-                  hasFeedback={isFieldTouched('Gender')}
-                  validateStatus={GenderError ? 'error' : ''}
-                  help={GenderError || ''}>
+                  {...Label}>
                   {getFieldDecorator('Gender', {
                     rules: [
                       { required: true }
@@ -147,10 +126,7 @@ const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onPro
                   colon={false}
                   label="Country"
                   required={false}
-                  {...Label}
-                  hasFeedback={isFieldTouched('Country')}
-                  validateStatus={CountryError ? 'error' : ''}
-                  help={CountryError || ''}>
+                  {...Label}>
                   {getFieldDecorator('Country', {
                     initialValue: 'Philippines',
                     rules: [
@@ -171,10 +147,7 @@ const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onPro
                   colon={false}
                   label="Province"
                   required={false}
-                  {...Label}
-                  hasFeedback={isFieldTouched('Province')}
-                  validateStatus={RegionStateProvinceError ? 'error' : ''}
-                  help={RegionStateProvinceError || ''}>
+                  {...Label}>
                   {getFieldDecorator('Province', {
                     rules: [
                       {required: true}
@@ -183,6 +156,7 @@ const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onPro
                     <Select 
                       placeholder="Please select your province"
                       showSearch
+                      autoComplete="nope"
                       onChange={onProvinceChange()}
                       optionFilterProp="children"
                       size="large">
@@ -195,11 +169,9 @@ const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onPro
                 <FormItem
                   colon={false}
                   label="City"
+                  autoComplete="nope"
                   required={false}
-                  {...Label}
-                  hasFeedback={isFieldTouched('City')}
-                  validateStatus={CityMunicipalityError ? 'error' : ''}
-                  help={CityMunicipalityError || ''}>
+                  {...Label}>
                   {getFieldDecorator('City', {
                     rules: [
                       {required: true}
@@ -219,12 +191,10 @@ const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onPro
                 <FormItem
                   colon={false}
                   label="Unit/Bldg/Street/Village"
+                  autoComplete="off"
                   required={false}
-                  {...Label}
-                  hasFeedback={isFieldTouched('Street')}
-                  validateStatus={StreetError ? 'error' : ''}
-                  help={StreetError || ''}>
-                  {getFieldDecorator('Street', {
+                  {...Label}>
+                  {getFieldDecorator('Unit/Bldg/Street/Village', {
                     rules: [
                       { required: true }
                     ],
@@ -236,10 +206,7 @@ const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onPro
                   colon={false}
                   label="Primary Currency"
                   required={false}
-                  {...Label}
-                  hasFeedback={isFieldTouched('Currency')}
-                  validateStatus={CurrencyError ? 'error' : ''}
-                  help={CurrencyError || ''}>
+                  {...Label}>
                   {getFieldDecorator('Currency', {
                     initialValue:'php',
                     rules: [
@@ -258,10 +225,7 @@ const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onPro
                 <FormItem
                   colon={false}
                   required={false}
-                  wrapperCol={{lg:{span:17, offset:7}}}
-                  hasFeedback={isFieldTouched('Source of Funds')}
-                  validateStatus={SourceOfFundsError ? 'error' : ''}
-                  help={SourceOfFundsError || ''}>
+                  wrapperCol={{lg:{span:17, offset:7}}}>
                   {getFieldDecorator('Source of Funds', {
                     rules: [
                       { required: true }
@@ -279,10 +243,7 @@ const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onPro
                   label="Occupation"
                   required={false}
                   style={{display:sourceOfFunds === "employed" ? 'block': 'none'}}
-                  {...Label}
-                  hasFeedback={isFieldTouched('Occupation')}
-                  validateStatus={OccupationError ? 'error' : ''}
-                  help={OccupationError || ''}>
+                  {...Label}>
                   {getFieldDecorator('Occupation', {
                     rules: [
                       { required: true }
@@ -296,10 +257,7 @@ const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onPro
                   label="Company"
                   required={false}
                   style={{display:sourceOfFunds === "employed" ? 'block': 'none'}}
-                  {...Label}
-                  hasFeedback={isFieldTouched('Company')}
-                  validateStatus={CompanyError ? 'error' : ''}
-                  help={CompanyError || ''}>
+                  {...Label}>
                   {getFieldDecorator('Company', {
                     rules: [
                       { required: true }
@@ -313,11 +271,8 @@ const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onPro
                   label="Position / Rank"
                   required={false}
                   style={{display:sourceOfFunds === "employed" ? 'block': 'none'}}
-                  {...Label}
-                  hasFeedback={isFieldTouched('Position')}
-                  validateStatus={PositionError ? 'error' : ''}
-                  help={PositionError || ''}>
-                  {getFieldDecorator('Position', {
+                  {...Label}>
+                  {getFieldDecorator('Position / Rank', {
                     rules: [
                       { required: true }
                     ],
@@ -330,10 +285,7 @@ const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onPro
                   label="Business Name"
                   required={false}
                   style={{display:sourceOfFunds === "selfEmployed" ? 'block': 'none'}}
-                  {...Label}
-                  hasFeedback={isFieldTouched('Business Name')}
-                  validateStatus={BusinessNameError ? 'error' : ''}
-                  help={BusinessNameError || ''}>
+                  {...Label}>
                   {getFieldDecorator('Business Name', {
                     rules: [
                       { required: true }
@@ -347,16 +299,13 @@ const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onPro
                   label="Registration Date"
                   required={false}
                   style={{display:sourceOfFunds === "selfEmployed" ? 'block': 'none'}}
-                  {...Label}
-                  hasFeedback={isFieldTouched('Registration Date')}
-                  validateStatus={RegistrationDateError ? 'error' : ''}
-                  help={RegistrationDateError || ''}>
+                  {...Label}>
                   {getFieldDecorator('Registration Date', {
                     rules: [
                       { required: true }
                     ],
                   })(
-                    <Input/>
+                    <DatePicker style={{width:'100%'}} placeholder="YYYY-MM-DD"/>
                   )}
                 </FormItem>
                 <FormItem
@@ -364,10 +313,7 @@ const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onPro
                   label="Nature of Business"
                   required={false}
                   style={{display:sourceOfFunds === "selfEmployed" ? 'block': 'none'}}
-                  {...Label}
-                  hasFeedback={isFieldTouched('Nature of Business')}
-                  validateStatus={BusinessNatureError ? 'error' : ''}
-                  help={BusinessNatureError || ''}>
+                  {...Label}>
                   {getFieldDecorator('Nature of Business', {
                     rules: [
                       { required: true }
@@ -381,10 +327,7 @@ const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onPro
                   label="Years in Operation"
                   required={false}
                   style={{display:sourceOfFunds === "selfEmployed" ? 'block': 'none'}}
-                  {...Label}
-                  hasFeedback={isFieldTouched('Years in Operation')}
-                  validateStatus={OperationYearsError ? 'error' : ''}
-                  help={OperationYearsError || ''}>
+                  {...Label}>
                   {getFieldDecorator('Years in Operation', {
                     rules: [
                       { required: true }
@@ -398,10 +341,7 @@ const ProfileForm = ({name, birthDate, form, countries, provinces, cities, onPro
                   label="Source"
                   required={false}
                   style={{display:sourceOfFunds === "unemployed" ? 'block': 'none'}}
-                  {...Label}
-                  hasFeedback={isFieldTouched('Source')}
-                  validateStatus={SourceError ? 'error' : ''}
-                  help={SourceError || ''}>
+                  {...Label}>
                   {getFieldDecorator('Source', {
                     initialValue: "Remittance",
                     rules: [

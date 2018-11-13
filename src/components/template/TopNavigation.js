@@ -6,7 +6,8 @@ import EpayLogo from '../../assets/images/Ecashpay_Logo_Orig.png'
 //components
 //import Notifications from './Notifications'
 
-const SubMenu = Menu.SubMenu;
+//const SubMenu = Menu.SubMenu
+const Item = Menu.Item
 
 const NavContainer = {
   backgroundColor: '#ffffff',
@@ -19,12 +20,13 @@ const IconStyle = {
 const Logo = {
   width: '180px'
 }
-const Caret = {
-  fontSize: '11px'
-}
 const Display = (loggedIn) => {
   return loggedIn ? 'none' : ''
 }
+
+// const Caret = {
+//   fontSize: 10
+// }
 
 const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
   // const profileTitle = (
@@ -47,21 +49,22 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
     <Affix style={{width:'100%'}}>
       <div style={NavContainer}>
         <Row className="ecpa-layout" type="flex" justify="center">
-          <Col xs={0} sm={9} md={7}>
-            <Row type="flex" justify="start">
+          <Col xs={11} sm={11} md={7} lg={7}>
+            <Row type="flex">
               <Col>
                 <Link to={Redirect}><img src={EpayLogo} alt="logo" style={Logo} /></Link>
               </Col>
             </Row>
           </Col>
-          <Col xs={18} sm={9} md={11}>
+          <Col xs={11} sm={11} md={13} lg={11}>
             <Row type="flex" justify="end">
               <Col>
                 <Menu
+                  style={{display:Display(loggedIn)}}
                   mode="horizontal" 
                   onSelect={onChangeLocale} 
                   selectedKeys={['/']}>
-                  <SubMenu
+                  {/*<SubMenu
                     style={{display:Display(loggedIn)}} 
                     title={<span>{locale.toUpperCase()} <Icon type="down" style={Caret}/></span>}>
                     <Menu.Item key="en">English</Menu.Item>
@@ -69,11 +72,17 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
                     <Menu.Item key="es">Español</Menu.Item>
                     <Menu.Item key="my">Malay</Menu.Item>
                     <Menu.Item key="ru">русский</Menu.Item>
-                  </SubMenu>
+                  </SubMenu>*/}
                   {/*<Menu.Item key="app" style={{display:Display(loggedIn)}}>Ecashpay Card</Menu.Item>
                 <Menu.Item key="hepl" style={{display:Display(loggedIn)}}>Help</Menu.Item>*/}
-                  <Menu.Item key="login" style={{display:Display(loggedIn)}}><Link to="/login">Login</Link></Menu.Item>
-                  <Menu.Item key="signup" style={{display:Display(loggedIn)}}><Link to="/client/register">Sign up</Link></Menu.Item>
+                  <Item key="login"><Link to="/login">Login</Link></Item>
+                  <Item key="signup"><Link to="/client/register">Sign up</Link></Item>
+                </Menu>
+                <Menu
+                  style={{display:Display(!loggedIn)}}
+                  mode="horizontal" 
+                  onSelect={onChangeLocale} 
+                  selectedKeys={['/']}>
                   {/*<Menu.Item key="bell" style={{display:Display(!loggedIn)}}>
                     <Popover placement="bottom" content={<Notifications/>} trigger="click">
                       <Badge>
@@ -81,7 +90,7 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
                       </Badge>
                     </Popover>
                   </Menu.Item>*/}
-                  <Menu.Item key="setting" style={{display:Display(!loggedIn)}}>
+                  <Item key="setting">
                     <Badge>
                       <Icon type="setting" theme="twoTone" style={IconStyle}/>
                     </Badge>
@@ -90,12 +99,12 @@ const TopNavigation = ({locale, onChangeLocale, loggedIn, logout, profile}) => {
                         <Icon type="setting" style={IconStyle}/>
                       </Badge>
                     </Popover>*/}
-                  </Menu.Item>
-                  <Menu.Item key="logout" style={{display:Display(!loggedIn)}}>
+                  </Item>
+                  <Item key="logout">
                     <Badge>
                       <Icon type="logout" style={IconStyle}/>
                     </Badge>
-                  </Menu.Item>
+                  </Item>
                 </Menu>
               </Col>
             </Row>

@@ -1,14 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import registerServiceWorker from './registerServiceWorker'
-import Store from './store'
-import Routes from './routes'
+import registerServiceWorker from 'registerServiceWorker'
+import Store from 'store'
+import Routes from 'routes'
 
-import './index.css'
+import 'index.css'
 
-import { loadLocale } from './actions/localeAction'
-import { checkAuth } from './actions/authAction'
-import { loadProfile } from './actions/profileAction'
+import { loadLocale } from 'actions/localeAction'
+import { checkAuth } from 'actions/authAction'
+import { loadProfile } from 'actions/profileAction'
 
 const StoreInstance = Store()
 

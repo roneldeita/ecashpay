@@ -6,7 +6,7 @@ import Navigation from '../common/Navigation'
 import StepOne from './presentation/StepOne'
 import StepTwo from './presentation/StepTwo'
 import { Outlets, Transaction } from '../../../services/api'
-import {isEmpty} from 'lodash'
+import CashInRequirement from '../common/hoc/CashInRequirement'
 
 const Step = Steps.Step
 const StepStyle = {
@@ -14,6 +14,7 @@ const StepStyle = {
 }
 
 class CashInPage extends React.PureComponent{
+  _isMounted = false;
   constructor(props){
     super(props)
     this.state = {
@@ -63,82 +64,46 @@ class CashInPage extends React.PureComponent{
     }
     Transaction(Data, {'x-access-token':this.props.auth.token}).CashIn()
     .then(res=>{
-      this.props.history.push(`/cashin/transactions/${res.data.no}`)
+      this.props.history.push(`/cash-in/transactions/${res.data.no}`)
     }).catch(err=>{
-      console.log(err)
-      Modal.error({
-        title: 'Cash In Error',
-        content: err.response.data.message,
+      Modal.warning({
+        title: 'Cash In Failed',
+        content: err.response.data.message
       })
+      console.log(err)
     })
   }
-  verifyPhone(){
-    Modal.info({
-      title: 'Phone verification required',
-      content: 'Please verifiy your phone number first',
-    });
-  }
-  requireLevelOne(){
-    Modal.info({
-      title: 'Upgrade required',
-      content: 'Upgrade to level 1 first',
-    });
-  }
-  requireLevelTwo(){
-    Modal.info({
-      title: 'Upgrade required',
-      content: 'Upgrade to level 2 first',
-    });
-  }
   componentDidMount(){
+    this._isMounted = true;
     window.scrollTo(0, 0)
     Outlets().Featured()
     .then(res=>{
-      this.setState({featured:res.data})
+      if(this._isMounted){
+        this.setState({featured:res.data})
+      }
     })
     Outlets().GetAll()
     .then(res=>{
-      this.setState({merchants:res.data})
+      if(this._isMounted){
+        this.setState({merchants:res.data})
+      }
     })
-    if(!isEmpty(this.props.profile) && this.props.profile.role === 'individual'){
-      if(this.props.profile.phone === ''){
-        this.props.history.push('/client/verify/phone')
-        this.verifyPhone()
-      } else if(!this.props.profile.levels.includes(1)){
-        this.props.history.push('/client/upload/id')
-        this.requireLevelOne()
-      } else if(!this.props.profile.levels.includes(2)){
-        this.props.history.push('/client/schedule/f2f')
-        this.requireLevelTwo()
-      }
-    }
   }
-  componentWillReceiveProps(nextProps){
-    if(!isEmpty(nextProps.profile) && nextProps.profile.role === 'individual'){
-      if(nextProps.profile.phone === ''){
-        nextProps.history.push('/client/verify/phone')
-        this.verifyPhone()
-      } else if(!nextProps.profile.levels.includes(1)){
-        nextProps.history.push('/client/upload/id')
-        this.requireLevelOne()
-      } else if(!nextProps.profile.levels.includes(2)){
-        nextProps.history.push('/client/schedule/f2f')
-        this.requireLevelTwo()
-      }
-    }
+  componentWillUnmount() {
+    this._isMounted = false;
   }
   render(){
     return(
       <div>
-        <Navigation location={this.props.location} style={{display:this.props.profile.type === 'merchant' ? 'none' : 'block'}}/>
+        <Navigation location={this.props.location} style={{display:this.props.profile.role === 'merchant' ? 'none' : 'block'}}/>
         <Row type="flex" justify="center">
           <Col className="" xs={24} sm={24} md={24} lg={20} xl={18} xxl={14}>
             <Row type="flex" justify="center">
               <Col span={12}>
                 <Steps current={this.state.step} style={StepStyle}>
-                  <Step title="Choose" icon={<Icon type="shop" theme="twoTone" />}/>
-                  <Step title="Amount" icon={<Icon type="wallet" theme="twoTone" />}/>
-                  <Step title="Pay" icon={<Icon type="check-circle-o" theme="twoTone" />}/>
+                  <Step title="Choose" icon={<Icon type="shop" />}/>
+                  <Step title="Amount" icon={<Icon type="wallet" />}/>
+                  <Step title="Pay" icon={<Icon type="check-circle-o"/>}/>
                 </Steps>
               </Col>
               <Col span={19}>
@@ -175,4 +140,4 @@ function mapStateToProps(state, ownProps){
   }
 }
 
-export default Form.create()(connect(mapStateToProps)(CashInPage))
+export default Form.create()(connect(mapStateToProps)(CashInRequirement(CashInPage)))

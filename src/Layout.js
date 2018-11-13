@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 //redux
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as localeActions from './actions/localeAction'
-import * as authActions from './actions/authAction'
+import * as localeActions from 'actions/localeAction'
+import * as authActions from 'actions/authAction'
 //proptypes
 import PropTypes from 'prop-types'
 //react-router
@@ -15,27 +15,27 @@ import es from 'react-intl/locale-data/es';
 import ru from 'react-intl/locale-data/ru';
 import my from 'react-intl/locale-data/my';
 //antd & global css
-import {Layout, BackTop, Icon, message } from 'antd'
-import './App.css'
+import {Layout as AntdLayout, BackTop, Icon, message } from 'antd'
+import 'App.css'
 import 'antd/dist/antd.min.css'
 //animate-on-scroll
 import "animate.css/animate.min.css";
 //lodash
 //import { isEmpty } from 'lodash'
 //components
-import TopNavigation from './components/template/TopNavigation'
-import BottomNavigation from './components/template/BottomNavigation'
-import AdminSideNavigation from './components/template/AdminSideNavigation'
-import AdminTopNavigation from './components/template/AdminTopNavigation'
+import TopNavigation from 'components/template/TopNavigation'
+import BottomNavigation from 'components/template/BottomNavigation'
+import AdminSideNavigation from 'components/template/AdminSideNavigation'
+import AdminTopNavigation from 'components/template/AdminTopNavigation'
 //images
-import EpayLogo from './assets/images/Ecashpay_Logo_White.png'
-import EpayLogoMini from './assets/images/Ecashpay_Logo_White_Mini.png'
+import EpayLogo from 'assets/images/Ecashpay_Logo_White.png'
+import EpayLogoMini from 'assets/images/Ecashpay_Logo_White_Mini.png'
 //Idle
 //import Idle from 'react-idle'
 import IdleTimer from 'react-idle-timer'
 //api services
 //import { Auth } from './services/api'
-import { hasToken } from './assets/utils/auth'
+import { hasToken } from 'assets/utils/auth'
 //socket.io
 //import { SubscribeToKyc } from './services/socket'
 //styles
@@ -55,7 +55,7 @@ addLocaleData(es);
 addLocaleData(ru);
 addLocaleData(my);
 
-class App extends Component {
+class Layout extends PureComponent {
   constructor(props){
     super(props)
     this.state = {
@@ -126,7 +126,7 @@ class App extends Component {
       '/login', '/termsandconditions', 
       '/client/register', '/client/verify', 
       '/redirecting', '/password/request', 
-      '/password/reset', '/login/tsv',
+      '/password/reset', '/login/tsv', '/login/tfa',
       '/business/register', '/business/verify',
       '/merchant/register', '/merchant/verify',
       '/admin', '/admin/login', '/admin/transactions',
@@ -177,6 +177,7 @@ class App extends Component {
       this.props.history.push('/login')
     }
   }
+  
   render(){
     return (
       <IdleTimer
@@ -185,8 +186,8 @@ class App extends Component {
         onIdle={this.handleIdle}>
           <IntlProvider locale={this.props.locale} messages={this.translateContent(this.props.locale)}>
             <div className="App">
-              <Layout>
-                <Layout.Header style={{display:this.hideTopNavigation()}}>
+              <AntdLayout>
+                <AntdLayout.Header style={{display:this.hideTopNavigation()}}>
                   <TopNavigation
                   profile={this.props.profile}
                   loggedIn={hasToken()}
@@ -194,25 +195,25 @@ class App extends Component {
                   onChangeLocale={this.handleChangeLocale}
                   logout={this.handleLogOut}
                   />
-                </Layout.Header>
-                <Layout className="ecpa-layout">
-                  <Layout.Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} style={{display:this.showAdminNavigation()}}>
+                </AntdLayout.Header>
+                <AntdLayout className="ecpa-layout">
+                  <AntdLayout.Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse} style={{display:this.showAdminNavigation()}}>
                     <div style={LogoContainer}>
                       <img src={this.state.collapsed ? EpayLogoMini : EpayLogo  } alt="logo" style={this.state.collapsed ? LogoMini : Logo}/>
                     </div>
                     <AdminSideNavigation location={this.props.location} collapsed={this.state.collapsed} />
-                  </Layout.Sider>
-                  <Layout>
-                    <Layout.Header style={{display:this.showAdminNavigation(), maxHeight:'auto', lineHeight:'40px'}}>
+                  </AntdLayout.Sider>
+                  <AntdLayout>
+                    <AntdLayout.Header style={{display:this.showAdminNavigation(), maxHeight:'auto', lineHeight:'40px'}}>
                       <AdminTopNavigation collapsed={this.state.collapsed} toggle={this.toggleCollapse} />
-                    </Layout.Header>
-                    <Layout.Content style={{minHeight:'30vh'}}>{ this.props.children }</Layout.Content>
-                  </Layout>
-                </Layout>
-                <Layout.Footer style={{display:this.hideTopNavigation()}}>
+                    </AntdLayout.Header>
+                    <AntdLayout.Content style={{minHeight:'30vh'}}>{ this.props.children }</AntdLayout.Content>
+                  </AntdLayout>
+                </AntdLayout>
+                <AntdLayout.Footer style={{display:this.hideTopNavigation()}}>
                   {!hasToken() && <BottomNavigation/>}
-                </Layout.Footer>
-              </Layout>
+                </AntdLayout.Footer>
+              </AntdLayout>
               <BackTop>
                 <Icon type="up-square-o" style={{fontSize:'42px'}}/>
               </BackTop>
@@ -251,7 +252,7 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-App.propTypes = {
+Layout.propTypes = {
   auth: PropTypes.object.isRequired,
   authActions: PropTypes.objectOf(PropTypes.func).isRequired,
   children: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -262,4 +263,4 @@ App.propTypes = {
   profile: PropTypes.objectOf(PropTypes.any).isRequired
 }
 
-export default  withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
+export default  withRouter(connect(mapStateToProps, mapDispatchToProps)(Layout))

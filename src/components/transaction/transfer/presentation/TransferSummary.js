@@ -9,7 +9,7 @@ const rightContent = {
   float:'right',
   fontWeight: 500
 }
-export default ({transfer,okState}) => {
+export default ({transfer, okState}) => {
   return(
     <div>
       <p>Recipient Account ID <span style={rightContent}>{transfer.targetAccount}</span></p>

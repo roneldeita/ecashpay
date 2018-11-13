@@ -1,6 +1,23 @@
 import React from 'react'
-import { Form, Input, Button, Modal } from 'antd'
+import { Divider, Modal } from 'antd'
 import { Phone } from '../../../../services/api'
+import ReactCodeInput from 'react-code-input'
+
+const CodeInputStyle ={
+  fontFamily: 'monospace',
+  borderRadius: '6px',
+  border: '1px solid lightgrey',
+  boxShadow: 'rgba(0, 0, 0, 0.1) 0px 0px 10px 0px',
+  margin: '4px',
+  paddingLeft: '12px',
+  width: '44px',
+  height: '50px',
+  fontSize: '32px',
+  boxSizing: 'border-box',
+  color: 'rgba(0,0,0,.65)',
+  backgroundColor: 'white'
+}
+
 
 class StepOne extends React.PureComponent{
   constructor(props){
@@ -9,40 +26,28 @@ class StepOne extends React.PureComponent{
       buttonState: false,
       resendState:false
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleResend = this.handleResend.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
-  handleSubmit(event){
-    this.props.form.validateFields((err, values) => {
-      if(!err){
-        if(values['Verification Code'].length === 4){
-          this.setState({buttonState:true})
-          const Verification = {
-            'code': values['Verification Code'],
-            'areaCode': this.props.code,
-            'phone': this.props.phone
-          }
-          Phone(Verification, {'x-access-token':this.props.auth.token}).Verify()
-          .then(res=>{
-            this.props.profileAction.loadProfile()
-            this.props.changeStep({step:2})
-          }).catch(err=>{
-            Modal.error({
-              title: 'Phone verification error',
-              content: err.response.data.message,
-            })
-            setTimeout(()=>{
-              this.setState({buttonState:false})
-            }, 800)
-          })
-        }
-      }else{
-        setTimeout(()=>{
-          this.setState({buttonState:false})
-        }, 800)
-      }
-    })
-    event.preventDefault()
+  handleChange(event){
+    console.log(this.props)
+    const Verification = {
+      'code': event,
+      'areaCode': this.props.code,
+      'phone': this.props.phone
+    }
+    if(event.length === 4){
+      Phone(Verification, {'x-access-token':this.props.auth.token}).Verify()
+      .then(res=>{
+        this.props.profileAction.loadProfile()
+          this.props.changeStep({step:2})
+      }).catch(err=>{
+        Modal.error({
+          title: 'Phone verification error',
+          content: err.response.data.message,
+        })
+      })
+    }
   }
   handleResend(event){
     this.setState({resendState:true})
@@ -64,37 +69,18 @@ class StepOne extends React.PureComponent{
     })
   }
   render(){
-    //console.log(this.props)
-    const { getFieldDecorator, isFieldTouched, getFieldError } = this.props.form
-    const VerificationError = getFieldError('Verification Code')
     return (
-      <Form onSubmit={this.handleSubmit} autoComplete="off">
-        <p>A verification code was sent to +{this.props.code}<b>{this.props.phone}</b>.</p>
-        <Form.Item
-          hasFeedback={isFieldTouched('Verification Code')}
-          validateStatus={VerificationError ? 'error' : ''}
-          help={VerificationError || ''}>
-          {getFieldDecorator('Verification Code', {
-            rules: [
-              { required: true },
-              { min: 4 },
-              { max: 4 }
-            ],
-          })(
-            <Input size="large" placeholder="Enter the 4-digit code" onKeyUp={this.handleSubmit}/>
-          )}
-        </Form.Item>
+      <div style={{textAlign:'center'}}>
+        <p style={{fontSize:'18px', marginBottom:'20px'}}>Enter verification code to verify your number</p>
+        <ReactCodeInput type='number' fields={4} onChange={this.handleChange} inputStyle={CodeInputStyle} />
+        <Divider/>
         <p>Didn't receive the code?
           {this.state.resendState ?
             <span style={{color:'#999999'}}> Resending...</span> :
-            <span style={{color:'#1890ff'}} onClick={this.handleResend}> Resend</span>}
+            <span style={{color:'#1890ff', cursor:'pointer'}} onClick={this.handleResend}> Resend</span>}
         </p>
-        <Form.Item style={{textAlign:'center'}}>
-          <Button size="large" style={{marginRight:'10px'}} onClick={()=>{this.props.changeStep({step:0})}}>Change Number</Button>
-          <Button type="primary" htmlType="submit" size="large" loading={this.state.buttonState}>{this.state.buttonState ? 'Verifying...' : 'Verify Phone'}</Button>
-        </Form.Item>
-      </Form>
+      </div>
     )
   }
 }
-export default Form.create()(StepOne)
+export default StepOne

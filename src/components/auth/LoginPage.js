@@ -31,7 +31,7 @@ class LoginPage extends React.PureComponent {
         Auth({email: values.Email, password: values.Password}).login()
         .then( res =>{
           //console.log(res)
-          sessionStorage.removeItem('tsv')
+          sessionStorage.removeItem('tsv', 'tfa')
           if(res.data.authType === '2SV'){
             let TwoStepVerification = {
               ...res.data,
@@ -39,6 +39,13 @@ class LoginPage extends React.PureComponent {
             }
             sessionStorage.setItem("tsv", JSON.stringify(TwoStepVerification))
             window.location.href = '/login/tsv'
+          }else if(res.data.authType === '2FA'){
+            let TwoFactorAuthentication = {
+              ...res.data,
+              email:values.Email
+            }
+            sessionStorage.setItem("tfa", JSON.stringify(TwoFactorAuthentication))
+            window.location.href = '/login/tfa'
           }else{
             this.props.authActions.saveAuth(res.data.token)
             window.location.href = '/'

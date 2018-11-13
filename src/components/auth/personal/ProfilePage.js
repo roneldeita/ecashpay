@@ -15,6 +15,7 @@ import ProfileForm from './presentation/ProfileForm'
 //import
 import Provinces from  '../../../assets/json/provinces.json'
 import Cities from  '../../../assets/json/cities.json'
+import moment from 'moment'
 
 class ProfilePage extends React.PureComponent{
   constructor(props){
@@ -35,14 +36,14 @@ class ProfilePage extends React.PureComponent{
   }
   handleSourceOfFunds(e){
     if(e.target.value === "unemployed"){
-      this.props.form.setFieldsValue({'Business Name':'x', 'Registration Date': 'x', 'Nature of Business': 'x', 'Years in Operation': 'x'})
+      this.props.form.setFieldsValue({'Business Name':'x', 'Registration Date': moment('0000-00-00'), 'Nature of Business': 'x', 'Years in Operation': 'x'})
       this.props.form.setFieldsValue({'Occupation':'x','Company':'x', 'Position':'x'})
     }else if(e.target.value === "selfEmployed"){
       this.props.form.resetFields(['Business Name', 'Registration Date', 'Nature of Business', 'Years in Operation'])
       this.props.form.setFieldsValue({'Occupation':'x','Company':'x', 'Position':'x'})
     }else if(e.target.value === "employed"){
       this.props.form.resetFields(['Occupation', 'Company', 'Position'])
-      this.props.form.setFieldsValue({'Business Name':'x', 'Registration Date': 'x', 'Nature of Business': 'x', 'Years in Operation': 'x'})
+      this.props.form.setFieldsValue({'Business Name':'x', 'Registration Date': moment('0000-00-00'), 'Nature of Business': 'x', 'Years in Operation': 'x'})
     }
     this.setState({sourceOfFunds:e.target.value})
   }
@@ -56,6 +57,12 @@ class ProfilePage extends React.PureComponent{
         Object.entries(values).forEach(([index,value])=>{
           if(index ==='Birth Date'){
             value = value.format('YYYY-MM-DD')
+          }
+          if(index === 'Position / Rank'){
+            Data['position'] = value
+          }
+          if(index === 'Unit/Bldg/Street/Village'){
+            Data['street'] = value
           }
           if(index === 'Source of Funds'){
             if(value === 'employed'){
@@ -120,10 +127,22 @@ class ProfilePage extends React.PureComponent{
     .catch(error => {
       console.log(error)
     })
-    this.setState({provinces:Provinces})
+    const SortedProvinces = Provinces.sort(function(a, b) {
+      var nameA = a.name.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.name.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+    
+      // names must be equal
+      return 0;
+    });
+    this.setState({provinces:SortedProvinces})
   }
   render(){
-    console.log(this.state)
     return(
       <div>
         <ProfileForm

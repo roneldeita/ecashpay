@@ -2,14 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
-import App from './App'
+import Layout from './Layout'
 import HomePage from './components/home/HomePage'
-//import TermsAndCondition from './components/general/legal/TermsAndConditionPage'
+import TermsAndCondition from './components/general/legal/TermsAndConditionPage'
 import NotFound from './components/general/notFound'
 import Redirecting from './components/redirect'
 //auth
 import LoginPage from './components/auth/LoginPage'
 import TsvPage from './components/auth/TsvPage'
+import TfaPage from './components/auth/TfaPage'
 import RequestPasswordPage from './components/auth/RequestPasswordPage'
 import ResetPasswordPage from './components/auth/ResetPasswordPage'
 //Business Account
@@ -38,6 +39,8 @@ import RegisterPage from './components/auth/personal/RegisterPage'
 import VerificationPage from './components/auth/personal/VerificationPage'
 import ProfilePage from './components/auth/personal/ProfilePage'
 import ClientDashboard from './components/client/dashboard/DashboardPage'
+import History from './components/client/history/HistoryPage'
+import CashInBreakdownPage from './components/client/cashinbreakdown/CashInBreakdownPage'
 import Settings from './components/client/settings/SettingsPage'
 import ClientVerifyPhone from './components/client/phone/VerifyPhonePage'
 import ClientUploadValidId from './components/client/identification/ValidIdPage'
@@ -76,16 +79,18 @@ const Individual = AllTypes.slice(0,1)
 const Business = AllTypes.slice(1,2)
 const Merchant = AllTypes.slice(2,3)
 
+
 const Routes = ({ store }) => (
   <Provider store={store}>
     <Router>
-      <App>
+      <Layout>
         <Switch>
           <PublicRoutes path="/" exact component={HomePage}/>
           <Route path="/redirecting" component={Redirecting}/>
-          {/*<PublicRoutes path="/termsandconditions" exact component={TermsAndCondition}/>*/}
+          <PublicRoutes path="/termsandconditions" component={TermsAndCondition}/>
           <PublicRoutes path="/login" exact component={LoginPage}/>
           <PublicRoutes path="/login/tsv" component={TsvPage}/>
+          <PublicRoutes path="/login/tfa" component={TfaPage}/>
           <PublicRoutes path="/password/request" component={RequestPasswordPage}/>
           <PublicRoutes path="/password/reset" component={ResetPasswordPage}/>
 
@@ -105,6 +110,8 @@ const Routes = ({ store }) => (
           <PrivateRoutes path="/client/verify" exact component={VerificationPage} client={{status:'unverified', type:Individual}}/>
           <PrivateRoutes path="/client/profile" component={ProfilePage} client={{status:'verified', type:Individual}}/>
           <PrivateRoutes path="/client/dashboard" component={ClientDashboard} client={{status:'completed', type:Individual}}/>
+          <PrivateRoutes path="/client/history" component={History} client={{status:'completed', type:Individual}}/>
+          <PrivateRoutes path="/client/cash-in/breakdown" component={CashInBreakdownPage} client={{status:'completed', type:Individual}}/>
           <PrivateRoutes path="/client/settings" component={Settings} client={{status:'completed', type:AllTypes}}/>
           <PrivateRoutes path="/client/verify/phone" component={ClientVerifyPhone} client={{status:'completed', type:Individual}}/>
           <PrivateRoutes path="/client/upload/id" component={ClientUploadValidId} client={{status:'completed', type:Individual}}/>
@@ -143,7 +150,7 @@ const Routes = ({ store }) => (
           <PrivateRoutes path="/admin/merchant/payments" component={AdminMerchantPayments} client={{type:['admin']}}/>
           <Route path="*" component={NotFound} />
         </Switch>
-      </App>
+      </Layout>
     </Router>
   </Provider>
 )

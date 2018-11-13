@@ -18,12 +18,30 @@ class RegisterPage extends React.PureComponent {
   constructor(props){
     super(props)
     this.state = {
-      buttonState: false
+      buttonState: false,
+      datePlaceholder: 'Birthdate'
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.checkConfirm = this.checkConfirm.bind(this)
+    this.handlePlaceholder = this.handlePlaceholder.bind(this)
     document.title="Register - Ecashpay"
-    //this.checkPassword = this.checkPassword.bind(this)
+  }
+  checkName = (rule, value, callback) => {
+    const lettersOnly = new RegExp(/^[a-zA-Z\s-'ñÑ_]+$/)
+
+    if(value !== undefined && value.length > 0){
+      if(!lettersOnly.test(value)){
+        callback(rule.field+' should only contain letters')
+      }else{
+        if(value.length < 2 || value.length > 50 ){
+          callback(rule.field+' length should be 2-50 characters')
+        }else{
+          callback()
+        }
+      }
+    }else{
+      callback()
+    }
   }
   checkPassword = (rule, value, callback) => {
     const form = this.props.form
@@ -74,7 +92,7 @@ class RegisterPage extends React.PureComponent {
       if (!err) {
         const Data = {}
         Object.entries(values).forEach(([index,value])=>{
-          if(index === 'Birth Date'){
+          if(index === 'Birthdate'){
             value = moment(value).format('YYYY-MM-DD')
           }
           Data[camelCase(index)]=value
@@ -102,6 +120,9 @@ class RegisterPage extends React.PureComponent {
     });
     event.preventDefault()
   }
+  handlePlaceholder(e){
+    e ? this.setState({datePlaceholder: 'YYYY-MM-DD'}) : this.setState({datePlaceholder: 'Birthdate'})
+  }
   componentDidMount() {
     window.scrollTo(0, 0)
   }
@@ -111,9 +132,12 @@ class RegisterPage extends React.PureComponent {
         <div className="center-container">
           <RegisterForm
             form={this.props.form}
+            placeholder={this.state.datePlaceholder}
+            changePlaceholder={this.handlePlaceholder}
             buttonState={this.state.buttonState}
             checkPassword = {this.checkPassword}
             checkConfirm = {this.checkConfirm}
+            checkName = {this.checkName}
             onSubmit={this.handleSubmit}/>
         </div>
       </div>

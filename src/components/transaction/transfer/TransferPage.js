@@ -4,11 +4,12 @@ import TransferForm from './presentation/TransferForm'
 import TransferSummary from './presentation/TransferSummary'
 import { Row, Col, Form, Modal } from 'antd'
 import QueueAnim from 'rc-queue-anim'
-import { isEmpty } from 'lodash'
 //services
 import { Wallet, Transaction } from '../../../services/api'
+import CashInRequirement from '../common/hoc/CashInRequirement'
 
 class TransferPage extends React.PureComponent{
+  _isMounted = false
   constructor(props){
     super(props)
     this.state={
@@ -22,6 +23,7 @@ class TransferPage extends React.PureComponent{
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleCancel = this.handleCancel.bind(this)
     this.handleTransfer = this.handleTransfer.bind(this)
+    
   }
   handleCancel(){
     this.setState({buttonState:false})
@@ -33,7 +35,7 @@ class TransferPage extends React.PureComponent{
     Transaction(this.state.transfer, {'x-access-token':this.props.auth.token}).Transfer()
     .then(res=>{
       this.props.form.resetFields()
-      const path = this.props.profile.type+'/dashboard'
+      const path = this.props.profile.role === 'individual' ? 'client/dashboard' : this.props.profile.role +'/dashboard'
       Modal.success({
         title: 'Transfer Success',
         content: 'You have successfully sent '+ this.state.transfer.currency + this.state.transfer.amount + ' to ' + this.state.transfer.targetAccount
@@ -44,8 +46,8 @@ class TransferPage extends React.PureComponent{
         this.setState({summaryVisible:false})
       }, 800)
     }).catch(err=>{
-      Modal.error({
-        title: 'Transfer Error',
+      Modal.warning({
+        title: 'Transfer Failed',
         content: err.response.data.message
       })
       setTimeout(()=>{
@@ -76,64 +78,26 @@ class TransferPage extends React.PureComponent{
   loadWallets(){
     Wallet(null, {'x-access-token':this.props.auth.token}).GetAll()
     .then(res => {
-      this.setState({currencies:res.data.currencies})
-      const Primary = res.data.currencies.filter(currency => currency.primary === true )
-      this.setState({primary:Primary[0].code})
+      if(this._isMounted){
+        this.setState({currencies:res.data.currencies})
+        const Primary = res.data.currencies.filter(currency => currency.primary === true )
+        this.setState({primary:Primary[0].code})
+      }
     })
     .catch(err => {
       console.log(err)
     })
   }
-  verifyPhone(){
-    Modal.info({
-      title: 'Phone verification required',
-      content: 'Please verifiy your phone number first',
-    });
-  }
-  requireLevelOne(){
-    Modal.info({
-      title: 'Upgrade required',
-      content: 'Upgrade to level 1 first',
-    });
-  }
-  requireLevelTwo(){
-    Modal.info({
-      title: 'Upgrade required',
-      content: 'Upgrade to level 2 first',
-    });
-  }
   componentDidMount(){
+    this._isMounted = true
     window.scrollTo(0, 0)
     this.loadWallets()
-    if(!isEmpty(this.props.profile) && this.props.profile.role === 'individual'){
-      if(this.props.profile.phone === ''){
-        this.props.history.push('/client/verify/phone')
-        this.verifyPhone()
-      } else if(!this.props.profile.levels.includes(1)){
-        this.props.history.push('/client/upload/id')
-        this.requireLevelOne()
-      } else if(!this.props.profile.levels.includes(2)){
-        this.props.history.push('/client/schedule/f2f')
-        this.requireLevelTwo()
-      }
-    }
   }
-  componentWillReceiveProps(nextProps){
-    if(!isEmpty(nextProps.profile) && nextProps.profile.role === 'individual'){
-      if(nextProps.profile.phone === ''){
-        nextProps.history.push('/client/verify/phone')
-        this.verifyPhone()
-      } else if(!nextProps.profile.levels.includes(1)){
-        nextProps.history.push('/client/upload/id')
-        this.requireLevelOne()
-      } else if(!nextProps.profile.levels.includes(2)){
-        nextProps.history.push('/client/schedule/f2f')
-        this.requireLevelTwo()
-      }
-    }
+  componentWillUnmount() {
+    this._isMounted = false;
   }
   render(){
-    //console.log(this.props)
+    //console.log(this.state)
     return(
       <Row type="flex" justify="center" style={{marginTop:'50px'}}>
         <Col sm={18} md={14} lg={12} xl={10} xxl={8}>
@@ -172,4 +136,4 @@ function mapStateToProps(state, ownProps){
   }
 }
 
-export default Form.create()(connect(mapStateToProps)(TransferPage))
+export default Form.create()(connect(mapStateToProps)(CashInRequirement(TransferPage)))
